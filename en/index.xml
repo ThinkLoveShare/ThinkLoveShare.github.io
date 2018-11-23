@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Think
+Love
+Share</title>
+    <link>https://thinkloveshare.github.io/en/</link>
+    <description>Recent content on Think
+Love
+Share</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkloveshare.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Placeholder </title>
+      <link>https://thinkloveshare.github.io/en/coding/placeholder_coding/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/coding/placeholder_coding/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Placeholder </title>
+      <link>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Placeholder </title>
+      <link>https://thinkloveshare.github.io/en/thinking/placeholder_thinking/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/thinking/placeholder_thinking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Placeholder </title>
+      <link>https://thinkloveshare.github.io/en/writeups/ctf_01/placeholder_writeup_1/</link>
+      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/writeups/ctf_01/placeholder_writeup_1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GreHack 2018</title>
+      <link>https://thinkloveshare.github.io/en/hacking/grehack/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/grehack/</guid>
+      <description>Before I start&amp;hellip; One year ago was my first on-site hacking event : GreHack 2017. The conferences were great, I met a few people there, and the CaptureTheFlag was awesome, even tho I had almost no knowledge, there&amp;rsquo;s always a starting point huh ? I spent the whole year doing my best to gain hacking knowledge, meet people into infosec, solve challenges, join events, conferences, CTFs, &amp;hellip;
+Some were great, but I still had the memories of this awesome event, and thought that the conference were the best (no marketing bullshit, only precise knowledge shared by interesting people).</description>
+    </item>
+    
+    <item>
+      <title>Hello there !</title>
+      <link>https://thinkloveshare.github.io/en/about/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/about/</guid>
+      <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
+Laluka Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
+    </item>
+    
+  </channel>
+</rss>
