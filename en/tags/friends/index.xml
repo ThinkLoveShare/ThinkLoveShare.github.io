@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Friends on Think
+Love
+Share</title>
+    <link>https://thinkloveshare.github.io/en/tags/friends/</link>
+    <description>Recent content in Friends on Think
+Love
+Share</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkloveshare.github.io/en/tags/friends/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello there !</title>
+      <link>https://thinkloveshare.github.io/en/about/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/about/</guid>
+      <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
+Laluka Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
+    </item>
+    
+  </channel>
+</rss>
