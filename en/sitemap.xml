@@ -33,32 +33,47 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/thinking/placeholder_thinking/</loc>
+    <loc>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/thinking/placeholder_writeup_1/"
+                href="https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://thinkloveshare.github.io/en/thinking/placeholder_thinking/"
+                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
                 />
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/writeups/ctf_01/placeholder_writeup_1/</loc>
+    <loc>https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/writeups/ctf_01/placeholder_coding/"
+                href="https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://thinkloveshare.github.io/en/writeups/ctf_01/placeholder_writeup_1/"
+                href="https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/writeups/security_fest/placeholder_coding/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/"
                 />
   </url>
   
@@ -89,6 +104,62 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_2of4_ret2libc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_3of4_saperliropette/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/"
                 />
   </url>
   
@@ -128,6 +199,12 @@
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/tags/bio/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/tags/bypass/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -248,6 +325,12 @@
   </url>
   
   <url>
+    <loc>https://thinkloveshare.github.io/en/tags/securityfest/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/en/tags/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -318,46 +401,14 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/thinking/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/thinking/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/thinking/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/tags/thinking/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/tags/writeup_1/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/writeup_1/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/writeup_1/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/writeups/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -369,6 +420,12 @@
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/writeups/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/tags/xss/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

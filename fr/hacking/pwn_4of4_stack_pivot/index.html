@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.51" />
+
+    
+    
+    
+
+<title>PWN 4/4 : Stack Pivot ToZeMoon ! • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PWN 4/4 : Stack Pivot ToZeMoon !"/>
+<meta name="twitter:description" content="Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.
+Je vous avais promis du lourd pour le final, chose dite, chose due !
+L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !
+Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !
+Top départ : Reconnaissance !
+Bonjour petit programme, que fais-tu dans la vie ?"/>
+
+<meta property="og:title" content="PWN 4/4 : Stack Pivot ToZeMoon !" />
+<meta property="og:description" content="Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.
+Je vous avais promis du lourd pour le final, chose dite, chose due !
+L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !
+Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !
+Top départ : Reconnaissance !
+Bonjour petit programme, que fais-tu dans la vie ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/" /><meta property="article:published_time" content="2018-05-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-05-10T00:00:00&#43;00:00"/><meta property="og:site_name" content="ThinkLoveShare" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//fr">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//fr">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//fr">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/fr/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/the_rest/">
+						<span>Le Reste</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/apropos/">
+						<span>À Propos</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/fr/hacking/pwn_4of4_stack_pivot/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/en/hacking/pwn_4of4_stack_pivot/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2018 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>PWN 4/4 : Stack Pivot ToZeMoon !</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 10, 2018
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/tutorial">tutorial</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/buffer">buffer</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/overflow">overflow</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/stack">stack</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/pivot">pivot</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/pwn">pwn</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/binary">binary</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/exploit">exploit</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 6 min read
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    <p>Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.</p>
+
+<p>Je vous avais promis du lourd pour le final, chose dite, chose due !</p>
+
+<p>L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !</p>
+
+<p>Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !</p>
+
+<p>Top départ : Reconnaissance !</p>
+
+<p>Bonjour petit programme, que fais-tu dans la vie ?</p>
+
+<p>Meh, not much&hellip;</p>
+
+<p>On sort le premier tool : Radare2 !</p>
+
+<p>J&rsquo;ai hésité entre le présenter en ligne de commande, ou via son interface graphique. Mais il y a tellement de développement et d&rsquo;efforts faits sur leur GUI que je vais présenter cette version.</p>
+
+<p>Je vous présente donc Cutter, basé sur radare2, qui est un outil de reverse engineering très pointu. Pour la petite histoire, radare2 est voulu le plus standalone (indépendant) possible, c&rsquo;est à dire que vous pouvez l&rsquo;utiliser sur un device / une architecture particulière, même si celle ci n&rsquo;a pas le moindre outil / paquet installé. Il vous suffit de le recompiler in situ. En prime, plein de tools d&rsquo;admin-sys classiques y sont intégrés ! Le paradis pour du embded device, du remote sur un tel / une montre, ou que sais-je encore.</p>
+
+<p>Il est open source, et son développement très actif, préférez donc une installation via leur git&hellip; :)</p>
+
+<p>Site officiel ici : <a href="https://rada.re/r/">https://rada.re/r/</a></p>
+
+<p>Il est bourré d&rsquo;easter eggs, si vous avez du temps à perdre, enjoy ! ;)</p>
+
+<p>Je sais que le screen est difficilement lisible en taille normal, mais j&rsquo;ai mis la résolution source, et j&rsquo;ai check sur tel et pc, en zoomant c&rsquo;est pixel-perfect !</p>
+
+<p>Deso / Pas deso, il faut voir plus gros ! ¯_(ツ)_/¯</p>
+
+<p>Présentation brève de l&rsquo;interface :</p>
+
+<p>A gauche, les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques inutilisables.</p>
+
+<p>A droite, des informations sur la ligne en cours d&rsquo;inspection. Pas très utile pour le moment.</p>
+
+<p>En haut, un apercu de la structure du programme. Code, données, schémas reconnaissables pour de la crypto, &hellip;</p>
+
+<p>En bas, une console de logs (avec déjà un easter egg !) et les différentes sections du programme et leurs infos.</p>
+
+<p>Et au milieu, les différents outils d&rsquo;analyse.</p>
+
+<p>Ici, le dashboard nous indique fièrement : Ouiiii, alors j&rsquo;ai un peu cherchéééé, et tu voisss, j&rsquo;ai trouvé que ta cible là, eh bien c&rsquo;est un ELF, en 32 bits, initialement codé en C, sans stack canary, sans protection cryptographique, sa stack est NX, le PIC est désactivé. Il n&rsquo;est pas strippé, et il est compilé en statique ! :D</p>
+
+<p>Si ce n&rsquo;est pas classe toutes ces infos d&rsquo;un claquement de doigt !</p>
+
+<p>Mais là&hellip; Vous auriez déjà du tilter&hellip; :x</p>
+
+<p>Petit apercu du flot d&rsquo;exécution (à partir du main), toujours via Cutter :</p>
+
+<p>Un peu la flemme d&rsquo;analyser ca en profondeur&hellip; Pseudo code s&rsquo;il vous plaît ?</p>
+
+<p>On voit tout de suite que la décompilation est partielle, on voit plein de choses intéressantes, mais on n&rsquo;a pas un code C clair comme on aimerait&hellip; Bah on va faire avec !</p>
+
+<p>Il y a de la matière, il est donc temps d&rsquo;apprendre une manière de voir les choses très efficace pour le hacking en général : Sources and Sinks !</p>
+
+<p>Petite ref à une chaîne (Live Overflow) d&rsquo;un mec en OR, tout ce qu&rsquo;il fait (hacking, pwn, web, reverse, random, &hellip;) est d&rsquo;une qualité incroyable, et il a justement parlé de la méthode SoSi, donc have a look : <a href="https://www.youtube.com/watch?v=ZaOtY4i5w_U">https://www.youtube.com/watch?v=ZaOtY4i5w_U</a></p>
+
+<p>En bref, que contrôlons-nous (inputs), et que voulons-nous atteindre (fonctions dangereuses).</p>
+
+<p>Ici, on veut faire un buffer overflow. On cherche donc des fonctions vulnérables, et des entrées&hellip;</p>
+
+<p>Sources : admin name, room name, temperature</p>
+
+<p>Sinks : scanf&hellip; scanf ? scanf !</p>
+
+<p>scanf correspond à &ldquo;room name&rdquo;. On fait un ou deux essais quand même pour être sûr de contrôler le point de crash :</p>
+
+<p>Point de crash confirmé !</p>
+
+<p>Avant de chercher l&rsquo;offset, il y a une chose supplémentaire à repérer, qui nous servira &gt;PEUT ÊTREEEEE&lt; par la suite&hellip; Je dis ca je dis rien&hellip; Pour les chercheurs, c&rsquo;est dans le premier screenshot de code, pour les autres, la lecture continue :</p>
+
+<p>-[ SPOIL ]-</p>
+
+<p>On lit le code suivant :</p>
+
+<p>push 0x3ff // taille : 1023</p>
+
+<p>push obj.username // adresse : 0x80eb2c0 char *fgets(&hellip;) // saisie utilisateur</p>
+
+<p>Autrement dit, le programme va toujours mettre au même endroit (0x80eb2c0) jusqu&rsquo;à 1023 bytes saisis par l&rsquo;utilisateur&hellip; Ca peut se justifier&hellip; Mais ca peut être utile non ? Who knows ! :)</p>
+
+<p>Maintenant, l&rsquo;offset !</p>
+
+<p>On crash sur un ret : Habituel, classique, cool.</p>
+
+<p>On a ESP, bien. Wait&hellip; What ? On a ESP&hellip; + 4 ?</p>
+
+<p>Eh oui, le fameux pattern est suffisamment bien pensé pour être détecté même si il a été altéré !</p>
+
+<p>Cela signifie qu&rsquo;entre le moment où on overflow, et le moment où on exécute l&rsquo;instruction ret, la pile (enfin, notre ESP dans la pile) a été altéré&hellip;</p>
+
+<p>Mais&hellip; On a ESP + 4 ? Oui. On sait faire une addition ? Oui.</p>
+
+<p>Vous commencez, je l&rsquo;espère, à voir où je veux en venir ? :)</p>
+
+<p>On sait où stocker des bytes. On contrôle EIP vu qu&rsquo;on contrôle ESP sur un ret. On connaît l&rsquo;offset, et on sait comment modifier ESP pour qu&rsquo;il prenne la valeur de notre choix&hellip; Yapluka !</p>
+
+<p>C&rsquo;est là que je nomme la technique que nous allons utiliser, le Stack Pivot !</p>
+
+<p>On va faire pivoter l&rsquo;exécution de notre programme, en lui faisant croire que la stack est à l&rsquo;emplacement du username, que nous pouvons définir à notre guise, bien entendu.</p>
+
+<p>Je passe la préparation de la ropchain car c&rsquo;est exactement comme dans l&rsquo;article précédent, on va tout de suite faire notre exploit :</p>
+
+<p>On le lance, ce serait quand même fou que ca fonctionne du premier coup non ? :O</p>
+
+<p>Bim, shell, first try, too IZI mannnn !</p>
+
+<p>Sauf que&hellip; Sauf que non.</p>
+
+<p>En lisant un article comme ca, ca n&rsquo;a pas l&rsquo;air si complexe que ca, un peu fouilli à la rigueur. Sauf que pour chaque exploit, à moins d&rsquo;être vraiment un monstre (coucou Geluchat, Blackndoor, Pixis, Klaoude, Antoxyde, Ethnical, &hellip;), c&rsquo;est des heures, des jours (enfin, nuits, on se comprend ;) ) qui y passent. Mais s&rsquo;acharner pendant longtemps pour finalement y arriver, quelle satisfaction !</p>
+
+<p>Si vous aussi vous souhaitez vous lancer, je vous conseille l&rsquo;excellente suite d&rsquo;exercice Protostar : <a href="https://exploit-exercises.com/protostar/">https://exploit-exercises.com/protostar/</a></p>
+
+<p>Ainsi que le classique root-me que j&rsquo;affectionne particulièrement : <a href="https://www.root-me.org/">https://www.root-me.org/</a></p>
+
+<p>Mais bien que j&rsquo;adore ce site, je ne le trouve pas très approprié pour découvrir l&rsquo;exploit binaire. Mais pour toutes les autres catégories de hacking &ldquo;classique&rdquo;, foncez, c&rsquo;est du pain béni ! ;)</p>
+
+<p>C&rsquo;est ainsi que se conclu cette introduction au pwn, j&rsquo;espère qu&rsquo;elle vous a plu et que vous y avez appris des choses (au moins un peu ? :D ).</p>
+
+<p>Vos nombreux retours me font très très plaisir, merci ! ^.^</p>
+
+<p>Pour ceux qui veulent donner un coup de pouce, le mieux reste le partage du blog : thinkloveshare.blogspot.com</p>
+
+<p>Et pour ceux qui veulent suivre les prochaines sorties (SPOIL : qui seront bien moins fréquentes que ces 4 articles&hellip;), follow le twitter des familles : <a href="https://twitter.com/TheLaluka">https://twitter.com/TheLaluka</a></p>
+
+<p>En vous souhaitant une agréable journée, et un bon pwn,</p>
+
+<p>-Laluka</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/fr/hacking/pwn_3of4_saperliropette/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">PWN 3/4 : SaperliROPette !</span>
+    </a>
+    
+    
+    <a href="/fr/hacking/grehack/" class="post--navigation-next">
+      <span class="navigation-tittle">GreHack 2018</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

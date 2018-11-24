@@ -42,6 +42,15 @@ Share</description>
     </item>
     
     <item>
+      <title>Bypass</title>
+      <link>https://thinkloveshare.github.io/en/tags/bypass/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/tags/bypass/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Coding</title>
       <link>https://thinkloveshare.github.io/en/tags/coding/</link>
       <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
@@ -87,6 +96,15 @@ Share</description>
     </item>
     
     <item>
+      <title>Securityfest</title>
+      <link>https://thinkloveshare.github.io/en/tags/securityfest/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/tags/securityfest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Team</title>
       <link>https://thinkloveshare.github.io/en/tags/team/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
@@ -114,11 +132,11 @@ Share</description>
     </item>
     
     <item>
-      <title>Writeup_1</title>
-      <link>https://thinkloveshare.github.io/en/tags/writeup_1/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
+      <title>Xss</title>
+      <link>https://thinkloveshare.github.io/en/tags/xss/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/tags/writeup_1/</guid>
+      <guid>https://thinkloveshare.github.io/en/tags/xss/</guid>
       <description></description>
     </item>
     

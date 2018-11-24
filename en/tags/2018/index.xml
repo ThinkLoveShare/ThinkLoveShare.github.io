@@ -15,6 +15,16 @@ Share</description>
     
     
     <item>
+      <title>Excess ess 1</title>
+      <link>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</guid>
+      <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
+The goal Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&amp;rsquo;s exactly what we&amp;rsquo;re asked to do.</description>
+    </item>
+    
+    <item>
       <title>GreHack 2018</title>
       <link>https://thinkloveshare.github.io/en/hacking/grehack/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>

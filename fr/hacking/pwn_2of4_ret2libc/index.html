@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.51" />
+
+    
+    
+    
+
+<title>PWN 2/4 : Retour case libc, piochez un shell !  • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PWN 2/4 : Retour case libc, piochez un shell ! "/>
+<meta name="twitter:description" content="Kewaaa ? Deux articles dans la même semaine ?
+Eh bien&hellip; On dirait bien que oui ! ^.^
+Bienvenue pour ce 2&frasl;4 ème article consacré au pwn / à l&rsquo;exploit d&rsquo;exécutables linux !
+Au programme, le ret2libc, ou retour à la lib C. Toujours dans la famille des exploits type buffer overflow, et toujours avec les sources du collègue : https://cyrilbresch.ddns.net/
+Je ne repasse pas par la liste des définitions, celle-ci ayant été bien dégrossie dans le premier article&hellip;"/>
+
+<meta property="og:title" content="PWN 2/4 : Retour case libc, piochez un shell ! " />
+<meta property="og:description" content="Kewaaa ? Deux articles dans la même semaine ?
+Eh bien&hellip; On dirait bien que oui ! ^.^
+Bienvenue pour ce 2&frasl;4 ème article consacré au pwn / à l&rsquo;exploit d&rsquo;exécutables linux !
+Au programme, le ret2libc, ou retour à la lib C. Toujours dans la famille des exploits type buffer overflow, et toujours avec les sources du collègue : https://cyrilbresch.ddns.net/
+Je ne repasse pas par la liste des définitions, celle-ci ayant été bien dégrossie dans le premier article&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_2of4_ret2libc/" /><meta property="article:published_time" content="2018-05-08T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-05-08T00:00:00&#43;00:00"/><meta property="og:site_name" content="ThinkLoveShare" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//fr">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//fr">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//fr">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/fr/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/the_rest/">
+						<span>Le Reste</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/apropos/">
+						<span>À Propos</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/fr/hacking/pwn_2of4_ret2libc/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/en/hacking/pwn_2of4_ret2libc/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2018 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>PWN 2/4 : Retour case libc, piochez un shell ! </h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 8, 2018
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/tutorial">tutorial</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/buffer">buffer</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/overflow">overflow</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/ret2libc">ret2libc</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/pwn">pwn</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/binary">binary</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/exploit">exploit</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 8 min read
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    <p>Kewaaa ? Deux articles dans la même semaine ?</p>
+
+<p>Eh bien&hellip; On dirait bien que oui ! ^.^</p>
+
+<p>Bienvenue pour ce <sup>2</sup>&frasl;<sub>4</sub> ème article consacré au pwn / à l&rsquo;exploit d&rsquo;exécutables linux !</p>
+
+<p>Au programme, le ret2libc, ou retour à la lib C. Toujours dans la famille des exploits type buffer overflow, et toujours avec les sources du collègue : <a href="https://cyrilbresch.ddns.net/">https://cyrilbresch.ddns.net/</a></p>
+
+<p>Je ne repasse pas par la liste des définitions, celle-ci ayant été bien dégrossie dans le premier article&hellip;</p>
+
+<ol>
+<li>Le ret2libc&hellip; Pourquoi ?
+Dans le premier article, nous avons injecté un shellcode dans la stack, et nous avons utilisé le buffer overflow pour rediriger le flot d&rsquo;exécution sur notre shellcode, ceci nous permettant de spawn un shell. C&rsquo;était bien, c&rsquo;était un peu tricky, mais c&rsquo;était&hellip; C&rsquo;est&hellip; Plus réalisable de nos jours. Triste n&rsquo;est-il pas ?</li>
+</ol>
+
+<p>En effet, à chaque faille de sécurité, de nouvelles protections sont élaborées et ajoutées aux systèmes. L&rsquo;une des protections trouvée contre cette attaque est l&rsquo;usage d&rsquo;un flag NX placé sur la pile. Cela rend la stack non exécutable. Ou, pour être un plus précis, cela rend la stack inscriptible XOR exécutable. Si vous écrivez à un endroit, il ne sera pas exécutable, si vous exécutez du code à un endroit, il n&rsquo;est plus possible d&rsquo;y écrire&hellip; Damnit !</p>
+
+<p>Heureusement pour nous, des barbus (ou imberbes, qui suis-je pour juger ?) ont trouvé des solutions pour pouvoir quand même s&rsquo;amuser. L&rsquo;une d&rsquo;entre elles, le ret2libc !</p>
+
+<ol>
+<li>Le ret2libc&hellip; Wut ?
+Un programme en C ne sait pas faire grand-chose, très peu en fait. Nous faisons dans un programme appel à des fonctions qui &ldquo;font de la magie&rdquo;, et ce sans trop réfléchir à ce qu&rsquo;il y a dessous.</li>
+</ol>
+
+<p>Par exemple, la fonction printf qui nous permet d&rsquo;afficher du texte. La fonction getc qui nous permet de lire un caractère saisi par l&rsquo;utilisateur. Ou encore&hellip; La fonction system, qui nous permet d&rsquo;exécuter un programme externe au notre. Toutes ces fonctions sont accessibles dans notre programme, nous les utilisons sans jamais avoir eu la curiosité (ni même l&rsquo;envie ? ) de regarder leur contenu ou de les recoder. Tant mieux, elles sont déjà faites, et placées dans la&hellip; <em>roulement de tambours</em> &hellip;libc !</p>
+
+<p>Petite ref au man : <a href="http://man7.org/linux/man-pages/man7/libc.7.html">http://man7.org/linux/man-pages/man7/libc.7.html</a></p>
+
+<p>En bref, c&rsquo;est la librairie standard C, l&rsquo;endroit où sont stockées toutes les fonctions les plus habituelles / utilisées.</p>
+
+<p>Un programme utilisant la libc en dynamique se verra, à son lancement, donné un accès à la libc via son offset (comprendre &ldquo;là où il peut trouver la trouver&rdquo; / sa position, en nb de byte, dans la stack).</p>
+
+<p>La manière dont il trouve les différentes fonctions dans la libc est assez complexe, je n&rsquo;en parlerai donc pas dans cet article, mais pour les plus curieux / courageux : <a href="https://www.segmentationfault.fr/linux/role-plt-got-ld-so/">https://www.segmentationfault.fr/linux/role-plt-got-ld-so/</a></p>
+
+<p>L&rsquo;idée générale est la suivante :</p>
+
+<p>La stack n&rsquo;est pas exécutable ? Duh&hellip; La libc, elle, est présente, contient des fonctions intéressantes, et est exécutable. Plus qu&rsquo;à sauter dessus, sens propre comme figuré !</p>
+
+<p>On va donc placer dans la stack les arguments qui nous intéressent (les passages d&rsquo;arguments se font ici par la stack) ainsi que détourner à nouveau le flot d&rsquo;exécution du programme pour lui faire exécuter la fonction system (il y a pleinnnnn de variantes, mais ca reste le plus classique / efficace).</p>
+
+<p>Remarque :</p>
+
+<p>Un programme compilé en statique (gcc : option -static) n&rsquo;est pas exploitable de cette manière, car les fonctions utilisées de la libc auront été incorporées au programme, elle ne sera donc pas attachée au lancement. Il n&rsquo;aura donc pas accès à la fonction system. Mais heureusement pour vous&hellip; Article 3 ? è_é</p>
+
+<ol>
+<li>Le ret2libc&hellip; Comment ?
+Les bases sont posées, maintenant, walkthrough !</li>
+</ol>
+
+<p>On commence par comprendre comment le programme fonctionne (ou ne fonctionne pas&hellip;), trouver le point de crash :</p>
+
+<p>Remarque :</p>
+
+<ul>
+<li><p>$( pouet ) : permet de faire exécuter en priorité la commande &ldquo;pouet&rdquo;.</p></li>
+
+<li><p>python -c : permet d&rsquo;exécuter du python via bash. Donc afficher facilement plein de caractères.</p></li>
+</ul>
+
+<p>On crash. Bien ca, excellent ! Maintenant, l&rsquo;offset, avec le tool pattern dans gdb :</p>
+
+<p>Je vais expliquer un peu mieux le prochain screen, car il vous a (cf vos retours, merciii !) fait assez mal&hellip;</p>
+
+<p>L&rsquo;affichage est découpé en trois parties :</p>
+
+<p>[&mdash;registers&mdash;]</p>
+
+<p>Ici, ce que contiennent les différents registres au moment où le programme s&rsquo;arrête, ici par un crash.</p>
+
+<p>[&mdash;&ndash;code&mdash;&ndash;]</p>
+
+<p>Ici on voit juste le contenu de EIP (Instruction Pointer), c&rsquo;est à dire là où on en est dans l&rsquo;exécution.</p>
+
+<p>[&mdash;&ndash;stack&mdash;-]</p>
+
+<p>Le contenu de notre pile, avec les adresses, très utile pour débugger.</p>
+
+<p>[&mdash;&mdash;&mdash;&mdash;&ndash;]</p>
+
+<p>Puis on cherche le pattern utilisé précédemment pour trouver l&rsquo;offset. Ici, miracle, on contrôle directement EIP, ce qui est en réalité assez rare&hellip; Tant mieux pour nous !</p>
+
+<p>L&rsquo;offset affiché pour EIP est donc de 268 bytes.</p>
+
+<p>Maintenant, la partie ret2libc :</p>
+
+<p>Un payload simple aura la structure suivante :</p>
+
+<p>-&gt; &ldquo;A&rdquo; * offset</p>
+
+<p>-&gt; Là où on veut sauter (system)</p>
+
+<p>-&gt; Là où le programme retournera après la fonction</p>
+
+<p>-&gt; Argument(s) de la fonction utilisée</p>
+
+<p>Il nous manque donc l&rsquo;adresse de system, et de notre paramètre.</p>
+
+<p>Il y a plein de manière permettant de récupérer ces informations, je vais vous en donner deux.</p>
+
+<p>Attention, on travaille ici sans l&rsquo;ASLR, une fois de plus pour rendre l&rsquo;exploit plus compréhensible. Pour le désactiver, en root : echo &ldquo;0&rdquo; &gt; /proc/sys/kernel/randomize_va_space</p>
+
+<p>La première, plus simple mais aussi pas toujours fiable, via gdb / peda (gdb désactive par défaut l&rsquo;ASLR lors du débuggage) :</p>
+
+<p>Il est important de mettre un breakpoint (point d&rsquo;arrêt logiciel, une manière de mettre le programme en pause pour voir par exemple l&rsquo;état de ses registres, puis continuer son exécution ultérieurement) en début de programme et de le lancer avant de faire notre recherche, car il est nécessaire que la libc ait été résolue (attachée / linkée). Dans le cas contraire, on ne voit rien, ni system, ni &ldquo;/bin/sh&rdquo;, ce string étant gentiment caché dans la libc.</p>
+
+<p>Deuxième solution, un peu moins simple mais tellement plus fiable / évolutive :</p>
+
+<p>Je vais vous la détailler, car ces outils sont puissants mais pas forcément faciles à utiliser quand on les découvre.</p>
+
+<p>Etape 1 : ldd affiche les dépendances partagées d&rsquo;un programme. Ici, (entre autre), la libc et son offset. En statique il ne bouge pas, en dynamique, il changera à chaque commande.</p>
+
+<p>Etape 2 : readelf, qui nous permet d&rsquo;analyser le contenu de la libc, qui est un ELF, mais aussi une librairie partagée. Option -a pour lire tout le contenu, et mettre à l&rsquo;aide d&rsquo;un pipe &ldquo; | &rdquo; toute les lignes analysées dans grep, qui va rechercher les lignes contenant le mot system. On récupère celle qui nous intéresse : 0x0003c7d0, donc l&rsquo;offset de system dans la libc.</p>
+
+<p>Etape 3 : On cherche &ldquo;/bin/sh&rdquo; dans la libc. -b pour avoir l&rsquo;offset en byte, -o pour n&rsquo;avoir que le mot recherché et non la ligne, et -a pour activer l&rsquo;analyse en mode binaire. On obtient donc en décimal l&rsquo;offset de &ldquo;/bin/sh&rdquo; dans la libc.</p>
+
+<p>Etape 4 : Un coup de python pour avoir la somme de l&rsquo;offset de la libc et de ce qui nous intéresse, et BIM, on a tout. Un peu plus long, mais pour des exploits plus compliqués, cette manière de faire est à privilégier, croyez-moi ! :&lsquo;)</p>
+
+<p>On a donc récupéré les adresses de system et de &ldquo;/bin/sh&rdquo; pour faire exécuter un shell. Nickel ! :D</p>
+
+<p>Maintenant qu&rsquo;on a tout ce qu&rsquo;il nous faut, on écrit notre exploit :</p>
+
+<p>Remarque :</p>
+
+<p>Ici, j&rsquo;ai mis 0x42424242 car la valeur ne nous importe peu, où se rend le programme en sortant de la fonction attaquée, ici ca n&rsquo;a pas d&rsquo;importance. Mais si vous voulez éviter que le programme crash une dois que vous fermez votre shell, il est possible de mettre à cet emplacement l&rsquo;adresse de la fonction exit, qui fermera proprement le programme, ne laissant ainsi pas de trace dans les logs&hellip; ;)</p>
+
+<p>Ici, une fois le shell fermé, le programme sautera à l&rsquo;adresse 0x4242424 et mourra d&rsquo;un douloureux segfault&hellip; Sauvez des vies, placez des exit&hellip; Ou pas.</p>
+
+<p>Puis on le lance :</p>
+
+<p>Et BIM, on pop notre shell via un ret2libc bien basique !</p>
+
+<p>BONUS : Piste de bypass pour l&rsquo;ASLR !</p>
+
+<p>A supposer que l&rsquo;ASLR soit activé, cette solution est quand même exploitable sous une condition : Arriver à trouver la libc. Il existe de nombreuses techniques pour arriver à faire fuiter l&rsquo;endroit où elle a été placée, mais une fois que vous l&rsquo;avez (une fois le programme lancé, car rappelez-vous, elle change à chaque fois), il n&rsquo;y a qu&rsquo;à ajouter l&rsquo;offset pour avoir votre exploit.</p>
+
+<p>Mais coup de chance, dans votre système, il y a un endroit magique, lisible par tous l&rsquo;utilisateur qui a lancé le programme (merci Geluchat pour la réctification, site du poto ici : <a href="https://www.dailysecurity.fr/">https://www.dailysecurity.fr/</a>), qui vous indique où sont placés les différents objets liés à son exécution : /proc/self/maps !</p>
+
+<p>Un petit tour par ici, ou par /proc/PID/maps (le PID étant l&rsquo;identifiant du programme à analyser) vous permettra de voir où sont placés les différentes parties. Si vous arrivez à mettre votre programme en pause et lire cet endroit, l&rsquo;ASLR n&rsquo;a plus aucune utilité ! :)</p>
+
+<p>Je m&rsquo;arrête ici pour cette brève introduction au ret2libc. Sachez tout de même que c&rsquo;est un exemple de base, qu&rsquo;il est courant de &ldquo;chaîner&rdquo; les ret2libc afin de faire appel à plusieurs fonctions au sein d&rsquo;un unique exploit. Prochain article, le ROP !</p>
+
+<p>A bientôt pour le troisième article et merci pour vos nombreux retours ! ^_^</p>
+
+<p>Et pour ceux de ma promo qui me lisent&hellip;</p>
+
+<p>Bonne suite de révisions pour les rattrapajjjj !</p>
+
+<p>-Laluka</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/fr/hacking/pwn_1of4_buffer_overflow/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">PWN 1/4 : Buffer Overflow, là où tout a commencé</span>
+    </a>
+    
+    
+    <a href="/fr/hacking/pwn_3of4_saperliropette/" class="post--navigation-next">
+      <span class="navigation-tittle">PWN 3/4 : SaperliROPette !</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.51" />
+
+    
+    
+    
+
+<title>PWN 1/4 : Buffer Overflow, là où tout a commencé • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé"/>
+<meta name="twitter:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur); Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes."/>
+
+<meta property="og:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé" />
+<meta property="og:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur); Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/" /><meta property="article:published_time" content="2018-05-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-05-03T00:00:00&#43;00:00"/><meta property="og:site_name" content="ThinkLoveShare" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//fr">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//fr">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//fr">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/fr/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/the_rest/">
+						<span>Le Reste</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/apropos/">
+						<span>À Propos</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/fr/hacking/pwn_1of4_buffer_overflow/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/en/hacking/pwn_1of4_buffer_overflow/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2018 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>PWN 1/4 : Buffer Overflow, là où tout a commencé</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 3, 2018
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/tutorial">tutorial</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/buffer">buffer</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/overflow">overflow</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/pwn">pwn</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/binary">binary</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/exploit">exploit</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 10 min read
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    <p>printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
+Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
+
+<p>La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes. Donc si vous êtes un apprenti sorcier, acharnez vous, profitez en, sinon, regardez ca comme un tour de magie noir, c&rsquo;est beau, c&rsquo;est puissant, mais il n&rsquo;est pas nécessaire de tout comprendre pour apprécier :)</p>
+
+<p>Cet article est donc le premier d&rsquo;une petite série dédiée aux buffers overflow !</p>
+
+<p>Dernière chose avant de commencer&hellip; Merci à Cyril Bresch qui m&rsquo;a donné le droit d&rsquo;utiliser certains de ses exos pour cette introduction aux buffers overflow. Mais surtout merci à lui pour m&rsquo;avoir initié à l&rsquo;exploitation binaire (Bon, ok t&rsquo;étais payé par l&rsquo;état, but still ! :D ). Son site perso est dispo ici (quand il pense à renouveler son DNS): <a href="http://cyrilbresch.ddns.net">http://cyrilbresch.ddns.net</a></p>
+
+<p>En prévision, des shellcodes, de l&rsquo;assembleur, du ret2libc, du rop, et bien plus encore. Ces mots ne vous disent rien ? C&rsquo;est normal, ne vous en faites pas, on va commencer tranquilou avec une mise en contexte.</p>
+
+<p>Je vais tenter une définition récursive : Je commence par définir le coeur du sujet, et à chaque fois qu&rsquo;un terme nouveau apparait, je le défini juste après. Ceci devrait permettre, je l&rsquo;espère, une lecture fluide ! :)</p>
+
+<ol>
+<li>Buffer overflow, Keskecé ?
+Buffer : Petit espace dans lequel on va stocker de l&rsquo;information dans un programme. La plupart du temps, ce buffer, ou tampon, va contenir des caractères, ou une suite de nombres, ou peu importe, de toute facon, c&rsquo;est des bits collés les uns aux autres qui forment des bytes. Les buffers sont la plupart du temps stockés sur le heap ou dans la stack.</li>
+</ol>
+
+<p>Overflow : Action de dépasser la taille initialement prévue pour un buffer, affectant ainsi les valeurs stockées après ledit buffer. Là où en tant que hackeur on est content, c&rsquo;est que pleins de données très utiles peuvent se trouver après le buffer. Le cas le plus arrangeant étant de contrôler le registre d&rsquo;instructions, qui dit quel code doit être exécuté. Arriver à l&rsquo;affecter, et le tour est joué !</p>
+
+<p>Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un grand nombre de protections mises en place.</p>
+
+<p>Programme :</p>
+
+<p>&ldquo;Bah je sais ce que c&rsquo;est un programme, tu click et ca se lance tavu !&rdquo;</p>
+
+<p>Oui&hellip; Mais non. Dans l&rsquo;idée c&rsquo;est ca, mais la plupart des programmes fonctionnent en ligne de commande, c&rsquo;est à dire qu&rsquo;on les lance en tapant des commandes dans un shell. Contrairement à windows, ou le plus souvent c&rsquo;est l&rsquo;extension du nom du fichier (.txt, .exe, &hellip;) qui détermine son type, sous linux, ce n&rsquo;est que très rarement utilisé, et tant mieux car cette pratique est une énorme faille de sécurité. Plus d&rsquo;infos sur la faille ici : <a href="https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/">https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/</a></p>
+
+<p>Ce qui remplace cette pratique est l&rsquo;usage de magic number. En bref, c&rsquo;est une suite de bytes que l&rsquo;on met en début de fichier et qui permet de connaître le type et la version du fichier. Ici, pour un programme, ELF sous linux, on voit :</p>
+
+<p>Deux choses notables :</p>
+
+<ul>
+<li><p>45 4c 46 est le code ASCII de ELF : Executable and Linkable Format</p></li>
+
+<li><p>Type d&rsquo;architecture pour le lancer : X86-64, donc du 64 bits.</p></li>
+</ul>
+
+<p>Architecture :</p>
+
+<p>Il existe de nombreux types de processeurs, et chaque processeur à son propre jeu d&rsquo;instructions. Bien que des standards soient adoptés par les constructeurs, chaque processeur garde ses particularités. Une liste non exhaustive disponible ici : <a href="https://en.wikipedia.org/wiki/List_of_instruction_sets">https://en.wikipedia.org/wiki/List_of_instruction_sets</a></p>
+
+<p>Les architectures les plus courantes sont : x86, x86-64, arm, mips, &hellip;</p>
+
+<p>x86 désigne l&rsquo;habituel 32bits, et x86-64 le 64 bits. Cette différence est due à la taille des registres utilisés pour la gestion des adresses et opérations. Un programme 32 marchera sur <sup>32</sup>&frasl;<sub>64</sub>, un programme 64 uniquement sur du 64.</p>
+
+<p>LINUX :</p>
+
+<p>Linux is not Unix. Si vous en êtes là, il n&rsquo;est jamais trop tard !</p>
+
+<p><a href="https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux">https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux</a></p>
+
+<p>Shell :</p>
+
+<p>Un shell est un interpréteur de commandes. Vu de loin, c&rsquo;est là ou les gens à capuche tapent des lignes de code en vert sur fond noir. Il y en a sous tous les OS communs car c&rsquo;est indispensable pour communiquer avec le système. Attention, pour un système, il existe plusieurs implémentations, plusieurs versions.</p>
+
+<p>Exemple (linux) : sh / bash / dash / zsh / &hellip;</p>
+
+<p>Stack :</p>
+
+<p>La pile est un endroit utilisé par le processeur pour stocker des données. C&rsquo;est un fonctionnement LastInFirstOut. Autrement dit, le dernier élément qui arrive est le premier à sortir.</p>
+
+<p>Heap :</p>
+
+<p>Le tas permet aussi de stocker des données, mais de manière plus dynamique. Il est utilisé (entre autre) lors de l&rsquo;usage de fonctions type malloc (allocation de mémoire en cours d&rsquo;exécution du programme).</p>
+
+<p>Fonction :</p>
+
+<p>Suite d&rsquo;instructions assembleur commencant (le plus souvent&hellip;) par faire de la place sur la stack pour traiter des données en local, et se terminant par leave et ret afin de laisser le programme appelant reprendre au point d&rsquo;appel.</p>
+
+<p>Shellcode :</p>
+
+<p>Suite d&rsquo;instructions assembleur permettant d&rsquo;invoquer un shell.</p>
+
+<p>Bits : 0, ou 1, unité de donnée insécable.</p>
+
+<p>Byte : Suite de 8 bits, codant donc un entier compris entre 0 et 255.</p>
+
+<p>Allez, petite pause, on respire un grand coup, on se redresse sur sa chaise&hellip;</p>
+
+<p>Et on y retourne !</p>
+
+<ol>
+<li>Désactiver les sécurités :
+La première chose à faire pour une première approche est de désactiver les protections mises en place, car aborder le sujet avec toutes les protections actuellement utilisées : RIP !</li>
+</ol>
+
+<p>On commence par désactiver l&rsquo;ASLR, c&rsquo;est un paramètre du kernel (noyau du système, ce qui gère tout le reste) qui indique s&rsquo;il faut oui ou non placer les différents segments d&rsquo;un programme à des adresses aléatoires. Ici, on va utiliser la stack, on ne veut donc pas de randomisation afin de faciliter l&rsquo;exploit.</p>
+
+<p>En tant que root : # echo &ldquo;0&rdquo; &gt; /proc/sys/kernel/randomize_va_space</p>
+
+<p>On va ensuite compiler le programme de manière à ce que :</p>
+
+<ul>
+<li><p>Il n&rsquo;y ait pas de stack canary, autrement dit, pas de valeur placée en fin de buffer, qui est vérifiée et hurle à la mort si on l&rsquo;a écrasée (donc si elle détecte un buffer overflow)</p></li>
+
+<li><p>La stack soit exécutable, sinon, un bit NX y est placé. Ce bit d&rsquo;information signifie qu&rsquo;il n&rsquo;est pas possible d&rsquo;exécuter les données (ici instructions assembleur) qui s&rsquo;y trouvent. Il nous est donc impossible pour nous d&rsquo;exécuter le code de notre choix.</p></li>
+
+<li><p>Le Position Independent Code soit désactive (ne pas placer à des endroits aléatoires les différents segments de notre programme).</p></li>
+</ul>
+
+<p>On utilise donc la ligne de compilation suivante : $ gcc -o vuln -fno-stack-protector -no-pie -z execstack vuln.c</p>
+
+<p>Nous allons également avoir besoin de quelques outils :</p>
+
+<p>python : Langage et interpréteur, version 2 pour raisons d&rsquo;encodage moins chiant</p>
+
+<p>gdb : Gnu debugger, utile pour comprendre ce qu&rsquo;il se passe dans le programme</p>
+
+<p>gdb-peda : gdb amélioré avec du scripting python, facilite l&rsquo;utilisation de gdb</p>
+
+<p>pwntool : Peu utilisé ici, cet outil python permet de faciliter l&rsquo;exploit binaire</p>
+
+<ol>
+<li>Elaboration de l&rsquo;exploit :
+Comprendre le fonctionnement :</li>
+</ol>
+
+<p>Ok, il prend un argument. Il en fait quoi ?</p>
+
+<p>A priori, rien&hellip; Prog de test, osef ! ¯_(ツ)_/¯</p>
+
+<p>Trouver le point de crash :</p>
+
+<p>La strat habituelle de débutant, des arguments longs.</p>
+
+<p>Ah, ca, ca sent bon !</p>
+
+<p>On a qu&rsquo;a lui donner un argument long pour le faire crash !</p>
+
+<p>Recherche de l&rsquo;offset :</p>
+
+<p>Créer le pattern (schéma facilement reconnaissable qui va servir à comprendre quels registres sont atteignables par notre input), puis lancer le programme avec le pattern en paramètre.</p>
+
+<p>On voit ici que le crash survient sur l&rsquo;instruction ret (section code, petite flèche à gauche).</p>
+
+<p>Après le crash, on cherche le pattern dans la mémoire :</p>
+
+<p>L&rsquo;analyse de la mémoire a retrouvé des morceaux de notre pattern à différents endroits, on voit donc que le RSP (Registre Stack Pointer) est à une distance de 40 bytes de notre début d&rsquo;input.</p>
+
+<p>Mais nous savons déjà que le crash survient sur un ret. Ret est une instruction qui place le dernier élément de la pile dans RIP (Instruction Pointer) pour retourner au programme principal afin de poursuivre son exécution. Donc contrôler RSP avant un ret, c&rsquo;est contrôler RIP. Contrôler RIP, c&rsquo;est pouvoir détourner le flot d&rsquo;exécution du programme, et&hellip;</p>
+
+<p>Et c&rsquo;est gagné du coup ! ^~^</p>
+
+<p>Recherche du Shellcode :</p>
+
+<p>On sait maintenant à peu près où on va injecter. Ce qu&rsquo;il nous faut maintenant c&rsquo;est un shellcode, un bon, un vrai ! :D</p>
+
+<p>Petit tour sur shellstorm ou exploit-db, choisir la bonne architecture, &hellip;</p>
+
+<p>Pour ma part il est fait maison, ou plutôt refait maison, car l&rsquo;idée générale reste la mêm : Placer les bons paramètres dans les registres, puis déclencher un syscall pour que le kernel exécute ce que l&rsquo;on veut, ici un shell.</p>
+
+<p>Shellcode : &ldquo;\x48\xB8\x2F\x2F\x62\x69\x6E\x2F\x73\x68\x48\xC1\xE8\x08\x50\x48\x89\xE7\x48\x31\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05&rdquo;</p>
+
+<p>On va quand même le désassembler pour comprendre ce qu&rsquo;il fait, et ce grâce à ce site : <a href="https://onlinedisassembler.com">https://onlinedisassembler.com</a></p>
+
+<p>0   :  &ldquo;//bin/sh&rdquo; dans rax</p>
+
+<p>A   : &ldquo;/bin/sh\x00&rdquo; dans rax</p>
+
+<p>E   : mettre rax en pile</p>
+
+<p>F   : rdi pointe vers la pile</p>
+
+<p>12 :  0 dans rax</p>
+
+<p>15 : 59 dans rax (execve)</p>
+
+<p>17 : 0 dans rsi</p>
+
+<p>1a : 0 dans rdx</p>
+
+<p>1d :  Initier le syscall</p>
+
+<p>Ceci va donc exécuter /bin/sh à l&rsquo;aide du syscall de execve.</p>
+
+<p>Les paramètres à utiliser sont trouvés à l&rsquo;aide de cette doc : <a href="https://w3challs.com/syscalls/?arch=x86_64">https://w3challs.com/syscalls/?arch=x86_64</a></p>
+
+<p>Exploit :</p>
+
+<p>On veut donc arriver à mettre notre shellcode à un endroit connu, puis atteindre une taille de 40 bytes pour y placer l&rsquo;adresse du shellcode à exécuter. Yapluka !</p>
+
+<p>Notre payload (données envoyées lors de l&rsquo;attaque) aura donc la forme suivante : PADDING + SHELLCODE + ADRESSE_SHELLCODE</p>
+
+<p>Afin de trouver où se situent les données entrées par l&rsquo;utilisateur, dans gdb :</p>
+
+<p>On désassemble le main (convention de nom pour la fonction principale du programme), défini un point d&rsquo;arrêt avant la fin de l&rsquo;exécution, puis le lance avec AAAA en paramètre.</p>
+
+<p>Une fois arrêté, notre input se trouve donc dans la stack, à l&rsquo;adresse : 0x7fffffffe570</p>
+
+<p>Et notre shellcode se trouvera un peu après l&rsquo;input, à cause du padding.</p>
+
+<p>Code python de l&rsquo;exploit :</p>
+
+<p>Pour lancer l&rsquo;exploit, il n&rsquo;y a plus qu&rsquo;à donner le contenu du fichier exploit au programme en tant qu&rsquo;argument :</p>
+
+<p>Et BIM ! Spawned a shell ! \o/</p>
+
+<ol>
+<li>Remarques et Réflexion :
+Remarque 1 :</li>
+</ol>
+
+<p>Dans cet exemple, une erreur s&rsquo;est dissimulée, sauras tu la retrouver ?</p>
+
+<p>-[ SPOIL ]-</p>
+
+<p>Ce shellcode contient des null-bytes (\x00 ou encore sentinelle, qui en C, désigne une fin de chaine de caractère) qui sont très mal gérés par bash. Si l&rsquo;argument avait été passé directement, bash l&rsquo;aurait coupé. Passer par un fichier permet de tout envoyer au programme, même les null-bytes. Mais ceci ne règle pas le problème en totalité. En effet, la fonction vulnérable ici est strcpy. Elle copie un string et s&rsquo;arrête à la première sentinelle (aka null-byte, aka \x00, aka 0x00, aka ShellCodeBreakerOfDoom). Notre exploit fonctionne quand même car ils apparaissent à la fin, et dans une adresse. Et nous collons cette adresse de stack sur&hellip; Une adresse de stack, donc les 0x00 dont déjà présents.</p>
+
+<p>Réflexion : Comment corriger le shellcode pour qu&rsquo;il n&rsquo;utilise plus de null-byte ?</p>
+
+<p>Remarque 2 :</p>
+
+<p>Cet exemple est limité car la taille disponible pour l&rsquo;overflow est très petite. Cela suffit pour pop un shell, mais pas pour bien plus. De plus, cet espace étant près des adresses utilisées, il est possible qu&rsquo;il soit altéré durant l&rsquo;exécution. Embêtant non ?</p>
+
+<p>Réflexion : Comment utiliser un shellcode de taille arbitrairement longue ?</p>
+
+<p>Remarque 3 :</p>
+
+<p>Cet exemple ne fonctionne que si l&rsquo;ASLR est désactivé car il dépend fortement de la pile. Il existe de nombreuses facons de contourner l&rsquo;ASLR&hellip; Suite dans les prochains articles&hellip; Au compte goutte ! :D</p>
+
+<p>Mais&hellip; Tu as lu jusqu&rsquo;ici ? Chapal l&rsquo;ami !</p>
+
+<p>T&rsquo;es un magicien, maintenant ! Ou presque&hellip; ;)</p>
+
+<p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. N&rsquo;hésitez pas à m&rsquo;indiquer les coquilles trouvées, détails manquants etc&hellip; ^.^</p>
+
+<p>Hints :</p>
+
+<p>1 : Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?</p>
+
+<p>2 : Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
+
+<p>PS : Il y a au final eu une série de 4 articles, les liens ici :</p>
+
+<p>##############################</p>
+
+<p><sup>1</sup>&frasl;<sub>4</sub> - Buffer overflow &amp; shellcode</p>
+
+<p><sup>2</sup>&frasl;<sub>4</sub> - Le ret2libc</p>
+
+<p><sup>3</sup>&frasl;<sub>4</sub> - Le ROP</p>
+
+<p><sup>4</sup>&frasl;<sub>4</sub> - Pwn, Tools &amp; Stack Pivot</p>
+
+<p>##############################</p>
+
+<p>En espérant que ce premier pas dans le monde du pwn vous ait plu,</p>
+
+<p>-Laluka</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    
+    <a href="/fr/hacking/pwn_2of4_ret2libc/" class="post--navigation-next">
+      <span class="navigation-tittle">PWN 2/4 : Retour case libc, piochez un shell ! </span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

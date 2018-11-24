@@ -24,5 +24,41 @@ Share</description>
 Some were great, but I still had the memories of this awesome event, and thought that the conference were the best (no marketing bullshit, only precise knowledge shared by interesting people).</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
