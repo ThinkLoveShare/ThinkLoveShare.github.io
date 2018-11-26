@@ -105,6 +105,10 @@ img {
   width: 30%;
 }
 
+.content {
+  word-break: break-word;
+}
+
 @media (max-width: 768px) {
   .img_full, .img_big {
     width: 100%;
@@ -113,8 +117,4 @@ img {
   .img_med, .img_small {
     width: 50%;
   }
-}
-
-content {
-  word-break: break-word;
 }
