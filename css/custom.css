@@ -1,17 +1,18 @@
-.logohover{
-    display: inline-block;
-    vertical-align: -6px;
-    background-size: cover;
-    height: 1.5em;
-    width: 1.5em;
-    margin-left: -5px;
-    margin-right: -5px;
-    transition: all 0.3s ease-in-out 0s;
+.logohover {
+  display: inline-block;
+  vertical-align: -6px;
+  background-size: cover;
+  height: 1.5em;
+  width: 1.5em;
+  margin-left: -5px;
+  margin-right: -5px;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .aperikube_logo {
   background-image: url("/img/white_aperikube.png");
 }
+
 .rootme_logo {
   background-image: url("/img/white_rootme.png");
 }
@@ -20,12 +21,12 @@
   color: #FFF;
   border-radius: 50%;
   -webkit-transition: -webkit-transform .1s ease-in-out;
-          transition:         transform .1s ease-in-out;
+  transition: transform .1s ease-in-out;
 }
 
 .rotate:hover {
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .site__description {
@@ -52,7 +53,6 @@ center {
 
 h1 {
   margin-top: 1.3em;
-
 }
 
 h2 {
@@ -60,7 +60,7 @@ h2 {
 }
 
 p {
- text-align: justify;
+  text-align: justify;
 }
 
 .logoFlag {
@@ -70,12 +70,12 @@ p {
   margin-right: 1em;
   width: 2em;
   -webkit-transition: -webkit-transform .1s ease-in-out;
-          transition:         transform .1s ease-in-out;
+  transition: transform .1s ease-in-out;
 }
 
 .logoFlag:hover {
   -webkit-transform: translate(0px, -0.3em);
-          transform: translate(0px, -0.3em);
+  transform: translate(0px, -0.3em);
 }
 
 .langSection {
@@ -85,24 +85,36 @@ p {
 }
 
 img {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.img_full {
+  width: 100%;
+}
 
-.img_100 {
+.img_big {
+  width: 80%;
+}
+
+.img_med {
+  width: 50%;
+}
+
+.img_small {
+  width: 30%;
+}
+
+@media (max-width: 768px) {
+  .img_full, .img_big, .img_med {
     width: 100%;
-}
+  }
 
-.img_75 {
-    width: 75%;
-}
-
-.img_50 {
+  .img_small {
     width: 50%;
+  }
 }
 
-.img_25 {
-    width: 25%;
+content {
+  word-break: break-word;
 }

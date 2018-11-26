@@ -206,21 +206,21 @@ Share</a>
 
 <p>Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&rsquo;s exactly what we&rsquo;re asked to do. So we first feed a simple word to see if it&rsquo;s reflected in the webpage. We do so and see that the keyword is reflected as a variable content in our page.</p>
 
-<p><img class="img_100" src="/writeups/security_fest/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="/writeups/security_fest/recon.png" alt="recon" ></p>
 
 <p>The next step is to force the page to execute code. I try this using the console.log function after closing the first variable affectation, and commenting what comes afterward. I try (cf the URL), and yup ! It logs 3, so we can execute javascript !</p>
 
-<p><img class="img_100" src="/writeups/security_fest/inject.png" alt="inject" ></p>
+<p><img class="img_full" src="/writeups/security_fest/inject.png" alt="inject" ></p>
 
 <h2 id="the-protection">The protection</h2>
 
 <p>Next step, we try to use the alert(1) payload to validate the challenge, but : Uh Oh !</p>
 
-<p><img class="img_100" src="/writeups/security_fest/prompt.png" alt="prompt" ></p>
+<p><img class="img_full" src="/writeups/security_fest/prompt.png" alt="prompt" ></p>
 
 <p>All we have is a prompt. The reason of this behavior is that a script is loaded and executed before our payload. We can fetch its content and we understand that the alert function has been override with the prompt function&hellip;</p>
 
-<p><img class="img_100" src="/writeups/security_fest/ascii_art.png" alt="ascii_art" ></p>
+<p><img class="img_full" src="/writeups/security_fest/ascii_art.png" alt="ascii_art" ></p>
 
 <p>So.. We don&rsquo;t have it anymore ? How to use it then ?</p>
 
@@ -247,7 +247,7 @@ document.getElementsByClassName('container')[0].appendChild(i);//
 <pre><code class="language-html">http://xss1.alieni.se:2999/?xss=';i=document.createElement(&quot;iframe&quot;);i.onload=function(){i.contentWindow.alert(1);};document.getElementsByClassName('container')[0].appendChild(i);//
 </code></pre>
 
-<p><img class="img_100" src="/writeups/security_fest/alert.png" alt="alert" ></p>
+<p><img class="img_full" src="/writeups/security_fest/alert.png" alt="alert" ></p>
 
 <h2 id="conclusion">Conclusion</h2>
 
