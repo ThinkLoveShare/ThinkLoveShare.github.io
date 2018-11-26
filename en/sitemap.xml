@@ -164,50 +164,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/tags/2018/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/2018/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/2018/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/about/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/bio/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/bio/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/bio/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/bypass/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/categories/</loc>
     <priority>0</priority>
     <xhtml:link
@@ -239,60 +195,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/tags/coding/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/coding/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/coding/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/conference/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/conference/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/conference/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/friends/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/grehack/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/grehack/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/grehack/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/hacking/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -309,30 +211,7 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/tags/placeholder/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/placeholder/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/placeholder/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/securityfest/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/tags/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -344,12 +223,6 @@
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/tags/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/team/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -365,22 +238,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/the_rest/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/tags/the_rest/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/tags/the_rest/"
                 />
   </url>
   
@@ -401,12 +258,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/tags/thinking/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/writeups/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -420,12 +271,6 @@
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/writeups/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/tags/xss/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

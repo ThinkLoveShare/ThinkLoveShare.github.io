@@ -9,19 +9,10 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/fr/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>2018</title>
-      <link>https://thinkloveshare.github.io/fr/tags/2018/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/2018/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Amis</title>
@@ -42,15 +33,6 @@ Share</description>
     </item>
     
     <item>
-      <title>Binary</title>
-      <link>https://thinkloveshare.github.io/fr/tags/binary/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/binary/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Bio</title>
       <link>https://thinkloveshare.github.io/fr/tags/bio/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
@@ -60,155 +42,11 @@ Share</description>
     </item>
     
     <item>
-      <title>Buffer</title>
-      <link>https://thinkloveshare.github.io/fr/tags/buffer/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/buffer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Coding</title>
-      <link>https://thinkloveshare.github.io/fr/tags/coding/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/coding/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Conference</title>
-      <link>https://thinkloveshare.github.io/fr/tags/conference/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/conference/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Equipe</title>
       <link>https://thinkloveshare.github.io/fr/tags/equipe/</link>
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/tags/equipe/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Exploit</title>
-      <link>https://thinkloveshare.github.io/fr/tags/exploit/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/exploit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gadget</title>
-      <link>https://thinkloveshare.github.io/fr/tags/gadget/</link>
-      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/gadget/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Grehack</title>
-      <link>https://thinkloveshare.github.io/fr/tags/grehack/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/grehack/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Overflow</title>
-      <link>https://thinkloveshare.github.io/fr/tags/overflow/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/overflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pivot</title>
-      <link>https://thinkloveshare.github.io/fr/tags/pivot/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/pivot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Placeholder</title>
-      <link>https://thinkloveshare.github.io/fr/tags/placeholder/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/placeholder/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pwn</title>
-      <link>https://thinkloveshare.github.io/fr/tags/pwn/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ret2libc</title>
-      <link>https://thinkloveshare.github.io/fr/tags/ret2libc/</link>
-      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/ret2libc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rop</title>
-      <link>https://thinkloveshare.github.io/fr/tags/rop/</link>
-      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/rop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Stack</title>
-      <link>https://thinkloveshare.github.io/fr/tags/stack/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/stack/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>The_rest</title>
-      <link>https://thinkloveshare.github.io/fr/tags/the_rest/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/the_rest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tutorial</title>
-      <link>https://thinkloveshare.github.io/fr/tags/tutorial/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/tutorial/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Writeup_1</title>
-      <link>https://thinkloveshare.github.io/fr/tags/writeup_1/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/writeup_1/</guid>
       <description></description>
     </item>
     
