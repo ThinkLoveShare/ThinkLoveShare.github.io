@@ -18,36 +18,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/fr/writeups/security_fest/placeholder_coding/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -164,6 +134,36 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/</loc>
+    <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/</loc>
+    <lastmod>2018-03-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/"
                 />
   </url>
   

@@ -25,33 +25,6 @@ Share</description>
     
     <item>
       <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/</guid>
-      <description>Bonjour cher lecteur, chère lectrice,
-Aujourd&amp;rsquo;hui, j&amp;rsquo;aimerais te parler d&amp;rsquo;un sujet profond, mais de manière très superficielle.
-J&amp;rsquo;aimerais te parler de notre société, des groupes qui y naissent, y vivent et y périssent.
-Des groupes, certes, mais surtout des individus qui les composent, ou s&amp;rsquo;y opposent.
-Comme à mon habitude, je vais tenter de te partager une manière de voir les choses : la mienne. Je ne serai donc probablement pas objectif, libre à toi de faire la part des choses sur ce que tu gardes, jettes, recycles&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/</guid>
-      <description>Quoi ? Comment ?
-Est-ce possible de faire des articles encore moins souvent ?
-J&amp;rsquo;y travaille, promis ! ^.^
-Alors aujourd&amp;rsquo;hui, je vous propose une petite prise de recul sur la manière d&amp;rsquo;aborder un problème, une recherche, ou encore&amp;hellip; La vie de manière générale ?
-Prologue :
-Ce que je vais vous dire ici est à mes yeux du &amp;ldquo;bon sens&amp;rdquo;, mais j&amp;rsquo;ai quand même galéré un bonnn moment avant d&amp;rsquo;adopter ces quelques méthodes, et encore, parfois j&amp;rsquo;oublie de les utiliser et me mélange les pinceaux / regrette amèrement.</description>
-    </item>
-    
-    <item>
-      <title>Placeholder </title>
       <link>https://thinkloveshare.github.io/fr/writeups/security_fest/placeholder_coding/</link>
       <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
       
@@ -133,8 +106,30 @@ Je ne repasse pas par la liste des définitions, celle-ci ayant été bien dégr
       <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/</guid>
-      <description>printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+      <description>printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur);
+Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
 La notion abordée aujourd&amp;rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&amp;rsquo;article, c&amp;rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes.</description>
+    </item>
+    
+    <item>
+      <title>Une question de norme ? </title>
+      <link>https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/</link>
+      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/</guid>
+      <description>Bonjour cher lecteur, chère lectrice,
+Aujourd&amp;rsquo;hui, j&amp;rsquo;aimerais te parler d&amp;rsquo;un sujet profond, mais de manière très superficielle. J&amp;rsquo;aimerais te parler de notre société, des groupes qui y naissent, y vivent et y périssent. Des groupes, certes, mais surtout des individus qui les composent, ou s&amp;rsquo;y opposent.
+Comme à mon habitude, je vais tenter de te partager une manière de voir les choses : la mienne. Je ne serai donc probablement pas objectif, libre à toi de faire la part des choses sur ce que tu gardes, jettes, recycles&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Raisonner sans prise de tête </title>
+      <link>https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/</link>
+      <pubDate>Wed, 07 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/</guid>
+      <description>Alors aujourd&amp;rsquo;hui, je vous propose une petite prise de recul sur la manière d&amp;rsquo;aborder un problème, une recherche, ou encore&amp;hellip; La vie de manière générale ?
+Prologue Ce que je vais vous dire ici est à mes yeux du &amp;ldquo;bon sens&amp;rdquo;, mais j&amp;rsquo;ai quand même galéré un bonnn moment avant d&amp;rsquo;adopter ces quelques méthodes, et encore, parfois j&amp;rsquo;oublie de les utiliser et me mélange les pinceaux / regrette amèrement.</description>
     </item>
     
   </channel>

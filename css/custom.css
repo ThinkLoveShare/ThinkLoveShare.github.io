@@ -86,5 +86,23 @@ p {
 
 img {
     width: 80%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.img_100 {
+    width: 100%;
+}
+
+.img_75 {
+    width: 75%;
+}
+
+.img_50 {
+    width: 50%;
+}
+
+.img_25 {
+    width: 25%;
 }

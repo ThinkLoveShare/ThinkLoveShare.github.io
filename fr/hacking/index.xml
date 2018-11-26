@@ -67,7 +67,8 @@ Je ne repasse pas par la liste des définitions, celle-ci ayant été bien dégr
       <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/</guid>
-      <description>printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+      <description>printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur);
+Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
 La notion abordée aujourd&amp;rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&amp;rsquo;article, c&amp;rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes.</description>
     </item>
     

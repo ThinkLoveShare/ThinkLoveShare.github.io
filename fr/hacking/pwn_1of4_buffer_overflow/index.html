@@ -24,11 +24,13 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé"/>
-<meta name="twitter:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur); Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+<meta name="twitter:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
+Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
 La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes."/>
 
 <meta property="og:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé" />
-<meta property="og:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur); Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
+<meta property="og:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
+Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
 La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/" /><meta property="article:published_time" content="2018-05-03T00:00:00&#43;00:00"/>
@@ -121,7 +123,7 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/fr/apropos/">
+					<a href="/fr/about/">
 						<span>À Propos</span>
 					</a>
 				</li>
@@ -200,14 +202,17 @@ Share</a>
   </header>
   <hr/>
   <div class="post">
-    <p>printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
-Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
+    <p>printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);</p>
+
+<p>Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
+
+<p><img class="img_50" src="/hacking/pwn_1of4_buffer_overflow/patrick.jpg" alt="patrick" ></p>
 
 <p>La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes. Donc si vous êtes un apprenti sorcier, acharnez vous, profitez en, sinon, regardez ca comme un tour de magie noir, c&rsquo;est beau, c&rsquo;est puissant, mais il n&rsquo;est pas nécessaire de tout comprendre pour apprécier :)</p>
 
 <p>Cet article est donc le premier d&rsquo;une petite série dédiée aux buffers overflow !</p>
 
-<p>Dernière chose avant de commencer&hellip; Merci à Cyril Bresch qui m&rsquo;a donné le droit d&rsquo;utiliser certains de ses exos pour cette introduction aux buffers overflow. Mais surtout merci à lui pour m&rsquo;avoir initié à l&rsquo;exploitation binaire (Bon, ok t&rsquo;étais payé par l&rsquo;état, but still ! :D ). Son site perso est dispo ici (quand il pense à renouveler son DNS): <a href="http://cyrilbresch.ddns.net">http://cyrilbresch.ddns.net</a></p>
+<p>Dernière chose avant de commencer&hellip; Merci à Cyril Bresch qui m&rsquo;a donné le droit d&rsquo;utiliser certains de ses exos pour cette introduction aux buffers overflow. Mais surtout merci à lui pour m&rsquo;avoir initié à l&rsquo;exploitation binaire (Bon, ok t&rsquo;étais payé par l&rsquo;état, but still ! :D ). Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbresch.fr/</a></p>
 
 <p>En prévision, des shellcodes, de l&rsquo;assembleur, du ret2libc, du rop, et bien plus encore. Ces mots ne vous disent rien ? C&rsquo;est normal, ne vous en faites pas, on va commencer tranquilou avec une mise en contexte.</p>
 
@@ -229,6 +234,8 @@ Buffer : Petit espace dans lequel on va stocker de l&rsquo;information dans un p
 <p>Oui&hellip; Mais non. Dans l&rsquo;idée c&rsquo;est ca, mais la plupart des programmes fonctionnent en ligne de commande, c&rsquo;est à dire qu&rsquo;on les lance en tapant des commandes dans un shell. Contrairement à windows, ou le plus souvent c&rsquo;est l&rsquo;extension du nom du fichier (.txt, .exe, &hellip;) qui détermine son type, sous linux, ce n&rsquo;est que très rarement utilisé, et tant mieux car cette pratique est une énorme faille de sécurité. Plus d&rsquo;infos sur la faille ici : <a href="https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/">https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/</a></p>
 
 <p>Ce qui remplace cette pratique est l&rsquo;usage de magic number. En bref, c&rsquo;est une suite de bytes que l&rsquo;on met en début de fichier et qui permet de connaître le type et la version du fichier. Ici, pour un programme, ELF sous linux, on voit :</p>
+
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/readelf.png" alt="readelf" ></p>
 
 <p>Deux choses notables :</p>
 
@@ -261,6 +268,8 @@ Buffer : Petit espace dans lequel on va stocker de l&rsquo;information dans un p
 <p>Stack :</p>
 
 <p>La pile est un endroit utilisé par le processeur pour stocker des données. C&rsquo;est un fonctionnement LastInFirstOut. Autrement dit, le dernier élément qui arrive est le premier à sortir.</p>
+
+<p><img class="img_50" src="/hacking/pwn_1of4_buffer_overflow/stack.png" alt="stack" ></p>
 
 <p>Heap :</p>
 
@@ -320,11 +329,15 @@ Comprendre le fonctionnement :</li>
 
 <p>Ok, il prend un argument. Il en fait quoi ?</p>
 
-<p>A priori, rien&hellip; Prog de test, osef ! ¯_(ツ)_/¯</p>
+<p>A priori, rien&hellip; Prog de test, osef ! <code>¯\_(ツ)_/¯</code></p>
+
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/recon.png" alt="recon" ></p>
 
 <p>Trouver le point de crash :</p>
 
 <p>La strat habituelle de débutant, des arguments longs.</p>
+
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/crash.png" alt="crash" ></p>
 
 <p>Ah, ca, ca sent bon !</p>
 
@@ -332,11 +345,15 @@ Comprendre le fonctionnement :</li>
 
 <p>Recherche de l&rsquo;offset :</p>
 
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/pattern_create.png" alt="pattern_create" ></p>
+
 <p>Créer le pattern (schéma facilement reconnaissable qui va servir à comprendre quels registres sont atteignables par notre input), puis lancer le programme avec le pattern en paramètre.</p>
 
 <p>On voit ici que le crash survient sur l&rsquo;instruction ret (section code, petite flèche à gauche).</p>
 
 <p>Après le crash, on cherche le pattern dans la mémoire :</p>
+
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/pattern_search.png" alt="pattern_search" ></p>
 
 <p>L&rsquo;analyse de la mémoire a retrouvé des morceaux de notre pattern à différents endroits, on voit donc que le RSP (Registre Stack Pointer) est à une distance de 40 bytes de notre début d&rsquo;input.</p>
 
@@ -352,27 +369,22 @@ Comprendre le fonctionnement :</li>
 
 <p>Pour ma part il est fait maison, ou plutôt refait maison, car l&rsquo;idée générale reste la mêm : Placer les bons paramètres dans les registres, puis déclencher un syscall pour que le kernel exécute ce que l&rsquo;on veut, ici un shell.</p>
 
-<p>Shellcode : &ldquo;\x48\xB8\x2F\x2F\x62\x69\x6E\x2F\x73\x68\x48\xC1\xE8\x08\x50\x48\x89\xE7\x48\x31\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05&rdquo;</p>
+<p>Shellcode : <code>\x48\xB8\x2F\x2F\x62\x69\x6E\x2F\x73\x68\x48\xC1\xE8\x08\x50\x48\x89\xE7\x48\x31\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05</code></p>
 
 <p>On va quand même le désassembler pour comprendre ce qu&rsquo;il fait, et ce grâce à ce site : <a href="https://onlinedisassembler.com">https://onlinedisassembler.com</a></p>
 
-<p>0   :  &ldquo;//bin/sh&rdquo; dans rax</p>
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/shellcode.png" alt="shellcode" ></p>
 
-<p>A   : &ldquo;/bin/sh\x00&rdquo; dans rax</p>
-
-<p>E   : mettre rax en pile</p>
-
-<p>F   : rdi pointe vers la pile</p>
-
-<p>12 :  0 dans rax</p>
-
-<p>15 : 59 dans rax (execve)</p>
-
-<p>17 : 0 dans rsi</p>
-
-<p>1a : 0 dans rdx</p>
-
-<p>1d :  Initier le syscall</p>
+<pre><code>0  :  &quot;//bin/sh&quot; dans rax
+A  : &quot;/bin/sh\x00&quot; dans rax
+E  : mettre rax en pile
+F  : rdi pointe vers la pile
+12 :  0 dans rax
+15 : 59 dans rax (execve)
+17 : 0 dans rsi
+1a : 0 dans rdx
+1d :  Initier le syscall
+</code></pre>
 
 <p>Ceci va donc exécuter /bin/sh à l&rsquo;aide du syscall de execve.</p>
 
@@ -388,15 +400,25 @@ Comprendre le fonctionnement :</li>
 
 <p>On désassemble le main (convention de nom pour la fonction principale du programme), défini un point d&rsquo;arrêt avant la fin de l&rsquo;exécution, puis le lance avec AAAA en paramètre.</p>
 
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/disas_main.png" alt="disas_main" ></p>
+
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/find.png" alt="find" ></p>
+
 <p>Une fois arrêté, notre input se trouve donc dans la stack, à l&rsquo;adresse : 0x7fffffffe570</p>
 
 <p>Et notre shellcode se trouvera un peu après l&rsquo;input, à cause du padding.</p>
 
 <p>Code python de l&rsquo;exploit :</p>
 
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/exploit.png" alt="exploit" ></p>
+
 <p>Pour lancer l&rsquo;exploit, il n&rsquo;y a plus qu&rsquo;à donner le contenu du fichier exploit au programme en tant qu&rsquo;argument :</p>
 
+<p><img class="img_100" src="/hacking/pwn_1of4_buffer_overflow/run_exploit.png" alt="run_exploit" ></p>
+
 <p>Et BIM ! Spawned a shell ! \o/</p>
+
+<p><img class="img_25" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
 
 <ol>
 <li>Remarques et Réflexion :
@@ -425,31 +447,15 @@ Remarque 1 :</li>
 
 <p>T&rsquo;es un magicien, maintenant ! Ou presque&hellip; ;)</p>
 
+<p><img class="img_25" src="/hacking/pwn_1of4_buffer_overflow/blair.png" alt="blair" ></p>
+
 <p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. N&rsquo;hésitez pas à m&rsquo;indiquer les coquilles trouvées, détails manquants etc&hellip; ^.^</p>
 
-<p>Hints :</p>
-
-<p>1 : Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?</p>
-
-<p>2 : Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
-
-<p>PS : Il y a au final eu une série de 4 articles, les liens ici :</p>
-
-<p>##############################</p>
-
-<p><sup>1</sup>&frasl;<sub>4</sub> - Buffer overflow &amp; shellcode</p>
-
-<p><sup>2</sup>&frasl;<sub>4</sub> - Le ret2libc</p>
-
-<p><sup>3</sup>&frasl;<sub>4</sub> - Le ROP</p>
-
-<p><sup>4</sup>&frasl;<sub>4</sub> - Pwn, Tools &amp; Stack Pivot</p>
-
-<p>##############################</p>
+<p>Hints :
+1 : Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?<br />
+2 : Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
 
 <p>En espérant que ce premier pas dans le monde du pwn vous ait plu,</p>
-
-<p>-Laluka</p>
 
   </div>
   
@@ -472,11 +478,6 @@ Remarque 1 :</li>
         <div id="disqus_thread"></div>
 <script type="text/javascript">
   (function() {
-    
-    
-    if (window.location.hostname == "localhost")
-      return;
-
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
