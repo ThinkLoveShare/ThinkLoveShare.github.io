@@ -106,11 +106,11 @@ img {
 }
 
 @media (max-width: 768px) {
-  .img_full, .img_big, .img_med {
+  .img_full, .img_big {
     width: 100%;
   }
 
-  .img_small {
+  .img_med, .img_small {
     width: 50%;
   }
 }

