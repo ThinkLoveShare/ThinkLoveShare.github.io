@@ -380,6 +380,8 @@ Eh oui, parfois, même avec toutes ces bonnes pratiques, quand ça veut pas, ça
     
 
     (function () {
+    if (window.location.hostname == "localhost")
+        return;
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;

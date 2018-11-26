@@ -323,6 +323,8 @@ Avant toute chose, on regarde un peu à quoi on s&rsquo;attaque : x64, compilé 
     
 
     (function () {
+    if (window.location.hostname == "localhost")
+        return;
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
