@@ -33,21 +33,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/placeholder_the_rest/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/fr/the_rest/placeholder_writeup_1/</loc>
     <lastmod>2018-11-21T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -78,6 +63,21 @@
   </url>
   
   <url>
+    <loc>https://thinkloveshare.github.io/fr/the_rest/une_histoire_de_coquelicot/</loc>
+    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/une_histoire_de_coquelicot/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/fr/hacking/grehack/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -93,7 +93,7 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/fr/apropos/</loc>
+    <loc>https://thinkloveshare.github.io/fr/about/</loc>
     <lastmod>2018-11-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
@@ -103,7 +103,7 @@
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/apropos/"
+                href="https://thinkloveshare.github.io/fr/about/"
                 />
   </url>
   
@@ -168,24 +168,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/fr/tags/amis/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/fr/tags/apropos/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/fr/tags/bio/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/fr/categories/</loc>
     <priority>0</priority>
     <xhtml:link
@@ -217,12 +199,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/fr/tags/equipe/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/fr/hacking/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -240,7 +216,6 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/fr/tags/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"

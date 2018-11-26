@@ -9,46 +9,9 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/fr/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Amis</title>
-      <link>https://thinkloveshare.github.io/fr/tags/amis/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/amis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Apropos</title>
-      <link>https://thinkloveshare.github.io/fr/tags/apropos/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/apropos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bio</title>
-      <link>https://thinkloveshare.github.io/fr/tags/bio/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/bio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Equipe</title>
-      <link>https://thinkloveshare.github.io/fr/tags/equipe/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/fr/tags/equipe/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>
