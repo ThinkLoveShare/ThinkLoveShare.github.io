@@ -24,14 +24,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé"/>
-<meta name="twitter:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
-Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
-La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes."/>
+<meta name="twitter:description" content="Introcution à l&#39;exploitation binaire, aux format ELF et à l&#39;écriture de shellcode. "/>
 
 <meta property="og:title" content="PWN 1/4 : Buffer Overflow, là où tout a commencé" />
-<meta property="og:description" content="printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);
-Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
-La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes." />
+<meta property="og:description" content="Introcution à l&#39;exploitation binaire, aux format ELF et à l&#39;écriture de shellcode. " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/" /><meta property="article:published_time" content="2018-05-03T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-05-03T00:00:00&#43;00:00"/><meta property="og:site_name" content="ThinkLoveShare" />
@@ -327,6 +323,8 @@ La première chose à faire pour une première approche est de désactiver les p
 <li>Elaboration de l&rsquo;exploit :
 Comprendre le fonctionnement :</li>
 </ol>
+
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">ici</a> !</p>
 
 <p>Ok, il prend un argument. Il en fait quoi ?</p>
 
