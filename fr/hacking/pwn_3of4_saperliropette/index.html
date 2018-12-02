@@ -190,7 +190,9 @@ Share</a>
   </header>
   <hr/>
   <div class="post">
-    <p>Route du pwn, troisième et avant dernière escale, bienvenue à bord !</p>
+    
+
+<h2 id="route-du-pwn-troisième-escale-bienvenue-à-bord">Route du pwn, troisième  escale, bienvenue à bord !</h2>
 
 <p>Hier, le simple buffer overflow et le ret2libc, aujourd&rsquo;hui, le ROP, ou Return Oriented Programming, et demain&hellip; Demain la conquête du monde !!!</p>
 
@@ -198,18 +200,18 @@ Share</a>
 
 <p>Je vous ai laissé hier sur le ret2libc, qui, vu de loin, consiste à piocher dans la libc les fonctions qui nous intéressent. Sauf que cette attaque n&rsquo;est pas possible dans le cas où le programme est compilé en statique, et difficilement faisable si l&rsquo;ASLR est activé. Nous allons aujourd&rsquo;hui découvrir le ROP qui nous permet de contourner ces protections.</p>
 
-<p>Ca ressemble de plus en plus au jeu du chat et de la souris, so&hellip; Follow the guide cat !</p>
+<p>Ca ressemble de plus en plus au jeu du chat et de la souris, so&hellip;<br />
+Follow the leader cat !</p>
 
-<ol>
-<li>Précisions ASLR et PIC :
-Avant de commencer, un petit retour sur ces protections parfois floues.</li>
-</ol>
+<h2 id="précisions-aslr-et-pic">Précisions ASLR et PIC :</h2>
 
-<p>La configuration de l&rsquo;ASLR est présente dans /proc/sys/kernel/randomize_va_space. Elle peut être à 0=désactivée, 1=activée (stack et heap), 2=activée (1 + data). La valeur 2 étant la nouvelle norme en cours d&rsquo;adoption par les différents systèmes, déjà effective pour la plupart.</p>
+<p>Avant de commencer, un petit retour sur ces protections parfois floues.</p>
+
+<p>La configuration de l&rsquo;ASLR est présente dans <code>/proc/sys/kernel/randomize_va_space</code>. Elle peut être à 0=désactivée, 1=activée (stack et heap), 2=activée (1 + data). La valeur 2 étant la nouvelle norme en cours d&rsquo;adoption par les différents systèmes, déjà effective pour la plupart.</p>
 
 <p>L&rsquo;ASLR laisse donc toute une surface d&rsquo;attaque non randomisée. Arriva donc ce qu&rsquo;il devait arriver : des attaques utilisant les sections .data, .got, .plt, &hellip;</p>
 
-<p>Plus d&rsquo;informations sur les différentes sections et la structure d&rsquo;un ELF ici : <a href="https://www.cs.stevens.edu/~jschauma/631A/elf.html">https://www.cs.stevens.edu/~jschauma/631A/elf.html</a></p>
+<p>Plus d&rsquo;informations sur les différentes sections et la structure d&rsquo;un ELF ici : <a href="https://www.cs.stevens.edu/~jschauma/631A/elf.html">ELF_format</a></p>
 
 <p>L&rsquo;ASLR ne suffisant pas, de nouvelles protections ont été mises en place : PIC / PIE (Position Indépendant Code / Exécutable). N&rsquo;ayant pas encore suffisamment étudié son fonctionnement, je ne vais pas la présenter en détail. Mais l&rsquo;idée est simple&hellip; Et si on randomisait&hellip;. TOUT ?!?!?!</p>
 
@@ -217,12 +219,11 @@ Avant de commencer, un petit retour sur ces protections parfois floues.</li>
 
 <p>Suite à la prochaine contre contre-mesure ! è.é</p>
 
-<ol>
-<li>Présentation de la technique :
-Return&hellip; Oriented&hellip; Programming&hellip;</li>
-</ol>
+<h2 id="présentation-de-la-technique">Présentation de la technique :</h2>
 
-<p>Hum hum&hellip; Programmer&hellip; Avec des return ? °^°&rsquo;</p>
+<p>Return&hellip; Oriented&hellip; Programming&hellip;</p>
+
+<p>Hum hum&hellip; Programmer&hellip; Avec des&hellip; Return ? °^°&rsquo;</p>
 
 <p>On va profiter du fait que la section .text du programme soit toujours au même emplacement pour piocher plein de petits bouts de code appelés gadgets, et les assembler pour faire notre exploit. L&rsquo;exploit est donc une suite d&rsquo;adresses pointant sur de l&rsquo;assembleur, donc dans l&rsquo;absolu, on peut tout faire avec. La limite ? Les gadgets qui sont à notre disposition dans le programme&hellip;</p>
 
@@ -242,9 +243,7 @@ Return&hellip; Oriented&hellip; Programming&hellip;</li>
 
 <p>De nombreux outils permettent de lister les gadgets d&rsquo;un exécutable, comme ROPgadget, Ropper, XRop, &hellip;</p>
 
-<ol>
-<li>Elaboration de l&rsquo;exploit :</li>
-</ol>
+<h2 id="elaboration-de-l-exploit">Elaboration de l&rsquo;exploit :</h2>
 
 <p>Le binaire étudié est téléchargable <a href="/hacking/pwn_3of4_saperliropette/vuln">ici</a> !</p>
 
@@ -268,7 +267,10 @@ Return&hellip; Oriented&hellip; Programming&hellip;</li>
 
 <p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/dead_shell.jpg" alt="dead_shell" ></p>
 
-<p>On utilise ensuite l&rsquo;outil ropgadget qui nous offre une superbe ropchain faite à partir de notre programme vulnérable : $ ropgadget &ndash;binary vuln &ndash;ropchain</p>
+<p>On utilise ensuite l&rsquo;outil ropgadget qui nous offre une superbe ropchain faite à partir de notre programme vulnérable :</p>
+
+<pre><code class="language-shell">$ ropgadget --binary vuln --ropchain
+</code></pre>
 
 <p>L&rsquo;output est long (verbeux), je n&rsquo;en mets qu&rsquo;une partie :</p>
 
@@ -321,15 +323,14 @@ p.close()
 
 <p>Petit détail qui tue, on voit ici que $0 (le nom du programme exécuté) vaut &ldquo;bash&rdquo;, alors que dans notre ropchain, on avait /bin//sh (qui est compris comme /bin/sh). Mais c&rsquo;est normal, car sur ma machine, /bin/sh est un lien symbolique qui pointe vers bash ! Mon vrai sh est /usr/bin/sh.</p>
 
-<p>&ldquo;Mais&hellip; Ca ne concorde pas avec les exploits précédents ?!&rdquo;</p>
+<blockquote>
+<p>Mais&hellip; Ca ne concorde pas avec les exploits précédents ?!</p>
+</blockquote>
 
-<p>Wouah ! Un qui suit ! Oui, en effet&hellip;</p>
+<p>Wouah ! Un qui suit ! Oui, en effet&hellip;<br />
+Plus d&rsquo;informations sur cette étrangeté sur l&rsquo;article de coupaing Pixis : <a href="https://beta.hackndo.com/sh-vs-bash/">sh_vs_bash</a></p>
 
-<p>Plus d&rsquo;informations sur ce micmac ici (très bon blog du poto Pixis) : <a href="https://beta.hackndo.com/sh-vs-bash/">https://beta.hackndo.com/sh-vs-bash/</a></p>
-
-<p>C&rsquo;est tout pour cette courte introduction au ROP, j&rsquo;espère qu&rsquo;elle vous a mindblown comme il se doit.</p>
-
-<p>Vous avez désormais quelques cartes en main : BOF / shellcode / ret2libc / ROP / cerveau / &hellip;</p>
+<p>C&rsquo;est tout pour cette courte introduction au ROP, j&rsquo;espère qu&rsquo;elle vous a mindblown comme il se doit. Vous avez désormais quelques cartes en main : BOF / shellcode / ret2libc / ROP / cerveau / &hellip;</p>
 
 <p>C&rsquo;est pourquoi notre prochaine rencontre se fera autour de l&rsquo;analyse d&rsquo;un programme un peu plus complet. Nous allons donc conclure cette série et&hellip;</p>
 
@@ -337,7 +338,7 @@ p.close()
 
 <p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
 
-<p>A très vite,</p>
+<p>A très vite pour plus de pwn !</p>
 
   </div>
   

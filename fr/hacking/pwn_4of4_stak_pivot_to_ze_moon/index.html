@@ -190,7 +190,9 @@ Share</a>
   </header>
   <hr/>
   <div class="post">
-    <p>Bienvenue pour ce 4ème et dernier article d&rsquo;introduction au pwn.</p>
+    
+
+<h2 id="route-du-pwn-dernier-article-d-introduction">Route du pwn, dernier article d&rsquo;introduction !</h2>
 
 <p>Je vous avais promis du lourd pour le final, chose dite, chose due !</p>
 
@@ -200,7 +202,9 @@ Share</a>
 
 <p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/lets_go.jpg" alt="lets_go" ></p>
 
-<p>Top départ : Reconnaissance !</p>
+<ul>
+<li>## Reconnaissance :  !</li>
+</ul>
 
 <p>Le binaire étudié est téléchargable <a href="/hacking/pwn_4of4_stack_pivot/vuln">ici</a> !</p>
 
@@ -230,15 +234,35 @@ Share</a>
 
 <p>Présentation brève de l&rsquo;interface :</p>
 
-<p>A gauche, les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques inutilisables.</p>
+<ul>
+<li>A gauche :</li>
+</ul>
 
-<p>A droite, des informations sur la ligne en cours d&rsquo;inspection. Pas très utile pour le moment.</p>
+<p>Les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques inutilisables.</p>
 
-<p>En haut, un apercu de la structure du programme. Code, données, schémas reconnaissables pour de la crypto, &hellip;</p>
+<ul>
+<li>A droite :</li>
+</ul>
 
-<p>En bas, une console de logs (avec déjà un easter egg !) et les différentes sections du programme et leurs infos.</p>
+<p>Des informations sur la ligne en cours d&rsquo;inspection. Pas très utile pour le moment.</p>
 
-<p>Et au milieu, les différents outils d&rsquo;analyse.</p>
+<ul>
+<li>En haut :</li>
+</ul>
+
+<p>Un apercu de la structure du programme. Code, données, schémas reconnaissables pour de la crypto, &hellip;</p>
+
+<ul>
+<li>En bas :</li>
+</ul>
+
+<p>Une console de logs (avec déjà un easter egg !) et les différentes sections du programme et leurs infos.</p>
+
+<ul>
+<li>Au milieu :</li>
+</ul>
+
+<p>L&rsquo;outil d&rsquo;analyse en cours d&rsquo;utilisation.</p>
 
 <p>Ici, le dashboard nous indique fièrement : Ouiiii, alors j&rsquo;ai un peu cherchéééé, et tu voisss, j&rsquo;ai trouvé que ta cible là, eh bien c&rsquo;est un ELF, en 32 bits, initialement codé en C, sans stack canary, sans protection cryptographique, sa stack est NX, le PIC est désactivé. Il n&rsquo;est pas strippé, et il est compilé en statique ! :D</p>
 
@@ -266,9 +290,11 @@ Share</a>
 
 <p>Ici, on veut faire un buffer overflow. On cherche donc des fonctions vulnérables, et des entrées&hellip;</p>
 
-<p>Sources : admin name, room name, temperature</p>
+<ul>
+<li><p>Sources : admin name, room name, temperature</p></li>
 
-<p>Sinks : scanf&hellip; scanf ? scanf !</p>
+<li><p>Sinks : scanf&hellip; scanf ? scanf !</p></li>
+</ul>
 
 <p>scanf correspond à &ldquo;room name&rdquo;. On fait un ou deux essais quand même pour être sûr de contrôler le point de crash :</p>
 
@@ -381,17 +407,17 @@ p.interactive()
 
 <p>En lisant un article comme ca, ca n&rsquo;a pas l&rsquo;air si complexe que ca, un peu fouilli à la rigueur. Sauf que pour chaque exploit, à moins d&rsquo;être vraiment un monstre (coucou Geluchat, Blackndoor, Pixis, Klaoude, Antoxyde, Ethnical, &hellip;), c&rsquo;est des heures, des jours (enfin, nuits, on se comprend ;) ) qui y passent. Mais s&rsquo;acharner pendant longtemps pour finalement y arriver, quelle satisfaction !</p>
 
-<p>Si vous aussi vous souhaitez vous lancer, je vous conseille l&rsquo;excellente suite d&rsquo;exercice Protostar : <a href="https://exploit-exercises.com/protostar/">https://exploit-exercises.com/protostar/</a></p>
+<p>Si vous aussi vous souhaitez vous lancer, je vous conseille l&rsquo;excellente suite d&rsquo;exercice <a href="https://exploit-exercises.com/protostar/">Protostar</a>.</p>
 
-<p>Ainsi que le classique root-me que j&rsquo;affectionne particulièrement : <a href="https://www.root-me.org/">https://www.root-me.org/</a></p>
+<p>Ainsi que le classique <a href="https://www.root-me.org/">root-me</a> que j&rsquo;affectionne particulièrement. Faites quand même attention, ce site dévorera vos nuits&hellip; =]</p>
 
 <p>Mais bien que j&rsquo;adore ce site, je ne le trouve pas très approprié pour découvrir l&rsquo;exploit binaire. Mais pour toutes les autres catégories de hacking &ldquo;classique&rdquo;, foncez, c&rsquo;est du pain béni ! ;)</p>
 
 <p>C&rsquo;est ainsi que se conclu cette introduction au pwn, j&rsquo;espère qu&rsquo;elle vous a plu et que vous y avez appris des choses (au moins un peu ? :D ).</p>
 
-<p>Vos nombreux retours me font très très plaisir, merci ! ^.^</p>
+<p>Vos nombreux retours me font très très plaisir ! ^.^</p>
 
-<p>En vous souhaitant un pwn heureux,</p>
+<p>En vous souhaitant un pwn heureux et fructueux,</p>
 
   </div>
   

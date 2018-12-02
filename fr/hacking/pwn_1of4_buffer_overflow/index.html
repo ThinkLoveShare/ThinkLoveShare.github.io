@@ -190,7 +190,9 @@ Share</a>
   </header>
   <hr/>
   <div class="post">
-    <p>printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);</p>
+    
+
+<h2 id="printf-mme-mr-s-bonjour-lecteur">printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);</h2>
 
 <p>Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
 
@@ -200,40 +202,48 @@ Share</a>
 
 <p>Cet article est donc le premier d&rsquo;une petite série dédiée aux buffers overflow !</p>
 
-<p>Dernière chose avant de commencer&hellip; Merci à Cyril Bresch qui m&rsquo;a donné le droit d&rsquo;utiliser certains de ses exos pour cette introduction aux buffers overflow. Mais surtout merci à lui pour m&rsquo;avoir initié à l&rsquo;exploitation binaire (Bon, ok t&rsquo;étais payé par l&rsquo;état, but still ! :D ). Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbresch.fr/</a></p>
+<p>Dernière chose avant de commencer&hellip; <br />
+Merci à Cyril Bresch qui m&rsquo;a donné le droit d&rsquo;utiliser certains de ses exos pour cette introduction aux buffers overflow. Mais surtout merci à lui pour m&rsquo;avoir initié à l&rsquo;exploitation binaire (Bon, ok t&rsquo;étais payé, but still ! :D ). <br />
+Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbresch.fr/</a></p>
 
 <p>En prévision, des shellcodes, de l&rsquo;assembleur, du ret2libc, du rop, et bien plus encore. Ces mots ne vous disent rien ? C&rsquo;est normal, ne vous en faites pas, on va commencer tranquilou avec une mise en contexte.</p>
 
 <p>Je vais tenter une définition récursive : Je commence par définir le coeur du sujet, et à chaque fois qu&rsquo;un terme nouveau apparait, je le défini juste après. Ceci devrait permettre, je l&rsquo;espère, une lecture fluide ! :)</p>
 
-<ol>
-<li>Buffer overflow, Keskecé ?
-Buffer : Petit espace dans lequel on va stocker de l&rsquo;information dans un programme. La plupart du temps, ce buffer, ou tampon, va contenir des caractères, ou une suite de nombres, ou peu importe, de toute facon, c&rsquo;est des bits collés les uns aux autres qui forment des bytes. Les buffers sont la plupart du temps stockés sur le heap ou dans la stack.</li>
-</ol>
+<h2 id="buffer-overflow-keskecé">Buffer overflow, Keskecé ?</h2>
 
-<p>Overflow : Action de dépasser la taille initialement prévue pour un buffer, affectant ainsi les valeurs stockées après ledit buffer. Là où en tant que hackeur on est content, c&rsquo;est que pleins de données très utiles peuvent se trouver après le buffer. Le cas le plus arrangeant étant de contrôler le registre d&rsquo;instructions, qui dit quel code doit être exécuté. Arriver à l&rsquo;affecter, et le tour est joué !</p>
+<ul>
+<li>Buffer :</li>
+</ul>
 
-<p>Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un grand nombre de protections mises en place.</p>
+<p>Petit espace dans lequel on va stocker de l&rsquo;information dans un programme. La plupart du temps, ce buffer, ou tampon, va contenir des caractères, ou une suite de nombres, ou peu importe, de toute facon, c&rsquo;est des bits collés les uns aux autres qui forment des bytes. Les buffers sont la plupart du temps stockés sur le heap ou dans la stack.</p>
 
-<p>Programme :</p>
+<ul>
+<li>Overflow :</li>
+</ul>
+
+<p>Action de dépasser la taille initialement prévue pour un buffer, affectant ainsi les valeurs stockées après ledit buffer. Là où en tant que hackeur on est content, c&rsquo;est que pleins de données très utiles peuvent se trouver après le buffer. Le cas le plus arrangeant étant de contrôler le registre d&rsquo;instructions, qui dit quel code doit être exécuté. Arriver à l&rsquo;affecter, et le tour est joué !<br />
+ Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un grand nombre de protections mises en place.</p>
+
+<ul>
+<li>Programme :</li>
+</ul>
 
 <p>&ldquo;Bah je sais ce que c&rsquo;est un programme, tu click et ca se lance tavu !&rdquo;</p>
 
-<p>Oui&hellip; Mais non. Dans l&rsquo;idée c&rsquo;est ca, mais la plupart des programmes fonctionnent en ligne de commande, c&rsquo;est à dire qu&rsquo;on les lance en tapant des commandes dans un shell. Contrairement à windows, ou le plus souvent c&rsquo;est l&rsquo;extension du nom du fichier (.txt, .exe, &hellip;) qui détermine son type, sous linux, ce n&rsquo;est que très rarement utilisé, et tant mieux car cette pratique est une énorme faille de sécurité. Plus d&rsquo;infos sur la faille ici : <a href="https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/">https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/</a></p>
+<p>Oui&hellip; Mais non. Dans l&rsquo;idée c&rsquo;est ca, mais la plupart des programmes fonctionnent en ligne de commande, c&rsquo;est à dire qu&rsquo;on les lance en tapant des commandes dans un shell. Contrairement à windows, ou le plus souvent c&rsquo;est l&rsquo;extension du nom du fichier (.txt, .exe, &hellip;) qui détermine son type, sous linux, ce n&rsquo;est que très rarement utilisé, et tant mieux car cette pratique est une énorme faille de sécurité. Plus d&rsquo;infos sur la faille ici : <a href="https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/">article_RTLO</a></p>
 
 <p>Ce qui remplace cette pratique est l&rsquo;usage de magic number. En bref, c&rsquo;est une suite de bytes que l&rsquo;on met en début de fichier et qui permet de connaître le type et la version du fichier. Ici, pour un programme, ELF sous linux, on voit :</p>
 
 <p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/readelf.png" alt="readelf" ></p>
 
-<p>Deux choses notables :</p>
+<p>Deux choses notables :<br />
+ - 45 4c 46 est le code ASCII de ELF : Executable and Linkable Format<br />
+ - Type d&rsquo;architecture pour le lancer : X86-64, donc du 64 bits.</p>
 
 <ul>
-<li><p>45 4c 46 est le code ASCII de ELF : Executable and Linkable Format</p></li>
-
-<li><p>Type d&rsquo;architecture pour le lancer : X86-64, donc du 64 bits.</p></li>
+<li>Architecture :</li>
 </ul>
-
-<p>Architecture :</p>
 
 <p>Il existe de nombreux types de processeurs, et chaque processeur à son propre jeu d&rsquo;instructions. Bien que des standards soient adoptés par les constructeurs, chaque processeur garde ses particularités. Une liste non exhaustive disponible ici : <a href="https://en.wikipedia.org/wiki/List_of_instruction_sets">https://en.wikipedia.org/wiki/List_of_instruction_sets</a></p>
 
@@ -241,52 +251,72 @@ Buffer : Petit espace dans lequel on va stocker de l&rsquo;information dans un p
 
 <p>x86 désigne l&rsquo;habituel 32bits, et x86-64 le 64 bits. Cette différence est due à la taille des registres utilisés pour la gestion des adresses et opérations. Un programme 32 marchera sur <sup>32</sup>&frasl;<sub>64</sub>, un programme 64 uniquement sur du 64.</p>
 
-<p>LINUX :</p>
+<ul>
+<li>Linux :</li>
+</ul>
 
-<p>Linux is not Unix. Si vous en êtes là, il n&rsquo;est jamais trop tard !</p>
+<p>Linux is not Unix. Si vous en êtes là, il n&rsquo;est jamais trop tard ! En bref, une grande famille d&rsquo;OS open source.</p>
 
-<p><a href="https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux">https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux</a></p>
+<p><a href="https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux">Introduction linux</a></p>
 
-<p>Shell :</p>
+<ul>
+<li>Shell :</li>
+</ul>
 
 <p>Un shell est un interpréteur de commandes. Vu de loin, c&rsquo;est là ou les gens à capuche tapent des lignes de code en vert sur fond noir. Il y en a sous tous les OS communs car c&rsquo;est indispensable pour communiquer avec le système. Attention, pour un système, il existe plusieurs implémentations, plusieurs versions.</p>
 
-<p>Exemple (linux) : sh / bash / dash / zsh / &hellip;</p>
+<p>Exemple (linux) : sh / bash / dash / zsh / fish / &hellip;</p>
 
-<p>Stack :</p>
+<ul>
+<li>Stack :</li>
+</ul>
 
 <p>La pile est un endroit utilisé par le processeur pour stocker des données. C&rsquo;est un fonctionnement LastInFirstOut. Autrement dit, le dernier élément qui arrive est le premier à sortir.</p>
 
 <p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/stack.png" alt="stack" ></p>
 
-<p>Heap :</p>
+<ul>
+<li>Heap :</li>
+</ul>
 
 <p>Le tas permet aussi de stocker des données, mais de manière plus dynamique. Il est utilisé (entre autre) lors de l&rsquo;usage de fonctions type malloc (allocation de mémoire en cours d&rsquo;exécution du programme).</p>
 
-<p>Fonction :</p>
+<ul>
+<li>Fonction :</li>
+</ul>
 
 <p>Suite d&rsquo;instructions assembleur commencant (le plus souvent&hellip;) par faire de la place sur la stack pour traiter des données en local, et se terminant par leave et ret afin de laisser le programme appelant reprendre au point d&rsquo;appel.</p>
 
-<p>Shellcode :</p>
+<ul>
+<li>Shellcode :</li>
+</ul>
 
 <p>Suite d&rsquo;instructions assembleur permettant d&rsquo;invoquer un shell.</p>
 
-<p>Bits : 0, ou 1, unité de donnée insécable.</p>
+<ul>
+<li>Bits :</li>
+</ul>
 
-<p>Byte : Suite de 8 bits, codant donc un entier compris entre 0 et 255.</p>
+<p>Une donnée valant 0 ou 1, unité insécable.</p>
 
-<p>Allez, petite pause, on respire un grand coup, on se redresse sur sa chaise&hellip;</p>
+<ul>
+<li>Byte :</li>
+</ul>
 
-<p>Et on y retourne !</p>
+<p>Suite de 8 bits, codant donc un entier compris entre 0 et 255.</p>
 
-<ol>
-<li>Désactiver les sécurités :
-La première chose à faire pour une première approche est de désactiver les protections mises en place, car aborder le sujet avec toutes les protections actuellement utilisées : RIP !</li>
-</ol>
+<p>Allez, petite pause, on respire un grand coup, on se redresse sur sa chaise&hellip;<br />
+Et on y retourne !</p>
+
+<h2 id="désactiver-les-sécurités">Désactiver les sécurités :</h2>
+
+<p>La première chose à faire pour une première approche est de désactiver les protections mises en place, car aborder le sujet avec toutes les protections actuellement utilisées : RIP !</p>
 
 <p>On commence par désactiver l&rsquo;ASLR, c&rsquo;est un paramètre du kernel (noyau du système, ce qui gère tout le reste) qui indique s&rsquo;il faut oui ou non placer les différents segments d&rsquo;un programme à des adresses aléatoires. Ici, on va utiliser la stack, on ne veut donc pas de randomisation afin de faciliter l&rsquo;exploit.</p>
 
-<p>En tant que root : # echo &ldquo;0&rdquo; &gt; /proc/sys/kernel/randomize_va_space</p>
+<pre><code class="language-shell">$ # En tant que root :
+$ echo 0 &gt; /proc/sys/kernel/randomize_va_space
+</code></pre>
 
 <p>On va ensuite compiler le programme de manière à ce que :</p>
 
@@ -298,22 +328,24 @@ La première chose à faire pour une première approche est de désactiver les p
 <li><p>Le Position Independent Code soit désactive (ne pas placer à des endroits aléatoires les différents segments de notre programme).</p></li>
 </ul>
 
-<p>On utilise donc la ligne de compilation suivante : $ gcc -o vuln -fno-stack-protector -no-pie -z execstack vuln.c</p>
+<p>On utilise donc la ligne de compilation suivante :</p>
+
+<pre><code class="language-shell">$ gcc -o vuln -fno-stack-protector -no-pie -z execstack vuln.c
+</code></pre>
 
 <p>Nous allons également avoir besoin de quelques outils :</p>
 
-<p>python : Langage et interpréteur, version 2 pour raisons d&rsquo;encodage moins chiant</p>
+<ul>
+<li><p>python : Langage et interpréteur, version 2 pour raisons d&rsquo;encodage moins chiant</p></li>
 
-<p>gdb : Gnu debugger, utile pour comprendre ce qu&rsquo;il se passe dans le programme</p>
+<li><p>gdb : Gnu debugger, utile pour comprendre ce qu&rsquo;il se passe dans le programme</p></li>
 
-<p>gdb-peda : gdb amélioré avec du scripting python, facilite l&rsquo;utilisation de gdb</p>
+<li><p>gdb-peda : gdb amélioré avec du scripting python, facilite l&rsquo;utilisation de gdb</p></li>
 
-<p>pwntool : Peu utilisé ici, cet outil python permet de faciliter l&rsquo;exploit binaire</p>
+<li><p>pwntool : Peu utilisé ici, cet outil python permet de faciliter l&rsquo;exploit binaire</p></li>
+</ul>
 
-<ol>
-<li>Elaboration de l&rsquo;exploit :
-Comprendre le fonctionnement :</li>
-</ol>
+<h2 id="reconnaissance">Reconnaissance :</h2>
 
 <p>Le binaire étudié est téléchargable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">ici</a> !</p>
 
@@ -340,6 +372,8 @@ Comprendre le fonctionnement :</li>
 <p>Créer le pattern (schéma facilement reconnaissable qui va servir à comprendre quels registres sont atteignables par notre input), puis lancer le programme avec le pattern en paramètre.</p>
 
 <p>On voit ici que le crash survient sur l&rsquo;instruction ret (section code, petite flèche à gauche).</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_run.png" alt="pattern_search" ></p>
 
 <p>Après le crash, on cherche le pattern dans la mémoire :</p>
 
@@ -380,9 +414,10 @@ F  : rdi pointe vers la pile
 
 <p>Ceci va donc exécuter /bin/sh à l&rsquo;aide du syscall de execve.</p>
 
-<p>Les paramètres à utiliser sont trouvés à l&rsquo;aide de cette doc : <a href="https://w3challs.com/syscalls/?arch=x86_64">https://w3challs.com/syscalls/?arch=x86_64</a></p>
+<p>Les paramètres à utiliser sont trouvés à l&rsquo;aide de cette doc :<br />
+<a href="https://w3challs.com/syscalls/?arch=x86_64">https://w3challs.com/syscalls/?arch=x86_64</a></p>
 
-<p>Exploit :</p>
+<h2 id="développement-de-l-exploit">Développement de l&rsquo;exploit</h2>
 
 <p>On veut donc arriver à mettre notre shellcode à un endroit connu, puis atteindre une taille de 40 bytes pour y placer l&rsquo;adresse du shellcode à exécuter. Yapluka !</p>
 
@@ -435,10 +470,11 @@ log.success(&quot;Payload written&quot;)
 
 <p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
 
-<ol>
-<li>Remarques et Réflexion :
-Remarque 1 :</li>
-</ol>
+<h2 id="remarques-et-réflexion">Remarques et Réflexion :</h2>
+
+<ul>
+<li>Remarque 1</li>
+</ul>
 
 <p>Dans cet exemple, une erreur s&rsquo;est dissimulée, sauras tu la retrouver ?</p>
 
@@ -448,13 +484,17 @@ Remarque 1 :</li>
 
 <p>Réflexion : Comment corriger le shellcode pour qu&rsquo;il n&rsquo;utilise plus de null-byte ?</p>
 
-<p>Remarque 2 :</p>
+<ul>
+<li>Remarque 2</li>
+</ul>
 
 <p>Cet exemple est limité car la taille disponible pour l&rsquo;overflow est très petite. Cela suffit pour pop un shell, mais pas pour bien plus. De plus, cet espace étant près des adresses utilisées, il est possible qu&rsquo;il soit altéré durant l&rsquo;exécution. Embêtant non ?</p>
 
 <p>Réflexion : Comment utiliser un shellcode de taille arbitrairement longue ?</p>
 
-<p>Remarque 3 :</p>
+<ul>
+<li>Remarque 3</li>
+</ul>
 
 <p>Cet exemple ne fonctionne que si l&rsquo;ASLR est désactivé car il dépend fortement de la pile. Il existe de nombreuses facons de contourner l&rsquo;ASLR&hellip; Suite dans les prochains articles&hellip; Au compte goutte ! :D</p>
 
@@ -466,9 +506,12 @@ Remarque 1 :</li>
 
 <p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. N&rsquo;hésitez pas à m&rsquo;indiquer les coquilles trouvées, détails manquants etc&hellip; ^.^</p>
 
-<p>Hints :
-1 : Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?<br />
-2 : Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
+<ul>
+<li>Hints :</li>
+</ul>
+
+<p>-Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?<br />
+-Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
 
 <p>En espérant que ce premier pas dans le monde du pwn vous ait plu,</p>
 
