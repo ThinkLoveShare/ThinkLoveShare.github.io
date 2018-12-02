@@ -9,46 +9,10 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 21 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/en/coding/placeholder_coding/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/coding/placeholder_coding/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Placeholder </title>
-      <link>https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/</link>
-      <pubDate>Wed, 21 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Excess ess 1</title>
@@ -62,10 +26,10 @@ The goal Most of the time, to prove that an XSS is possible, the hacker provides
     
     <item>
       <title>GreHack 2018</title>
-      <link>https://thinkloveshare.github.io/en/hacking/grehack/</link>
+      <link>https://thinkloveshare.github.io/en/hacking/grehack_2018/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/grehack/</guid>
+      <guid>https://thinkloveshare.github.io/en/hacking/grehack_2018/</guid>
       <description>Before I start&amp;hellip; One year ago was my first on-site hacking event : GreHack 2017. The conferences were great, I met a few people there, and the CaptureTheFlag was awesome, even tho I had almost no knowledge, there&amp;rsquo;s always a starting point huh ? I spent the whole year doing my best to gain hacking knowledge, meet people into infosec, solve challenges, join events, conferences, CTFs, &amp;hellip;
 Some were great, but I still had the memories of this awesome event, and thought that the conference were the best (no marketing bullshit, only precise knowledge shared by interesting people).</description>
     </item>
@@ -81,38 +45,65 @@ Laluka Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. 
     </item>
     
     <item>
-      <title></title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>PWN 4/4 : Stack Pivot ToZeMoon !</title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
       <description></description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>PWN 3/4 : SaperliROPette !</title>
       <link>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</guid>
       <description></description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>PWN 2/4 : Return at libc, pick a shell !</title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</link>
+      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</guid>
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PWN 1/4 : Buffer Overflow, where it all began</title>
+      <link>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</link>
+      <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A question of standards?</title>
+      <link>https://thinkloveshare.github.io/en/the_rest/a_question_of_standards/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/the_rest/a_question_of_standards/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A Poppy Story</title>
+      <link>https://thinkloveshare.github.io/en/the_rest/a_poppy_story/</link>
+      <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/the_rest/a_poppy_story/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reasoning without headache</title>
+      <link>https://thinkloveshare.github.io/en/the_rest/reasoning_without_headache/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/the_rest/reasoning_without_headache/</guid>
       <description></description>
     </item>
     

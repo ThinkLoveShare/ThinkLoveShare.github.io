@@ -3,72 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/coding/placeholder_coding/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/coding/placeholder_coding/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/coding/placeholder_coding/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/une_histoire_de_coquelicot/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_the_rest/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/the_rest/placeholder_thinking/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/writeups/security_fest/placeholder_coding/"
+                href="https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -78,17 +18,17 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/hacking/grehack/</loc>
+    <loc>https://thinkloveshare.github.io/en/hacking/grehack_2018/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/hacking/grehack/"
+                href="https://thinkloveshare.github.io/fr/hacking/grehack_2018/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://thinkloveshare.github.io/en/hacking/grehack/"
+                href="https://thinkloveshare.github.io/en/hacking/grehack_2018/"
                 />
   </url>
   
@@ -108,35 +48,23 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</loc>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</loc>
+    <lastmod>2018-05-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/hacking/pwn_2of4_ret2libc/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/"
                 />
   </url>
   
   <url>
     <loc>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</loc>
+    <lastmod>2018-05-09T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -150,16 +78,77 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/</loc>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</loc>
+    <lastmod>2018-05-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_2of4_ret2libc/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://thinkloveshare.github.io/en/hacking/pwn_4of4_stack_pivot/"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</loc>
+    <lastmod>2018-05-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/the_rest/a_question_of_standards/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/une_question_de_norme/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/a_question_of_standards/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/the_rest/a_poppy_story/</loc>
+    <lastmod>2017-03-30T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/une_histoire_de_coquelicot/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/a_poppy_story/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/the_rest/reasoning_without_headache/</loc>
+    <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/the_rest/raisonner_sans_prise_de_tete/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/the_rest/reasoning_without_headache/"
                 />
   </url>
   
@@ -175,22 +164,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/categories/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/coding/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/coding/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/coding/"
                 />
   </url>
   
@@ -227,7 +200,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/en/the_rest/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -243,7 +216,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/en/</loc>
-    <lastmod>2018-11-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"

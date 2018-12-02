@@ -16,19 +16,19 @@ Share</description>
     
     <item>
       <title>GreHack 2018</title>
-      <link>https://thinkloveshare.github.io/fr/hacking/grehack/</link>
+      <link>https://thinkloveshare.github.io/fr/hacking/grehack_2018/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/fr/hacking/grehack/</guid>
+      <guid>https://thinkloveshare.github.io/fr/hacking/grehack_2018/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PWN 4/4 : Stack Pivot ToZeMoon !</title>
-      <link>https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/</link>
+      <link>https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/</link>
       <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stack_pivot/</guid>
+      <guid>https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
       <description>Bienvenue pour ce 4ème et dernier article d&amp;rsquo;introduction au pwn.
 Je vous avais promis du lourd pour le final, chose dite, chose due !
 L&amp;rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !
