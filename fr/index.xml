@@ -48,10 +48,10 @@ Laluka Bonjour toi ! Je m&amp;rsquo;appelle Louka Jacques-Chevallier, aussi conn
       <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
-      <description>Petit mot avant de commencer : Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. La vidéo est disponible (francais uniquement) ici :
+      <description>Petit ajout après la publication des articles :
+Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
  
-Route du pwn, dernier article d&amp;rsquo;introduction ! Je vous avais promis du lourd pour le final, chose dite, chose due !
-L&amp;rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !</description>
+Route du pwn, dernier article d&amp;rsquo;introduction ! Je vous avais promis du lourd pour le final, chose dite, chose due !</description>
     </item>
     
     <item>
@@ -60,10 +60,10 @@ L&amp;rsquo;exploit ne sera pas très long, mais en prévision : Une technique s
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_3of4_saperliropette/</guid>
-      <description>Petit mot avant de commencer : Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. La vidéo est disponible (francais uniquement) ici :
+      <description>Petit ajout après la publication des articles :
+Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
  
-Route du pwn, troisième escale, bienvenue à bord ! Hier, le simple buffer overflow et le ret2libc, aujourd&amp;rsquo;hui, le ROP, ou Return Oriented Programming, et demain&amp;hellip; Demain la conquête du monde !!!
-Je vous ai laissé hier sur le ret2libc, qui, vu de loin, consiste à piocher dans la libc les fonctions qui nous intéressent.</description>
+Route du pwn, troisième escale, bienvenue à bord ! Hier, le simple buffer overflow et le ret2libc, aujourd&amp;rsquo;hui, le ROP, ou Return Oriented Programming, et demain&amp;hellip; Demain la conquête du monde !</description>
     </item>
     
     <item>
@@ -72,10 +72,11 @@ Je vous ai laissé hier sur le ret2libc, qui, vu de loin, consiste à piocher da
       <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_2of4_ret2libc/</guid>
-      <description>Petit mot avant de commencer : Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. La vidéo est disponible (francais uniquement) ici :
+      <description>Petit ajout après la publication des articles :
+Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
  
 Bienvenue pour ce 2ème article consacré au pwn d&amp;rsquo;exécutables linux !
-Au programme, le ret2libc, ou retour à la lib C. Toujours dans la famille des exploits type buffer overflow, et toujours avec les sources du collègue : https://cyrilbresch.</description>
+Au programme, le ret2libc, ou retour à la lib C.</description>
     </item>
     
     <item>
@@ -84,10 +85,10 @@ Au programme, le ret2libc, ou retour à la lib C. Toujours dans la famille des e
       <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/hacking/pwn_1of4_buffer_overflow/</guid>
-      <description>Petit mot avant de commencer : Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. La vidéo est disponible (francais uniquement) ici :
+      <description>Petit ajout après la publication des articles :
+Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
  
-printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !
-La notion abordée aujourd&amp;rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&amp;rsquo;article, c&amp;rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes.</description>
+printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</description>
     </item>
     
     <item>
