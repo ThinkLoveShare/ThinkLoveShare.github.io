@@ -8,18 +8,6 @@ body {
   padding: 0;
 }
 
-html {
-  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 18px;
-  line-height: 30px;
-}
-
-@media (min-width: 38em) {
-  html {
-    font-size: 20px;
-  }
-}
-
 body {
   color: #515151;
   background-color: #fff;
@@ -152,6 +140,11 @@ html {
   font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px;
   line-height: 30px;
+}
+
+.content {
+  font-size: 16px;
+  line-height: 28px;
 }
 
 html,
@@ -330,6 +323,7 @@ a.tag {
 
 .site__title {
   font-size: 3rem;
+  line-height: 2rem;
   margin-bottom: 0.5rem;
 }
 
@@ -655,22 +649,7 @@ a.badge-tag:focus {
   height: auto;
 }
 
-@media (min-width: 320px) and (max-width: 768px) {
-  .sidebar li {
-    padding: .1rem 0;
-  }
-
-  .hidden-tablet {
-    display: none;
-  }
-}
-
 @media (min-width: 768px) {
-
-  html,
-  body {
-    font-size: 16px;
-  }
 
   .sidebar {
     bottom: 0;
@@ -727,11 +706,6 @@ a.badge-tag:focus {
 }
 
 @media (min-width: 992px) {
-
-  html,
-  body {
-    font-size: 18px;
-  }
 
   .content {
     margin-left: 20rem;
