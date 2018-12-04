@@ -9,7 +9,7 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/fr/writeups/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,10 +17,10 @@ Share</description>
     <item>
       <title>Excess ess 1</title>
       <link>https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/</guid>
-      <description>Ce défi intitulé &amp;ldquo;Excess Ess 1&amp;rdquo; est un jeu de mot (phonétique) pour désigner XSS,. C&amp;rsquo;est une attaque qui consiste à forcer le navigateur de notre victime à exécuter du code (la plupart du temps du javascript) sans son consentement. Ce défi a été proposé par l&amp;rsquo;édition 2018 du SecurityFest CTF.
+      <description>Ce défi intitulé &amp;ldquo;Excess Ess 1&amp;rdquo; est un jeu de mot (phonétique) pour désigner XSS. C&amp;rsquo;est une attaque qui consiste à forcer le navigateur de notre victime à exécuter du code (la plupart du temps du javascript) sans son consentement. Ce défi a été proposé par l&amp;rsquo;édition 2018 du SecurityFest CTF.
 L&amp;rsquo;objectif La plupart du temps, pour prouver qu&amp;rsquo;une XSS est possible, le hacker utilise une payload qui appelle la fonction alert.</description>
     </item>
     

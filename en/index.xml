@@ -15,16 +15,6 @@ Share</description>
     
     
     <item>
-      <title>Excess ess 1</title>
-      <link>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</guid>
-      <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
-The goal Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&amp;rsquo;s exactly what we&amp;rsquo;re asked to do.</description>
-    </item>
-    
-    <item>
       <title>GreHack 2018</title>
       <link>https://thinkloveshare.github.io/en/hacking/grehack_2018/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
@@ -43,6 +33,16 @@ Some were great, but I still had the memories of this awesome event, and thought
       <guid>https://thinkloveshare.github.io/en/about/</guid>
       <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
 Laluka Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
+    </item>
+    
+    <item>
+      <title>Excess ess 1</title>
+      <link>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</guid>
+      <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
+The goal Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&amp;rsquo;s exactly what we&amp;rsquo;re asked to do.</description>
     </item>
     
     <item>
@@ -87,7 +87,9 @@ Laluka Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. 
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/the_rest/a_question_of_standards/</guid>
-      <description> Translation coming soon ! =] </description>
+      <description>Hello dear reader,
+Today, I would like to talk to you about a deep subject, but in a very superficial way. I would like to talk to you about our society, the groups that are born, live and die in it. Groups, of course, but focused on the individuals who compose them, or who oppose to them.
+As usual, I will try to share with you a way of seeing things: mine.</description>
     </item>
     
     <item>

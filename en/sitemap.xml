@@ -3,21 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/hacking/grehack_2018/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -44,6 +29,21 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/"
                 />
   </url>
   
@@ -232,7 +232,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/en/writeups/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"

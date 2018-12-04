@@ -9,7 +9,7 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/writeups/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@ Share</description>
     <item>
       <title>Excess ess 1</title>
       <link>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</link>
-      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/</guid>
       <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
