@@ -210,9 +210,7 @@ Share</a>
 
 <p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/lets_go.jpg" alt="lets_go" ></p>
 
-<ul>
-<li>## Reconnaissance :  !</li>
-</ul>
+<h2 id="reconnaissance">Reconnaissance</h2>
 
 <p>Le binaire étudié est téléchargable <a href="/hacking/pwn_4of4_stack_pivot/vuln">ici</a> !</p>
 
@@ -226,7 +224,7 @@ Share</a>
 
 <p>J&rsquo;ai hésité entre le présenter en ligne de commande, ou via son interface graphique. Mais il y a tellement de développement et d&rsquo;efforts faits sur leur GUI que je vais présenter cette version.</p>
 
-<p>Je vous présente donc Cutter, basé sur radare2, qui est un outil de reverse engineering très pointu. Pour la petite histoire, radare2 est voulu le plus standalone (indépendant) possible, c&rsquo;est à dire que vous pouvez l&rsquo;utiliser sur un device / une architecture particulière, même si celle ci n&rsquo;a pas le moindre outil / paquet installé. Il vous suffit de le recompiler in situ. En prime, plein de tools d&rsquo;admin-sys classiques y sont intégrés ! Le paradis pour du embded device, du remote sur un tel / une montre, ou que sais-je encore.</p>
+<p>Je vous présente donc Cutter, basé sur radare2, qui est un outil de reverse engineering très pointu. Pour la petite histoire, radare2 est voulu le plus standalone (indépendant) possible, c&rsquo;est à dire que vous pouvez l&rsquo;utiliser sur un device / une architecture particulière, même si celle ci n&rsquo;a pas le moindre outil / paquet préinstallé. Il vous suffit de le recompiler in situ ou le cross-compiler. En &lsquo;prime&rsquo;, plein de tools d&rsquo;admin-sys classiques y sont intégrés ! Le paradis pour du embded device, du remote sur un tel / une montre, ou que sais-je encore.</p>
 
 <p>Il est open source, et son développement très actif, préférez donc une installation via leur git&hellip; :)</p>
 
@@ -234,7 +232,7 @@ Share</a>
 
 <p>Il est bourré d&rsquo;easter eggs, si vous avez du temps à perdre, enjoy ! ;)</p>
 
-<p>Je sais que le screen est difficilement lisible en taille normal, mais j&rsquo;ai mis la résolution source, et j&rsquo;ai check sur tel et pc, en zoomant c&rsquo;est pixel-perfect !</p>
+<p>Je sais que le screenshot est difficilement lisible en taille normal, mais j&rsquo;ai mis la résolution source, et j&rsquo;ai check sur tel et pc, en zoomant c&rsquo;est pixel-perfect !</p>
 
 <p>Deso / Pas deso, il faut voir plus gros ! <code>¯\_(ツ)_/¯</code></p>
 
@@ -246,7 +244,7 @@ Share</a>
 <li>A gauche :</li>
 </ul>
 
-<p>Les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques inutilisables.</p>
+<p>Les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques peu agréables à utiliser.</p>
 
 <ul>
 <li>A droite :</li>
@@ -276,7 +274,7 @@ Share</a>
 
 <p>Si ce n&rsquo;est pas classe toutes ces infos d&rsquo;un claquement de doigt !</p>
 
-<p>Mais là&hellip; Vous auriez déjà du tilter&hellip; :x</p>
+<p>Du coup&hellip; Vous l&rsquo;aver ? °^°</p>
 
 <p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/ffs.jpg" alt="ffs" ></p>
 
@@ -292,11 +290,11 @@ Share</a>
 
 <p>Il y a de la matière, il est donc temps d&rsquo;apprendre une manière de voir les choses très efficace pour le hacking en général : Sources and Sinks !</p>
 
-<p>Petite ref à une chaîne (Live Overflow) d&rsquo;un mec en OR, tout ce qu&rsquo;il fait (hacking, pwn, web, reverse, random, &hellip;) est d&rsquo;une qualité incroyable, et il a justement parlé de la méthode SoSi, donc have a look : <a href="https://www.youtube.com/watch?v=ZaOtY4i5w_U">https://www.youtube.com/watch?v=ZaOtY4i5w_U</a></p>
+<p>Petite ref à la chaine youtube de <a href="https://www.youtube.com/watch?v=ZaOtY4i5w_U">LiveOverflow</a>, contenu de qualiteyyyy ! Tout ce qu&rsquo;il fait (hacking, pwn, web, reverse, random, &hellip;) est d&rsquo;une qualité incroyable, et il a justement parlé de la méthode SoSi, donc faites y un tour !</p>
 
 <p>En bref, que contrôlons-nous (inputs), et que voulons-nous atteindre (fonctions dangereuses).</p>
 
-<p>Ici, on veut faire un buffer overflow. On cherche donc des fonctions vulnérables, et des entrées&hellip;</p>
+<p>Ici, on veut faire un buffer overflow. On cherche donc des fonctions vulnérables et des entrées.</p>
 
 <ul>
 <li><p>Sources : admin name, room name, temperature</p></li>
@@ -310,15 +308,15 @@ Share</a>
 
 <p>Point de crash confirmé !</p>
 
-<p>Avant de chercher l&rsquo;offset, il y a une chose supplémentaire à repérer, qui nous servira &gt;PEUT ÊTREEEEE&lt; par la suite&hellip; Je dis ca je dis rien&hellip; Pour les chercheurs, c&rsquo;est dans le premier screenshot de code, pour les autres, la lecture continue :</p>
+<p>Avant de chercher l&rsquo;offset, il y a une chose supplémentaire à repérer, qui nous servira <strong>PEUT ÊTREEEEE</strong> par la suite&hellip; Je dis ca je dis rien&hellip; Pour les chercheurs, c&rsquo;est dans le premier screenshot de code, pour les autres, la lecture continue :</p>
 
-<p>-[ SPOIL ]-</p>
+<p><em>-[ SPOIL ]-</em></p>
 
 <p>On lit le code suivant :</p>
 
-<p>push 0x3ff // taille : 1023</p>
-
-<p>push obj.username // adresse : 0x80eb2c0 char * fgets(&hellip;) // saisie utilisateur</p>
+<pre><code>push 0x3ff // taille : 1023
+push obj.username // adresse : 0x80eb2c0 char * fgets(...) // saisie utilisateur
+</code></pre>
 
 <p>Autrement dit, le programme va toujours mettre au même endroit (0x80eb2c0) jusqu&rsquo;à 1023 bytes saisis par l&rsquo;utilisateur&hellip; Ca peut se justifier&hellip; Mais ca peut être utile non ? Who knows ! :)</p>
 
@@ -332,9 +330,9 @@ Share</a>
 
 <p>On a ESP, bien. Wait&hellip; What ? On a ESP&hellip; + 4 ?</p>
 
-<p>Eh oui, le fameux pattern est suffisamment bien pensé pour être détecté même si il a été altéré !</p>
+<p>Eh oui, le fameux pattern est suffisamment bien pensé pour être détecté même si il a été altéré (un peu) !</p>
 
-<p>Cela signifie qu&rsquo;entre le moment où on overflow, et le moment où on exécute l&rsquo;instruction ret, la pile (enfin, notre ESP dans la pile) a été altéré&hellip;</p>
+<p>Cela signifie qu&rsquo;entre le moment où on overflow, et le moment où on exécute l&rsquo;instruction ret, la pile (enfin, notre ESP dans la pile) a été altéré.</p>
 
 <p>Mais&hellip; On a ESP + 4 ? Oui. On sait faire une addition ? Oui.</p>
 
@@ -421,7 +419,7 @@ p.interactive()
 
 <p>Mais bien que j&rsquo;adore ce site, je ne le trouve pas très approprié pour découvrir l&rsquo;exploit binaire. Mais pour toutes les autres catégories de hacking &ldquo;classique&rdquo;, foncez, c&rsquo;est du pain béni ! ;)</p>
 
-<p>C&rsquo;est ainsi que se conclu cette introduction au pwn, j&rsquo;espère qu&rsquo;elle vous a plu et que vous y avez appris des choses (au moins un peu ? :D ).</p>
+<p>C&rsquo;est ainsi que se conclu cette introduction au pwn, j&rsquo;espère qu&rsquo;elle vous a plu et que vous y avez appris des choses (au moins un peu ? :D )</p>
 
 <p>Vos nombreux retours me font très très plaisir ! ^.^</p>
 
