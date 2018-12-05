@@ -141,7 +141,6 @@ html {
   font-size: 18px;
   line-height: 30px;
 }
-
 .content {
   font-size: 16px;
   line-height: 28px;
@@ -650,6 +649,11 @@ a.badge-tag:focus {
 }
 
 @media (min-width: 768px) {
+
+  .content {
+    font-size: 18px;
+    line-height: 30px;
+  }
 
   .sidebar {
     bottom: 0;
