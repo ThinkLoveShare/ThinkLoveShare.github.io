@@ -196,13 +196,9 @@ Share</a>
 
 <p>One year ago was my first on-site hacking event : GreHack 2017 !</p>
 
-<p>The conferences were great, I met a few people there, and the CaptureTheFlag was
-awesome, even tho I had almost no knowledge, there&rsquo;s always a starting point huh ? <br />
-I spent the whole year doing my best to gain hacking knowledge, meet people
-into infosec, solve challenges, join events, conferences, CTFs, &hellip;<br />
-Some were great, but I still had the memories of this awesome event, and thought
-that the conference were the best (no marketing bullshit, only precise knowledge
-shared by interesting people). And this year again, the conferences were pretty
+<p>The conferences were great, I met a few cool people there, and the CaptureTheFlag was awesome, even tho I had almost no knowledge, there&rsquo;s always a starting point huh ? <br />
+I spent the whole year doing my best to gain hacking knowledge, meet people into infosec, solve challenges, join events, conferences, CTFs, &hellip;<br />
+Some were great, but I still had the memories of this awesome event, and thought that the conference were the best (no marketing bullshit, only precise knowledge shared by interesting people). And this year again, the conferences were pretty
 neat, and the CTF was great !</p>
 
 <p>A big thank you to the organizers, you rock ! ❤</p>
@@ -219,18 +215,17 @@ The communication part interacts (in most versions) with a C2 server via TOR.</p
 
 <p>The last fun thing here is that the developers added the code of &ldquo;0day&rdquo; in the code, without using it, just saying (bragging) : &ldquo;We found a crash, probably something critical, bla bla bla, you are bad and should feel bad.&rdquo;</p>
 
-<p>The reverse engineers that found that laught a lot because : The code triggers the antiviruses even if it&rsquo;s useless and unused, and they&rsquo;re quite PoC isn&rsquo;t good enough to be turned into an RCE. So&hellip; That&rsquo;s a fail ! =]</p>
+<p>The reverse engineers that found that laught a lot because : The code triggers the antiviruses even if it&rsquo;s useless and unused, and they&rsquo;re quite sure that this PoC isn&rsquo;t good enough to be turned into an RCE. So&hellip; That&rsquo;s a fail ! =]</p>
 
 <p><a href="https://twitter.com/tamas_boczan">https://twitter.com/tamas_boczan</a></p>
 
 <h2 id="2nd-conference-ropgenerator-quarkslab">2nd conference : ROPGenerator - Quarkslab</h2>
 
-<p>If you don&rsquo;t know whar ROP is, you may want to read this previous article :
-<a href="https://thinkloveshare.com/en/hacking/pwn_3of4_saperliropette/">PWN 3of4 : SaperliROPette</a></p>
+<p>If you don&rsquo;t know what ROP is, you may want to read this previous article : <a href="https://thinkloveshare.com/en/hacking/pwn_3of4_saperliropette/">PWN 3of4 : SaperliROPette</a></p>
 
 <p>The software presented has two main functionnalities : Find ROP gadget that will respond to the constraints you give, and chain gadgets in order to have a fully functionnal ROPchain.</p>
 
-<p>Finding gadgets can be done in two different ways : <br />
+<p>Finding the right gadget can be done in two different ways : <br />
 Syntactic (fast &amp; limited) Vs Semantic (slow &amp; powerful)</p>
 
 <ul>
@@ -238,7 +233,7 @@ Syntactic (fast &amp; limited) Vs Semantic (slow &amp; powerful)</p>
 
 <ul>
 <li><p>Gadget Searching :
-Gadgets are objects used to construct a dependency graphs, the semantic is then extracted, sorted and then used to populate a database.</p></li>
+Gadgets are used to construct a dependency graphs, the semantic is then extracted, sorted and then stored in a database.</p></li>
 
 <li><p>Gadget Chaining :
 The database previously created is then queried, and strategies are used (aka using temporary registers, computing numbers, &hellip;) to store the right values at the right places. intermediate strategies can be used, this increases the computing time but it still reasonable (few minutes on binaries like bash).</p></li>
@@ -254,17 +249,17 @@ The database previously created is then queried, and strategies are used (aka us
 </ul>
 
 <p>This tool is POWERFUL AF !!!<br />
-Thank you for this cool tool, I&rsquo;ll definitely use it !</p>
+Thank you for this gem, I&rsquo;ll definitely use it !</p>
 
 <p><a href="https://github.com/Boyan-MILANOV/ropgenerator">https://github.com/Boyan-MILANOV/ropgenerator</a></p>
 
 <h2 id="3rd-conference-pwning-an-sap-then-what">3rd conference : Pwning an SAP, then what ?</h2>
 
-<p><em>_sorry_but_i_hate_sap.</em> <br />
-<em>_sorry_but_i_hate_sap.</em> <br />
-<em>_sorry_but_i_hate_sap.</em> <br />
-<em>_sorry_but_i_hate_sap.</em> <br />
-<em>_sorry_but_i_hate_sap.</em> </p>
+<p><em>_sorry_but_I_hate_sap.</em> <br />
+<em>_sorry_but_I_hate_sap.</em> <br />
+<em>_sorry_but_I_hate_sap.</em> <br />
+<em>_sorry_but_I_hate_sap.</em> <br />
+<em>_sorry_but_I_hate_sap.</em> </p>
 
 <p>Long story short, SAP are soooo huge that the attack surface is insanely wide. If you plane on pentesting one, get your tools ready, because you&rsquo;ll get through a lot of data. The exploitation isn&rsquo;t that hard tho&hellip;</p>
 
@@ -272,40 +267,38 @@ Thank you for this cool tool, I&rsquo;ll definitely use it !</p>
 
 <h2 id="4th-conference-abusing-privileged-file-manipulation">4th conference : Abusing privileged file manipulation</h2>
 
-<p>Short introduction about the concept of race conditions and examples.
-Introduces windows specific tricks and softwares to monitor privileges and
-child processes needed to detect this kind of race conditions. </p>
+<p>Short introduction about the concept of race conditions and examples. Introduces windows specific tricks and softwares to monitor privileges and child processes needed to detect this kind of race conditions.</p>
 
 <p><em>Trash talking about antiviruses ! <code>\o/</code></em></p>
 
-<p>Awesome presentation pwning AVs, the core idea is that an antivirus uses high privileges to monitor the whole system, and most of the time, isn&rsquo;t sandboxed.
-Many of them are exploitable by changing the file while they are analysing or removing it. Using links / restore functionnalities, files can acquire full SYSTEM privileges.</p>
+<p>Awesome presentation pwning AVs, the core idea is that an antivirus uses high privileges to monitor the whole system, and most of the time, isn&rsquo;t sandboxed. Many of them are exploitable by changing the file while they are analysing or removing it. Using links / restore functionnalities, files can acquire full SYSTEM privileges allowing the hacker to take own the system.</p>
 
-<h2 id="6th-conference-screaming-channels-when-electromagnetic-side-channels-meet-radio-transceiver">6th conference : Screaming Channels, when Electromagnetic Side Channels Meet Radio Transceiver</h2>
+<h2 id="5th-conference-screaming-channels-when-electromagnetic-side-channels-meet-radio-transceiver">5th conference : Screaming Channels, when Electromagnetic Side Channels Meet Radio Transceiver</h2>
 
 <p>Basically, this guy can hear your cpu scream through his bluetooth antena while doing some crypto encryption. The noise is then used to leaks your AES private key up to 10 meters away. Also he is a good looking metal-head, which is nice ! =]</p>
 
 <p><a href="https://twitter.com/nSinusR">https://twitter.com/nSinusR</a></p>
 
-<h2 id="7th-conference-trap-your-keyboard-101">7th conference : Trap your Keyboard 101</h2>
+<h2 id="6th-conference-trap-your-keyboard-101">6th conference : Trap your Keyboard 101</h2>
 
 <p>Attacking a Corsair strace RGB, as it is programmable and has memory&hellip; Why not ?<br />
 The firware is updated by downloading the new version in a temp folder. So we can hijack it and reverse it : arm binary with IDA + miasm : </p>
 
 <p><em>[ Quite long and technical talk ]</em></p>
 
-<p>Demo time, the crows is sceptical&hellip; </p>
+<p>Demo time, the crowd is sceptical&hellip;</p>
 
 <p><em>GOSH MY FUCKING WHAT ?!</em></p>
 
-<p>The keyboard has been turned into a record and replay independent device (aka an expensive and good lucking Rubber Ducky). <br />
+<p>The keyboard has been turned into a record and replay independent device (aka an expensive and good looking Rubber Ducky). <br />
 What this means, is that you can just lend your keyboard to a friend, propose him to test it for few days. And when your keyboard comes back, it contains your friend&rsquo;s password, and the best part : It can type it, with colors, for you !</p>
 
-<p>This talk was tedious (good effort on the english tho), but the work done is VERY clever. If you ever read this, you rock !</p>
+<p>This talk was tedious (good effort on the english tho), but the work done is VERY clever.<br />
+If you ever read this, you rock !</p>
 
 <p><a href="https://twitter.com/marilafo19">https://twitter.com/marilafo19</a></p>
 
-<h2 id="8th-conference-analyzing-ultrasound-based-physical-tracking-systems">8th conference : Analyzing Ultrasound-based Physical Tracking Systems</h2>
+<h2 id="7th-conference-analyzing-ultrasound-based-physical-tracking-systems">7th conference : Analyzing Ultrasound-based Physical Tracking Systems</h2>
 
 <p>TL;DR : This apk will decode ultrasound played without you knowing it to sell you useless stuff you don&rsquo;t need. <br />
 An classic smartphone application can scan the audio spectrum continuously waiting for a particular signal using infra sound. This sound will trigger the application, revealing this way your location to the vendor. He will then use your phone to interact with you&hellip; In a commercial way&hellip; Yay&hellip;</p>
@@ -314,13 +307,13 @@ An classic smartphone application can scan the audio spectrum continuously waiti
 
 <p><a href="https://twitter.com/Cunchem">https://twitter.com/Cunchem</a></p>
 
-<h2 id="9th-conference-bridging-the-gap-between-secure-hardware-and-open-source">9th conference : Bridging the gap between Secure Hardware and Open Source</h2>
+<h2 id="8th-conference-bridging-the-gap-between-secure-hardware-and-open-source">8th conference : Bridging the gap between Secure Hardware and Open Source</h2>
 
 <p>Too much hardware, not enough brain left&hellip;</p>
 
 <p><a href="https://github.com/LedgerHQ">https://github.com/LedgerHQ</a></p>
 
-<h2 id="10th-conference-detecting-all-type-of-illegal-access-points-on-enterprise-networks">10th conference : Detecting all type of illegal Access Points on enterprise networks</h2>
+<h2 id="9th-conference-detecting-all-type-of-illegal-access-points-on-enterprise-networks">9th conference : Detecting all type of illegal Access Points on enterprise networks</h2>
 
 <p>Too tired and preparing for the workshop&hellip;</p>
 
@@ -338,11 +331,7 @@ An classic smartphone application can scan the audio spectrum continuously waiti
 
 <h2 id="on-site-ctf">On-site CTF</h2>
 
-<p>We were only three members of Apéri&rsquo;Kube present, so we merged with the team
-<a href="https://twitter.com/TeamCryptis">Cryptis</a>. They were really kind and paticipating
-with them was a lot of fun !
-We&rsquo;re still a bit disapointed because the challenges were mainly focused in
-reverse engineering, some crypto and hardware stuff. Still some forensic and
+<p>We were only three members of Apéri&rsquo;Kube present, so we merged with the team <a href="https://twitter.com/TeamCryptis">Cryptis</a>. They were really kind and paticipating with them was a lot of fun ! We&rsquo;re still a bit disapointed because the challenges were mainly focused in reverse engineering, some crypto and hardware stuff. Still some forensic and
 some web and crypto, the infrastructure was nice !</p>
 
 <p>Here is a picture of us not solving a challenge :</p>
