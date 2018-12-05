@@ -42,7 +42,10 @@ Pwn Road, last introductory article! I promised you some heavy stuff for the fin
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</guid>
-      <description> Translation coming soon ! =] </description>
+      <description>Small edit after the initial publication of the articles:
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+ 
+Pwn Road, third stop, welcome aboard! Yesterday, the simple buffer overflow and ret2libc, today, ROP, or Return Oriented Programming, and tomorrow&amp;hellip; Tomorrow the conquest of the world!</description>
     </item>
     
     <item>

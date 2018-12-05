@@ -211,23 +211,23 @@ Share</a>
 <p>Ca ressemble de plus en plus au jeu du chat et de la souris, so&hellip;<br />
 Follow the leader cat !</p>
 
-<h2 id="précisions-aslr-et-pic">Précisions ASLR et PIC :</h2>
+<h2 id="précisions-aslr-et-pic">Précisions ASLR et PIC</h2>
 
 <p>Avant de commencer, un petit retour sur ces protections parfois floues.</p>
 
 <p>La configuration de l&rsquo;ASLR est présente dans <code>/proc/sys/kernel/randomize_va_space</code>. Elle peut être à 0=désactivée, 1=activée (stack et heap), 2=activée (1 + data). La valeur 2 étant la nouvelle norme en cours d&rsquo;adoption par les différents systèmes, déjà effective pour la plupart.</p>
 
-<p>L&rsquo;ASLR laisse donc toute une surface d&rsquo;attaque non randomisée. Arriva donc ce qu&rsquo;il devait arriver : des attaques utilisant les sections .data, .got, .plt, &hellip;</p>
+<p>L&rsquo;ASLR laisse donc toute une surface d&rsquo;attaque non randomisée. Arriva donc ce qu&rsquo;il devait arriver : des attaques utilisant les sections .text, .data, .got, .plt, &hellip;</p>
 
 <p>Plus d&rsquo;informations sur les différentes sections et la structure d&rsquo;un ELF ici : <a href="https://www.cs.stevens.edu/~jschauma/631A/elf.html">ELF_format</a></p>
 
-<p>L&rsquo;ASLR ne suffisant pas, de nouvelles protections ont été mises en place : PIC / PIE (Position Indépendant Code / Exécutable). N&rsquo;ayant pas encore suffisamment étudié son fonctionnement, je ne vais pas la présenter en détail. Mais l&rsquo;idée est simple&hellip; Et si on randomisait&hellip;. TOUT ?!?!?!</p>
+<p>L&rsquo;ASLR ne suffisant pas, de nouvelles protections ont été mises en place : PIC / PIE (Position Indépendant Code / Exécutable). L&rsquo;idée est simple&hellip; Et si on randomisait&hellip; TOUT ?!</p>
 
 <p>Le ROP fonctionne avec un ASLR partiel ou total, mais est contré par cette dernière mesure&hellip;</p>
 
 <p>Suite à la prochaine contre contre-mesure ! è.é</p>
 
-<h2 id="présentation-de-la-technique">Présentation de la technique :</h2>
+<h2 id="présentation-de-la-technique">Présentation de la technique</h2>
 
 <p>Return&hellip; Oriented&hellip; Programming&hellip;</p>
 
@@ -247,15 +247,15 @@ Follow the leader cat !</p>
 
 <p>C&rsquo;est ce critère qui rend l&rsquo;attaque possible. En effet, lorsque l&rsquo;on va contrôler le pointer d&rsquo;instructions, on va faire en sorte que le programme exécute un premier gadget, que l&rsquo;instruction ret finale indique la fin de l&rsquo;exécution du premier gadget, et fasse revenir sur notre point de départ (la stack, qu&rsquo;on vient d&rsquo;overflow), mais une adresse plus loin. Cette adresse sera celle du second gadget et ainsi de suite.</p>
 
-<p>Méfiance tout de même, si votre gadget se termine par un ret, mais contient des instructions qui modifient le flot d&rsquo;exécution du programme, il risque de casser votre exploit. Donc pas de call, pas de leave, pas de &ldquo;double ret&rdquo;, pas de bras, et surtout : pas de chocolat.</p>
+<p>Méfiance tout de même, si votre gadget se termine par un ret, mais contient des instructions qui modifient le flot d&rsquo;exécution du programme, il risque de casser votre exploit. Donc pas de <code>call</code>, pas de <code>leave</code>, pas de <code>double ret</code>, pas de bras, et surtout : pas de chocolat.</p>
 
 <p>De nombreux outils permettent de lister les gadgets d&rsquo;un exécutable, comme ROPgadget, Ropper, XRop, &hellip;</p>
 
-<h2 id="elaboration-de-l-exploit">Elaboration de l&rsquo;exploit :</h2>
+<h2 id="elaboration-de-l-exploit">Elaboration de l&rsquo;exploit</h2>
 
-<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_3of4_saperliropette/vuln">ici</a> !</p>
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_3of4_saperliropette/vuln">ici</a></p>
 
-<p>Avant toute chose, on regarde un peu à quoi on s&rsquo;attaque : x64, compilé en statique, full ASLR. Ok !</p>
+<p>Avant toute chose, on regarde un peu à quoi on s&rsquo;attaque : x86-64, compilé en statique, full ASLR. Ok !</p>
 
 <p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/readelf.png" alt="readelf" ></p>
 
@@ -329,7 +329,7 @@ p.close()
 
 <p>TADA, one more shell ! :D</p>
 
-<p>Petit détail qui tue, on voit ici que $0 (le nom du programme exécuté) vaut &ldquo;bash&rdquo;, alors que dans notre ropchain, on avait /bin//sh (qui est compris comme /bin/sh). Mais c&rsquo;est normal, car sur ma machine, /bin/sh est un lien symbolique qui pointe vers bash ! Mon vrai sh est /usr/bin/sh.</p>
+<p>Petit détail qui tue, on voit ici que $0 (le nom du programme exécuté) vaut <code>bash</code>, alors que dans notre ropchain, on avait <code>/bin//sh</code> (qui est compris comme <code>/bin/sh</code>). Mais c&rsquo;est normal, car sur ma machine, <code>/bin/sh</code> est un lien symbolique qui pointe vers bash ! Mon vrai sh est <code>/usr/bin/sh</code>.</p>
 
 <blockquote>
 <p>Mais&hellip; Ca ne concorde pas avec les exploits précédents ?!</p>
@@ -346,7 +346,7 @@ Plus d&rsquo;informations sur cette étrangeté sur l&rsquo;article de coupaing 
 
 <p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
 
-<p>A très vite pour plus de pwn !</p>
+<p>A très vite pour encore plus de pwn !</p>
 
   </div>
   
