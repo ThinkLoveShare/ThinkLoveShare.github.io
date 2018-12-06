@@ -67,7 +67,10 @@ On the list today, the ret2libc, or return to lib C.</description>
       <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
-      <description> Translation coming soon ! =] </description>
+      <description>Small edit after the initial publication of the articles:
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+ 
+printf(&amp;ldquo;Mr, Ms %s, bonjour. &amp;ldquo;, lecteur); Today, I want to offer you an article more sophisticated than usual, the first of new kind, an article dealing with heavy stuff, in short, an article that blows ass!</description>
     </item>
     
   </channel>

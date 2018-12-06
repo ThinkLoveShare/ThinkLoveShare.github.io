@@ -200,7 +200,7 @@ Share</a>
 
 <p><a href="https://www.youtube.com/watch?v=hmt8M9YLwTg"><img src="http://img.youtube.com/vi/hmt8M9YLwTg/0.jpg" alt="1, 2, 3, PWNED !" /></a></p>
 
-<h2 id="printf-mme-mr-s-bonjour-lecteur">printf(&ldquo;Mme, Mr %s, bonjour. &ldquo;, lecteur);</h2>
+<h2 id="printf-dear-s-welcome-reader">printf(&ldquo;Dear %s, welcome. &ldquo;, reader);</h2>
 
 <p>Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
 
@@ -224,14 +224,14 @@ Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbr
 <li>Buffer :</li>
 </ul>
 
-<p>Petit espace dans lequel on va stocker de l&rsquo;information dans un programme. La plupart du temps, ce buffer, ou tampon, va contenir des caractères, ou une suite de nombres, ou peu importe, de toute facon, c&rsquo;est des bits collés les uns aux autres qui forment des bytes. Les buffers sont la plupart du temps stockés sur le heap ou dans la stack.</p>
+<p>Petit conteneur dans lequel on va stocker de l&rsquo;information dans un programme. La plupart du temps, ce buffer, ou tampon, va contenir des caractères, ou une suite de nombres, ou peu importe, de toute facon, c&rsquo;est des bits collés les uns aux autres qui forment des bytes. Les buffers sont la plupart du temps stockés sur le heap ou dans la stack.</p>
 
 <ul>
 <li>Overflow :</li>
 </ul>
 
 <p>Action de dépasser la taille initialement prévue pour un buffer, affectant ainsi les valeurs stockées après ledit buffer. Là où en tant que hackeur on est content, c&rsquo;est que pleins de données très utiles peuvent se trouver après le buffer. Le cas le plus arrangeant étant de contrôler le registre d&rsquo;instructions, qui dit quel code doit être exécuté. Arriver à l&rsquo;affecter, et le tour est joué !<br />
- Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un grand nombre de protections mises en place.</p>
+Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un grand nombre de protections mises en place.</p>
 
 <ul>
 <li>Programme :</li>
@@ -253,7 +253,7 @@ Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbr
 <li>Architecture :</li>
 </ul>
 
-<p>Il existe de nombreux types de processeurs, et chaque processeur à son propre jeu d&rsquo;instructions. Bien que des standards soient adoptés par les constructeurs, chaque processeur garde ses particularités. Une liste non exhaustive disponible ici : <a href="https://en.wikipedia.org/wiki/List_of_instruction_sets">https://en.wikipedia.org/wiki/List_of_instruction_sets</a></p>
+<p>Il existe de nombreux types de processeurs, et chaque processeur à son propre jeu d&rsquo;instructions. Bien que des standards soient adoptés par les constructeurs, chaque processeur garde ses particularités. Une liste non exhaustive est disponible ici : <a href="https://en.wikipedia.org/wiki/List_of_instruction_sets">https://en.wikipedia.org/wiki/List_of_instruction_sets</a></p>
 
 <p>Les architectures les plus courantes sont : x86, x86-64, arm, mips, &hellip;</p>
 
@@ -287,13 +287,13 @@ Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbr
 <li>Heap :</li>
 </ul>
 
-<p>Le tas permet aussi de stocker des données, mais de manière plus dynamique. Il est utilisé (entre autre) lors de l&rsquo;usage de fonctions type malloc (allocation de mémoire en cours d&rsquo;exécution du programme).</p>
+<p>Le tas permet aussi de stocker des données, mais de manière plus dynamique / flexible. Il est utilisé (entre autre) lors de l&rsquo;usage de fonctions type malloc (allocation de mémoire en cours d&rsquo;exécution du programme).</p>
 
 <ul>
 <li>Fonction :</li>
 </ul>
 
-<p>Suite d&rsquo;instructions assembleur commencant (le plus souvent&hellip;) par faire de la place sur la stack pour traiter des données en local, et se terminant par leave et ret afin de laisser le programme appelant reprendre au point d&rsquo;appel.</p>
+<p>Suite d&rsquo;instructions assembleur commencant (le plus souvent&hellip;) par faire de la place sur la stack pour traiter des données en local, et se terminant par <code>leave</code> et <code>ret</code> afin de laisser le programme appelant reprendre au point d&rsquo;appel.</p>
 
 <ul>
 <li>Shellcode :</li>
@@ -305,22 +305,22 @@ Son site perso est dispo ici : <a href="https://cyrilbresch.fr/">https://cyrilbr
 <li>Bits :</li>
 </ul>
 
-<p>Une donnée valant 0 ou 1, unité insécable.</p>
+<p>Une donnée valant 0 ou 1, unité atomique.</p>
 
 <ul>
 <li>Byte :</li>
 </ul>
 
-<p>Suite de 8 bits, codant donc un entier compris entre 0 et 255.</p>
+<p>Suite de 8 bits, codant donc un number compris entre 0 et 255.</p>
 
-<p>Allez, petite pause, on respire un grand coup, on se redresse sur sa chaise&hellip;<br />
+<p>Allez, petite pause, on respire un grand coup, on s&rsquo;installe confortablement sur sa chaise&hellip;<br />
 Et on y retourne !</p>
 
 <h2 id="désactiver-les-sécurités">Désactiver les sécurités :</h2>
 
 <p>La première chose à faire pour une première approche est de désactiver les protections mises en place, car aborder le sujet avec toutes les protections actuellement utilisées : RIP !</p>
 
-<p>On commence par désactiver l&rsquo;ASLR, c&rsquo;est un paramètre du kernel (noyau du système, ce qui gère tout le reste) qui indique s&rsquo;il faut oui ou non placer les différents segments d&rsquo;un programme à des adresses aléatoires. Ici, on va utiliser la stack, on ne veut donc pas de randomisation afin de faciliter l&rsquo;exploit.</p>
+<p>On commence par désactiver l&rsquo;ASLR, c&rsquo;est un paramètre du kernel (noyau du système, ce qui gère quasiment tout) qui indique s&rsquo;il faut oui ou non placer les différents segments d&rsquo;un programme à des adresses aléatoires. Ici, on va utiliser la stack, on ne veut donc pas de randomisation afin de faciliter l&rsquo;exploit.</p>
 
 <pre><code class="language-shell">$ # En tant que root :
 $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
@@ -353,9 +353,9 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 <li><p>pwntool : Peu utilisé ici, cet outil python permet de faciliter l&rsquo;exploit binaire</p></li>
 </ul>
 
-<h2 id="reconnaissance">Reconnaissance :</h2>
+<h2 id="reconnaissance">Reconnaissance</h2>
 
-<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">ici</a> !</p>
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">ici</a></p>
 
 <p>Ok, il prend un argument. Il en fait quoi ?</p>
 
@@ -379,7 +379,7 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p>Créer le pattern (schéma facilement reconnaissable qui va servir à comprendre quels registres sont atteignables par notre input), puis lancer le programme avec le pattern en paramètre.</p>
 
-<p>On voit ici que le crash survient sur l&rsquo;instruction ret (section code, petite flèche à gauche).</p>
+<p>On voit ici que le crash survient sur l&rsquo;instruction <code>ret</code> (section code, petite flèche à gauche).</p>
 
 <p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_run.png" alt="pattern_search" ></p>
 
@@ -387,17 +387,17 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_search.png" alt="pattern_search" ></p>
 
-<p>L&rsquo;analyse de la mémoire a retrouvé des morceaux de notre pattern à différents endroits, on voit donc que le RSP (Registre Stack Pointer) est à une distance de 40 bytes de notre début d&rsquo;input.</p>
+<p>L&rsquo;analyse de la mémoire a retrouvé des morceaux de notre pattern à différents endroits, on voit donc que le RSP (Registre Stack Pointer) est au 40ème byte de notre input.</p>
 
 <p>Mais nous savons déjà que le crash survient sur un ret. Ret est une instruction qui place le dernier élément de la pile dans RIP (Instruction Pointer) pour retourner au programme principal afin de poursuivre son exécution. Donc contrôler RSP avant un ret, c&rsquo;est contrôler RIP. Contrôler RIP, c&rsquo;est pouvoir détourner le flot d&rsquo;exécution du programme, et&hellip;</p>
 
-<p>Et c&rsquo;est gagné du coup ! ^~^</p>
+<p>Et c&rsquo;est gagné du coup ! <code>^~^</code></p>
 
 <p>Recherche du Shellcode :</p>
 
 <p>On sait maintenant à peu près où on va injecter. Ce qu&rsquo;il nous faut maintenant c&rsquo;est un shellcode, un bon, un vrai ! :D</p>
 
-<p>Petit tour sur shellstorm ou exploit-db, choisir la bonne architecture, &hellip;</p>
+<p>Petit tour sur <a href="http://shell-storm.org/shellcode/">shellstorm</a> ou <a href="https://www.exploit-db.com/">exploit-db</a>, choisir la bonne architecture, &hellip;</p>
 
 <p>Pour ma part il est fait maison, ou plutôt refait maison, car l&rsquo;idée générale reste la mêm : Placer les bons paramètres dans les registres, puis déclencher un syscall pour que le kernel exécute ce que l&rsquo;on veut, ici un shell.</p>
 
@@ -409,18 +409,18 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/shellcode.png" alt="shellcode" ></p>
 
-<pre><code>0  :  &quot;//bin/sh&quot; dans rax
+<pre><code>0  : &quot;//bin/sh&quot; dans rax
 A  : &quot;/bin/sh\x00&quot; dans rax
 E  : mettre rax en pile
 F  : rdi pointe vers la pile
-12 :  0 dans rax
+12 : 0 dans rax
 15 : 59 dans rax (execve)
 17 : 0 dans rsi
 1a : 0 dans rdx
-1d :  Initier le syscall
+1d : Initier le syscall
 </code></pre>
 
-<p>Ceci va donc exécuter /bin/sh à l&rsquo;aide du syscall de execve.</p>
+<p>Ceci va donc exécuter <code>/bin/sh</code> à l&rsquo;aide du syscall de execve.</p>
 
 <p>Les paramètres à utiliser sont trouvés à l&rsquo;aide de cette doc :<br />
 <a href="https://w3challs.com/syscalls/?arch=x86_64">https://w3challs.com/syscalls/?arch=x86_64</a></p>
@@ -429,7 +429,8 @@ F  : rdi pointe vers la pile
 
 <p>On veut donc arriver à mettre notre shellcode à un endroit connu, puis atteindre une taille de 40 bytes pour y placer l&rsquo;adresse du shellcode à exécuter. Yapluka !</p>
 
-<p>Notre payload (données envoyées lors de l&rsquo;attaque) aura donc la forme suivante : PADDING + SHELLCODE + ADRESSE_SHELLCODE</p>
+<p>Notre payload (données envoyées lors de l&rsquo;attaque) aura donc la forme suivante :<br />
+PADDING + SHELLCODE + ADRESSE_SHELLCODE</p>
 
 <p>Afin de trouver où se situent les données entrées par l&rsquo;utilisateur, dans gdb :</p>
 
@@ -460,7 +461,7 @@ shellcode += &quot;\xC0\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x0F\x05&quot;
 offset = 40
 count_A = offset - len(shellcode)
 padding = &quot;A&quot; * count_A
-addr_input = 0x7fffffffe570 # Depends on your OS
+addr_input = 0x7fffffffe570 # Dépend de votre OS
 addr_shellcode = addr_input + count_A
 log.info(&quot;Shellcode at 0x{:8x}&quot;.format(addr_shellcode))
 
@@ -470,11 +471,11 @@ save(payload, &quot;payload&quot;)
 log.success(&quot;Payload written&quot;)
 </code></pre>
 
-<p>Pour lancer l&rsquo;exploit, il n&rsquo;y a plus qu&rsquo;à donner le contenu du fichier exploit au programme en tant qu&rsquo;argument :</p>
+<p>Pour lancer l&rsquo;exploit, il n&rsquo;y a plus qu&rsquo;à donner son output au programme en tant qu&rsquo;argument :</p>
 
 <p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/run_exploit.png" alt="run_exploit" ></p>
 
-<p>Et BIM ! Spawned a shell ! \o/</p>
+<p>Et BIM ! Spawned a shell ! <code>\o/</code></p>
 
 <p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
 
@@ -486,9 +487,9 @@ log.success(&quot;Payload written&quot;)
 
 <p>Dans cet exemple, une erreur s&rsquo;est dissimulée, sauras tu la retrouver ?</p>
 
-<p>-[ SPOIL ]-</p>
+<p><em>-[ SPOIL ]-</em></p>
 
-<p>Ce shellcode contient des null-bytes (\x00 ou encore sentinelle, qui en C, désigne une fin de chaine de caractère) qui sont très mal gérés par bash. Si l&rsquo;argument avait été passé directement, bash l&rsquo;aurait coupé. Passer par un fichier permet de tout envoyer au programme, même les null-bytes. Mais ceci ne règle pas le problème en totalité. En effet, la fonction vulnérable ici est strcpy. Elle copie un string et s&rsquo;arrête à la première sentinelle (aka null-byte, aka \x00, aka 0x00, aka ShellCodeBreakerOfDoom). Notre exploit fonctionne quand même car ils apparaissent à la fin, et dans une adresse. Et nous collons cette adresse de stack sur&hellip; Une adresse de stack, donc les 0x00 dont déjà présents.</p>
+<p>Ce shellcode contient des null-bytes (<code>\x00</code>, sentinelle qui en C, désigne une fin de chaine de caractère) qui sont très mal gérés par bash. Si l&rsquo;argument avait été passé directement, bash l&rsquo;aurait coupé. Passer par un fichier permet de tout envoyer au programme, même les null-bytes. Mais ceci ne règle pas le problème en totalité. En effet, la fonction vulnérable ici est strcpy. Elle copie un string et s&rsquo;arrête à la première sentinelle (aka null-byte, aka 0x00, aka ShellCodeBreakerOfDoom). Notre exploit fonctionne quand même car ils apparaissent à la fin de notre payload en tant qu&rsquo;adresse. Et nous collons cette adresse de stack sur&hellip; Une adresse de stack, donc les 0x00 dont déjà présents.</p>
 
 <p>Réflexion : Comment corriger le shellcode pour qu&rsquo;il n&rsquo;utilise plus de null-byte ?</p>
 
@@ -496,7 +497,7 @@ log.success(&quot;Payload written&quot;)
 <li>Remarque 2</li>
 </ul>
 
-<p>Cet exemple est limité car la taille disponible pour l&rsquo;overflow est très petite. Cela suffit pour pop un shell, mais pas pour bien plus. De plus, cet espace étant près des adresses utilisées, il est possible qu&rsquo;il soit altéré durant l&rsquo;exécution. Embêtant non ?</p>
+<p>Cet exemple est limité car la taille disponible avant l&rsquo;EIP est très petite. Cela suffit pour pop un shell, mais pas pour bien plus. De plus, cet espace étant près des adresses utilisées, il est possible qu&rsquo;il soit altéré durant l&rsquo;exécution. Embêtant non ?</p>
 
 <p>Réflexion : Comment utiliser un shellcode de taille arbitrairement longue ?</p>
 
@@ -506,20 +507,20 @@ log.success(&quot;Payload written&quot;)
 
 <p>Cet exemple ne fonctionne que si l&rsquo;ASLR est désactivé car il dépend fortement de la pile. Il existe de nombreuses facons de contourner l&rsquo;ASLR&hellip; Suite dans les prochains articles&hellip; Au compte goutte ! :D</p>
 
-<p>Mais&hellip; Tu as lu jusqu&rsquo;ici ? Chapal l&rsquo;ami !</p>
+<p>Comment ? Tu as lu jusqu&rsquo;ici ? Chapal l&rsquo;ami !</p>
 
 <p>T&rsquo;es un magicien, maintenant ! Ou presque&hellip; ;)</p>
 
 <p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/blair.png" alt="blair" ></p>
 
-<p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. N&rsquo;hésitez pas à m&rsquo;indiquer les coquilles trouvées, détails manquants etc&hellip; ^.^</p>
+<p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. Vos retours sont donc bienvenus pour toute coquille trouvée, détail manquant, erreur, &hellip; <code>^.^</code></p>
 
 <ul>
-<li>Hints :</li>
+<li>Hints</li>
 </ul>
 
 <p>-Utiliser des&hellip; Xor ? Add ? Sub ? Autre ?<br />
--Variables d&rsquo;environnement ? Ordre padding / payload dans l&rsquo;exploit ?</p>
+-Variables d&rsquo;environnement ? Ordre du padding et du shellcode dans notre payload?</p>
 
 <p>En espérant que ce premier pas dans le monde du pwn vous ait plu,</p>
 

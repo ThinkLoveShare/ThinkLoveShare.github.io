@@ -90,7 +90,7 @@ Au programme, le ret2libc, ou retour à la lib C.</description>
       <description>Petit ajout après la publication des articles :
 Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
  
-printf(&amp;ldquo;Mme, Mr %s, bonjour. &amp;ldquo;, lecteur); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</description>
+printf(&amp;ldquo;Dear %s, welcome. &amp;ldquo;, reader); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</description>
     </item>
     
     <item>
