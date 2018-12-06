@@ -208,9 +208,9 @@ Share</a>
 
 <h2 id="le-ret2libc-pourquoi">Le ret2libc&hellip; Pourquoi ?</h2>
 
-<p>Dans le premier article, nous avons injecté un shellcode dans la stack, et nous avons utilisé le buffer overflow pour rediriger le flot d&rsquo;exécution sur notre shellcode, ceci nous permettant de spawn un shell. C&rsquo;était bien, c&rsquo;était un peu tricky, mais c&rsquo;était&hellip; C&rsquo;est&hellip; Plus aussi facilement réalisable de nos jours. Triste n&rsquo;est-il pas ?</p>
+<p>Dans le premier article, nous avons injecté un shellcode dans la stack, et nous avons utilisé le buffer overflow pour rediriger le flot d&rsquo;exécution sur notre shellcode, ceci nous permettant de spawn un shell. C&rsquo;était bien, c&rsquo;était un peu tricky, mais c&rsquo;était&hellip; Fonctionnel ? Ce n&rsquo;est malheureusement plus aussi facilement réalisable de nos jours. Triste n&rsquo;est-il pas ?</p>
 
-<p>En effet, à chaque faille de sécurité, de nouvelles protections sont élaborées et ajoutées aux systèmes. L&rsquo;une des protections trouvée contre cette attaque est l&rsquo;usage d&rsquo;un flag NX placé sur la pile. Cela rend la stack non exécutable. Ou, pour être un plus précis, cela rend la stack inscriptible XOR exécutable. Si vous écrivez à un endroit, il ne sera pas exécutable, si vous exécutez du code à un endroit, il n&rsquo;est plus possible d&rsquo;y écrire&hellip; Damnit !</p>
+<p>En effet, à chaque faille de sécurité, de nouvelles protections sont élaborées et ajoutées aux systèmes. L&rsquo;une des protections trouvée contre cette attaque est l&rsquo;usage d&rsquo;un flag NX placé sur la pile. Cela rend la stack non exécutable. Damnit !</p>
 
 <p><img class="img_med" src="/hacking/pwn_2of4_ret2libc/mince.jpg" alt="mince" ></p>
 
@@ -221,7 +221,7 @@ Share</a>
 <p>Un programme en C ne sait pas faire grand-chose, très peu en fait. Nous faisons dans un programme appel à des fonctions qui &ldquo;font de la magie&rdquo;, et ce sans trop réfléchir à ce qu&rsquo;il y a dessous.</p>
 
 <p>Par exemple, la fonction printf qui nous permet d&rsquo;afficher du texte. La fonction getc qui nous permet de lire un caractère saisi par l&rsquo;utilisateur. Ou encore&hellip; La fonction system, qui nous permet d&rsquo;exécuter un programme externe au notre. Toutes ces fonctions sont accessibles dans notre programme, nous les utilisons sans jamais avoir eu la curiosité (ni même l&rsquo;envie ? ) de regarder leur contenu ou de les recoder. Tant mieux, elles sont déjà faites, et placées dans la&hellip; <br />
-<em>roulement de tambours&hellip;</em> <strong>libc</strong> !</p>
+<em>roulement de tambours&hellip;</em>\ <strong>libc</strong> !</p>
 
 <p>Petite ref au man : <a href="http://man7.org/linux/man-pages/man7/libc.7.html">http://man7.org/linux/man-pages/man7/libc.7.html</a></p>
 
@@ -237,7 +237,7 @@ Share</a>
 
 <p>La stack n&rsquo;est pas exécutable ? Duh&hellip; La libc, elle, est présente, contient des fonctions intéressantes, et est exécutable. Plus qu&rsquo;à sauter dessus, sens propre comme figuré !</p>
 
-<p>On va donc placer dans la stack les arguments qui nous intéressent (les passages d&rsquo;arguments se font ici par la stack) ainsi que détourner à nouveau le flot d&rsquo;exécution du programme pour lui faire exécuter la fonction system (il y a pleinnnnn de variantes, mais ca reste le plus classique / efficace).</p>
+<p>On va donc placer dans la stack les arguments qui nous intéressent (les passages d&rsquo;arguments se font ici par la stack, x86-64 conventions) ainsi que détourner à nouveau le flot d&rsquo;exécution du programme pour lui faire exécuter la fonction system (il y a pleinnnnn de variantes, mais ca reste le plus classique).</p>
 
 <p>Remarque :</p>
 
@@ -245,9 +245,9 @@ Share</a>
 
 <h2 id="le-ret2libc-comment">Le ret2libc&hellip; Comment ?</h2>
 
-<p>Les bases sont posées, maintenant, walkthrough !</p>
+<p>Les bases sont posées, maintenant, le walkthrough !</p>
 
-<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_2of4_ret2libc/vuln">ici</a> !</p>
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_2of4_ret2libc/vuln">ici</a></p>
 
 <p>On commence par comprendre comment le programme fonctionne (ou ne fonctionne pas&hellip;), trouver le point de crash :</p>
 
@@ -256,18 +256,18 @@ Share</a>
 <p>Remarque :</p>
 
 <ul>
-<li><p><code>$(commande)</code> : permet de faire exécuter en priorité la commande &ldquo;pouet&rdquo;.</p></li>
+<li><p><code>$(cmd)</code> : permet de faire exécuter en priorité la commande cmd.</p></li>
 
-<li><p><code>python -c &quot;commande&quot;</code> : permet d&rsquo;exécuter du python via bash. Donc afficher facilement plein de caractères.</p></li>
+<li><p><code>python -c &quot;code&quot;</code> : permet d&rsquo;exécuter du code python via bash. Donc afficher facilement plein de caractères.</p></li>
 </ul>
 
-<p>On crash. Bien ca, excellent ! Maintenant, l&rsquo;offset, avec le tool pattern dans gdb :</p>
+<p>On crash. Bien ca, excellent ! Maintenant, l&rsquo;offset, avec le tool <code>pattern</code> dans gdb-peda :</p>
 
 <p><img class="img_full" src="/hacking/pwn_2of4_ret2libc/pattern_create.png" alt="pattern_create" ></p>
 
-<p>Je vais expliquer un peu mieux le prochain screen, car il vous a (cf vos retours, merciii !) fait assez mal&hellip;</p>
+<p>Je vais expliquer un peu mieux le prochain screenshot, car il vous a pas mal embêté (cf vos retours, merciii !)</p>
 
-<p>L&rsquo;affichage est découpé en trois parties :</p>
+<p>Le terminal est découpé en trois parties :</p>
 
 <ul>
 <li><p>Registers : Ce que contiennent les différents registres au moment où le programme s&rsquo;arrête, ici par un crash.</p></li>
@@ -289,7 +289,7 @@ Share</a>
 
 <p>-&gt; &ldquo;A&rdquo; * offset<br />
 -&gt; Là où on veut sauter (system)<br />
--&gt; Là où le programme retournera après la fonction<br />
+-&gt; Là où le programme retournera après l&rsquo;appel de fonction<br />
 -&gt; Argument(s) de la fonction utilisée</p>
 
 <p>Il nous manque donc l&rsquo;adresse de system, et de notre paramètre.</p>
@@ -302,12 +302,13 @@ Share</a>
 $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 </code></pre>
 
-<p>La première, plus simple mais aussi pas toujours fiable, via gdb / peda (gdb désactive par défaut l&rsquo;ASLR lors du débuggage) :</p>
+<p>La première, plus simple mais aussi pas toujours fiable, via gdb / peda (attention, gdb désactive par défaut l&rsquo;ASLR lors du débuggage) :</p>
 
-<p><img class="img_full" src="/hacking/pwn_2of4_ret2libc/break_main.png" alt="break_main" >
-<img class="img_full" src="/hacking/pwn_2of4_ret2libc/print_system.png" alt="print_system" ></p>
+<p><img class="img_full" src="/hacking/pwn_2of4_ret2libc/break_main.png" alt="break_main" ></p>
 
-<p>Il est important de mettre un breakpoint (point d&rsquo;arrêt logiciel, une manière de mettre le programme en pause pour voir par exemple l&rsquo;état de ses registres, puis continuer son exécution ultérieurement) en début de programme et de le lancer avant de faire notre recherche, car il est nécessaire que la libc ait été résolue (attachée / linkée). Dans le cas contraire, on ne voit rien, ni system, ni &ldquo;/bin/sh&rdquo;, ce string étant gentiment caché dans la libc.</p>
+<p><img class="img_full" src="/hacking/pwn_2of4_ret2libc/print_system.png" alt="print_system" ></p>
+
+<p>Il est important de mettre un breakpoint (point d&rsquo;arrêt logiciel, une manière de mettre le programme en pause pour voir par exemple l&rsquo;état de ses registres, puis continuer son exécution ultérieurement) en début de programme et de le lancer avant de faire notre recherche, car il est nécessaire que la libc ait été résolue (attachée / linkée). Dans le cas contraire, on ne voit rien, ni system, ni &ldquo;/bin/sh&rdquo;, ce string étant gentiment placée dans la libc.</p>
 
 <p>Deuxième solution, un peu moins simple mais tellement plus fiable / évolutive :</p>
 
@@ -319,19 +320,19 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 <li>Etape 1 :</li>
 </ul>
 
-<p>ldd affiche les dépendances partagées d&rsquo;un programme. Ici, (entre autre), la libc et son offset. En statique il ne bouge pas, en dynamique, il changera à chaque commande.</p>
+<p>ldd affiche les dépendances partagées d&rsquo;un programme. Ici, (entre autre), la libc et son offset. Sans ASLR il ne change pas, avec, il changera à chaque commande.</p>
 
 <ul>
 <li>Etape 2 :</li>
 </ul>
 
-<p>readelf, qui nous permet d&rsquo;analyser le contenu de la libc, qui est un ELF, mais aussi une librairie partagée. Option -a pour lire tout le contenu, et mettre à l&rsquo;aide d&rsquo;un pipe &ldquo; | &rdquo; toute les lignes analysées dans grep, qui va rechercher les lignes contenant le mot system. On récupère celle qui nous intéresse : 0x0003c7d0, donc l&rsquo;offset de system dans la libc.</p>
+<p>readelf, nous permet d&rsquo;analyser le contenu de la libc, qui est un ELF, mais aussi une librairie partagée. Option <code>-a</code> pour lire tout le contenu, et mettre à l&rsquo;aide d&rsquo;un pipe <code>|</code> toute les lignes analysées dans grep, qui va rechercher les lignes contenant le mot system. On récupère celle qui nous intéresse : 0x0003c7d0, donc l&rsquo;offset de system dans la libc.</p>
 
 <ul>
 <li>Etape 3 :</li>
 </ul>
 
-<p>On cherche &ldquo;/bin/sh&rdquo; dans la libc. -b pour avoir l&rsquo;offset en byte, -o pour n&rsquo;avoir que le mot recherché et non la ligne, et -a pour activer l&rsquo;analyse en mode binaire. On obtient donc en décimal l&rsquo;offset de &ldquo;/bin/sh&rdquo; dans la libc.</p>
+<p>On cherche <code>/bin/sh\x00</code> dans la libc. <code>-b</code> pour avoir l&rsquo;offset en byte, <code>-o</code> pour n&rsquo;avoir que le mot recherché et non la ligne, et <code>-a</code> pour activer l&rsquo;analyse en mode binaire. On obtient donc en décimal l&rsquo;offset de <code>/bin/sh</code> dans la libc.</p>
 
 <ul>
 <li>Etape 4 :</li>
@@ -341,7 +342,7 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p><img class="img_med" src="/hacking/pwn_2of4_ret2libc/mind_blown.gif" alt="mind_blown" ></p>
 
-<p>On a donc récupéré les adresses de system et de &ldquo;/bin/sh&rdquo; pour faire exécuter un shell. Nickel ! :D</p>
+<p>On a donc récupéré les adresses de system et de <code>/bin/sh</code> pour faire exécuter un shell. Nickel ! :D</p>
 
 <p>Maintenant qu&rsquo;on a tout ce qu&rsquo;il nous faut, on écrit notre exploit :</p>
 

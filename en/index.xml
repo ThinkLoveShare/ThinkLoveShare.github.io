@@ -74,7 +74,11 @@ Pwn Road, third stop, welcome aboard! Yesterday, the simple buffer overflow and 
       <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
-      <description> Translation coming soon ! =] </description>
+      <description>Small edit after the initial publication of the articles:
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+ 
+Welcome to this 2nd article dedicated to pwning linux executables!
+On the list today, the ret2libc, or return to lib C.</description>
     </item>
     
     <item>
