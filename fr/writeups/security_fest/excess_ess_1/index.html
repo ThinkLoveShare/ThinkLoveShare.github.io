@@ -24,10 +24,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Excess ess 1"/>
-<meta name="twitter:description" content="Un challnge web sur a sur une XSS, résolu pendant le SecurityFest CTF 2018. Il s&#39;agit de trouver un bypass pour exécuter la fonction alert après qu&#39;elle ait été supprimée."/>
+<meta name="twitter:description" content="Un challenge web sur une XSS, résolu pendant le SecurityFest CTF 2018. Il s&#39;agit de trouver un bypass pour exécuter la fonction alert après qu&#39;elle ait été supprimée."/>
 
 <meta property="og:title" content="Excess ess 1" />
-<meta property="og:description" content="Un challnge web sur a sur une XSS, résolu pendant le SecurityFest CTF 2018. Il s&#39;agit de trouver un bypass pour exécuter la fonction alert après qu&#39;elle ait été supprimée." />
+<meta property="og:description" content="Un challenge web sur une XSS, résolu pendant le SecurityFest CTF 2018. Il s&#39;agit de trouver un bypass pour exécuter la fonction alert après qu&#39;elle ait été supprimée." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.github.io/fr/writeups/security_fest/excess_ess_1/" /><meta property="article:published_time" content="2018-06-04T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-06-04T00:00:00&#43;00:00"/>
@@ -212,7 +212,7 @@ Share</a>
 
 <p><img class="img_full" src="/writeups/security_fest/prompt.png" alt="prompt" ></p>
 
-<p>Tout ce qu&rsquo;on a en retour, c&rsquo;est un prompt. La raison de ce comportement est qu&rsquo;un script est chargé et exécuté avant notre notre payload. En récupérerant son contenu on comprend que la fonction alert a été remplacée par la fonction prompt&hellip;..</p>
+<p>Tout ce qu&rsquo;on a en retour, c&rsquo;est un prompt. La raison de ce comportement est qu&rsquo;un script est chargé et exécuté avant notre payload. En récupérerant son contenu on comprend que la fonction alert a été remplacée par la fonction prompt&hellip;..</p>
 
 <p><img class="img_full" src="/writeups/security_fest/ascii_art.png" alt="ascii_art" ></p>
 
@@ -220,9 +220,9 @@ Share</a>
 
 <h2 id="le-bypass">Le bypass</h2>
 
-<p>J&rsquo;ai vu il y a quelques mois une vidéo de LiveOverflow à ce sujet. Il s&rsquo;agissait de reverser d&rsquo;un module de pop-under javascript qui aide des b*t*rds à faire apparaître des publicités sous notre fenêtre actuelle, pour que cela nous prenne plus de temps à réaliser et  fermer, leuf faisant ainsi gagner plus d&rsquo;argent. Meh.</p>
+<p>J&rsquo;ai vu il y a quelques mois une vidéo de LiveOverflow à ce sujet. Il s&rsquo;agissait de reverse un module de pop-under javascript qui aide des b*t*rds à faire apparaître des publicités sous notre fenêtre actuelle, pour que cela nous prenne plus de temps à réaliser et  fermer, leur faisant ainsi gagner plus d&rsquo;argent. Meh.</p>
 
-<p>Plusieurs des fonctions nécessaire aux attaquants pour faire apparaître la fenêtre en dessous de celle en cours d&rsquo;utilisation étaient blacklistées, ils ont donc crée une iframe (En gros, une nouveau page web dans la fenêtre actuelle). La création de l&rsquo;iframe offre un nouveau contexte, récupère toutes les fonctions principales pour être sûr que le site qui sera chargé dans ce cadre sera fonctionnel. Gràce à cela, nous retrouvons aussi la fonction alert. Nous pouvons alors soit réassigner notre fonction d&rsquo;alerte, soit simplement l&rsquo;appeler depuis l&rsquo;iframe ! N&rsquo;est-ce pas magnifique ? =D</p>
+<p>Plusieurs des fonctions nécessaires aux attaquants pour faire apparaître la fenêtre en dessous de celle en cours d&rsquo;utilisation étaient blacklistées, ils ont donc créé une iframe (En gros, une nouvelle page web dans la fenêtre actuelle). La création de l&rsquo;iframe offre un nouveau contexte, récupère toutes les fonctions principales pour être sûr que le site qui sera chargé dans ce cadre sera fonctionnel. Gràce à cela, nous retrouvons aussi la fonction alert. Nous pouvons alors soit réassigner notre fonction d&rsquo;alerte, soit simplement l&rsquo;appeler depuis l&rsquo;iframe ! N&rsquo;est-ce pas magnifique ? =D</p>
 
 <h2 id="la-solution">La solution</h2>
 
@@ -245,13 +245,13 @@ document.getElementsByClassName('container')[0].appendChild(i);//
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Utiliser un système de blacklist est (la plupart du temps) une mauvaise idée, en particulier avec javascipt / python / SQL / &hellip;. parce qu&rsquo;il y a tellement de façons de contourner les mots-clés bloqués, éditer ou recréer des objets et fonctions facilement, que ce type de sandboxing / protection n&rsquo;est pas assez efficace.</p>
+<p>Utiliser un système de blacklist est (la plupart du temps) une mauvaise idée, en particulier avec javascript / python / SQL / &hellip;. parce qu&rsquo;il y a tellement de façons de contourner les mots-clés bloqués, éditer ou recréer des objets et fonctions facilement, que ce type de sandboxing / protection n&rsquo;est pas assez efficace.</p>
 
 <p>Même si ce trick n&rsquo;est pas nouveau pour moi, je n&rsquo;ai jamais eu l&rsquo;occasion de l&rsquo;utiliser avant, donc c&rsquo;était plutôt cool de l&rsquo;essayer par moi-même et de réaliser qu&rsquo;il est efficace, facile à utiliser et amusant !</p>
 
 <p>Plus tard au cours de ce CTF, une deuxième version de ce défi a été publiée, &ldquo;Excess Ess 2&rdquo;. J&rsquo;y ai passé quelques heures. Nous contrôlions les champs dans une balise meta, mais pas leur contenu. Si vous connaissez un moyen d&rsquo;exploiter un XSS dans une balise meta, avec un contrôle partiel, sans utiliser <code>&lt;&gt;</code> pour créer une nouvelle entity, et sans écraser l&rsquo;attribut content, dites-le moi, je serai ravi de le savoir !</p>
 
-<p>En espérant que vous ayiez aimé ce write-up,<br />
+<p>En espérant que vous ayez aimé ce write-up,<br />
 Passez une bonne journée ! ^.^</p>
 
   </div>
