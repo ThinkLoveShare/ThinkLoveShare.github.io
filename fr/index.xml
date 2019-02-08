@@ -9,10 +9,19 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 09 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/fr/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>New York, Datadog et moi - Semaine 1</title>
+      <link>https://thinkloveshare.github.io/fr/travels/new_york_datadog_et_moi_semaine_1/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/fr/travels/new_york_datadog_et_moi_semaine_1/</guid>
+      <description>Avant de commencer&amp;hellip; Vous avez été beaucoup (je ne m&amp;rsquo;attendais pas à tant pour être honnête) à me demander des nouvelles. J&amp;rsquo;aimerais vraiment passer des heures à parler avec chacun d&amp;rsquo;entre vous, mais avec tout ce que j&amp;rsquo;ai à gérer pendant la première semaine (inscriptions à l&amp;rsquo;administration, ouverture de compte bancaire, trouver des repères, commencer à travailler, me socialiser un peu, récupérer un peu de sommeil, &amp;hellip;) et le fait que je n&amp;rsquo;ai pas encore le bon forfait téléphonique.</description>
+    </item>
     
     <item>
       <title>Migration de ThinkLoveShare</title>
