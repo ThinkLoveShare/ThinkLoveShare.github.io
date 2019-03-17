@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.github.io/fr/travels/new_york_datadog_et_moi_semaine_3_a_6/</loc>
+    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/travels/new_york_datadog_and_i_week_3_to_6/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/travels/new_york_datadog_et_moi_semaine_3_a_6/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/fr/travels/new_york_datadog_et_moi_semaine_2/</loc>
     <lastmod>2019-02-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -277,7 +292,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/fr/</loc>
-    <lastmod>2019-02-16T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -293,7 +308,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/fr/travels/</loc>
-    <lastmod>2019-02-16T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
