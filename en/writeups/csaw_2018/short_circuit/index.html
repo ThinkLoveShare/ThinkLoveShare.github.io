@@ -17,21 +17,21 @@
     
     
 
-<title>Excess ess 1 • Think
+<title>CSAW - Short Circuit • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Excess ess 1"/>
-<meta name="twitter:description" content="A web challenge about XSS solved during the 2018 SecurityFest CTF. It&#39;s all about finding a bypass in order to execute the &#39;removed&#39; function alert."/>
+<meta name="twitter:title" content="CSAW - Short Circuit"/>
+<meta name="twitter:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. "/>
 
-<meta property="og:title" content="Excess ess 1" />
-<meta property="og:description" content="A web challenge about XSS solved during the 2018 SecurityFest CTF. It&#39;s all about finding a bypass in order to execute the &#39;removed&#39; function alert." />
+<meta property="og:title" content="CSAW - Short Circuit" />
+<meta property="og:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.github.io/en/writeups/security_fest/excess_ess_1/" />
-<meta property="article:published_time" content="2018-06-04T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-06-04T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://thinkloveshare.github.io/en/writeups/csaw_2018/short_circuit/" />
+<meta property="article:published_time" content="2018-09-16T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-09-16T00:00:00&#43;00:00"/>
 
 
     
@@ -173,9 +173,9 @@ Share</a>
     </p>
     <div class="langSection">
     
-    <a rel="alternate" href="/en/writeups/security_fest/excess_ess_1/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    <a rel="alternate" href="/en/writeups/csaw_2018/short_circuit/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     
-    <a rel="alternate" href="/fr/writeups/security_fest/excess_ess_1/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    <a rel="alternate" href="/fr/writeups/csaw_2018/short_circuit/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2019 Laluka.
@@ -191,15 +191,15 @@ Share</a>
             
     <article>
   <header>
-    <h1>Excess ess 1</h1>
+    <h1>CSAW - Short Circuit</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Jun 4, 2018
+      <i class="fas fa-calendar-alt"></i> Sep 16, 2018
     
     
-    <i class="fas fa-clock"></i> 3 min read
+    <i class="fas fa-clock"></i> 1 min read
     <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
@@ -213,71 +213,57 @@ Share</a>
   <div class="post">
     
 
-<p>This challenge is called &ldquo;Excess Ess 1&rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&rsquo;s edition of the SecurityFest CTF.</p>
+<h3 id="description">Description</h3>
 
-<h2 id="the-goal">The goal</h2>
+<blockquote>
+<p>Start from the monkey&rsquo;s paw and work your way down the high voltage line,
+for every wire that is branches off has an element that is either on or off.
+Ignore the first bit. Standard flag format.</p>
 
-<p>Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&rsquo;s exactly what we&rsquo;re asked to do. So we first feed a simple word to see if it&rsquo;s reflected in the webpage. We do so and see that the keyword is reflected as a variable content in our page.</p>
+<p>-Elyk</p>
+</blockquote>
 
-<p><img class="img_full" src="/writeups/security_fest/recon.png" alt="recon" ></p>
+<h3 id="tl-dr">TL;DR</h3>
 
-<p>The next step is to force the page to execute code. I try this using the console.log function after closing the first variable affectation, and commenting what comes afterward. I try (cf the URL), and yup ! It logs 3, so we can execute javascript !</p>
+<p>This challenge consists in the analysis of a lovely electronic scheme.<br />
+It is composed of diodes, wires, wires, wires and wires.<br />
+The goal is to extract bits of data from the circuit.</p>
 
-<p><img class="img_full" src="/writeups/security_fest/inject.png" alt="inject" ></p>
+<p>The task was not really hard, but if you have a bad sight, you&rsquo;re gonna have a bad time.</p>
 
-<h2 id="the-protection">The protection</h2>
+<h3 id="methology">Methology</h3>
 
-<p>Next step, we try to use the alert(1) payload to validate the challenge, but : Uh Oh !</p>
+<p>Few things to know, here are the keys :</p>
 
-<p><img class="img_full" src="/writeups/security_fest/prompt.png" alt="prompt" ></p>
+<ul>
+<li>If a diode is attached to VCC on its flat side and 0 (aka GND) on its pointy side, it&rsquo;ll be <strong>ON</strong></li>
+<li>If it&rsquo;s the opposite, it&rsquo;ll be <strong>OFF</strong> (yup, direction matters !)</li>
+<li>If the input and output are attached to the same wire, it&rsquo;s <strong>OFF</strong></li>
+</ul>
 
-<p>All we have is a prompt. The reason of this behavior is that a script is loaded and executed before our payload. We can fetch its content and we understand that the alert function has been override with the prompt function&hellip;</p>
+<p><img class="img_full" src="/writeups/csaw_2018/short_circuit/paper.png" alt="paper" ></p>
 
-<p><img class="img_full" src="/writeups/security_fest/ascii_art.png" alt="ascii_art" ></p>
+<p>By using these rules, we extract the bits one by one, with our eyes glitching hard, and we obtain :</p>
 
-<p>So.. We don&rsquo;t have it anymore ? How to use it then ?</p>
+<p><code>01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101</code></p>
 
-<h2 id="the-bypass">The bypass</h2>
-
-<p>I saw few months ago a video from LiveOverflow. It was about the reverse-engineering of a pop-under javascript module that helps f*ckers to pop annoying ads under your current window, so it takes you more time to realize it and close it.</p>
-
-<p>Many of the functions they wanted to use to pop / place the window under were blacklisted, so they created an iframe (Long story short, a new frame / window in the current window). The creation of the iframe offers a brand new context, rebinds all the main functions to be sure that the site that&rsquo;ll be loaded in the new iframe will be functional. But doing so, we also regain the alert function. We can then either reassign our alert function, or just call it from the iframe ! Isn&rsquo;t it great ? =D</p>
-
-<h2 id="the-solution">The solution</h2>
-
-<pre><code class="language-html">/?xss='; &lt;!-- Escape out payload --&gt;
-</code></pre>
-
-<pre><code class="language-javascript">i = document.createElement(&quot;iframe&quot;);
-i.onload=function(){
-    i.contentWindow.alert(1);
-};
-document.getElementsByClassName('container')[0].appendChild(i);//
-</code></pre>
-
-<p>So the final payload submited was :</p>
-
-<pre><code class="language-html">http://xss1.alieni.se:2999/?xss=';i=document.createElement(&quot;iframe&quot;);i.onload=function(){i.contentWindow.alert(1);};document.getElementsByClassName('container')[0].appendChild(i);//
-</code></pre>
-
-<p><img class="img_full" src="/writeups/security_fest/alert.png" alt="alert" ></p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Using a blacklist system is (most of the time) a bad idea, especially with javascipt / python / SQL / &hellip; because there are so many ways to bypass blocked keywords, edit or recreate objects and functions easily, that this kind of sandboxing / protection is definitely not effective enough.</p>
-
-<p>Even if this trick isn&rsquo;t new to me, I never had to use it before, so it was quite cool to try it by my own and realize that it&rsquo;s a really easy and fun trick to use !</p>
-
-<p>Later during this CTF, a second version of this challenge has been released, &ldquo;Excess Ess 2&rdquo;. I&rsquo;ve spent few hours on it. We were controlling fields in a meta tag, but not the content part. If you&rsquo;re aware of a way to exploit an XSS in a meta tag, without the content field, without &lt;&gt; to create a new entity, or a way to overwrite the content attribute, please tell me, I&rsquo;ll be glad to know !</p>
-
-<p>I hope you liked this write-up,<br />
-Have a great day ! ^.^</p>
+<p>Once decoded : <strong>flag{owmyhand}</strong></p>
 
   </div>
   
 
 <div class="post--navigation post--navigation-single">
     
+    <a href="/en/writeups/security_fest_2018/excess_ess_1/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Security Fest - Excess ess 1</span>
+    </a>
+    
+    
+    <a href="/en/writeups/csaw_2018/shell_code/" class="post--navigation-next">
+      <span class="navigation-tittle">CSAW - Shell-&gt;Code</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
     
 </div>
 
