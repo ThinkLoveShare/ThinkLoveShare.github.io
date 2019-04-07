@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.github.io/en/coding/a_linux_caca_story/</loc>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/coding/a_linux_caca_story/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/coding/a_linux_caca_story/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/en/travels/new_york_datadog_and_i_week_3_to_6/</loc>
     <lastmod>2019-03-16T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -289,7 +304,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/en/coding/</loc>
-    <lastmod>2018-12-09T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -352,7 +367,7 @@
   
   <url>
     <loc>https://thinkloveshare.github.io/en/</loc>
-    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"

@@ -9,10 +9,20 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 16 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/fr/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Une histoire de linux et de caca</title>
+      <link>https://thinkloveshare.github.io/fr/coding/a_linux_caca_story/</link>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/fr/coding/a_linux_caca_story/</guid>
+      <description>La cause initiale Here&amp;rsquo;s the thing, I was doing some cleaning in my computer&amp;rsquo;s home directory after solving some hacking challenge. To see what kind of files where still present I ran the command ta, which is aliased (in my system) to the following function.
+Voilà l&amp;rsquo;idée, je faisais un peu de nettoyage dans le répertoire home de mon ordinateur après avoir résolu un challenge de hacking. Pour voir quels types de fichiers étaient encore présents, j&amp;rsquo;ai utilisé la commande ta, qui est aliasée (dans mon système) à la fonction suivante.</description>
+    </item>
     
     <item>
       <title>New York, Datadog et moi - Semaine 3 à 6</title>
