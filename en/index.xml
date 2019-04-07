@@ -151,7 +151,7 @@ The goal Most of the time, to prove that an XSS is possible, the hacker provides
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
       <description>Small edit after the initial publication of the articles:
-These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Pwn Road, last introductory article! I promised you some heavy stuff for the final, and what is said, is due!</description>
     </item>
     
@@ -162,7 +162,7 @@ These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; co
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</guid>
       <description>Small edit after the initial publication of the articles:
-These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Pwn Road, third stop, welcome aboard! Yesterday, the simple buffer overflow and ret2libc, today, ROP, or Return Oriented Programming, and tomorrow&amp;hellip; Tomorrow the conquest of the world!</description>
     </item>
     
@@ -173,7 +173,7 @@ These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; co
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
       <description>Small edit after the initial publication of the articles:
-These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Welcome to this 2nd article dedicated to pwning linux executables!
 On the list today, the ret2libc, or return to lib C.</description>
     </item>
@@ -185,7 +185,7 @@ On the list today, the ret2libc, or return to lib C.</description>
       
       <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
       <description>Small edit after the initial publication of the articles:
-These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadablehere and the video (French only) here :
+These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    printf(&amp;ldquo;Mr, Ms %s, bonjour. &amp;ldquo;, lecteur); Today, I want to offer you an article more sophisticated than usual, the first of new kind, an article dealing with heavy stuff, in short, an article that blows ass!</description>
     </item>
     
