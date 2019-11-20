@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coding on Think
+Love
+Share</title>
+    <link>https://thinkloveshare.github.io/en/coding/</link>
+    <description>Recent content in Coding on Think
+Love
+Share</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkloveshare.github.io/en/coding/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A linux caca story</title>
+      <link>https://thinkloveshare.github.io/en/coding/a_linux_caca_story/</link>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/coding/a_linux_caca_story/</guid>
+      <description>The root cause Here&amp;rsquo;s the thing, I was doing some cleaning in my computer&amp;rsquo;s home directory after solving some hacking challenge. To see what kind of files where still present I ran the command ta, which is aliased (in my system) to the following function.
+ta () { tree -ah &amp;quot;$@&amp;quot; | lolcat; }  It lists my files recursively, showing hidden files and putting some neat rainbow colors at the same time.</description>
+    </item>
+    
+    <item>
+      <title>ThinkLoveShare&#39;s migration</title>
+      <link>https://thinkloveshare.github.io/en/coding/website_migration/</link>
+      <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/coding/website_migration/</guid>
+      <description>Why changing ? I used to write from time to time on thinkloveshare.blogspot.com which will soon be retired, replaced by thinkloveshare.com. I decided to change for quite a few reasons, here&amp;rsquo;s the story:
+ Code format  There was no easy way to display code snippets. I could have added some js beautifier / pretty printers, but I lacked time, so instead of that was just putting screenshots which is&amp;hellip; Probably the worst choice possible&amp;hellip; =]</description>
+    </item>
+    
+  </channel>
+</rss>

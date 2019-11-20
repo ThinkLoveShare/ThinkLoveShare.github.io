@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.52" />
+
+    
+    
+    
+
+<title>A linux caca story • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A linux caca story"/>
+<meta name="twitter:description" content="A few days ago, I realized that some &#39;libcaca.so&#39; file was present in my linux filesystem. As caca means poop in French and I&#39;m pretty immature, I investigated. What I found was... Wonderful. "/>
+
+<meta property="og:title" content="A linux caca story" />
+<meta property="og:description" content="A few days ago, I realized that some &#39;libcaca.so&#39; file was present in my linux filesystem. As caca means poop in French and I&#39;m pretty immature, I investigated. What I found was... Wonderful. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/en/coding/a_linux_caca_story/" /><meta property="article:published_time" content="2019-04-06T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-06T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//en">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//en">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//en">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/en/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/en/coding/a_linux_caca_story/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/fr/coding/a_linux_caca_story/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>A linux caca story</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Apr 6, 2019
+    
+    
+    <i class="fas fa-clock"></i> 4 min read
+    <i class="fas fa-globe"></i> original<br/>
+    <i class="fas fa-heart"></i>
+    
+    Any typos? Any idea to suggest? Feedback appreciated!
+    <i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<h2 id="the-root-cause">The root cause</h2>
+
+<p>Here&rsquo;s the thing, I was doing some cleaning in my computer&rsquo;s home directory after solving some hacking challenge. To see what kind of files where still present I ran the command <code>ta</code>, which is aliased (in my system) to the following function.</p>
+
+<pre><code class="language-bash">ta () {
+  tree -ah &quot;$@&quot; | lolcat;
+}
+</code></pre>
+
+<p>It lists my files recursively, showing hidden files and putting some neat rainbow colors at the same time.</p>
+
+<p><img class="img_big" src="/coding/a_linux_caca_story/cacache.png" alt="cacache"></p>
+
+<p>I took a look to the output and found the <code>_cacache</code> word. I&rsquo;m still childish, and in French &lsquo;caca&rsquo; means poop and cache can design a place to hide things. So the hidden poop thing got me curious. Do I have shit in my computer? If so, how much? What kind of poop do my current operating system possess?</p>
+
+<p><img class="img_med" src="/coding/a_linux_caca_story/hmm.jpg" alt="hmm"></p>
+
+<p>So I ran the following command to inspect my system. To understand it, you can browse the manual with <code>man find</code>, but hey, I know you&rsquo;re not here for that so here&rsquo;s what it does!</p>
+
+<ul>
+<li>sudo - SuperUserDo, executes the command as a superuser</li>
+<li>find - Pretty explicit, find all the files</li>
+<li>/ - From the root of my filesystem, so including every possible places</li>
+<li>xdev - Only walk my filesystem, not mounted fs</li>
+<li>iname - Find by name, case insensitive</li>
+<li>&ldquo;*caca*&rdquo; - Contains the word caca without constraint on the beginning nor end</li>
+</ul>
+
+<pre><code class="language-bash">sudo find / -xdev -iname &quot;*caca*&quot;
+</code></pre>
+
+<p>I stripped the result that were not really interesting, here&rsquo;s the sum&rsquo;up:</p>
+
+<pre><code>/DRIVE/perso/2015/arthur/caca_papillon.jpg
+/root/.npm/_cacache
+/home/laluka/.npm/_cacache
+/home/laluka/.atom/.apm/_cacache
+/usr/share/licenses/libcaca
+/usr/share/libcaca
+/usr/share/libcaca/caca.txt
+/usr/include/caca_conio.h
+/usr/include/cacard
+/usr/include/cacard/libcacard.h
+/usr/include/caca.h
+/usr/include/caca_types.h
+/usr/include/caca0.h
+/usr/lib/libcaca.so
+/usr/lib/gstreamer-1.0/libgstcacasink.so
+/usr/lib/pkgconfig/libcacard.pc
+/usr/lib/pkgconfig/caca.pc
+/usr/lib/libcacard.so
+/usr/lib/libcaca.so.0
+/usr/lib/vlc/plugins/video_output/libcaca_plugin.so
+/usr/lib/libcaca.so.0.99.19
+/usr/lib/libcacard.so.0.0.0
+/usr/lib/node_modules/npm/node_modules/cacache
+/usr/lib/libcacard.so.0
+/usr/bin/cacafire
+/usr/bin/cacaview
+/usr/bin/caca-config
+/usr/bin/cacaclock
+/usr/bin/cacaplay
+/usr/bin/cacaserver
+/usr/bin/cacademo
+</code></pre>
+
+<h2 id="first-finding">First finding</h2>
+
+<p>So, first line shows my google drive&rsquo;s folder. The file extension tells us that it&rsquo;s an image, so let&rsquo;s use eog (eye of gnome)!</p>
+
+<pre><code class="language-bash">eog /DRIVE/perso/2015/arthur/caca_papillon.jpg
+</code></pre>
+
+<p><img class="img_big" src="/coding/a_linux_caca_story/caca_papillon.jpg" alt="caca_papillon"></p>
+
+<p>So this is one of my previous roommate, definitely not some poop. He was extremely tired after a party so I took advantage of the situation to make fun of him! <code>è.é</code></p>
+
+<h2 id="other-findings">Other findings</h2>
+
+<ul>
+<li><code>_cacache</code> - Cached files in different home places, this is some user-specific cache that makes softwares start / run faster by keeping some assets locally.</li>
+<li><code>/usr/share/</code> - Mostly read-only data, configuration examples, and code samples. Meh meh.</li>
+<li><code>/usr/include/</code> - Code and headers. This is the kind of file that one can <em>include</em> in other programs to compile them.</li>
+<li><code>/usr/lib/</code> - Compiled dynamic libraries that can be either <em>linked</em> during the compilation or <em>loaded</em> at runtime. Also some package-specific configuration files.</li>
+<li><code>/usr/bin/</code> - Distribution specific linux programs&hellip; That&rsquo;s our goldmine!</li>
+</ul>
+
+<h2 id="goldmine-exploitation">Goldmine exploitation</h2>
+
+<p>We have toys (binaries), so let&rsquo;s have fun!<br />
+Description from the libcaca dev&rsquo;s <a href="http://caca.zoy.org/wiki/libcaca">website</a>:</p>
+
+<blockquote>
+<p>libcaca is a graphics library that outputs text instead of pixels, so that it can work on older video cards or text terminals.</p>
+</blockquote>
+
+<h3 id="cacafire">cacafire</h3>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/SKroUpqeJ_0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p><img class="img_big" src="/coding/a_linux_caca_story/edna_mode.gif" alt="edna_mode"></p>
+
+<h3 id="cacaview">cacaview</h3>
+
+<pre><code class="language-bash">cacaview /DRIVE/perso/2018/Louka/avatar_square.png
+</code></pre>
+
+<p><img class="img_big" src="/coding/a_linux_caca_story/cacaview.png" alt="cacaview"></p>
+
+<p>One again, a huge thank you to <em>Simon Martineau</em> who drew my avatar! <code>^_^</code></p>
+
+<h3 id="caca-config">caca-config</h3>
+
+<p>Quick look to the man and the program, probably useful for the developers, but not much fun for us&hellip; <em>Sigh</em></p>
+
+<pre><code>$ man caca-config
+caca-config - script to get information about the installed version of libcaca
+
+$ caca-config --help
+Usage: caca-config [OPTIONS] [LIBRARIES]
+Options:
+   [--prefix[=DIR]]
+   [--exec-prefix[=DIR]]
+   [--version]
+   [--libs]
+   [--ldflags]
+   [--cflags]
+
+$ caca-config --version
+0.99.beta19
+</code></pre>
+
+<h3 id="cacaclock">cacaclock</h3>
+
+<p>RTFM (Reat The <em>Fancy</em> Manual) -&gt; Find the right fonts to use -&gt; Boom, live clocks with funny fonts!<br />
+I&rsquo;ve been to lazy to create a gif but trust me, it&rsquo;s live! ;)</p>
+
+<p><img class="img_big" src="/coding/a_linux_caca_story/cacaclock.png" alt="cacaclock"></p>
+
+<h3 id="cacaplay-cacaserver">cacaplay &amp; cacaserver</h3>
+
+<p>The first tool can be used to play .caca files. I won&rsquo;t use it there but feel free to browse the web and send me your best .caca!<br />
+Please no poop pics. Just don&rsquo;t.</p>
+
+<p>The second one is meant to serve some caca animations. Differents clients can connect to it using <code>telnet</code> or <code>netcat</code> and enjoy these animations without having this software.</p>
+
+<h3 id="cacademo">cacademo</h3>
+
+<p>Last but not least, the demo for the best caca animations!</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/F6t0vFPxwBE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h2 id="the-license">The license</h2>
+
+<p>Once more, the manual tells us:</p>
+
+<blockquote>
+<p>cacademo  is  covered  by  the  Do What the Fuck You Want to Public License (<a href="https://en.wikipedia.org/wiki/WTFPL">WTFPL</a>). cacafire is covered by  the  GNU  Lesser  General  Public  License (<a href="https://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License">LGPL</a>).</p>
+</blockquote>
+
+<p>Crazy names, huh? <br />
+Still, these are perfectly valid licenses!</p>
+
+<p>More information on how to choose yours <a href="https://choosealicense.com/">here</a></p>
+
+<p>As always, I hope that you had fun reading this article. Personally I&rsquo;m always amazed to realize that really smart people spend <code>a lot</code> of time writing that kind of <em>&ldquo;useless&rdquo;</em> yet complex software, document it, contribute to it, makes it public, license it, and&hellip; Ship it in our distributions!</p>
+
+<p>Next time you&rsquo;ll find something odd, something bizarre, consider giving it some time, who knows what you could end up finding! ツ</p>
+
+<blockquote>
+<p>I came here looking for this, but unfortunately I only found gold! - Laluka 2019</p>
+</blockquote>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/en/coding/website_migration/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">ThinkLoveShare&#39;s migration</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'thinkloveshare';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

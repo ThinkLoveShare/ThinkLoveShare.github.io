@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.52" />
+
+    
+    
+    
+
+<title>CSAW - Algebra • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSAW - Algebra"/>
+<meta name="twitter:description" content="Challenge miscellaneous qui invite le CTFer à soit coder un solveur d&#39;équations, soit à en utiliser un préexistant. "/>
+
+<meta property="og:title" content="CSAW - Algebra" />
+<meta property="og:description" content="Challenge miscellaneous qui invite le CTFer à soit coder un solveur d&#39;équations, soit à en utiliser un préexistant. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/fr/writeups/csaw_2018/algebra/" /><meta property="article:published_time" content="2018-09-16T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-09-16T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//fr">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//fr">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//fr">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/fr/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/the_rest/">
+						<span>Le Reste</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/travels/">
+						<span>Voyages</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/fr/about/">
+						<span>À Propos</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/en/writeups/csaw_2018/algebra/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/fr/writeups/csaw_2018/algebra/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>CSAW - Algebra</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Sep 16, 2018
+    
+    
+    <i class="fas fa-clock"></i> 2 min read
+    <i class="fas fa-globe"></i> original<br/>
+    <i class="fas fa-heart"></i>
+    
+    Une faute ? Une idée à suggérer ? Feedback apprécié !
+    <i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<h3 id="description">Description</h3>
+
+<blockquote>
+<p>Êtes-vous un vrai magicien ?</p>
+
+<p>nc misc.chal.csaw.io 9002</p>
+</blockquote>
+
+<h3 id="tl-dr">TL;DR</h3>
+
+<p>Ce challenge consiste à recevoir des équations à résoudre puis envoyez le résultat afin d&rsquo;obtenir le flag. Python et Sage, je vous invoque !</p>
+
+<h3 id="methologie">Methologie</h3>
+
+<p>Un ami avec qui je parlais pendant que je codait ma solution à ce problème m&rsquo;a dit :</p>
+
+<blockquote>
+<p>Bah, les équations sont simples, on a qu&rsquo;à faire un script rapide (et sale) pour les résoudre !</p>
+</blockquote>
+
+<p>En entendant ça, je me suis dit :</p>
+
+<blockquote>
+<p>Hum&hellip; Non. Ce n&rsquo;est pas comme ça que ça marche, ils ne donneraient pas 100 points pour si peu&hellip;</p>
+</blockquote>
+
+<p>Pendant les quals du CSAW 2017, j&rsquo;ai travaillé sur un autre challenge misc, et les questions n&rsquo;étaient pas des équations à résoudre mais des numéro de carte bancaire à générer, avec de plus en plus de contraintes (provenance, banque, numéro commencant par XXYY, &hellip;), donc je me doutais que les équations de fin ne seraient pas aussi triviales. Il fallait trouver un meilleur moyen pour les résoudre automatiquement. Alors j&rsquo;ai pris mes pires habitudes de développeur et j&rsquo;ai utilisé <code>popen</code> et <code>eval</code> comme si c&rsquo;était mon dernier jour sur terre.</p>
+
+<p>Voici le résultat, 10mn de codage ! :)</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+import os
+
+r = remote(&quot;misc.chal.csaw.io&quot;, 9002)
+
+while True:
+    try:
+        data = r.recvuntil(&quot;equal?: &quot;)
+        line = [line for line in data.splitlines() if &quot;=&quot; in line][0]
+        print &quot;\n&quot; + line
+        out = os.popen(&quot;sage -c \&quot;var('X'); print solve([&quot; + line.replace(&quot;=&quot;, &quot;==&quot;) + &quot;], X)\&quot;&quot;).read()
+        answer = out.split(&quot;== &quot;)[1].split(&quot;\n&quot;)[0]
+        print answer
+        if &quot;/&quot; in answer: # Sage does not simplify, so python will do it ! :)
+            answer = eval(answer.replace(&quot;/&quot;, &quot;/float(&quot;) + &quot;)&quot;)
+            print answer
+        r.sendline(str(answer))
+    except:
+        print &quot;out&quot;, out # In case of failure, please tell us why...
+        r.interactive()
+</code></pre>
+
+<p>Juste pour que vous puissiez rire un peu, voici la première et la dernière équation&hellip;</p>
+
+<p>Si je devais coder quelque chose qui peut gérer ça&hellip; Je&hellip; Je m&rsquo;abstiendrais.</p>
+
+<p><img class="img_full" src="/writeups/csaw_2018/algebra/simple.png" alt="simple" >
+<img class="img_full" src="/writeups/csaw_2018/algebra/hard.png" alt="hard" ></p>
+
+<p>Le flag est : <strong>flag{y0u_s0_60od_aT_tH3_qU1cK_M4tH5}</strong></p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/fr/writeups/csaw_2018/big_boi/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">CSAW - Big boi</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'thinkloveshare';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

