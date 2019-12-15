@@ -30,7 +30,7 @@ ta () { tree -ah &amp;quot;$@&amp;quot; | lolcat; }  It lists my files recursive
       <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/coding/website_migration/</guid>
-      <description>Why changing ? I used to write from time to time on thinkloveshare.blogspot.com which will soon be retired, replaced by thinkloveshare.com. I decided to change for quite a few reasons, here&amp;rsquo;s the story:
+      <description>Why change ? I used to write from time to time on thinkloveshare.blogspot.com which will soon be retired, replaced by thinkloveshare.com. I decided to change for quite a few reasons, here&amp;rsquo;s the story:
  Code format  There was no easy way to display code snippets. I could have added some js beautifier / pretty printers, but I lacked time, so instead of that was just putting screenshots which is&amp;hellip; Probably the worst choice possible&amp;hellip; =]</description>
     </item>
     

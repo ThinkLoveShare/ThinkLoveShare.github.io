@@ -9,10 +9,20 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ngrok your DockerSploit</title>
+      <link>https://thinkloveshare.github.io/en/hacking/ngrok_your_dockersploit/</link>
+      <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/ngrok_your_dockersploit/</guid>
+      <description>Hey, you! Aren’t you tired of always having broken tools relying on broken software? Pissed off because you just broke your system (againnn&amp;hellip;) trying to fix your previously broken tools and now everything’s fucked-up and you want to raise penguins out of the tech world? Or even worse, you want a reverse shell but you’re :
+ At your grandparents place and they lost the router password so you can’t expose ports So broke that you can’t buy nor rent a virtual private server  Well that’s oddly specific but you’re on the exact right place on earth (and on the web)!</description>
+    </item>
     
     <item>
       <title>GreHack 2018</title>
