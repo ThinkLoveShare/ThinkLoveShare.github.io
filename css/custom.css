@@ -84,7 +84,8 @@ p {
   justify-content: center;
 }
 
-img, video {
+img,
+video {
   margin-left: auto;
   margin-right: auto;
 }
@@ -110,11 +111,23 @@ img, video {
 }
 
 @media (max-width: 768px) {
-  .img_full, .img_big {
+
+  .img_full,
+  .img_big {
     width: 100%;
   }
 
-  .img_med, .img_small {
+  .img_med,
+  .img_small {
     width: 50%;
   }
+}
+
+article {
+  max-width: 95%;
+  padding-left: 5%;
+}
+
+.container {
+  max-width: none;
 }
