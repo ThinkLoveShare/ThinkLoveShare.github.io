@@ -200,7 +200,7 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> Dec 15, 2019
     
     
-    <i class="fas fa-clock"></i> 5 min read
+    <i class="fas fa-clock"></i> 6 min read
     <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
@@ -230,21 +230,40 @@ Today, I’ll teach you how to use docker, metasploit, ngrok and aliases in orde
 
 <h2 id="step-1-install-and-setup-docker">Step 1 : Install and setup docker</h2>
 
-<p>The install procedure is specified in the official doc, but&hellip; Gotta go faaaast (and self contained)!
-First, update the repos and install the docker.io package and create a symbolic link.</p>
+<p>UPDATE : Let&rsquo;s give a big shout out to <a href="https://twitter.com/Creased_">@Creased_</a> that <a href="https://twitter.com/Creased_/status/1206556812541091840">tweeted me</a> about the new / current docker install process, the one I initially published was deprecated. Oopsy Daisy.. <code>:x</code></p>
 
-<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install -y docker.io
-sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
+<p>The install procedure is specified in the official doc, but&hellip; Gotta go faaaast (and self contained)!</p>
+
+<pre><code class="language-bash"># If previously installed, clean up 
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
+# Update and install
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository \
+   &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable # Hardcode disco if you're on ubuntu 19.XX
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world
+
+# OR
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 </code></pre>
 
-<p>Start the docker service, and be sure that it’s working fine with <em>status</em> before <em>enabling</em> it to start at every boot.</p>
+<p>You can always <em>start</em>, <em>stop</em>, or <em>enable</em> the docker services using systemctl.
+Just check it&rsquo;s working as intended using the <em>status</em> command, and eventually <em>enable</em> it at reboot.</p>
 
 <pre><code class="language-bash">sudo systemctl start docker
 sudo systemctl status docker
 sudo systemctl enable docker
 </code></pre>
 
-<p>If you’re not familiar AT ALL with docker, maybe reading Richard’s introduction might be a good idea at this point : <a href="https://teuze.github.io/posts/docker/">https://teuze.github.io/posts/docker/</a></p>
+<p>If you’re not familiar AT ALL with docker, reading Richard’s introduction might be a good starting point : <a href="https://teuze.github.io/posts/docker/">https://teuze.github.io/posts/docker/</a></p>
 
 <h2 id="step-2-install-and-setup-ngrok">Step 2 : Install and setup ngrok</h2>
 
