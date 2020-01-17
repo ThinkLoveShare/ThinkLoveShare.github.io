@@ -9,10 +9,20 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 06 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/coding/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SSHrc and telegram apis</title>
+      <link>https://thinkloveshare.github.io/en/coding/sshrc_and_telegram_apis/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/coding/sshrc_and_telegram_apis/</guid>
+      <description>The root cause While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained me that he was using telegram&amp;rsquo;s API to get ssh login notifications on his phone. My first thought was &amp;ldquo;Yeah, sure, but it&amp;rsquo;s just a .rc file (custom settings), it&amp;rsquo;s usually quite easy to bypass with the right option&amp;hellip;
+While saying that, I had in mind the trick with bash --noprofile --norc that can allow a new bash process to be spawned without using any configuration file.</description>
+    </item>
     
     <item>
       <title>A linux caca story</title>

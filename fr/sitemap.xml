@@ -3,6 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.github.io/fr/coding/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/coding/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/coding/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/fr/coding/sshrc_and_telegram_apis/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/coding/sshrc_and_telegram_apis/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/coding/sshrc_and_telegram_apis/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/fr/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/fr/hacking/</loc>
     <lastmod>2019-12-15T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -29,36 +74,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.github.io/fr/hacking/ngrok_your_dockersploit/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/fr/</loc>
-    <lastmod>2019-12-15T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/fr/coding/</loc>
-    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/coding/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/coding/"
                 />
   </url>
   
