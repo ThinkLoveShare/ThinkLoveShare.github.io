@@ -20,7 +20,7 @@ Share</description>
       <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/coding/sshrc_and_telegram_apis/</guid>
-      <description>The root cause While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained me that he was using telegram&amp;rsquo;s API to get ssh login notifications on his phone. My first thought was &amp;ldquo;Yeah, sure, but it&amp;rsquo;s just a .rc file (custom settings), it&amp;rsquo;s usually quite easy to bypass with the right option&amp;hellip;
+      <description>The root cause While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained to me that he was using telegram&amp;rsquo;s API to get ssh login notifications on his phone. My first thought was &amp;ldquo;Yeah, sure, but it&amp;rsquo;s just a .rc file (custom settings), it&amp;rsquo;s usually quite easy to bypass with the right option&amp;hellip;
 While saying that, I had in mind the trick with bash --noprofile --norc that can allow a new bash process to be spawned without using any configuration file.</description>
     </item>
     

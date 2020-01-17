@@ -217,7 +217,7 @@ Share</a>
 
 <h2 id="the-root-cause">The root cause</h2>
 
-<p>While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained me that he was using telegram&rsquo;s API to get ssh login notifications on his phone. My first thought was &ldquo;Yeah, sure, but it&rsquo;s just a <code>.rc</code> file (custom settings), it&rsquo;s usually quite easy to bypass with the right option&hellip;</p>
+<p>While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained to me that he was using telegram&rsquo;s API to get ssh login notifications on his phone. My first thought was &ldquo;Yeah, sure, but it&rsquo;s just a <code>.rc</code> file (custom settings), it&rsquo;s usually quite easy to bypass with the right option&hellip;</p>
 
 <p>While saying that, I had in mind the trick with <code>bash --noprofile --norc</code> that can allow a new bash process to be spawned without using any configuration file. I had to use that two years ago when I&hellip; F*cked up my own .bashrc and couldn&rsquo;t use bash anymore, at that time I wasn&rsquo;t aware of the real <code>sh</code> or other alternative shells.</p>
 
@@ -232,7 +232,7 @@ Share</a>
 <h3 id="man-sshd">Man sshd</h3>
 
 <ul>
-<li>Ce fichier peut être utilisé pour spécifier globalement des initialisations pour la connexion spécifiques à une machine. Ce fichier ne doit être accesible en écriture qu&rsquo;à root et lisible par tous.</li>
+<li>Similar to $HOME/.ssh/rc. This can be used to specify machine-specific login-time initializations globally. This file should be writable only by root, and should be world-readable.</li>
 </ul>
 
 <h3 id="random-stackexchange-user-soitmustbetrue">Random stackexchange user <code>#SoItMustBeTrue</code></h3>
