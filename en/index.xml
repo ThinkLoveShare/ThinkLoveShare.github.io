@@ -9,10 +9,20 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Wordpress Subpath Auditor</title>
+      <link>https://thinkloveshare.github.io/en/hacking/wordpress_subpath_auditor/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/wordpress_subpath_auditor/</guid>
+      <description>About one month ago, I had to audit a wordpress website. As it was one of my first real-life pentest, I was really hyped and ready to try extra-super-hard to compromise this target. But after a few hours, I realised that :
+ Wordpress is up to date Every plugin or theme is up to date There is no custom code (At least, I found none using gobusted and big wordlists) There is no weak credentials (Same, I found none doesn&amp;rsquo;t mean there&amp;rsquo;s none.</description>
+    </item>
     
     <item>
       <title>SSHrc and telegram apis</title>
