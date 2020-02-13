@@ -9,10 +9,19 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Infosec made easy</title>
+      <link>https://thinkloveshare.github.io/en/hacking/infosec_made_easy/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/infosec_made_easy/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Wordpress Subpath Auditor</title>
