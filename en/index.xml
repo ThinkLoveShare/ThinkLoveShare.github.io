@@ -20,7 +20,7 @@ Share</description>
       <pubDate>Sat, 22 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/reverse_xsshell/</guid>
-      <description>The initial idea While auditing a website, I found out they were using websockets to transmit data. I didn&amp;rsquo;t knew much about it so I had to ReadTheFancyManual. Once I understook that it was&amp;hellip; Well&amp;hellip; A socket one could use with web technologies, I asked myself &amp;ldquo;What do I usually do with sockets?&amp;rdquo;
+      <description>The initial idea While auditing a website, I found out they were using websockets to transmit data. I didn&amp;rsquo;t kow much about it so I had to ReadTheFancyManual. Once I understood that it was&amp;hellip; Well&amp;hellip; A socket one could use with web technologies, I asked myself &amp;ldquo;What do I usually do with sockets?&amp;rdquo;
 Tunnels! Transfer files! Or&amp;hellip; Spawn reverse shells?!
 Or&amp;hellip; Spawn a reverse XSShell??
 What do we need? A websocket server import asyncio import websockets async def hello(websocket, path): print(&amp;quot;WebSocket received&amp;quot;) while True: cmd = input(&amp;quot;cmd &amp;gt; &amp;quot;) await websocket.</description>

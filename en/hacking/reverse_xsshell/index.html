@@ -216,7 +216,7 @@ Share</a>
 
 <h1 id="the-initial-idea">The initial idea</h1>
 
-<p>While auditing a website, I found out they were using websockets to transmit data. I didn&rsquo;t knew much about it so I had to <a href="https://rtfm.re/">ReadTheFancyManual</a>. Once I understook that it was&hellip; Well&hellip; A socket one could use with web technologies, I asked myself &ldquo;What do I usually do with sockets?&rdquo;</p>
+<p>While auditing a website, I found out they were using websockets to transmit data. I didn&rsquo;t kow much about it so I had to <a href="https://rtfm.re/">ReadTheFancyManual</a>. Once I understood that it was&hellip; Well&hellip; A socket one could use with web technologies, I asked myself &ldquo;What do I usually do with sockets?&rdquo;</p>
 
 <p>Tunnels! Transfer files! Or&hellip; Spawn reverse shells?!</p>
 
@@ -279,7 +279,7 @@ socket.send(eval(event.data));
 
 <h2 id="in-short">In short</h2>
 
-<p>The code can be found here : <a href="https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss">https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss</a></p>
+<p>You can find the code here: <a href="https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss">https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss</a></p>
 
 <p>And what this gives us is a reverse shell in a javascript (browser / renderer) context. What you can do from here is up to you.. Try to read files, query the network, mess with your target&rsquo;s DOM or secrets&hellip; Have fun ! :)</p>
 
@@ -290,14 +290,14 @@ socket.send(eval(event.data));
 <h1 id="limitations">Limitations</h1>
 
 <ul>
-<li>You still need an xss little restrictions (use eval, long payload, &hellip;)</li>
+<li>You still need an xss with little restrictions (use eval, long payload, &hellip;)</li>
 <li>The reverse xsshell can be blocked on its way back by a firewall / proxy / SOP / CSP / &hellip;</li>
 <li>Blocking actions (alert, prompt, redirect, &hellip;) will break the current shell (trig xss again!)</li>
 </ul>
 
 <h1 id="appendix">Appendix</h1>
 
-<p>Once again, after spending some time playing arount with a new idea, I start googling it and&hellip; Well, it&rsquo;s not <em>really</em> something new. It&rsquo;s just about re-discovering <a href="https://github.com/raz-varren/xsshell">what others found before</a>. That being said, I love one-liners and keeping things as simple as possible, so it&rsquo;s not the same-same.. :)</p>
+<p>Once again, after spending some time experimenting a new idea, I start google it and&hellip; Well, it&rsquo;s not <em>really</em> something new. It&rsquo;s just about re-discovering <a href="https://github.com/raz-varren/xsshell">what others found before</a>. That being said, I love one-liners and keeping things as simple as possible, so it&rsquo;s not the same-same.. :)</p>
 
 <p><img class="img_big" src="/hacking/reverse_xsshell/same_but_different.gif" alt="same_but_different"></p>
 
