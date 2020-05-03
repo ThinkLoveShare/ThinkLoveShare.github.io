@@ -362,7 +362,7 @@ Instead of that, we&rsquo;ll use socat on Helper&rsquo;s side to dedicate a tty 
 
 <p><img class="img_big" src="/hacking/a_helping_hand/socat_helper.png" alt="socat_helper"></p>
 
-<p>In order to have a common shell or display, many tricks could work, using default tools such as tee, tail, bash redirections, or even the live filesystem /proc/<pid>/fd/{0,1,2} to have a transcript of Helper&rsquo;s interactions with Helpee&rsquo;s system. <br />
+<p>In order to have a common shell or display, many tricks could work, using default tools such as <code>tee</code>, <code>tail</code>, <code>bash</code> redirections, or even the live filesystem <code>/proc/&lt;pid&gt;/fd/{0,1,2}</code> to have a transcript of Helper&rsquo;s interactions with Helpee&rsquo;s system. <br />
 But what I think is the most elegant solution is to use the static tmux we already downloaded. So helper will create a tmux session, and Helpee will attach their current shell to Helper&rsquo;s session. It&rsquo;s preferable that both use the same binary (thus same version) to avoid compatibility issues. <br />
 More information in tmux in its man, or in one of its cheatsheets : <a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/</a></p>
 
