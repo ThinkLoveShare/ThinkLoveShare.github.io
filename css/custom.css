@@ -110,7 +110,16 @@ video {
   word-break: break-word;
 }
 
-@media (max-width: 768px) {
+article {
+  max-width: 75%;
+  padding: 5%;
+}
+
+.container {
+  max-width: none;
+}
+
+@media (max-width: 1200px) {
 
   .img_full,
   .img_big {
@@ -121,13 +130,8 @@ video {
   .img_small {
     width: 50%;
   }
-}
 
-article {
-  max-width: 75%;
-  padding-left: 5%;
-}
-
-.container {
-  max-width: none;
+  article {
+    max-width: 100%;
+  }
 }
