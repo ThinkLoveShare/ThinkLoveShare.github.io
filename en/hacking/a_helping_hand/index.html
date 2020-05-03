@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>A Helping Hand • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A Helping Hand"/>
+<meta name="twitter:description" content="Help a friend to troupleshoot issues on their server isn&#39;t always an easy thing. There are many ways to achieve this, and I&#39;m going to show you three different solutions. We&#39;ll make use of ssh, tmux, tmate, gotty, socat and even ngrok. "/>
+
+<meta property="og:title" content="A Helping Hand" />
+<meta property="og:description" content="Help a friend to troupleshoot issues on their server isn&#39;t always an easy thing. There are many ways to achieve this, and I&#39;m going to show you three different solutions. We&#39;ll make use of ssh, tmux, tmate, gotty, socat and even ngrok. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.github.io/en/hacking/a_helping_hand/" />
+<meta property="article:published_time" content="2020-05-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-03T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.github.io//en">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.github.io//en">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.github.io/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.github.io//en">
+         Infosec, Coding, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/en/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/writeups/">
+						<span>Write-Ups</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/TheLaluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <div class="langSection">
+    
+    <a rel="alternate" href="/en/hacking/a_helping_hand/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    
+    <a rel="alternate" href="/fr/hacking/a_helping_hand/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    </div>
+    <p class="copyright">
+      &copy; 2020 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>A Helping Hand</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> May 3, 2020
+    
+    
+    <i class="fas fa-clock"></i> 11 min read
+    <i class="fas fa-globe"></i> original<br/>
+    <i class="fas fa-heart"></i>
+    
+    Any typos? Any idea to suggest? Feedback appreciated!
+    <i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<p>From time to time, I help friends to troubleshoot issues. Coding, system administration, hacking, pretty much anything as it&rsquo;s a good opportunity to learn from what they are doing, and teach cool tricks at the same time. One big issue though is that I really <em>rarely</em> have a decent connection. Thus, using common tools such as teamviewer, anydesk, RDP, on anything else isn&rsquo;t really working well, crashing, extra slow, &hellip;
+So.. How can I help? Be helped?
+Especially when both of us are on local networks that do not have a public IP with open ports setup?
+Even worse, when the helped one do not have root access on their machine, and thus can&rsquo;t install tools?
+Well, I&rsquo;ll tell you, everything you need is a good a decent an internet connection, and your favourite ssh client!</p>
+
+<p>The solutions I&rsquo;ll describe already made their proofs (at least they worked for me) with the following usecases:
+Patching security breaches in a website. He knew the app design, I had more insights on the logs, we jumped on it all together and got that SQL injection patched in no time.
+Installing ffmpeg on a really old centos box, behind a quite strict reverse proxy. She had access to this box and I had more experience with centos and bad dependencies handling (broken .so files, misplaces links, missing packages and the lack of repositories to install from).
+Solving CTF challenges with friends, from binary exploitation to windows pwning, passing by regular web audits! That was muuuch fun, and so many laughs!</p>
+
+<p>There are many ways to achieve that, but they all have their own pros and cons.</p>
+
+<ol>
+<li>VPS + ssh + socat + tmux
+
+<ul>
+<li>Pros
+
+<ul>
+<li>You own and control everything you use</li>
+<li>No need for any tool nor privilege</li>
+</ul></li>
+<li>Cons
+
+<ul>
+<li>It&rsquo;s quite complex</li>
+<li>You give an access (even sandboxed / with low privileges) to your server</li>
+</ul></li>
+</ul></li>
+<li>gotty + ngrok
+
+<ul>
+<li>Pros
+
+<ul>
+<li>The helper don&rsquo;t need anything but a browser</li>
+</ul></li>
+<li>Cons
+
+<ul>
+<li>Not everything is easy in a browser, but damn it&rsquo;s fast!</li>
+<li>Ctrl^W in shell deletes the last typed word. But closes the current tab in a browser. FUUUUUU</li>
+<li>Relying on ngrok (account needed, only one connection for free)</li>
+</ul></li>
+</ul></li>
+<li>tmate
+
+<ul>
+<li>Pros
+
+<ul>
+<li>Easy As Fuck to use</li>
+</ul></li>
+<li>Cons
+
+<ul>
+<li>Relying on tmate&rsquo;s servers / folks</li>
+<li>Not knowing what&rsquo;s under the hood is sad :(</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<p>A few words before we dive in:</p>
+
+<ul>
+<li>For this article, I will call our dear friend we want to help &ldquo;Helpee&rdquo; and ourselves &ldquo;Helper&rdquo;</li>
+<li>The port forwarding stage introduced with SSH can be exchanged with ngrok (thus no VPS needed)</li>
+<li>A DNS is already setup and resolved vps.thinkloveshare.com to my server&rsquo;s IP, this is not mandatory if you hardcode all IPs instead of using a domain name.</li>
+<li>There are always many ways to achieve one thing, I&rsquo;ll just demonstrate a few ways to achieve this, but it&rsquo;s just a start. Try different things, experiment new tools, learn cool stuff!</li>
+<li>I do pretty much everything as root on this vps as I use it and then throw it afterward, do not do that nor run programs as root on a production box, especially if it&rsquo;s network related&hellip; =]</li>
+</ul>
+
+<p>Alright, let&rsquo;s start!</p>
+
+<p><img class="img_med" src="/hacking/a_helping_hand/oh_boy.jpg" alt="oh_boy"></p>
+
+<h1 id="solution-1-vps-ssh-socat-tmux">Solution 1 : VPS + ssh + socat + tmux</h1>
+
+<p>This first way to support Helpee is probably the most complex, but in the meantime, it allows us to achieve this without installing anything on Helpee&rsquo;s machine. Moreover, it allows us to keep everything under our control. We only assume Helpee already has an ssh client installed.</p>
+
+<p>Here are the steps we&rsquo;ll follow:
+Prepare handy static tools hosted on Helper&rsquo;s server so Helpee can download and run them.
+Get Helpee to establish a connection to Helper&rsquo;s server and redirect a remote port (from server) on their local machine (loopback).
+Get Helpee to setup a listener offering an interactive pty (password protected please!) on their loopback address. This technique is known as a bind shell, aka a shell binded to a local socket.
+Helper will then connect to their server and be redirected to Helpee&rsquo;s machine (and thus pty)
+Share a common shell with tmux so Helpee can watch Helper fix stuff and learn at the same time :)</p>
+
+<h3 id="step-1-get-our-static-tools-and-host-them">Step 1 : Get our static tools and host them</h3>
+
+<p>We&rsquo;ll use minos-static which is a neat utility designed to offer statically built tools. We can use it to have premade recipes to build specific tools, or just download them. This means that these tools won&rsquo;t rely on any library once executed, they&rsquo;re standalones. The downside of this is that they are more sizy, more biggy, more barbecue cheesy, but who cares, right?</p>
+
+<p>The first tool is socat (man - Multipurpose relay (SOcket CAT)). It is very powerful helps a lot with port forwarding, protocol translation, exposing weird files, stream redirections etc.
+The second tool is tmux (man -  terminal multiplexer). It has a lot of cool features such as display sharing, session management, window and tabs splitting, the ability to keep your session open (and thus won&rsquo;t stop your long running tasks) when you disconnect from it (whether you mean it or your connection crashes).</p>
+
+<pre><code class="language-bash"># Use git clone (alias gcl) to clone minos-static and move it to /opt where custom programs belong
+gcl https://github.com/minos-org/minos-static
+sudo mv minos-static /opt
+# Create a symbolic link in /usr/local/bin/ in order to have static-get in our PATH
+sudo ln -sf /opt/minos-static/static-get /usr/local/bin/static-get
+# Make our tool executable, and rehash to have it in zsh autocompletion module
+chmod +x /opt/minos-static/static-get &amp;&amp; rehash
+# Check what this bad boy can do
+static-get -h
+</code></pre>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/install_static-get.png" alt="install_static-get"></p>
+
+<p>Now that we have static-get, let&rsquo;s get our tools ready! <br />
+Here, we download and extract our binaries, and put them on a common directory that we then expose using python3 and its module http.server. I won&rsquo;t explain every command, if you&rsquo;re in doubt, either run man on it, or use the excellent <a href="https://explainshell.com/">https://explainshell.com/</a></p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/prepare_static_elfs.png" alt="prepare_static_elfs"></p>
+
+<p>One last thing we need to do on the server is to setup ssh so it allows our server&rsquo;s external ip to be exposed by ssh when port forwarding is requested by a client. To do so, Helper can use sed and it&rsquo;s inplace transformations to set the GatewayPorts line to &ldquo;yes&rdquo; in sshd&rsquo;s configuration file. Here, &ldquo;clientspecified&rdquo; could be used instead of &ldquo;yes&rdquo; to only allow connections from a specific location, but meh, let&rsquo;s stay lazy for now. We then check the file has the correct line, and restart sshd to have the configuration updated.</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/prepare_sshd.png" alt="prepare_sshd"></p>
+
+<h3 id="step-2-setup-listeners-on-helpee-s-side">Step 2 : Setup listeners on Helpee&rsquo;s side</h3>
+
+<p>Here, Helpee is a virtual machine (VirtualBox) running Ubuntu 20. <br />
+Helpee will use curl or wget to download tmux and socat from Helper&rsquo;s server.</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/download_static_elfs.png" alt="download_static_elfs"></p>
+
+<p>Then, Helpee will ask Helper&rsquo;s server to redirect one of its port to Helpee&rsquo;s local interface. Notice that here, I gave my root password to Helpee which is NOT a good thing. For this task creating a specific user is more than advised, but hey it&rsquo;s only me and me so that&rsquo;s okay for demonstration purpure.. I guess.. <code>¯\_(ツ)_/¯</code> <br />
+We then ask socat to execute the command <code>su $USER</code> and redirect all of its streams (stdin, stdout, stderr) to localhost:8888.</p>
+
+<p>So the current setup is the current infrastructure is the following :</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/infra_tls.png" alt="infra_tls"></p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/socat_helpee.png" alt="socat_helpee"></p>
+
+<h3 id="step-3-connect-to-helpee-and-throw-a-p-p-party">Step 3 : Connect to Helpee and throw a P-P-Party</h3>
+
+<p>At this point, Helper could use a tool such as netcat to connect to vps.thinkloveshare.com:8888 to be redirected to Helpee&rsquo;s login prompt. But the shell would be shitty, no auto completion, broken display, no line edition, etc.. <br />
+Instead of that, we&rsquo;ll use socat on Helper&rsquo;s side to dedicate a tty on Helper&rsquo;s machine to handle Helpee&rsquo;s pty.</p>
+
+<p>We use socat but this time as a connector (and not a listener). We then ask Helpee&rsquo;s password, and there we are, a fully interactive shell on Helpee&rsquo;s computer! But when Helper types commands, Helpee isn&rsquo;t aware of it and can&rsquo;t learn anything (I mean, nothing more than copy-pasting Helper&rsquo;s commands :D ), which is not our main goal. <em>sigh</em></p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/socat_helper.png" alt="socat_helper"></p>
+
+<p>In order to have a common shell or display, many tricks could work, using default tools such as tee, tail, bash redirections, or even the live filesystem /proc/<pid>/fd/{0,1,2} to have a transcript of Helper&rsquo;s interactions with Helpee&rsquo;s system. <br />
+But what I think is the most elegant solution is to use the static tmux we already downloaded. So helper will create a tmux session, and Helpee will attach their current shell to Helper&rsquo;s session. It&rsquo;s preferable that both use the same binary (thus same version) to avoid compatibility issues. <br />
+More information in tmux in its man, or in one of its cheatsheet : <a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/</a></p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/screen_sharing_01.png" alt="screen_sharing_01">
+<img class="img_big" src="/hacking/a_helping_hand/screen_sharing_02.png" alt="screen_sharing_02"></p>
+
+<p>The shell size can be improved by setting a few constants, its font size and dimensions. More on that with the manual and the commands reset, stty, export, and the environment variables SHELL and TERM. <br />
+One more useful thing would be to put Helpee&rsquo;s socat listener in an endless loop, that way if something goes wrong, Helper can connect back without any input from Helpee. </p>
+
+<pre><code class="language-bash">while true; do LISTENER_CMD; done
+</code></pre>
+
+<p>Annnnd that&rsquo;s it! We&rsquo;re done with this first solution, Helper and Helpee now share a live fully interactive terminal on Helpee&rsquo;s box! <code>\o/</code></p>
+
+<h1 id="solution-2-ngrok-and-gotty">Solution 2 : ngrok and gotty</h1>
+
+<p>An introduction to ngrok is already available here : <a href="https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/">https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/</a> <br />
+Long story short, use ngrok to connect to ngrok&rsquo;s servers to redirect on of their subdomain:port to Helpee&rsquo;s loopback interface. The binary is also statically compiled, but as this is a service it requires a (free) account.</p>
+
+<p>Gotty is another neat tool written in go, dynamically linked but which can still be executed without installing anything as all its dependencies are really common and present in pretty much every linux distributions. This tool allows its user to expose a shell over HTTP.</p>
+
+<h3 id="step-1-setup-gotty">Step 1 : Setup gotty</h3>
+
+<p>Download and extract its binary from github. Most of the go softwares do have pre built binaries on the release section in github, don&rsquo;t waste time compiling if it&rsquo;s already done! We&rsquo;ll then use openssl to generate a strong rsa key and a TLS certificate. We don&rsquo;t care much about the information it will contain as it&rsquo;s for our personal use only. Once all the assets are in place, we can then use gotty to expose a shell running the same command as in the first tolution : su $USER.
+This enforces the use of a password, we don&rsquo;t want to offer a shell on our box to the world, don&rsquo;t we?</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/gotty_setup.png" alt="gotty_setup"></p>
+
+<h3 id="step-2-setup-ngrok">Step 2 : Setup ngrok</h3>
+
+<p>The setup on ngrok is already covered in a previous article and in their official website, so just create an account, download their binary, load your api-key, and open a tcp connection on port 9999.</p>
+
+<p>We then have the following infrastructure :</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/infra_ngrok.png" alt="infra_ngrok"></p>
+
+<p>One thing to note here is that gotty listens on 0.0.0.0 which designates all interfaces of the current machine. This is definitely overkill, I should have used 127.0.0.1 but the screenshots are already taken! Sorryyy! <em>flies away</em></p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/setup_ngrok.png" alt="setup_ngrok"></p>
+
+<p>Ngrok exposes a tcp connection, but under the hook, Helpee&rsquo;s loopback interface offers an HTTPS server on port 9999, so by reaching this ngrok&rsquo;s link, we&rsquo;ll be welcomed with our beloved shell!
+The shell is once again fully interactive, and the terminal can again be shared using tmux. The main advantage here is that all the work is on Helpee&rsquo;s side, and Helper can join from any device as long as Helpee sends the url and password (Not in plaintext? Please? Not in the same email/text message? Please?)</p>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/gotty_browser.png" alt="gotty_browser"></p>
+
+<h1 id="solution-3-tmate">Solution 3 : tmate</h1>
+
+<p>The last solution is definitely the easiest one, but it&rsquo;s a really good thing to understand how something works before using quick cheats that make the whole thing opaque. The only thing Helpee needs to do, is to install tmate, and run &ldquo;tmate&rdquo;. That&rsquo;s it. Many links will be displayed, allowing Helper to join from from a browser or shell, and to have a full or read only access. The shell is already shared, fully interactive, etc&hellip; PLEASANT, RIGHT?!</p>
+
+<p>It only requires the user running tmate to have an ssh key. So if you don&rsquo;t have one, generate it!</p>
+
+<pre><code class="language-bash">ssh-keygen -t rsa -b 4096
+# Or whatever strong algo you like with a decent key size! ;)
+</code></pre>
+
+<p><img class="img_big" src="/hacking/a_helping_hand/tmate.png" alt="tmate">
+<img class="img_big" src="/hacking/a_helping_hand/tmate_browser_readonly.png" alt="tmate_browser_readonly"></p>
+
+<p>While writing this article I added one major drawback to tmate : &ldquo;Installing a package is required&rdquo;. <br />
+This means that the attack surface, of image size (let&rsquo;s say of a production system) will be increased.</p>
+
+<p>But you know what&rsquo;s the best part?</p>
+
+<p><img class="img_med" src="/hacking/a_helping_hand/static_tmate.png" alt="static_tmate"></p>
+
+<p>Yup. That&rsquo;s right. Tmate also exists as a standalone. <br />
+So get it, serve it for your friends, ask them to run it, and have fun with them!</p>
+
+<p>And as mama always used to say, don&rsquo;t forget to clean up your mess once you&rsquo;re done!
+This implies removing unused files, binaries, certificates, links, &hellip; <br />
+But also disabling services, restoring a safe ssh configuration, restarting services, verifying you can open a new ssh connection to your server BEFOOOOOORE you close the one you already have (trust me on that.. :) ).</p>
+
+<p>And probably the most important one : Stop all the programs that may still be running and exposing your server or your friend&rsquo;s computer. Once you think you&rsquo;re done-done&hellip; Double check!</p>
+
+<blockquote>
+<p>There&rsquo;s no safer service that the one that is <strong>not</strong> exposed</p>
+</blockquote>
+
+<pre><code class="language-bash"># Verify that only ssh is still exposed
+ss -latepun | grep LISTEN
+</code></pre>
+
+<p><img class="img_med" src="/hacking/a_helping_hand/no_open_port.png" alt="no_open_port"></p>
+
+<p>One last thing before I leave you&hellip; <br />
+If. You. Break. Something. That. Isn&rsquo;t. Yours. <br />
+You. Are. Responsible.</p>
+
+<p>So next beers are on you! ;)</p>
+
+<p>Big shout out to <a href="https://twitter.com/0nemask">0nemask</a> for proofreading me. <br />
+He spend a lot of time writing cool <a href="https://onemask.me/posts/">HackTheBox writeups</a> lately. Thus I strongly advice his blog as your next readings! <code>^.^</code></p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/en/hacking/reverse_xsshell/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Reverse XSShell</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'thinkloveshare';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

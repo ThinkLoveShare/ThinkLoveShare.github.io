@@ -3,8 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/a_helping_hand/</loc>
+    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/a_helping_hand/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/a_helping_hand/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/en/hacking/</loc>
-    <lastmod>2020-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -14,6 +29,21 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/hacking/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/</loc>
+    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/"
                 />
   </url>
   
@@ -29,21 +59,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/hacking/reverse_xsshell/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.github.io/en/</loc>
-    <lastmod>2020-02-22T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/"
                 />
   </url>
   
