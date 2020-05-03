@@ -214,7 +214,7 @@ Share</a>
   <div class="post">
     
 
-<p>From time to time, I help friends to troubleshoot issues. Coding, system administration, hacking, pretty much anything as it&rsquo;s a good opportunity to learn from what they are doing, and teach cool tricks at the same time. One big issue though is that I really <em>rarely</em> have a decent connection. Thus, using common tools such as teamviewer, anydesk, RDP, on anything else isn&rsquo;t really working well, crashing, extra slow, &hellip;
+<p>From time to time, I help friends to troubleshoot issues. Coding, system administration, hacking, pretty much anything as it&rsquo;s a good opportunity to learn from what they are doing, and teach cool tricks at the same time. One big issue though is that I really <em>rarely</em> have a decent connection. Thus, using common tools such as <a href="https://www.teamviewer.com/">TeamViewer</a>, <a href="https://anydesk.com/">Anydesk</a>, RDP, on anything else isn&rsquo;t really working well, crashing, extra slow, &hellip;
 So.. How can I help? Be helped?
 Especially when both of us are on local networks that do not have a public IP with open ports setup?
 Even worse, when the helped one do not have root access on their machine, and thus can&rsquo;t install tools?
@@ -231,7 +231,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <p>There are many ways to achieve that, but they all have their own pros and cons.</p>
 
 <ol>
-<li>VPS + ssh + socat + tmux
+<li><a href="https://www.digitalocean.com/">VPS</a> + ssh + socat + tmux
 
 <ul>
 <li>Pros
@@ -247,7 +247,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <li>You give an access (even sandboxed / with low privileges) to your server</li>
 </ul></li>
 </ul></li>
-<li>gotty + ngrok
+<li><a href="https://github.com/yudai/gotty">gotty</a> + <a href="https://ngrok.com/">ngrok</a>
 
 <ul>
 <li>Pros
@@ -263,7 +263,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <li>Relying on ngrok (account needed, only one connection for free)</li>
 </ul></li>
 </ul></li>
-<li>tmate
+<li><a href="https://tmate.io/">tmate</a>
 
 <ul>
 <li>Pros
@@ -310,7 +310,7 @@ Share a common shell with tmux so Helpee can watch Helper fix stuff and learn at
 
 <h3 id="step-1-get-our-static-tools-and-host-them">Step 1 : Get our static tools and host them</h3>
 
-<p>We&rsquo;ll use minos-static which is a neat utility designed to offer statically built tools. We can use it to have premade recipes to build specific tools, or just download them. This means that these tools won&rsquo;t rely on any library once executed, they&rsquo;re standalones. The downside of this is that they are more sizy, more biggy, more barbecue cheesy, but who cares, right?</p>
+<p>We&rsquo;ll use <a href="https://github.com/minos-org/minos-static">minos-static</a> which is a neat utility designed to offer statically built tools. We can use it to have premade recipes to build specific tools, or just download them. This means that these tools won&rsquo;t rely on any library once executed, they&rsquo;re standalones. The downside of this is that they are more sizy, more biggy, more barbecue cheesy, but who cares, right?</p>
 
 <p>The first tool is socat (man - Multipurpose relay (SOcket CAT)). It is very powerful helps a lot with port forwarding, protocol translation, exposing weird files, stream redirections etc.
 The second tool is tmux (man -  terminal multiplexer). It has a lot of cool features such as display sharing, session management, window splitting and tabs, the ability to keep your session open (and thus won&rsquo;t stop your long running tasks) when you disconnect from it (whether you mean it or your connection crashes).</p>
@@ -339,7 +339,7 @@ Here, we download and extract our binaries, and put them on a common directory t
 
 <h3 id="step-2-setup-listeners-on-helpee-s-side">Step 2 : Setup listeners on Helpee&rsquo;s side</h3>
 
-<p>Here, Helpee is a virtual machine (VirtualBox) running Ubuntu 20. <br />
+<p>Here, Helpee is a virtual machine (<a href="https://www.virtualbox.org/">VirtualBox</a>) running <a href="https://releases.ubuntu.com/20.04/">Ubuntu 20</a>. <br />
 Helpee will use curl or wget to download tmux and socat from Helper&rsquo;s server.</p>
 
 <p><img class="img_big" src="/hacking/a_helping_hand/download_static_elfs.png" alt="download_static_elfs"></p>
@@ -364,7 +364,7 @@ Instead of that, we&rsquo;ll use socat on Helper&rsquo;s side to dedicate a tty 
 
 <p>In order to have a common shell or display, many tricks could work, using default tools such as tee, tail, bash redirections, or even the live filesystem /proc/<pid>/fd/{0,1,2} to have a transcript of Helper&rsquo;s interactions with Helpee&rsquo;s system. <br />
 But what I think is the most elegant solution is to use the static tmux we already downloaded. So helper will create a tmux session, and Helpee will attach their current shell to Helper&rsquo;s session. It&rsquo;s preferable that both use the same binary (thus same version) to avoid compatibility issues. <br />
-More information in tmux in its man, or in one of its cheatsheet : <a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/</a></p>
+More information in tmux in its man, or in one of its cheatsheets : <a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/</a></p>
 
 <p><img class="img_big" src="/hacking/a_helping_hand/screen_sharing_01.png" alt="screen_sharing_01">
 <img class="img_big" src="/hacking/a_helping_hand/screen_sharing_02.png" alt="screen_sharing_02"></p>
@@ -380,13 +380,13 @@ One more useful thing would be to put Helpee&rsquo;s socat listener in an endles
 <h1 id="solution-2-ngrok-and-gotty">Solution 2 : ngrok and gotty</h1>
 
 <p>An introduction to ngrok is already available here : <a href="https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/">https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/</a> <br />
-Long story short, use ngrok to connect to ngrok&rsquo;s servers to redirect on of their subdomain:port to Helpee&rsquo;s loopback interface. The binary is also statically compiled, but as this is a service it requires a (free) account.</p>
+Long story short, use ngrok to connect to ngrok&rsquo;s servers and redirect one of their subdomain:port to Helpee&rsquo;s loopback interface. The binary is also statically compiled, but as this is a service it requires a (free) account.</p>
 
 <p>Gotty is another neat tool written in go, dynamically linked but which can still be executed without installing anything as all its dependencies are really common and present in pretty much every linux distributions. This tool allows its user to expose a shell over HTTP.</p>
 
 <h3 id="step-1-setup-gotty">Step 1 : Setup gotty</h3>
 
-<p>Download and extract its binary from github. Most of the go softwares do have pre built binaries on the release section in github, don&rsquo;t waste time compiling if it&rsquo;s already done! We&rsquo;ll then use openssl to generate a strong rsa key and a TLS certificate. We don&rsquo;t care much about the information it will contain as it&rsquo;s for our personal use only. Once all the assets are in place, we can then use gotty to expose a shell running the same command as in the first tolution : su $USER.
+<p>Download and extract its binary from github. Most of the go softwares do have pre built binaries on the release section in github, don&rsquo;t waste time compiling if it&rsquo;s already done! We&rsquo;ll then use openssl to generate a strong rsa key and a TLS certificate. We don&rsquo;t care much about the information it will contain as it&rsquo;s for our personal use only. Once all the assets are in place, we can then use gotty to expose a shell running the same command as in the first solution : su $USER.
 This enforces the use of a password, we don&rsquo;t want to offer a shell on our box to the world, don&rsquo;t we?</p>
 
 <p><img class="img_big" src="/hacking/a_helping_hand/gotty_setup.png" alt="gotty_setup"></p>
@@ -410,7 +410,7 @@ The shell is once again fully interactive, and the terminal can again be shared 
 
 <h1 id="solution-3-tmate">Solution 3 : tmate</h1>
 
-<p>The last solution is definitely the easiest one, but it&rsquo;s a really good thing to understand how something works before using quick cheats that make the whole thing opaque. The only thing Helpee needs to do, is to install tmate, and run &ldquo;tmate&rdquo;. That&rsquo;s it. Many links will be displayed, allowing Helper to join from from a browser or shell, and to have a full or read only access. The shell is already shared, fully interactive, etc&hellip; PLEASANT, RIGHT?!</p>
+<p>The last solution is definitely the easiest one, but it&rsquo;s a really good thing to understand how something works before using quick cheats that make the whole thing opaque. The only thing Helpee needs to do, is to install tmate, and run &ldquo;tmate&rdquo;. That&rsquo;s it. Many links will be displayed, allowing Helper to join from a browser or shell, and to have a full or read only access. The shell is already shared, fully interactive, etc&hellip; PLEASANT, RIGHT?!</p>
 
 <p>It only requires the user running tmate to have an ssh key. So if you don&rsquo;t have one, generate it!</p>
 
@@ -451,10 +451,10 @@ ss -latepun | grep LISTEN
 If. You. Break. Something. That. Isn&rsquo;t. Yours. <br />
 You. Are. Responsible.</p>
 
-<p>So next beers are on you! ;)</p>
+<p>So next <a href="https://twitter.com/petite_biere">beers</a> are on you! ;)</p>
 
 <p>Big shout out to <a href="https://twitter.com/0nemask">0nemask</a> for proofreading me. <br />
-He spend a lot of time writing cool <a href="https://onemask.me/posts/">HackTheBox writeups</a> lately. Thus I strongly advice his blog as your next readings! <code>^.^</code></p>
+He spent a lot of time writing cool <a href="https://onemask.me/posts/">HackTheBox writeups</a> lately. Thus I strongly advice his blog as your next readings! <code>^.^</code></p>
 
   </div>
   
