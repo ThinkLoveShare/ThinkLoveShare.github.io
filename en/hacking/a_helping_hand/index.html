@@ -218,14 +218,14 @@ Share</a>
 So.. How can I help? Be helped? <br />
 Especially when both of us are on local networks that do not have a public IP with open ports setup? <br />
 Even worse, when the helped one do not have root access on their machine, and thus can&rsquo;t install tools? <br />
-Well, I&rsquo;ll tell you, everything you need is a good a decent an internet connection, and your favourite ssh client!</p>
+Well, I&rsquo;ll tell you, everything you need is <s>a good</s> <s>a decent</s> an internet connection, and your favourite ssh client!</p>
 
 <p>The solutions I&rsquo;ll describe already made their proofs (at least they worked for me) with the following usecases:</p>
 
 <ul>
 <li>Patching security breaches in a website. He knew the app design, I had more insights on the logs, we jumped on it all together and got that SQL injection patched in no time.</li>
 <li>Installing ffmpeg on a really old centos box, behind a quite strict reverse proxy. She had access to this box and I had more experience with centos and bad dependencies handling (broken .so files, misplaces links, missing packages and the lack of repositories to install from).</li>
-<li>Solving CTF challenges with friends, from binary exploitation to windows pwning, passing by regular web audits! That was muuuch fun, and so many laughs!</li>
+<li>Solving CTF challenges with friends, from binary exploitation to windows pwning, not forgetting regular web audits! That was muuuch fun, and so many laughs!</li>
 </ul>
 
 <p>There are many ways to achieve that, but they all have their own pros and cons.</p>
@@ -253,7 +253,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <li>Pros
 
 <ul>
-<li>The helper don&rsquo;t need anything but a browser</li>
+<li>The helper doesn&rsquo;t need anything but a browser</li>
 </ul></li>
 <li>Cons
 
@@ -285,7 +285,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <ul>
 <li>For this article, I will call our dear friend we want to help &ldquo;Helpee&rdquo; and ourselves &ldquo;Helper&rdquo;</li>
 <li>The port forwarding stage introduced with SSH can be exchanged with ngrok (thus no VPS needed)</li>
-<li>A DNS is already setup and resolved vps.thinkloveshare.com to my server&rsquo;s IP, this is not mandatory if you hardcode all IPs instead of using a domain name.</li>
+<li>A DNS is already setup and resolves vps.thinkloveshare.com to my server&rsquo;s IP, this is not mandatory if you hardcode all IPs instead of using a domain name.</li>
 <li>There are always many ways to achieve one thing, I&rsquo;ll just demonstrate a few ways to achieve this, but it&rsquo;s just a start. Try different things, experiment new tools, learn cool stuff!</li>
 <li>I do pretty much everything as root on this vps as I use it and then throw it afterward, do not do that nor run programs as root on a production box, especially if it&rsquo;s network related&hellip; =]</li>
 </ul>
@@ -303,7 +303,7 @@ Well, I&rsquo;ll tell you, everything you need is a good a decent an internet co
 <ul>
 <li>Prepare handy static tools hosted on Helper&rsquo;s server so Helpee can download and run them.</li>
 <li>Get Helpee to establish a connection to Helper&rsquo;s server and redirect a remote port (from server) on their local machine (loopback).</li>
-<li>Get Helpee to setup a listener offering an interactive pty (password protected please!) on their loopback address. This technique is known as a bind shell, aka a shell binded to a local socket.</li>
+<li>Get Helpee to setup a listener offering an interactive pty (password protected please!) on their loopback address. This technique is known as a bind shell, aka a shell bound to a local socket.</li>
 <li>Helper will then connect to their server and be redirected to Helpee&rsquo;s machine (and thus pty)
 Share a common shell with tmux so Helpee can watch Helper fix stuff and learn at the same time :)</li>
 </ul>
