@@ -9,10 +9,20 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RCE on Spip and Root-Me</title>
+      <link>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</guid>
+      <description>Hi there, This article is about Spip, root-me.org, XSS, SQLi, and Remote Code Execution. Ever wondered how secure is your daily website ? Welcome. To. Php.
+Quick disclaimer before we start:  In May the 23rd 2020, someone took over an admin account on root-me by password reuse and threatened to leak solutions and flags. There is no beauty in this act, no technical skill required, nor good purpose. This is just part of the &amp;ldquo;be an asshole&amp;rdquo; mindset.</description>
+    </item>
     
     <item>
       <title>A Helping Hand</title>

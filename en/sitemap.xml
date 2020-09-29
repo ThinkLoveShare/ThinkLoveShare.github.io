@@ -3,23 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.github.io/en/hacking/a_helping_hand/</loc>
-    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.github.io/fr/hacking/a_helping_hand/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.github.io/en/hacking/a_helping_hand/"
-                />
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.github.io/en/hacking/</loc>
-    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -33,8 +18,23 @@
   </url>
   
   <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</loc>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/rce_on_spip_and_root_me/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.github.io/en/</loc>
-    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-04T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -44,6 +44,21 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://thinkloveshare.github.io/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.github.io/en/hacking/a_helping_hand/</loc>
+    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.github.io/fr/hacking/a_helping_hand/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.github.io/en/hacking/a_helping_hand/"
                 />
   </url>
   
