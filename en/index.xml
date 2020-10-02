@@ -9,7 +9,7 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@ Share</description>
     <item>
       <title>RCE on Spip and Root-Me</title>
       <link>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</link>
-      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</guid>
       <description>Hi there, This article is about Spip, root-me.org, XSS, SQLi, and Remote Code Execution. Ever wondered how secure is your daily website ? Welcome. To. Php.
