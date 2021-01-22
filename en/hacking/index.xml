@@ -4,41 +4,41 @@
     <title>Hacking on Think
 Love
 Share</title>
-    <link>https://thinkloveshare.github.io/en/hacking/</link>
+    <link>https://thinkloveshare.com/en/hacking/</link>
     <description>Recent content in Hacking on Think
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://thinkloveshare.github.io/en/hacking/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://thinkloveshare.com/en/hacking/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>RCE on Spip and Root-Me</title>
-      <link>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</link>
+      <link>https://thinkloveshare.com/en/hacking/rce_on_spip_and_root_me/</link>
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/rce_on_spip_and_root_me/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/rce_on_spip_and_root_me/</guid>
       <description>Hi there, This article is about Spip, root-me.org, XSS, SQLi, and Remote Code Execution. Ever wondered how secure is your daily website ? Welcome. To. Php.
 Quick disclaimer before we start:  In May the 23rd 2020, someone took over an admin account on root-me by password reuse and threatened to leak solutions and flags. There is no beauty in this act, no technical skill required, nor good purpose. This is just part of the &amp;ldquo;be an asshole&amp;rdquo; mindset.</description>
     </item>
     
     <item>
       <title>A Helping Hand</title>
-      <link>https://thinkloveshare.github.io/en/hacking/a_helping_hand/</link>
+      <link>https://thinkloveshare.com/en/hacking/a_helping_hand/</link>
       <pubDate>Sun, 03 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/a_helping_hand/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/a_helping_hand/</guid>
       <description>From time to time, I help friends to troubleshoot issues. Coding, system administration, hacking, pretty much anything as it&amp;rsquo;s a good opportunity to learn from what they are doing, and teach cool tricks at the same time. One big issue though is that I really rarely have a decent connection. Thus, using common tools such as TeamViewer, Anydesk, RDP, on anything else isn&amp;rsquo;t really working well, crashing, extra slow, &amp;hellip; So.</description>
     </item>
     
     <item>
       <title>Reverse XSShell</title>
-      <link>https://thinkloveshare.github.io/en/hacking/reverse_xsshell/</link>
+      <link>https://thinkloveshare.com/en/hacking/reverse_xsshell/</link>
       <pubDate>Sat, 22 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/reverse_xsshell/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/reverse_xsshell/</guid>
       <description>The initial idea While auditing a website, I found out they were using websockets to transmit data. I didn&amp;rsquo;t kow much about it so I had to ReadTheFancyManual. Once I understood that it was&amp;hellip; Well&amp;hellip; A socket one could use with web technologies, I asked myself &amp;ldquo;What do I usually do with sockets?&amp;rdquo;
 Tunnels! Transfer files! Or&amp;hellip; Spawn reverse shells?!
 Or&amp;hellip; Spawn a reverse XSShell??
@@ -47,49 +47,49 @@ What do we need? A websocket server import asyncio import websockets async def h
     
     <item>
       <title>Infosec made easy</title>
-      <link>https://thinkloveshare.github.io/en/hacking/infosec_made_easy/</link>
+      <link>https://thinkloveshare.com/en/hacking/infosec_made_easy/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/infosec_made_easy/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/infosec_made_easy/</guid>
       <description>Not translated, because I&amp;rsquo;m lazy af! :]  Original (french) here : Infosec made easy Translator here : Deepl translator   No, more seriously, having to translate (localize) and format all the articles in two languages takes a huge amount of time that completely demotivates me to write new articles, that&amp;rsquo;s why some of them are no longer translated. There will be French or English editions depending on the targeted audience, and if you ever feel like a translator&amp;hellip; Hit me up?</description>
     </item>
     
     <item>
       <title>Wordpress Subpath Auditor</title>
-      <link>https://thinkloveshare.github.io/en/hacking/wordpress_subpath_auditor/</link>
+      <link>https://thinkloveshare.com/en/hacking/wordpress_subpath_auditor/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/wordpress_subpath_auditor/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/wordpress_subpath_auditor/</guid>
       <description>About a month ago, I had to audit a wordpress website. As it was one of my first real-life pentest, I was really hyped and ready to try extra-super-hard to compromise this target. But after a few hours, I realised that :
  Wordpress is up to date Every plugin or theme is up to date There is no custom code (At least, I found none using gobuster and big wordlists) There is no weak credentials (Same, I found none doesn&amp;rsquo;t mean there&amp;rsquo;s none.</description>
     </item>
     
     <item>
       <title>Ngrok your DockerSploit</title>
-      <link>https://thinkloveshare.github.io/en/hacking/ngrok_your_dockersploit/</link>
+      <link>https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/</link>
       <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/ngrok_your_dockersploit/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/</guid>
       <description>Hey, you! Aren’t you tired of always having broken tools relying on broken software? Pissed off because you just broke your system (againnn&amp;hellip;) trying to fix your previously broken tools and now everything’s fucked-up and you want to raise penguins out of the tech world? Or even worse, you want a reverse shell but you’re :
  At your grandparents place and they lost the router password so you can’t expose ports So broke that you can’t buy nor rent a virtual private server  Well that’s oddly specific but you’re on the exact right place on earth (and on the web)!</description>
     </item>
     
     <item>
       <title>GreHack 2018</title>
-      <link>https://thinkloveshare.github.io/en/hacking/grehack_2018/</link>
+      <link>https://thinkloveshare.com/en/hacking/grehack_2018/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/grehack_2018/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/grehack_2018/</guid>
       <description>Before I start&amp;hellip; One year ago was my first on-site hacking event : GreHack 2017 !
 The conferences were great, I met a few cool people there, and the CaptureTheFlag was awesome, even tho I had almost no knowledge, there&amp;rsquo;s always a starting point huh ? I spent the whole year doing my best to gain hacking knowledge, meet people into infosec, solve challenges, join events, conferences, CTFs, &amp;hellip;</description>
     </item>
     
     <item>
       <title>PWN 4/4 : Stack Pivot ToZeMoon !</title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</link>
+      <link>https://thinkloveshare.com/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</link>
       <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/</guid>
       <description>Small edit after the initial publication of the articles:
 These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Pwn Road, last introductory article! I promised you some heavy stuff for the final, and what is said, is due!</description>
@@ -97,10 +97,10 @@ These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; co
     
     <item>
       <title>PWN 3/4 : SaperliROPette !</title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</link>
+      <link>https://thinkloveshare.com/en/hacking/pwn_3of4_saperliropette/</link>
       <pubDate>Wed, 09 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_3of4_saperliropette/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/pwn_3of4_saperliropette/</guid>
       <description>Small edit after the initial publication of the articles:
 These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Pwn Road, third stop, welcome aboard! Yesterday, the simple buffer overflow and ret2libc, today, ROP, or Return Oriented Programming, and tomorrow&amp;hellip; Tomorrow the conquest of the world!</description>
@@ -108,10 +108,10 @@ These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; co
     
     <item>
       <title>PWN 2/4 : Return at libc, pick a shell !</title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</link>
+      <link>https://thinkloveshare.com/en/hacking/pwn_2of4_ret2libc/</link>
       <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_2of4_ret2libc/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/pwn_2of4_ret2libc/</guid>
       <description>Small edit after the initial publication of the articles:
 These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    Welcome to this 2nd article dedicated to pwning linux executables!
@@ -120,10 +120,10 @@ On the list today, the ret2libc, or return to lib C.</description>
     
     <item>
       <title>PWN 1/4 : Buffer Overflow, where it all began</title>
-      <link>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</link>
+      <link>https://thinkloveshare.com/en/hacking/pwn_1of4_buffer_overflow/</link>
       <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.github.io/en/hacking/pwn_1of4_buffer_overflow/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/pwn_1of4_buffer_overflow/</guid>
       <description>Small edit after the initial publication of the articles:
 These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable here and the video (French only) here :
    printf(&amp;ldquo;Mr, Ms %s, bonjour. &amp;ldquo;, lecteur); Today, I want to offer you an article more sophisticated than usual, the first of new kind, an article dealing with heavy stuff, in short, an article that blows ass!</description>
