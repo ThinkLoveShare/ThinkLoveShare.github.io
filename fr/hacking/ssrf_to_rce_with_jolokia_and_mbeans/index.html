@@ -17,21 +17,21 @@
     
     
 
-<title>RCE on Spip and Root-Me • Think
+<title>SSRF to RCE avec Jolokia et les MBeans • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="RCE on Spip and Root-Me"/>
-<meta name="twitter:description" content="Write-up de recherche de vulnérabilité sur spip, le framework utilisé par root-me.org. Les trouvailles vont de la XSS à la RCE en passant par la SQLi!"/>
+<meta name="twitter:title" content="SSRF to RCE avec Jolokia et les MBeans"/>
+<meta name="twitter:description" content="Write-Up d&#39;une exploit-chain impliquant un path traversal, une SSRF, Jolokia, des Mbeans, le tout menant à RCE plutt chouette !"/>
 
-<meta property="og:title" content="RCE on Spip and Root-Me" />
-<meta property="og:description" content="Write-up de recherche de vulnérabilité sur spip, le framework utilisé par root-me.org. Les trouvailles vont de la XSS à la RCE en passant par la SQLi!" />
+<meta property="og:title" content="SSRF to RCE avec Jolokia et les MBeans" />
+<meta property="og:description" content="Write-Up d&#39;une exploit-chain impliquant un path traversal, une SSRF, Jolokia, des Mbeans, le tout menant à RCE plutt chouette !" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.com/fr/hacking/rce_on_spip_and_root_me/" />
-<meta property="article:published_time" content="2020-09-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-09-29T00:00:00+00:00" />
+<meta property="og:url" content="https://thinkloveshare.com/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/" />
+<meta property="article:published_time" content="2021-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-01T00:00:00+00:00" />
 
 
     
@@ -174,9 +174,9 @@ Share</a>
     </p>
     <div class="langSection">
     
-    <a rel="alternate" href="/en/hacking/rce_on_spip_and_root_me/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    <a rel="alternate" href="/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     
-    <a rel="alternate" href="/fr/hacking/rce_on_spip_and_root_me/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
+    <a rel="alternate" href="/en/hacking/ssrf_to_rce_with_jolokia_and_mbeans/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -192,12 +192,12 @@ Share</a>
             
     <article>
   <header>
-    <h1>RCE on Spip and Root-Me</h1>
+    <h1>SSRF to RCE avec Jolokia et les MBeans</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Sep 29, 2020
+      <i class="fas fa-calendar-alt"></i> Feb 1, 2021
     
     
     <i class="fas fa-clock"></i> 1 min read
@@ -217,7 +217,7 @@ Share</a>
 <h1 id="article-non-traduit-pour-cause-de-flemme">Article non traduit, pour cause de flemme ! :]</h1>
 
 <ul>
-<li>Original (anglais) ici : <a href="https://thinkloveshare.com/en/hacking/rce_on_spip_and_root_me/">RCE on Spip &amp; Root-Me</a></li>
+<li>Original (anglais) ici : <a href="https://thinkloveshare.com/en/hacking/ssrf_to_rce_with_jolokia_and_mbeans/">SSRF to RCE with Jolokia and MBeans</a></li>
 <li>Outil de traduction ici : <a href="https://www.deepl.com/translator">Deepl translator</a></li>
 </ul>
 
@@ -232,16 +232,11 @@ La bise, et bonne journée ! <br />
 
 <div class="post--navigation post--navigation-single">
     
-    <a href="/fr/hacking/a_helping_hand/" class="post--navigation-prev">
+    <a href="/fr/hacking/rce_on_spip_and_root_me/" class="post--navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">Un coup de main</span>
+      <span class="navigation-tittle">RCE on Spip and Root-Me</span>
     </a>
     
-    
-    <a href="/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/" class="post--navigation-next">
-      <span class="navigation-tittle">SSRF to RCE avec Jolokia et les MBeans</span>
-      <i aria-hidden="true" class="fa fa-chevron-right"></i>
-    </a>
     
 </div>
 

@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://thinkloveshare.com/fr/hacking/</loc>
-    <lastmod>2020-09-29T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -14,6 +14,36 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.com/fr/hacking/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/</loc>
+    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.com/en/hacking/ssrf_to_rce_with_jolokia_and_mbeans/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.com/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/fr/</loc>
+    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.com/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.com/fr/"
                 />
   </url>
   
@@ -29,21 +59,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.com/fr/hacking/rce_on_spip_and_root_me/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/fr/</loc>
-    <lastmod>2020-09-29T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/"
                 />
   </url>
   
