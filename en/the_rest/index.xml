@@ -9,10 +9,26 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 01 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Sep 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/en/the_rest/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Salut, ca va ?</title>
+      <link>https://thinkloveshare.com/en/the_rest/salut-ca-va/</link>
+      <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/the_rest/salut-ca-va/</guid>
+      <description>Salut ! Ca va ?
+Ca va ! Et toi ?
+Ca va !
+ What a useless proloque, right? Riiight?
+Well, not exaclty.
+What if I told you that this quick chat is in fact useful, and probably one of the most used, daily, worldwide?
+Remember of this bad boy? This is him now :)
+This is this same kind of exchange used in TCP to establish a connection between a client and a server.</description>
+    </item>
     
     <item>
       <title>A question of standards?</title>

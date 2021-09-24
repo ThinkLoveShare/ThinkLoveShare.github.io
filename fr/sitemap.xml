@@ -3,6 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.com/fr/the_rest/salut-ca-va/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.com/en/the_rest/salut-ca-va/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.com/fr/the_rest/salut-ca-va/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/fr/the_rest/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.com/en/the_rest/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.com/fr/the_rest/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/fr/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://thinkloveshare.com/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://thinkloveshare.com/fr/"
+                />
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.com/fr/hacking/</loc>
     <lastmod>2021-02-28T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -29,21 +74,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.com/fr/hacking/ssrf_to_rce_with_jolokia_and_mbeans/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/fr/</loc>
-    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/"
                 />
   </url>
   
@@ -434,21 +464,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://thinkloveshare.com/fr/hacking/pwn_1of4_buffer_overflow/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/fr/the_rest/</loc>
-    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/"
                 />
   </url>
   
