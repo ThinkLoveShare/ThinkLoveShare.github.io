@@ -62,7 +62,9 @@ What do we need? A websocket server import asyncio import websockets async def h
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.com/en/hacking/infosec_made_easy/</guid>
-      <description>Not translated, because I&amp;rsquo;m lazy af! :]  Original (french) here : Infosec made easy Translator here : Deepl translator   No, more seriously, having to translate (localize) and format all the articles in two languages takes a huge amount of time that completely demotivates me to write new articles, that&amp;rsquo;s why some of them are no longer translated. There will be French or English editions depending on the targeted audience, and if you ever feel like a translator&amp;hellip; Hit me up?</description>
+      <description>Cross Site Scripting (XSS) Quand quelqu’un t’envoie un message mais qu’en fait ce message contient une petite bestiole qui se barre avec tes clés de maison, mais en profite quand même pour te piquer 20e. Après tout, pourquoi pas ?
+XSSXSSXSS XSSXSSXSS XSSXSSXSS
+eXternal Xml Entity (XXE) Tu vois ce qu’il y a derrière les ombres au loin ? Tu ne dois jamais y aller, c’est l’out of bound, et ca risque de voler tes haches.</description>
     </item>
     
     <item>
@@ -93,6 +95,68 @@ What do we need? A websocket server import asyncio import websockets async def h
       <guid>https://thinkloveshare.com/en/hacking/grehack_2018/</guid>
       <description>Before I start&amp;hellip; One year ago was my first on-site hacking event : GreHack 2017 !
 The conferences were great, I met a few cool people there, and the CaptureTheFlag was awesome, even tho I had almost no knowledge, there&amp;rsquo;s always a starting point huh ? I spent the whole year doing my best to gain hacking knowledge, meet people into infosec, solve challenges, join events, conferences, CTFs, &amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>CSAW - Algebra</title>
+      <link>https://thinkloveshare.com/en/hacking/algebra/</link>
+      <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/hacking/algebra/</guid>
+      <description>Description  Are you a real math wiz?
+nc misc.chal.csaw.io 9002
+ TL;DR This challenge consists in equations being thrown at us that we have to solve and send the result in order to get the flag. Python and sage, I invoke you !
+Methology A friend I was talking with while solving this chall told me :
+ Well, the equations are simple, let&amp;rsquo;s write a quick script to solve it !</description>
+    </item>
+    
+    <item>
+      <title>CSAW - Big boi</title>
+      <link>https://thinkloveshare.com/en/hacking/big_boi/</link>
+      <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/hacking/big_boi/</guid>
+      <description>Description  Only big boi pwners will get this one!
+nc pwn.chal.csaw.io 9000
+ You can download the ELF here
+TL;DR This challenge is a simple buffer overflow with a check that may lead to code execution. It&amp;rsquo;s an easy pwn, so one liner is the way to go !
+Methology Step 1 : Use IDA to decompile the program and avoid losing time, then overflow it with the good value many time to access the &amp;ldquo;/bin/bash&amp;rdquo; statement.</description>
+    </item>
+    
+    <item>
+      <title>CSAW - Shell-&gt;Code</title>
+      <link>https://thinkloveshare.com/en/hacking/shell_code/</link>
+      <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/hacking/shell_code/</guid>
+      <description>Description  Linked lists are great! They let you chain pieces of data together.
+nc pwn.chal.csaw.io 9005
+ You can download the ELF file : here
+TL;DR This challenge uses linked list and leaks an address, the stack is executable, a short shellcode and a relative jump will do the trick !
+Methology Step 1 : Use IDA to decompile the program, find the two useful functions that fills the linked list and expose the buffer overflow.</description>
+    </item>
+    
+    <item>
+      <title>CSAW - Short Circuit</title>
+      <link>https://thinkloveshare.com/en/hacking/short_circuit/</link>
+      <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/hacking/short_circuit/</guid>
+      <description>Description  Start from the monkey&amp;rsquo;s paw and work your way down the high voltage line, for every wire that is branches off has an element that is either on or off. Ignore the first bit. Standard flag format.
+-Elyk
+ TL;DR This challenge consists in the analysis of a lovely electronic scheme.
+It is composed of diodes, wires, wires, wires and wires.
+The goal is to extract bits of data from the circuit.</description>
+    </item>
+    
+    <item>
+      <title>Security Fest - Excess ess 1</title>
+      <link>https://thinkloveshare.com/en/hacking/excess_ess_1/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/en/hacking/excess_ess_1/</guid>
+      <description>This challenge is called &amp;ldquo;Excess Ess 1&amp;rdquo;, a funny name for XSS, which is an attack that consists in forcing our victim&amp;rsquo;s browser to execute code (most of the time javascript) without its consent. This challenge was proposed by the 2018&amp;rsquo;s edition of the SecurityFest CTF.
+The goal Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&amp;rsquo;s exactly what we&amp;rsquo;re asked to do.</description>
     </item>
     
     <item>
