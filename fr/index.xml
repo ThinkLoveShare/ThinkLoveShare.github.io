@@ -9,19 +9,10 @@ Share</title>
 Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 24 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/fr/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Salut, ca va ?</title>
-      <link>https://thinkloveshare.com/fr/the_rest/salut-ca-va/</link>
-      <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/fr/the_rest/salut-ca-va/</guid>
-      <description>Article non traduit, pour cause de flemme ! :]  Original (anglais) ici : Salut ca va ? Outil de traduction ici : Deepl translator   Non, plus sérieusement, devoir traduire (proprement) et formatter tous les articles en deux langues prend un temps fou qui me démotive complètement pour la rédaction de nouveaux articles, c&amp;rsquo;est pourquoi certains ne sont plus traduits. Il y aura des parutions en francais ou anglais suivant le public visé, et si jamais vous vous sentez une âme de traducteur / traductrice&amp;hellip; Contactez moi ?</description>
-    </item>
     
     <item>
       <title>SSRF to RCE avec Jolokia et les MBeans</title>
@@ -267,39 +258,6 @@ Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction
       <description>Petit ajout après la publication des articles :
 Ces quatres articles ont donné lieu à une conférence d&amp;rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables ici et la vidéo (francais uniquement) ici :
    printf(&amp;ldquo;Dear %s, welcome. &amp;ldquo;, reader); Aujourd&amp;rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</description>
-    </item>
-    
-    <item>
-      <title>Une question de norme ? </title>
-      <link>https://thinkloveshare.com/fr/the_rest/une_question_de_norme/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/fr/the_rest/une_question_de_norme/</guid>
-      <description>Bonjour cher lecteur, chère lectrice,
-Aujourd&amp;rsquo;hui, j&amp;rsquo;aimerais te parler d&amp;rsquo;un sujet profond, mais de manière très superficielle. J&amp;rsquo;aimerais te parler de notre société, des groupes qui y naissent, y vivent et y périssent. Des groupes, certes, mais surtout des individus qui les composent, ou s&amp;rsquo;y opposent.
-Comme à mon habitude, je vais tenter de te partager une manière de voir les choses : la mienne. Je ne serai donc probablement pas objectif, libre à toi de faire la part des choses sur ce que tu gardes, jettes, recycles&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>Une histoire de coquelicot</title>
-      <link>https://thinkloveshare.com/fr/the_rest/une_histoire_de_coquelicot/</link>
-      <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/fr/the_rest/une_histoire_de_coquelicot/</guid>
-      <description>Et si, pour varier un peu, on prenait le large ? Et si on laissait la technologie de côté un petit instant, histoire de se divertir ? Et si on lisait un peu ?
-Le concept est simple, je reçois un début de texte, d&amp;rsquo;histoire, quelques mots, une idée, et je brode dessus tant bien que mal, en espérant que le rendu final soit sympathique ! =]
-Texte proposé Une femme furieuse vêtue d&amp;rsquo;une robe rouge sort du bus.</description>
-    </item>
-    
-    <item>
-      <title>Raisonner sans prise de tête </title>
-      <link>https://thinkloveshare.com/fr/the_rest/raisonner_sans_prise_de_tete/</link>
-      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/fr/the_rest/raisonner_sans_prise_de_tete/</guid>
-      <description>Aujourd&amp;rsquo;hui, je vous propose une petite prise de recul sur la manière d&amp;rsquo;aborder un problème, une recherche, ou encore&amp;hellip; La vie de manière générale ?
-Prologue Ce que je vais vous dire ici est à mes yeux du bon sens, mais il m&amp;rsquo;a fallu lonnnngtemps avant d&amp;rsquo;adopter ces quelques méthodes, et encore, parfois j&amp;rsquo;oublie de les utiliser et le regrette vite.
-je vais donc vous présenter quelques idées et techniques qui pourront vous servir dans vos études (coucou les maths et la physique qui piquent !</description>
     </item>
     
   </channel>

@@ -3,33 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.com/en/the_rest/salut-ca-va/</loc>
+    <loc>https://thinkloveshare.com/en/the_rest/salut_ca_va/</loc>
     <lastmod>2021-09-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/salut-ca-va/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/salut-ca-va/"
-                />
   </url>
   
   <url>
     <loc>https://thinkloveshare.com/en/the_rest/</loc>
     <lastmod>2021-09-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/"
-                />
   </url>
   
   <url>
@@ -470,46 +450,16 @@
   <url>
     <loc>https://thinkloveshare.com/en/the_rest/a_question_of_standards/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/une_question_de_norme/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/a_question_of_standards/"
-                />
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/en/the_rest/a_poppy_story/</loc>
+    <loc>https://thinkloveshare.com/en/the_rest/une_histoire_de_coquelicot/</loc>
     <lastmod>2017-03-30T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/une_histoire_de_coquelicot/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/a_poppy_story/"
-                />
   </url>
   
   <url>
     <loc>https://thinkloveshare.com/en/the_rest/reasoning_without_headache/</loc>
     <lastmod>2017-03-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://thinkloveshare.com/fr/the_rest/raisonner_sans_prise_de_tete/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://thinkloveshare.com/en/the_rest/reasoning_without_headache/"
-                />
   </url>
   
   <url>
