@@ -1,138 +1,143 @@
 .logohover {
-  display: inline-block;
-  vertical-align: -6px;
-  background-size: cover;
-  height: 1.5em;
-  width: 1.5em;
-  margin-left: -9px;
-  margin-right: -2px;
-  transition: all 0.3s ease-in-out 0s;
+    display: inline-block;
+    vertical-align: -6px;
+    background-size: cover;
+    height: 1.5em;
+    width: 1.5em;
+    margin-left: -9px;
+    margin-right: -2px;
+    transition: all 0.3s ease-in-out 0s;
 }
 
 .aperikube_logo {
-  background-image: url("/img/white_aperikube.png");
+    background-image: url("/img/white_aperikube.png");
 }
 
 .rootme_logo {
-  background-image: url("/img/white_rootme.png");
+    background-image: url("/img/white_rootme.png");
 }
 
 .rotate {
-  color: #FFF;
-  border-radius: 50%;
-  -webkit-transition: -webkit-transform .1s ease-in-out;
-  transition: transform .1s ease-in-out;
+    color: #FFF;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    transition: transform .1s ease-in-out;
 }
 
 .rotate:hover {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .site__description {
-  text-align: center;
+    text-align: center;
 }
 
 .img--headshot {
-  margin-top: 20px;
-  width: 180px;
-  height: 180px;
+    margin-top: 20px;
+    width: 180px;
+    height: 180px;
 }
+
 
 /* Code */
+
 pre {
-  margin-top: 2em;
-  margin-bottom: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
+
 /* images */
+
 center {
-  margin-top: 2em;
-  margin-bottom: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 h1 {
-  margin-top: 1.3em;
+    margin-top: 1.3em;
 }
 
 h2 {
-  margin-top: 1.5em;
+    margin-top: 1.5em;
 }
 
 p {
-  text-align: justify;
+    text-align: justify;
 }
 
 .logoFlag {
-  float: left;
-  margin: auto;
-  margin-left: 1em;
-  margin-right: 1em;
-  width: 2em;
-  -webkit-transition: -webkit-transform .1s ease-in-out;
-  transition: transform .1s ease-in-out;
+    float: left;
+    margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 2em;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    transition: transform .1s ease-in-out;
 }
 
 .logoFlag:hover {
-  -webkit-transform: translate(0px, -0.3em);
-  transform: translate(0px, -0.3em);
+    -webkit-transform: translate(0px, -0.3em);
+    transform: translate(0px, -0.3em);
 }
 
 .langSection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 img,
 video {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .img_full {
-  width: 100%;
+    width: 100%;
 }
 
 .img_big {
-  width: 90%;
+    width: 90%;
 }
 
 .img_med {
-  width: 60%;
+    width: 60%;
 }
 
 .img_small {
-  width: 30%;
+    width: 30%;
 }
 
 .content {
-  word-break: break-word;
+    word-break: break-word;
 }
 
 article {
-  max-width: 75%;
-  padding: 5%;
+    max-width: 75%;
+    padding: 5%;
 }
 
 .container {
-  max-width: none;
+    max-width: none;
 }
 
 @media (max-width: 1200px) {
+    .img_full,
+    .img_big {
+        width: 100%;
+    }
+    .img_med,
+    .img_small {
+        width: 50%;
+    }
+    article {
+        max-width: 100%;
+        padding: 0%;
+    }
+}
 
-  .img_full,
-  .img_big {
-    width: 100%;
-  }
-
-  .img_med,
-  .img_small {
-    width: 50%;
-  }
-
-  article {
-    max-width: 100%;
-    padding: 0%;
-  }
+.post__meta {
+    text-align: center;
 }
