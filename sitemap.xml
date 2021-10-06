@@ -1,16 +1,178 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	
-	<sitemap>
-	   	<loc>https://thinkloveshare.com/en/sitemap.xml</loc>
-		
-	   	<lastmod>2021-09-24T00:00:00+00:00</lastmod>
-		
-	</sitemap>
-	
-	<sitemap>
-	   	<loc>https://thinkloveshare.com/fr/sitemap.xml</loc>
-		
-	</sitemap>
-	
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://thinkloveshare.com/the_rest/salut_ca_va/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/the_rest/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/</loc>
+    <lastmod>2021-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/</loc>
+    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/ssrf_to_rce_with_jolokia_and_mbeans/</loc>
+    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/rce_on_spip_and_root_me/</loc>
+    <lastmod>2020-09-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/a_helping_hand/</loc>
+    <lastmod>2020-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/reverse_xsshell/</loc>
+    <lastmod>2020-02-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/infosec_made_easy/</loc>
+    <lastmod>2020-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/wordpress_subpath_auditor/</loc>
+    <lastmod>2020-01-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/coding/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/coding/sshrc_and_telegram_apis/</loc>
+    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/ngrok_your_dockersploit/</loc>
+    <lastmod>2019-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/coding/a_linux_caca_story/</loc>
+    <lastmod>2019-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_3_to_6/</loc>
+    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/travels/</loc>
+    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_2/</loc>
+    <lastmod>2019-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_1/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/coding/website_migration/</loc>
+    <lastmod>2018-12-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/grehack_2018/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/about/</loc>
+    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/algebra/</loc>
+    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/big_boi/</loc>
+    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/shell_code/</loc>
+    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/short_circuit/</loc>
+    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/excess_ess_1/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/pwn_4of4_stak_pivot_to_ze_moon/</loc>
+    <lastmod>2018-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/pwn_3of4_saperliropette/</loc>
+    <lastmod>2018-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/pwn_2of4_ret2libc/</loc>
+    <lastmod>2018-05-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/pwn_1of4_buffer_overflow/</loc>
+    <lastmod>2018-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/the_rest/a_question_of_standards/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/the_rest/une_histoire_de_coquelicot/</loc>
+    <lastmod>2017-03-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/the_rest/reasoning_without_headache/</loc>
+    <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/tags/</loc>
+  </url>
+  
+</urlset>
