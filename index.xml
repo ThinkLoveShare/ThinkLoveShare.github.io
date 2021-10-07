@@ -10,10 +10,20 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Oct 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Failed01 - DOS to RCE in jolokia</title>
+      <link>https://thinkloveshare.com/hacking/failed01_dos_to_rce_in_jolokia/</link>
+      <pubDate>Sun, 03 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/failed01_dos_to_rce_in_jolokia/</guid>
+      <description>First article of a new series! Exciting isn&amp;rsquo;t it? We often read articles or research that explain how to exploit X or how Y works. Most of the time this seems straightforward, and yet we all struggle doing our own research. We &amp;ldquo;know&amp;rdquo; that failing is &amp;ldquo;normal&amp;rdquo;, it&amp;rsquo;s part of the process, yet it can hurt or make you feel bad.
+ The path I now want to take, is the wrong one.</description>
+    </item>
     
     <item>
       <title>Salut, ca va ?</title>
