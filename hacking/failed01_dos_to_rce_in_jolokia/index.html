@@ -249,7 +249,7 @@ If you find something cool to add, or a way to make these ideas successful, I&rs
 
 <p>Let&rsquo;s start from the beginning, we need a test setup, so I. need. docker.</p>
 
-<p>From the previous article, we&rsquo;ll start a simple jolokia instance, and steal its full command line. Then we&rsquo;ll start our custom instance to test our idea.</p>
+<p>From the previous article, we&rsquo;ll start a simple jolokia instance and steal its full command line. Then we&rsquo;ll start our custom instance to test our idea.</p>
 
 <pre><code class="language-bash"># Start a docker with jolokia
 docker run --rm -it --net=host bodsch/docker-jolokia
@@ -262,11 +262,11 @@ ps fauxwwe | less
 <p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/ps-fauxwwe.png" alt="ps-fauxwwe.png"></p>
 
 <ul>
-<li>Top term: Java server inside the docker</li>
-<li>Bottom term: result of <code>ps fauxwwe |  less</code> run inside the docker</li>
+<li>Top terminal: Java server inside the docker</li>
+<li>Bottom terminal: result of <code>ps fauxwwe |  less</code> run inside the docker</li>
 </ul>
 
-<p>Now we know how the program was started (bottom temrinal), we&rsquo;ll tweak this line a bit to test the JVM option.</p>
+<p>Now we know how the program was started (bottom terminal), we&rsquo;ll tweak this line a bit to test the JVM option.</p>
 
 <pre><code class="language-bash"># Start the java server, tweaking our options, and lowering the allowed memory for easier testing
 # options: -Xms32M -Xmx32M -XX:OnOutOfMemoryError=&quot;touch /tmp/rce&quot;
@@ -283,9 +283,9 @@ dockit jordi/ab -k -c 350 -n 20000 -p /host/dos.bin http://127.0.0.1:8080/
 <p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/rce-trigger.png" alt="rce-trigger.png"></p>
 
 <ul>
-<li>Top left corner: Java server executing payload</li>
-<li>Bottom left: Banchmark (DOS) in progress</li>
-<li>Right pane: Wait, wait, wait, BOOM, RCE.</li>
+<li>Top left terminal: Java server executing payload</li>
+<li>Bottom left terminal: Benchmark (DOS) in progress</li>
+<li>Right terminal: Wait, wait, wait, BOOM, RCE.</li>
 </ul>
 
 <p>This works pretty damn well! Now, let&rsquo;s just confirm we can modify this option with Jolokia.</p>
@@ -302,7 +302,7 @@ curl -sk 'http://127.0.0.1:8080/jolokia/exec/com.sun.management:type=HotSpotDiag
 
 <p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/modify-opt-ko.png" alt="modify-opt-ko.png"></p>
 
-<p>I also took some time to brute-force every option. All the ones that seemed interesting are blocked (at least on my JDK with this configutation). <br />
+<p>I also took some time to brute-force every option. All the ones that seemed interesting are blocked (at least on my JDK with this configuration). <br />
 The reality is hard, we can&rsquo;t write these options through jolokia, implying that we can&rsquo;t get RCE this way.</p>
 
 <blockquote>
@@ -320,7 +320,7 @@ The reality is hard, we can&rsquo;t write these options through jolokia, implyin
 <li>The <a href="https://github.com/frohoff/jdk8u-dev-jdk/blob/da0da73ab82ed714dc5be94acd2f0d00fbdfe2e9/src/share/classes/sun/management/Flag.java#L39-L53">Flag class</a> has a constructor that specifies the <code>writeable</code> property.</li>
 </ul>
 
-<p>Finally, this implies that when we try to modify an option, if we&rsquo;re able to resolve it, then it&rsquo;s writeable attribute will be resolved as well, so there is no point playing with bad-chars, or case-sensitivity. It&rsquo;s just not the right approach. <br />
+<p>Finally, this implies that when we try to modify an option, if we&rsquo;re able to resolve it, then its writeable attribute will be resolved as well, so there is no point playing with bad-chars, or case-sensitivity. It&rsquo;s just not the right approach. <br />
 Maybe finding a way to modify the writeable property would be more efficient, who knows, the rest is up to you! :)</p>
 
 <p><img class="img_med" src="/hacking/failed01_dos_to_rce_in_jolokia/trigger.png" alt="trigger.png"></p>
