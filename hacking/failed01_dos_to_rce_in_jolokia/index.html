@@ -290,7 +290,7 @@ dockit jordi/ab -k -c 350 -n 20000 -p /host/dos.bin http://127.0.0.1:8080/
 
 <p>This works pretty damn well! Now, let&rsquo;s just confirm we can modify this option with Jolokia.</p>
 
-<p>First, we test with a simple option, then with with the one we need.</p>
+<p>First, we test with a simple option, then with the one we need.</p>
 
 <pre><code class="language-bash"># Works, dope. 
 curl -sk 'http://127.0.0.1:8080/jolokia/exec/com.sun.management:type=HotSpotDiagnostic/setVMOption/PrintConcurrentLocks/true'
@@ -316,7 +316,7 @@ The reality is hard, we can&rsquo;t write these options through jolokia, implyin
 <ul>
 <li>The <a href="https://www-ppti.ufr-info-p6.jussieu.fr/doc-online/Java/jdk1.6/docs/jre/api/management/extension/com/sun/management/HotSpotDiagnosticMXBean.html">documentation</a> from <code>HotSpotDiagnosticMXBean</code> says <code>List&lt;VMOption&gt; getDiagnosticOptions() Returns a list of VMOption objects for all diagnostic options. A diagnostic option is a writeable VM option that can be set dynamically mainly for troubleshooting and diagnosis.</code></li>
 <li>The source code for this is here <a href="https://github.com/frohoff/jdk8u-dev-jdk/blob/da0da73ab82ed714dc5be94acd2f0d00fbdfe2e9/src/share/classes/sun/management/HotSpotDiagnostic.java#L55-L64">management/HotSpotDiagnostic.java#L55-L64</a></li>
-<li>This implies that our options are in fact flags, cf <code>Flag f = Flag.getFlag(name);</code> in <code>getVMOption</code></li>
+<li>This implies that our options are in fact flags, see <code>Flag f = Flag.getFlag(name);</code> in <code>getVMOption</code></li>
 <li>The <a href="https://github.com/frohoff/jdk8u-dev-jdk/blob/da0da73ab82ed714dc5be94acd2f0d00fbdfe2e9/src/share/classes/sun/management/Flag.java#L39-L53">Flag class</a> has a constructor that specifies the <code>writeable</code> property.</li>
 </ul>
 
