@@ -10,10 +10,20 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Get shells with JET, the Jolokia Exploitation Toolkit</title>
+      <link>https://thinkloveshare.com/hacking/shells_with_jolokia_exploitation_toolkit/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/shells_with_jolokia_exploitation_toolkit/</guid>
+      <description>TL;DR: I&amp;rsquo;m finally releasing JET, a Jolokia Exploitation Toolkit! To introduct this tool &amp;amp; repo, I&amp;rsquo;ll explain in detail how to get code execution with jolokia and Tomcat/Catalina Mbeans! :)
+ Oops, I did it again. I spent too much time on Jolokia, this is a fact. Now, I want you to be able to get shells as well, and I also would like the community to contribute to this project so no jolokia can never ever survive to its pentester agin.</description>
+    </item>
     
     <item>
       <title>Failed01 - DOS to RCE in jolokia</title>
