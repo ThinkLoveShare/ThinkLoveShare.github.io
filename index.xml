@@ -21,7 +21,7 @@ Share</description>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.com/hacking/hacking_guacamole_to_trigger_avocado/</guid>
-      <description>While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Lets begin, shall we?
+      <description>While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Let&amp;rsquo;s begin, shall we?
 What the doc says Apache Guacamole is a clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH.
 Setup the test environment There is a clear documentation that explains the setup process both with and without docker, you can read it here:</description>
     </item>

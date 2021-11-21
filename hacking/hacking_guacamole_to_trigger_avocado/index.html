@@ -25,10 +25,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="RCE with SSRF and File Write as an exploit chain on Apache Guacamole"/>
-<meta name="twitter:description" content="While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Lets begin, shall we?"/>
+<meta name="twitter:description" content="While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Let&#39;s begin, shall we?"/>
 
 <meta property="og:title" content="RCE with SSRF and File Write as an exploit chain on Apache Guacamole" />
-<meta property="og:description" content="While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Lets begin, shall we?" />
+<meta property="og:description" content="While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Let&#39;s begin, shall we?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.com/hacking/hacking_guacamole_to_trigger_avocado/" />
 <meta property="article:published_time" content="2021-11-20T00:00:00+00:00" />
@@ -204,7 +204,7 @@ Share</a>
   <div class="post">
     
 
-<p>While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Lets begin, shall we?</p>
+<p>While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Let&rsquo;s begin, shall we?</p>
 
 <p><img class="img_med" src="./too-much-guac.jpg" alt="too-much-guac"></p>
 
@@ -233,14 +233,14 @@ Share</a>
 
 <h2 id="postauth-to-preauth">PostAuth to PreAuth</h2>
 
-<p>I haven&rsquo;t looked at the authentication process (yet?), but I found a default account <code>test:test</code> in bug bounty once, and for most of the guacamole-based projects, the default credentials are <code>guacadmin:guacadmin</code>, so let&rsquo;s just assume that you have an account by weak creds. :)</p>
+<p>I haven&rsquo;t looked at the authentication process (yet?), but I found a default account <code>test:test</code> in bug bounty once, and for most of the guacamole-based projects, the default credentials are <code>guacadmin:guacadmin</code>, so let&rsquo;s just assume that you found an account with weak credentials. :)</p>
 
 <h2 id="general-idea">General Idea</h2>
 
 <p>This protocolar gateway allows its users to connect to various hosts using <code>telnet, ssh, vnc, rdp, k8s</code>. <br />
 Ok. Cool. Whatever.</p>
 
-<p>The <code>&quot;telnet&quot;</code> features offers to write a <code>Typescript</code> recording of the session in a specified directory and file.</p>
+<p>The <code>&quot;telnet&quot;</code> feature offers to write a <code>Typescript</code> recording of the session in a specified directory and file.</p>
 
 <p>Seen from afar, telnet is just offering you to open a socket to another host:port. And here, typescript recording basically means write plaintext with a small header and footer (garbage).</p>
 
@@ -261,7 +261,7 @@ Ok. Cool. Whatever.</p>
 
 <p><img class="img_full" src="./empty-list.png" alt="empty-list"></p>
 
-<p>The end user can create many connections in the settings pannel</p>
+<p>The end user can create many connections in the settings panel</p>
 
 <p><img class="img_full" src="./create-connection.png" alt="create-connection"></p>
 
@@ -287,7 +287,7 @@ rce.jsp
 
 # Drop webshell
 http://127.0.0.1:8080/
-open side pannel with ctrl+alt+shift
+open side panel with ctrl+alt+shift
 copy from foo to bar to enforce new line that will end the connection and trigger file write
 
 foo
@@ -300,7 +300,7 @@ bar
 http://127.0.0.1:8080/rce.jsp?cmd=id
 </code></pre>
 
-<h2 id="exploit-chain-2-postgresql-rce-throught-the-trusted-ssrf-acces">Exploit chain 2 - PostgreSQL RCE throught the trusted SSRF acces</h2>
+<h2 id="exploit-chain-2-postgresql-rce-through-the-trusted-ssrf-access">Exploit chain 2 - PostgreSQL RCE through the trusted SSRF access</h2>
 
 <p>Use the SSRF to reach postgres, benefiting from the fact that postgres trusts requests coming from the loopback to the loopback.</p>
 
@@ -332,7 +332,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 
 <ul>
 <li>Write a public key in <code>~/.ssh/authorized_keys2</code> to avoid overwriting keys, then ssh your way in. This works even if ssh isn&rsquo;t exposed as guacamole itselfs offers you to login to its loopback. Shoutout to <a href="https://twitter.com/podalirius_">Podalirius</a> for the time spent troubleshooting <a href="https://issues.apache.org/jira/browse/GUACAMOLE-745">rsa key format issues</a> with me!</li>
-<li>Overwrite a user&rsquo;s dotfiles and wait for their login (tedious, destructive)</li>
+<li>Overwrite a user&rsquo;s dotfiles and wait for them to login (tedious, destructive)</li>
 <li>Fuzz the guacd binary (after all why not, it&rsquo;s almost pure C!) and hit it using the SSRF</li>
 <li>Add an entry in <code>/etc/ld.so.conf.d/foo.conf</code> or mess with <code>/etc/ld.so.preload</code> (be careful, DOS in sight)</li>
 <li>SSRF to a trusted AJP link on the loopback, GhostCat file include if you&rsquo;re lucky!</li>
@@ -347,10 +347,11 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 
 <ul>
 <li>Tomcat, Guacd, and PostgreSQL are now in different &ldquo;hosts&rdquo; (dockers)</li>
+<li>The SSRF is &ldquo;half one way&rdquo;, arbitrary bytes can be sent, but we only receive a screenshot back. This implies that non-printables bytes are lost. This is painful for handshakes &amp; challenges.</li>
 <li>The file write occurs in Guacd, implying we can&rsquo;t write on Tomcat&rsquo;s webroot</li>
 <li>The SSRF comes and can reach Guacd&rsquo;s loopback, it still can reach the internal network, but can&rsquo;t reach the other components&rsquo;s loopback</li>
 <li>PostgreSQL doesn&rsquo;t trust our connection anymore (auth in place)</li>
-<li>File write to crontabs are nowadays useless if it&rsquo;s not a clean filewrite. If garbage is found in any line, the crontab gets invalidated.</li>
+<li>File write to crontabs are nowadays useless if it&rsquo;s not a clean file write. If garbage is found in any line, the crontab gets invalidated.</li>
 <li>Etc etc etc</li>
 </ul>
 
@@ -373,19 +374,19 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 <ul>
 <li>It&rsquo;s painful to check which version is and isn&rsquo;t vulnerable</li>
 <li>It&rsquo;s a <code>HUGE</code> time drain to <code>try</code> to convince folks that this <code>is</code> vulnerable</li>
-<li>It&rsquo;s basically work for free, often forcing silent patchs, &ldquo;oh and shut up about it please!&rdquo;</li>
+<li>It&rsquo;s basically work for free, often forcing silent patches, &ldquo;oh and shut up about it please!&rdquo;</li>
 <li>Sorry.</li>
 </ul>
 
 <h2 id="automation">Automation</h2>
 
-<p>There were a lots of clicks, right? It&rsquo;s only within guacamole, and it&rsquo;s not much used, riiiight?</p>
+<p>There were a lot of clicks, right? It&rsquo;s only within guacamole, and it&rsquo;s not much used, riiiight?</p>
 
 <p>Well, the underlying protocol (guacd through a websocket) is quite painful to mimic, and if the connection breaks, the exploit will fail, this is why we&rsquo;re only clicking for now, the browser does all the heavy lifting for us.</p>
 
 <p>That being said, for the complete automation (puppeteer &amp; websocket hooks), real targets (Pulse Secure VPN before version 9.1R13), and a (sadly almost) full demo, see you the 18th of December 2021 at the <a href="https://twitter.com/sigsegv_event/status/1461296081002803201">RTFMeet</a>, I&rsquo;ll be giving a talk and full demo on how this can be automated &amp; exploited despite some complexity found in the guacd protocol.</p>
 
-<p>Don&rsquo;t worry tho, if you can&rsquo;t attend, it&rsquo;ll also be detailed in the next blogpost <code>Failed02 - Exploiting Pulse Secure VPN though guacamole &amp; Trust Issues</code></p>
+<p>Don&rsquo;t worry tho, if you can&rsquo;t attend, it&rsquo;ll also be detailed in the next blogpost <code>Failed02 - Exploiting Pulse Secure VPN through guacamole &amp; Trust Issues</code></p>
 
 <p>Until then, have fun legally breaking/fixing stuff, and see you on 18th of December for the <a href="https://twitter.com/sigsegv_event/status/1461296081002803201">RTFMeet</a>! =^~^=</p>
 
