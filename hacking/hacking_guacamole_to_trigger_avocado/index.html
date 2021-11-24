@@ -190,7 +190,7 @@ Share</a>
       <i class="fas fa-calendar-alt"></i> Nov 20, 2021
     
     
-    <i class="fas fa-clock"></i> 6 min read
+    <i class="fas fa-clock"></i> 7 min read
     <i class="fas fa-globe"></i>
     
     Non traduit
@@ -366,7 +366,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 <ul>
 <li>Some day: Found weak creds in bug bounty, discovered guacamole</li>
 <li>Some next day: Found exploit primitives</li>
-<li>Some other day: Full disclo, we&rsquo;re all doomed anyway&hellip;</li>
+<li>Some other day: <a href="https://en.wikipedia.org/wiki/Full_disclosure">Full disclo</a>, we&rsquo;re all doomed anyway&hellip;</li>
 </ul>
 
 <p>Full disclosure because:</p>
@@ -374,8 +374,16 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 <ul>
 <li>It&rsquo;s painful to check which version is and isn&rsquo;t vulnerable</li>
 <li>It&rsquo;s a <code>HUGE</code> time drain to <code>try</code> to convince folks that this <code>is</code> vulnerable</li>
-<li>It&rsquo;s basically work for free, often forcing silent patches, &ldquo;oh and shut up about it please!&rdquo;</li>
-<li>Sorry.</li>
+<li>It&rsquo;s basically free work</li>
+<li>Patchs are often silent: &ldquo;Oh and shut up about it please!&rdquo;</li>
+</ul>
+
+<h2 id="mitigations">Mitigations</h2>
+
+<ul>
+<li>Prevent acces to the loopback</li>
+<li>Add a whitelist of reachable hosts</li>
+<li>Enforce</li>
 </ul>
 
 <h2 id="automation">Automation</h2>
@@ -391,6 +399,25 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 <p>Until then, have fun legally breaking/fixing stuff, and see you on 18th of December for the <a href="https://twitter.com/sigsegv_event/status/1461296081002803201">RTFMeet</a>! =^~^=</p>
 
 <p><img class="img_med" src="./meeting-irl.jpg" alt="meeting-irl"></p>
+
+<h2 id="update-1-24-11-2021">Update 1 - 24/11/2021</h2>
+
+<p>Full disclosure <code>on guacamole</code> because:</p>
+
+<ul>
+<li>It&rsquo;s post-auth, so if you&rsquo;re doing things the right way, you&rsquo;re &ldquo;fine&rdquo;</li>
+<li>This specific exploit-chain only works on an unofficiel docker image and requires extra work otherwise</li>
+<li>The docker-compose file mitigates some vectors, and you&rsquo;ll end up in a docker anyway</li>
+</ul>
+
+<p><img class="img_full" src="./mailarchive.png" alt="mailarchive"></p>
+
+<p><strong>TL;DR</strong>: The exploit was <code>trivially found</code>. <br />
+Only a very small portion of the source code and features have been audited, anyone in possession of an admin or privileged account could find a way to get code execution, so it&rsquo;s not much of a leak. </p>
+
+<p>That being said, I&rsquo;m sorry.</p>
+
+<p>Lastly: It&rsquo;s either <code>blatantly irresponsibly</code> (because it&rsquo;s true) or <code>indeed wrong</code> (thus not something to care about), can&rsquo;t be both ~ 💕</p>
 
   </div>
   
