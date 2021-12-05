@@ -207,7 +207,7 @@ Share</a>
 <blockquote>
 <p>Small edit after the initial publication of the articles:</p>
 
-<p>These four articles lead me to give an &ldquo;pwn introductory&rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">here</a> and the video (French only) here :</p>
+<p>These four articles lead me to give an &ldquo;pwn introductory&rdquo; conference at the HitchHack 2018. It summarizes the first 3 articles but goes less into detail. If this format suits you better, the slides are downloadable <a href="slides_conf_123_pwned.pdf">here</a> and the video (French only) here :</p>
 </blockquote>
 
 
@@ -220,7 +220,7 @@ Share</a>
 
 <p>Today, I want to offer you an article more sophisticated than usual, the first of  new kind, an article dealing with heavy stuff, in short, an article that blows ass!</p>
 
-<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/patrick.jpg" alt="patrick" ></p>
+<p><img class="img_med" src="patrick.jpg" alt="patrick" ></p>
 
 <p>The concept discussed today is quite extensive, so I know that many of you, among my usual readers, will not necessarily be able to understand the entire article, which is why I will try to make it interesting even for neophytes. So if you are a sorcerer&rsquo;s apprentice, be relentless, enjoy it, otherwise, you wan see it as a black magic trick, it&rsquo;s beautiful, it&rsquo;s powerful, but you don&rsquo;t have to understand everything to appreciate it :)</p>
 
@@ -259,7 +259,7 @@ There are many ways to perform an overflow, but also many protections in place.<
 
 <p>What replaces this practice is the use of a magic number. It is a sequence of bytes that is put at the beginning of the file and which allows the system to know the type of file it is and version of it. Here, for an ELF, we see:</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/readelf.png" alt="readelf" ></p>
+<p><img class="img_full" src="readelf.png" alt="readelf" ></p>
 
 <p>Two notable things here:<br />
  - 45 4c 46 is the ELF&rsquo;s ASCII code: Executable and Linkable Format<br />
@@ -297,7 +297,7 @@ There are many ways to perform an overflow, but also many protections in place.<
 
 <p>The stack is a place used by the processor to store data. It is a LastInFirstOut file. In other words, the last element to be pushed is the first to be popped.</p>
 
-<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/stack.png" alt="stack" ></p>
+<p><img class="img_med" src="stack.png" alt="stack" ></p>
 
 <ul>
 <li>Heap :</li>
@@ -371,19 +371,19 @@ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <h2 id="recon">Recon</h2>
 
-<p>The studied binary is downloadable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">here</a></p>
+<p>The studied binary is downloadable <a href="vuln">here</a></p>
 
 <p>Okay, it needs an argument. What is done with it?</p>
 
 <p>Seems like, nothing&hellip; It&rsquo;s only a test program, we don&rsquo;t care! <code>¯\_(ツ)_/¯</code></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>Find the crash:</p>
 
 <p>The usual beginner strategy, long arguments.</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="crash.png" alt="crash" ></p>
 
 <p>Hey, that looks good!</p>
 
@@ -391,17 +391,17 @@ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p>Offset research:</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="pattern_create.png" alt="pattern_create" ></p>
 
 <p>Create the pattern (easily recognizable, that will be used to understand which registers are reachable by our input), then run the program with the pattern as parameter.</p>
 
 <p>We see here that the crash occurs on the <code>ret</code> instruction (code section, small arrow on the left).</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_run.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_run.png" alt="pattern_search" ></p>
 
 <p>After the crash, we search the pattern in the memory:</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_search.png" alt="pattern_search" ></p>
 
 <p>The memory analysis has found pieces of our pattern in different places, so we see that the RSP (Registre Stack Pointer) is 40 bytes away from our input start.</p>
 
@@ -423,7 +423,7 @@ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p>We&rsquo;re still going to disassemble it to understand what it does, thanks to this site: <a href="https://onlinedisassembler.com">https://onlinedisassembler.com</a></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/shellcode.png" alt="shellcode" ></p>
+<p><img class="img_full" src="shellcode.png" alt="shellcode" ></p>
 
 <pre><code>0  : &quot;//bin/sh&quot; dans rax
 A  : &quot;/bin/sh\x00&quot; dans rax
@@ -452,9 +452,9 @@ PADDING + SHELLCODE + SHELLCODE_ADDRESS</p>
 
 <p>Disassemble the main (name convention for the main function of the program), define a breakpoint before the end of the execution, then run it with AAAA as a parameter.</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/disas_main.png" alt="disas_main" ></p>
+<p><img class="img_full" src="disas_main.png" alt="disas_main" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/find.png" alt="find" ></p>
+<p><img class="img_full" src="find.png" alt="find" ></p>
 
 <p>Once stopped, our input is in the stack, at the address: 0x7fffffffe570</p>
 
@@ -489,11 +489,11 @@ log.success(&quot;Payload written&quot;)
 
 <p>To run the exploit, all you have to do is give its output to the program as an argument:</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="run_exploit.png" alt="run_exploit" ></p>
 
 <p>And BIM! Spawned a shell! <code>\o/</code></p>
 
-<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
+<p><img class="img_small" src="like_a_boss.png" alt="like_a_boss" ></p>
 
 <h2 id="notes-and-reflection">Notes and Reflection:</h2>
 
@@ -527,7 +527,7 @@ log.success(&quot;Payload written&quot;)
 
 <p>You&rsquo;re a magician now! Almost&hellip; ;)</p>
 
-<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/blair.png" alt="blair" ></p>
+<p><img class="img_small" src="blair.png" alt="blair" ></p>
 
 <p>This being my first article on the subject, I know it will be incomplete, and full of inaccuracies if not errors. Feedback are welcome for typos, missing details, errors, &hellip; <code>^.^</code></p>
 
@@ -545,7 +545,7 @@ log.success(&quot;Payload written&quot;)
 <blockquote>
 <p>Petit ajout après la publication des articles :</p>
 
-<p>Ces quatres articles ont donné lieu à une conférence d&rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables <a href="/hacking/pwn_1of4_buffer_overflow/slides_conf_123_pwned.pdf">ici</a> et la vidéo (francais uniquement) ici :</p>
+<p>Ces quatres articles ont donné lieu à une conférence d&rsquo;introduction au pwn à la HitchHack 2018. Elle résume les 3 premiers articles mais rentre moins dans le détail. Si ce format vous convient mieux, les slides sont téléchargables <a href="slides_conf_123_pwned.pdf">ici</a> et la vidéo (francais uniquement) ici :</p>
 </blockquote>
 
 
@@ -558,7 +558,7 @@ log.success(&quot;Payload written&quot;)
 
 <p>Aujourd&rsquo;hui, je vous propose un article plus hardu, un article plus poilu, un article plus barbu, en bref, un article qui pète des culs !</p>
 
-<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/patrick.jpg" alt="patrick" ></p>
+<p><img class="img_med" src="patrick.jpg" alt="patrick" ></p>
 
 <p>La notion abordée aujourd&rsquo;hui est assez poussée, donc je sais que parmi les lecteurs habituels, vous serez nombreux à ne pas forcément pouvoir comprendre la totalité de l&rsquo;article, c&rsquo;est pourquoi je vais tenter de le rendre intéressant même pour les néophytes. Donc si vous êtes un apprenti sorcier, acharnez vous, profitez en, sinon, regardez ca comme un tour de magie noir, c&rsquo;est beau, c&rsquo;est puissant, mais il n&rsquo;est pas nécessaire de tout comprendre pour apprécier :)</p>
 
@@ -597,7 +597,7 @@ Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un
 
 <p>Ce qui remplace cette pratique est l&rsquo;usage de magic number. En bref, c&rsquo;est une suite de bytes que l&rsquo;on met en début de fichier et qui permet de connaître le type et la version du fichier. Ici, pour un programme, ELF sous linux, on voit :</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/readelf.png" alt="readelf" ></p>
+<p><img class="img_full" src="readelf.png" alt="readelf" ></p>
 
 <p>Deux choses notables :<br />
  - 45 4c 46 est le code ASCII de ELF : Executable and Linkable Format<br />
@@ -635,7 +635,7 @@ Il existe de nombreuses facons d&rsquo;effectuer un overflow, mais également un
 
 <p>La pile est un endroit utilisé par le processeur pour stocker des données. C&rsquo;est un fonctionnement LastInFirstOut. Autrement dit, le dernier élément qui arrive est le premier à sortir.</p>
 
-<p><img class="img_med" src="/hacking/pwn_1of4_buffer_overflow/stack.png" alt="stack" ></p>
+<p><img class="img_med" src="stack.png" alt="stack" ></p>
 
 <ul>
 <li>Heap :</li>
@@ -709,19 +709,19 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <h2 id="reconnaissance">Reconnaissance</h2>
 
-<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_1of4_buffer_overflow/vuln">ici</a></p>
+<p>Le binaire étudié est téléchargable <a href="vuln">ici</a></p>
 
 <p>Ok, il prend un argument. Il en fait quoi ?</p>
 
 <p>A priori, rien&hellip; Prog de test, osef ! <code>¯\_(ツ)_/¯</code></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>Trouver le point de crash :</p>
 
 <p>La strat habituelle de débutant, des arguments longs.</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="crash.png" alt="crash" ></p>
 
 <p>Ah, ca, ca sent bon !</p>
 
@@ -729,17 +729,17 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p>Recherche de l&rsquo;offset :</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="pattern_create.png" alt="pattern_create" ></p>
 
 <p>Créer le pattern (schéma facilement reconnaissable qui va servir à comprendre quels registres sont atteignables par notre input), puis lancer le programme avec le pattern en paramètre.</p>
 
 <p>On voit ici que le crash survient sur l&rsquo;instruction <code>ret</code> (section code, petite flèche à gauche).</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_run.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_run.png" alt="pattern_search" ></p>
 
 <p>Après le crash, on cherche le pattern dans la mémoire :</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_search.png" alt="pattern_search" ></p>
 
 <p>L&rsquo;analyse de la mémoire a retrouvé des morceaux de notre pattern à différents endroits, on voit donc que le RSP (Registre Stack Pointer) est au 40ème byte de notre input.</p>
 
@@ -761,7 +761,7 @@ $ echo 0 &gt; /proc/sys/kernel/randomize_va_space
 
 <p>On va quand même le désassembler pour comprendre ce qu&rsquo;il fait, et ce grâce à ce site : <a href="https://onlinedisassembler.com">https://onlinedisassembler.com</a></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/shellcode.png" alt="shellcode" ></p>
+<p><img class="img_full" src="shellcode.png" alt="shellcode" ></p>
 
 <pre><code>0  : &quot;//bin/sh&quot; dans rax
 A  : &quot;/bin/sh\x00&quot; dans rax
@@ -790,9 +790,9 @@ PADDING + SHELLCODE + ADRESSE_SHELLCODE</p>
 
 <p>On désassemble le main (convention de nom pour la fonction principale du programme), défini un point d&rsquo;arrêt avant la fin de l&rsquo;exécution, puis le lance avec AAAA en paramètre.</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/disas_main.png" alt="disas_main" ></p>
+<p><img class="img_full" src="disas_main.png" alt="disas_main" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/find.png" alt="find" ></p>
+<p><img class="img_full" src="find.png" alt="find" ></p>
 
 <p>Une fois arrêté, notre input se trouve donc dans la stack, à l&rsquo;adresse : 0x7fffffffe570</p>
 
@@ -827,11 +827,11 @@ log.success(&quot;Payload written&quot;)
 
 <p>Pour lancer l&rsquo;exploit, il n&rsquo;y a plus qu&rsquo;à donner son output au programme en tant qu&rsquo;argument :</p>
 
-<p><img class="img_full" src="/hacking/pwn_1of4_buffer_overflow/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="run_exploit.png" alt="run_exploit" ></p>
 
 <p>Et BIM ! Spawned a shell ! <code>\o/</code></p>
 
-<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/like_a_boss.png" alt="like_a_boss" ></p>
+<p><img class="img_small" src="like_a_boss.png" alt="like_a_boss" ></p>
 
 <h2 id="remarques-et-réflexion">Remarques et Réflexion :</h2>
 
@@ -865,7 +865,7 @@ log.success(&quot;Payload written&quot;)
 
 <p>T&rsquo;es un magicien, maintenant ! Ou presque&hellip; ;)</p>
 
-<p><img class="img_small" src="/hacking/pwn_1of4_buffer_overflow/blair.png" alt="blair" ></p>
+<p><img class="img_small" src="blair.png" alt="blair" ></p>
 
 <p>Ceci étant mon premier article sur le sujet, je sais qu&rsquo;il sera incomplet, et plein d&rsquo;imprécisions si ce n&rsquo;est d&rsquo;erreurs. Vos retours sont donc bienvenus pour toute coquille trouvée, détail manquant, erreur, &hellip; <code>^.^</code></p>
 

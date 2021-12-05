@@ -241,7 +241,7 @@ If you find something cool to add, or a way to make these ideas successful, I&rs
 
 <p>Too easy, clean, neat, no interaction with the filesystem, flawless!</p>
 
-<p><img class="img_med" src="/hacking/failed01_dos_to_rce_in_jolokia/too-easy.png" alt="too-easy.png"></p>
+<p><img class="img_med" src="too-easy.png" alt="too-easy.png"></p>
 
 <h2 id="yes-but-no">Yes but No</h2>
 
@@ -259,7 +259,7 @@ docker exec -it $(docker ps | grep bodsch/docker-jolokia | awk '{ print $1 }') /
 ps fauxwwe | less
 </code></pre>
 
-<p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/ps-fauxwwe.png" alt="ps-fauxwwe.png"></p>
+<p><img class="img_big" src="ps-fauxwwe.png" alt="ps-fauxwwe.png"></p>
 
 <ul>
 <li>Top terminal: Java server inside the docker</li>
@@ -280,7 +280,7 @@ dd if=/dev/urandom bs=1024M count=4 &gt; dos.bin
 dockit jordi/ab -k -c 350 -n 20000 -p /host/dos.bin http://127.0.0.1:8080/
 </code></pre>
 
-<p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/rce-trigger.png" alt="rce-trigger.png"></p>
+<p><img class="img_big" src="rce-trigger.png" alt="rce-trigger.png"></p>
 
 <ul>
 <li>Top left terminal: Java server executing payload</li>
@@ -298,9 +298,9 @@ curl -sk 'http://127.0.0.1:8080/jolokia/exec/com.sun.management:type=HotSpotDiag
 curl -sk 'http://127.0.0.1:8080/jolokia/exec/com.sun.management:type=HotSpotDiagnostic/setVMOption/onOutOfMemoryError/touch+!/tmp!/rce'
 </code></pre>
 
-<p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/modify-opt-ok.png" alt="modify-opt-ok.png"></p>
+<p><img class="img_big" src="modify-opt-ok.png" alt="modify-opt-ok.png"></p>
 
-<p><img class="img_big" src="/hacking/failed01_dos_to_rce_in_jolokia/modify-opt-ko.png" alt="modify-opt-ko.png"></p>
+<p><img class="img_big" src="modify-opt-ko.png" alt="modify-opt-ko.png"></p>
 
 <p>I also took some time to brute-force every option. All the ones that seemed interesting are blocked (at least on my JDK with this configuration). <br />
 Reality is hard, we can&rsquo;t write these options through jolokia, implying that we can&rsquo;t get RCE this way.</p>
@@ -323,7 +323,7 @@ Reality is hard, we can&rsquo;t write these options through jolokia, implying th
 <p>Finally, this implies that when we try to modify an option, if we&rsquo;re able to resolve it, then its writeable attribute will be resolved as well, so there is no point playing with bad-chars, or case-sensitivity. It&rsquo;s just not the right approach. <br />
 Maybe finding a way to modify the writeable property would be more efficient, who knows, the rest is up to you! :)</p>
 
-<p><img class="img_med" src="/hacking/failed01_dos_to_rce_in_jolokia/trigger.png" alt="trigger.png"></p>
+<p><img class="img_med" src="trigger.png" alt="trigger.png"></p>
 
 <p>I really hope you liked this first <code>FAILED</code> blogpost, see you in a few for more funny quirks!</p>
 

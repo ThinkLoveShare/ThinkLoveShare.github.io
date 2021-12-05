@@ -210,21 +210,21 @@ Share</a>
 
 <p>Most of the time, to prove that an XSS is possible, the hacker provides a payload that pops an alert. And that&rsquo;s exactly what we&rsquo;re asked to do. So we first feed a simple word to see if it&rsquo;s reflected in the webpage. We do so and see that the keyword is reflected as a variable content in our page.</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>The next step is to force the page to execute code. I try this using the console.log function after closing the first variable affectation, and commenting what comes afterward. I try (cf the URL), and yup ! It logs 3, so we can execute javascript !</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/inject.png" alt="inject" ></p>
+<p><img class="img_full" src="inject.png" alt="inject" ></p>
 
 <h2 id="the-protection">The protection</h2>
 
 <p>Next step, we try to use the alert(1) payload to validate the challenge, but : Uh Oh !</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/prompt.png" alt="prompt" ></p>
+<p><img class="img_full" src="prompt.png" alt="prompt" ></p>
 
 <p>All we have is a prompt. The reason of this behavior is that a script is loaded and executed before our payload. We can fetch its content and we understand that the alert function has been override with the prompt function&hellip;</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/ascii_art.png" alt="ascii_art" ></p>
+<p><img class="img_full" src="ascii_art.png" alt="ascii_art" ></p>
 
 <p>So.. We don&rsquo;t have it anymore ? How to use it then ?</p>
 
@@ -251,7 +251,7 @@ document.getElementsByClassName('container')[0].appendChild(i);//
 <pre><code class="language-html">http://xss1.alieni.se:2999/?xss=';i=document.createElement(&quot;iframe&quot;);i.onload=function(){i.contentWindow.alert(1);};document.getElementsByClassName('container')[0].appendChild(i);//
 </code></pre>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/alert.png" alt="alert" ></p>
+<p><img class="img_full" src="alert.png" alt="alert" ></p>
 
 <h2 id="conclusion">Conclusion</h2>
 
@@ -272,21 +272,21 @@ Have a great day ! ^.^</p>
 
 <p>La plupart du temps, pour prouver qu&rsquo;une XSS est possible, le hacker utilise une payload qui appelle la fonction alert. C&rsquo;est ici exactement ce qu&rsquo;on nous demande de faire. Nous commençons donc par introduire un simple texte pour voir s&rsquo;il est reflété dans la page Web. On réalise vite que le mot-clé est reflété comme une variable dans du javascript, utilisé dans notre page.</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>L&rsquo;étape suivante est de forcer la page à exécuter notre code. On essaye dans un premier temps avec la fonction console.log après avoir fermé la première affectation de variable, et en commentant ce qui vient après. On essaye (cf l&rsquo;URL), et PAF ! Le navigateur log 3, donc nous pouvons exécuter du javascript !</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/inject.png" alt="inject" ></p>
+<p><img class="img_full" src="inject.png" alt="inject" ></p>
 
 <h2 id="la-protection">La protection</h2>
 
 <p>Ensuite, nous essayons d&rsquo;utiliser la payload alert(1) pour valider le défi, mais&hellip; Oopsy !</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/prompt.png" alt="prompt" ></p>
+<p><img class="img_full" src="prompt.png" alt="prompt" ></p>
 
 <p>Tout ce qu&rsquo;on a en retour, c&rsquo;est un prompt. La raison de ce comportement est qu&rsquo;un script est chargé et exécuté avant notre payload. En récupérerant son contenu on comprend que la fonction alert a été remplacée par la fonction prompt&hellip;..</p>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/ascii_art.png" alt="ascii_art" ></p>
+<p><img class="img_full" src="ascii_art.png" alt="ascii_art" ></p>
 
 <p>Donc&hellip; Nous ne l&rsquo;avons plus ? Comment l&rsquo;utiliser en ce cas ?</p>
 
@@ -313,7 +313,7 @@ document.getElementsByClassName('container')[0].appendChild(i);//
 <pre><code class="language-html">http://xss1.alieni.se:2999/?xss=';i=document.createElement(&quot;iframe&quot;);i.onload=function(){i.contentWindow.alert(1);};document.getElementsByClassName('container')[0].appendChild(i);//
 </code></pre>
 
-<p><img class="img_full" src="/hacking/excess_ess_1/alert.png" alt="alert" ></p>
+<p><img class="img_full" src="alert.png" alt="alert" ></p>
 
 <h2 id="conclusion-1">Conclusion</h2>
 

