@@ -206,7 +206,7 @@ Share</a>
 
 <p>While doing research on various topics, I stood upon Guacamole, a software that can be used as a connection bastion or protocolar gateway. It has many original vulnerabilities that lead to a Remote Code Execution once chained. Let&rsquo;s begin, shall we?</p>
 
-<p><img class="img_med" src="./too-much-guac.jpg" alt="too-much-guac"></p>
+<p><img class="img_med" src="too-much-guac.jpg" alt="too-much-guac"></p>
 
 <h2 id="what-the-doc-says">What the doc says</h2>
 
@@ -227,7 +227,7 @@ Share</a>
 <pre><code class="language-bash">docker run --rm -it --net=host oznu/guacamole
 </code></pre>
 
-<p><img class="img_med" src="./login.png" alt="login"></p>
+<p><img class="img_med" src="login.png" alt="login"></p>
 
 <p>Woosh! Setup done! Thank you, random citizen!</p>
 
@@ -259,11 +259,11 @@ Ok. Cool. Whatever.</p>
 
 <p>While first logging in we&rsquo;re offered an empty list of connections to use:</p>
 
-<p><img class="img_full" src="./empty-list.png" alt="empty-list"></p>
+<p><img class="img_full" src="empty-list.png" alt="empty-list"></p>
 
 <p>The end user can create many connections in the settings panel</p>
 
-<p><img class="img_full" src="./create-connection.png" alt="create-connection"></p>
+<p><img class="img_full" src="create-connection.png" alt="create-connection"></p>
 
 <h2 id="exploit-chain-1-write-a-jsp-webshell-with-typescript-recording">Exploit chain 1 - Write a JSP WebShell with TypeScript recording</h2>
 
@@ -324,7 +324,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 
 <p>Here is an example showing that a simple stateless raw byte replay is enough if the link is trusted.</p>
 
-<p><img class="img_full" src="./postgres-rawbytes.png" alt="postgres-rawbytes"></p>
+<p><img class="img_full" src="postgres-rawbytes.png" alt="postgres-rawbytes"></p>
 
 <h2 id="exploit-chains-3-4-5-6-7-8">Exploit chains 3,4,5,6,7,8,*</h2>
 
@@ -359,7 +359,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 
 <p>This is because of this lack of consistency on the techniques found that there is no one-for-all sploit released, just click buttons like you&rsquo;re on windows ffs!</p>
 
-<p><img class="img_med" src="./click-click-boom.jpg" alt="click-click-boom"></p>
+<p><img class="img_med" src="click-click-boom.jpg" alt="click-click-boom"></p>
 
 <h2 id="timeline">Timeline</h2>
 
@@ -398,7 +398,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 
 <p>Until then, have fun legally breaking/fixing stuff, and see you on 18th of December for the <a href="https://twitter.com/sigsegv_event/status/1461296081002803201">RTFMeet</a>! =^~^=</p>
 
-<p><img class="img_med" src="./meeting-irl.jpg" alt="meeting-irl"></p>
+<p><img class="img_med" src="meeting-irl.jpg" alt="meeting-irl"></p>
 
 <h2 id="update-1-24-11-2021">Update 1 - 24/11/2021</h2>
 
@@ -410,7 +410,7 @@ http://127.0.0.1:8080/rce.jsp?cmd=id
 <li>The docker-compose file mitigates some vectors, and you&rsquo;ll end up in a docker anyway</li>
 </ul>
 
-<p><img class="img_full" src="./mailarchive.png" alt="mailarchive"></p>
+<p><img class="img_full" src="mailarchive.png" alt="mailarchive"></p>
 
 <p><strong>TL;DR</strong>: The exploit was <code>trivially found</code>. <br />
 Only a very small portion of the source code and features have been audited, anyone in possession of an admin or privileged account could find a way to get code execution, so it&rsquo;s not much of a leak. </p>
