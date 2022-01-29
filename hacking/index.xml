@@ -10,10 +10,23 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jan 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>pty4all - The shells you deserve</title>
+      <link>https://thinkloveshare.com/hacking/pty4all_the_shells_you_deserve/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/pty4all_the_shells_you_deserve/</guid>
+      <description>This article is the transcript of a talk I gave at the opening of the CTF platform TheBlackSide on 29th January 2022.
+Recording incoming ! :)
+https://github.com/laluka/pty4all
+  Hi there, long time no see! :)
+I hope you like tooling, bash scripting, and uber-duper shells, because we&amp;rsquo;re going to enhance the sad shells we had to happy automated multiplexed encrypted fully interactive PTYs with push notification and automatic persistency!</description>
+    </item>
     
     <item>
       <title>Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking</title>

