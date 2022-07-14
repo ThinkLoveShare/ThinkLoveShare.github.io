@@ -255,13 +255,13 @@ Share</a>
 
 <p><img class="img_full" src="png-07.png" alt="png-07"></p>
 
-<p><strong>Case 1</strong>: we&rsquo;re given an old AXIS 1.4 server. This relies on a huge Java codebase. Usually, Java means XXE to &ldquo;something great&rdquo;, but here, due to a reverse proxy misconfiguration, the server thinks we&rsquo;re reaching it from and to the loopback, therefore, we are given the <code>AdminService</code> endpoint which can be used to deploy new services. It&rsquo;s so powerful we don&rsquo;t even need to dig deeper! :D</p>
+<p><strong>Case 1</strong>: We&rsquo;re given an old AXIS 1.4 server, meaning a huge underlying huge Java codebas. Usually, Java means XXE to &ldquo;something great&rdquo;, but here, due to a reverse proxy misconfiguration, the server thinks we&rsquo;re reaching it from and to the loopback, therefore, we are given the <code>AdminService</code> endpoint which can be used to deploy new services. It&rsquo;s so powerful we don&rsquo;t even need to dig deeper! :D</p>
 
-<p>From this, we just have to follow any already existing documentation (even non-offensive one) to deploy a jsp file (here a webshell), and <code>woosh</code>! :)</p>
+<p>From this, we just have to follow any <a href="https://axis.apache.org/axis/java/install.html">already existing documentation</a> (even non-offensive one) to deploy a jsp file (here a webshell), and <code>woosh</code>! :)</p>
 
 <p><img class="img_full" src="png-08.png" alt="png-08"></p>
 
-<p><strong>Case 2</strong>: After some initial recon, I stood upon a Java RWServlet. I didn&rsquo;t know anything about this one, but after some time digging, it seems it allows an arbitrary URI copy with some restrictions.</p>
+<p><strong>Case 2</strong>: After some initial recon, I stumbled upon a Java RWServlet. I didn&rsquo;t know anything about this one, but after some time digging, it seems it allows an arbitrary URI copy with some restrictions.</p>
 
 <p>Many paths could have been taken, probably some easier than the one I took, but I was still new at this, so here&rsquo;s what I tried!</p>
 
@@ -269,19 +269,19 @@ Share</a>
 
 <p><img class="img_full" src="png-09.png" alt="png-09"></p>
 
-<p><strong>Case 3</strong>: After some enumeration, the server seems to respond to the WebDAV protocol, that allows modification of a remote filesystem through HTTP. It even suffers from weak/default credentials, el famoso <code>admin:admin</code>. Ok, so we&rsquo;re able to read some files, and write some as well! Sadly, it seems that all the .jsp are both hidden and non-writable.</p>
+<p><strong>Case 3</strong>: After some enumeration, the server seems to respond to the WebDAV protocol, allowing modification of a remote filesystem through HTTP. It even suffers from weak/default credentials, el famoso <code>admin:admin</code>. Ok, so we&rsquo;re able to read some files, and write some as well! Sadly, it seems that all the .jsp are both hidden and non-writable.</p>
 
 <p>We&rsquo;re still able to read the .class, and a yet-unknown to me .jspf file! After some time reversing the files (<a href="https://github.com/intoolswetrust/jd-cli">jd-cli</a> on the .class files &amp; bytecode) and grepping around, it seems that .jspf are just .jsp fragments that can both be included and compiled.</p>
 
-<p>First, I tried to overwrite a .class but it wasn&rsquo;t reloaded. Then, I tried to backup &amp; overwrite a .jspf, which worked after quite some time spent on bypassing a BIG-IP web-app firewall, kudos to the colleagues on this one, I had really little experience related to waf bypasses.</p>
+<p>First, I tried to overwrite a .class but it wasn&rsquo;t reloaded. Then, I tried to backup &amp; overwrite a .jspf, which worked after quite some time spent on bypassing a BIG-IP web-app firewall, kudos to my colleagues on this one, I had really little experience related to waf bypasses.</p>
 
 <p>Once the .jspf was written, we only had left to find the right code path to get it included again, and trigger our jsp(f) webshell. Yay!</p>
 
 <p><img class="img_full" src="png-10.png" alt="png-10"></p>
 
-<p><strong>Case 4</strong>: We&rsquo;re gently offered an SQLinjection in the password-reset feature. But no hash can be cracked :(</p>
+<p><strong>Case 4</strong>: We&rsquo;re gently offered an SQL injection in the password-reset feature. But no hash can be cracked :(</p>
 
-<p>Luckily the Java app also contains an XXE that allows us to (with an Out Of Bound trick, dtd files) allows us to read the files, helped by the fact that old Java SDKs will list a directory when requested so.
+<p>Luckily the Java app also contains an XXE that allows us to (with an Out Of Bound trick, dtd files) read the files, helped by the fact that old Java SDKs will list a directory when asked to do so.
 Luckily, an admin account with its plaintext credentials was waiting for us in the logs.</p>
 
 <p>We&rsquo;ve then been able to connect to the application&rsquo;s main admin panel, browse a little to find an email templating feature relying on <a href="https://velocity.apache.org/">Velocity</a>. It was then a matter of time to exploit the SSTI, trigger an email notification, and spawn another shell!</p>
@@ -304,7 +304,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p>It was already public back then that using this software without the option <code>--disable-local-file-access</code> would provide access to the filesystem. Yet this option wasn&rsquo;t used. <em>Sigh</em>. Please implement safe-by-default options, not opt-in ones.</p>
 
-<p>Reading the filesystem gave us ssh keys within their default path <code>~/.ssh/id_rsa</code>, and the SSRF feature run for a while, letting us know that the port 2222 was open (yup, forgot the nmap, used SSRF, brrrr).</p>
+<p>Reading the filesystem gave us ssh keys within their default path <code>~/.ssh/id_rsa</code>, and we let the SSRF internal port scan run for a while. The port 2222 was open! And yes, I forgot to run nmap so SSRF was definitely way more than what we needed.</p>
 
 <p>The port 2222 was also exposed externally, so we just used the ssh feature to walk in! :)</p>
 
@@ -322,11 +322,11 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p>A quick ffuf scan reveals a <code>graphql</code> endpoint that has its introspection enabled, so we quickly jump on the google-chrome extension &ldquo;Altair GraphQL Client&rdquo; and enable its discovery module. Then&hellip; Send simple and double quotes to every damn field, query as much data as possible, to finally be acknowledged by a single SQL error in the responses. Yup, SQLi there is.</p>
 
-<p>We then use the SQL injection to leak session tokens (hashes were using Argon 2 which wasn&rsquo;t (isn&rsquo;t?) even implemented yet in <a href="https://github.com/hashcat/hashcat">Hashcat</a>, lazy-time here). We shouldn&rsquo;t be able to login to the application with solely this session token, as every token is binded to a specific source IP. But here again we&rsquo;re lucky, as a reverse-proxy misconfiguration is also present! It doesn&rsquo;t rewrite the source ip when the application is reached, therefore every single person (and thus token) is binded to the internal IP of the reverse proxy itself. We se use the token, and browse the application with admin rights! :D</p>
+<p>We then use the SQL injection to leak session tokens (hashes were using Argon 2 which wasn&rsquo;t (isn&rsquo;t?) even implemented yet in <a href="https://github.com/hashcat/hashcat">Hashcat</a>, lazy-time here). We shouldn&rsquo;t be able to login to the application with solely this session token, as every token is binded to a specific source IP. But here again we&rsquo;re lucky, as a reverse-proxy misconfiguration is also present! It doesn&rsquo;t rewrite the source ip when the application is reached, therefore every single person (and thus token) is binded to the internal IP of the reverse proxy itself. We used the leaked token to browse the application with admin rights! :D</p>
 
 <p>Also, Magento2 admin-login urls are usually secret &amp; non-bruteforcable. But ANOTHER misconfig was exposing a <code>/server-status</code> endpoint leaking the secret interface. WoOOps.</p>
 
-<p>There have been many cases of Server Side Template Injection within magento2, so that&rsquo;s where we spend most of the time. And with some help from our cool-dude <a href="https://twitter.com/Blaklis_">@Blaklis_</a> it has been possible to make it work in time. No extrail detail here until the PoC are to be disclosed some day.. 🙃</p>
+<p>There have been many cases of Server Side Template Injection within magento2, so that&rsquo;s where we spend most of the time. And with some help from our cool-dude <a href="https://twitter.com/Blaklis_">@Blaklis_</a> it has been possible to make it work in time. No extra detail here until the PoCs are disclosed some day.. 🙃</p>
 
 <p><img class="img_full" src="png-16.png" alt="png-16"></p>
 
@@ -342,13 +342,15 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p>It all starts with default credentials attempted randomly, I found out later that the most used default login/pass for guacamole is <code>guacadmin:guacadmin</code>. Luck does matter!</p>
 
-<p>Then, Apache Guacamole which is a protocolar gateway allows us to &ldquo;netcat&rdquo; into something (Like a steroid version of SSRF), but it also allows us to log (understand write) the content we type to the local filesystem. Filesystem that contains many .JSP files&hellip; What if we write our own? Then we can even reach it internally with the right hostname? Yay!</p>
+<p>Then, Apache Guacamole which is a protocol gateway allows us to &ldquo;netcat&rdquo; into something (Like a steroid version of SSRF), but it also allows us to log (understand write) the content we type to the local filesystem. Filesystem that contains many .JSP files&hellip; What if we write our own? Then we can even reach it internally with the right hostname? Yay!</p>
 
 <p>More on this on a previous article: <a href="https://thinkloveshare.com/hacking/hacking_guacamole_to_trigger_avocado/">Hacking Guacamole To Trigger Avocado</a></p>
 
 <p><img class="img_full" src="png-18.png" alt="png-18"></p>
 
-<p><strong>Case 12</strong>: WebLogic is a THICC software. It contains A LOT of code, and TONS of features. Which is the perfect candidate to forget some issues, hardening, or old pieces of code. Here? Welp, just another weak credential that leads to direct RCE by uploading an attacker-controlled package. It doesn&rsquo;t always have to be hard, does it? I mean, compiling the package WAS actually hard&hellip;</p>
+<p><strong>Case 12</strong>: WebLogic is a THICC software. It contains A LOT of code, and TONS of features. Which usually means forgotten issues, missing hardening, old-load-bearing pieces of code.</p>
+
+<p>Here? Welp, just another weak credential that leads to direct RCE by uploading an attacker-controlled package. It doesn&rsquo;t always have to be hard, does it? I mean, compiling the package WAS actually hard&hellip;</p>
 
 <p><img class="img_full" src="png-19.png" alt="png-19"></p>
 
@@ -360,7 +362,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><img class="img_full" src="png-20.png" alt="png-20"></p>
 
-<p><strong>Case 15</strong>: One more Java application, this time it offers SOAP endpoints, which once again involves xml parsing. Java &amp; Xml once again implies XXE, which screams for another OOB technique to give us the ability to read anything on the filesystem. From this, we list directories until we find Tomcat&rsquo;s users.xml file which also contains their password, in either clear or hashed form. Both can lead to RCE, in a more or less direct way!</p>
+<p><strong>Case 15</strong>: One more Java application, this time it offers SOAP endpoints, which once again involves xml parsing. Java &amp; xml once again implies XXE, which screams for another OOB technique to give us the ability to read anything on the filesystem. From this, we list directories until we find Tomcat&rsquo;s users.xml file which also contains their password, in either clear or hashed form. Both can lead to RCE, in a more or less direct way!</p>
 
 <p>If you ever need to find how to RCE a specific application with a known admin-to-rce path, remember to check <a href="https://twitter.com/podalirius_">@podalirius_</a>&rsquo;s repo - <a href="https://github.com/p0dalirius/Awesome-RCE-techniques">Awesome-RCE-techniques</a></p>
 
@@ -562,7 +564,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><img class="img_full" src="png-46.png" alt="png-46"></p>
 
-<p><strong>Case 54-55</strong>: I don&rsquo;t know much about VirtualJDBC, but a colleague already spent some time on it. I found the endpoint, found the bypass, and knew it suffered from unserialization issues (yup, still Java..)</p>
+<p><strong>Case 54-55</strong>: I don&rsquo;t know much about Virtual-JDBC, but a colleague already spent some time on it. I found the endpoint, found the bypass, and knew it suffered from unserialization issues (yup, still Java..)</p>
 
 <p>The payload he gave me worked for the first machine, but the other one was behind a grinchy waf. So we had to improvise and find another gadget! That being said, the payloads are not public yet, and it&rsquo;s not only my work, so no details on this one unless PoCs are to be released by someone else! :)</p>
 
@@ -606,7 +608,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><img class="img_full" src="png-50.png" alt="png-50"></p>
 
-<p><strong>Case 63</strong>: Hey, It&rsquo;s me again, Java! Remember me? I love SOAP, SOAP loves XML, and when I&rsquo;m with my friend XML, we offer XXE to the world to spread joy! &lt;3</p>
+<p><strong>Case 63</strong>: Hey, It&rsquo;s me again, Java! Remember me? I love SOAP, SOAP loves xml, and when I&rsquo;m with my friend xml, we offer XXE to the world to spread joy! &lt;3</p>
 
 <p>Using the XXE as an SSRF allowed us to find the internal port 7401 open, turning the XXE to an (almost, bad chars..) full read with OOB interactions (once again, external .dtd file) helped us fuzzing the paths available on the port 7401. We had one path that seemed like an admin feature, and after some time spent on the doc &amp; internet in general, it indeed was! But its access was denied, we were missing the required Basic-Auth header.</p>
 
@@ -717,7 +719,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <ol>
 <li>Golang or Rust backend (API only), compiled into a single stripped binary</li>
-<li>A react frontend that mitigates most of the XSS</li>
+<li>A React frontend (or trusted types) to mitigate most of the XSS</li>
 <li>An ORM used in the backend for every database request</li>
 <li>Increase segmentation, one service by minimalistic container</li>
 <li>A strong Web Application Firewall (Cloudflare, Sqreen, Imperva)</li>
