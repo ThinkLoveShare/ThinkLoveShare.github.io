@@ -10,7 +10,7 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Jul 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,7 +18,7 @@ Share</description>
     <item>
       <title>1001 ways to PWN prod - A tale of 60 RCE in 60 minutes</title>
       <link>https://thinkloveshare.com/hacking/1001_ways_to_pwn_prod/</link>
-      <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 14 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.com/hacking/1001_ways_to_pwn_prod/</guid>
       <description>This article is the transcript of a talk (FR) I gave for during the HitchHack in May 2022, kudos for the staff!

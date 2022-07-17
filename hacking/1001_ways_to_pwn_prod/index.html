@@ -31,8 +31,8 @@ Share</title>
 <meta property="og:description" content="In May 2022, I&#39;ve been invited to give a talk to the HitchHack event in Vannes. This is the same event I gave my very first talk exactly 4 years ago. To celebrate, we&#39;ll go through many exploit chains I went through, as always, sharing knowledge and fun at the same time! This is basically a huge bag of ideas, with over 70 methods to gain remote code execution from nothing. Enjoy!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.com/hacking/1001_ways_to_pwn_prod/" />
-<meta property="article:published_time" content="2022-07-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-15T00:00:00+00:00" />
+<meta property="article:published_time" content="2022-07-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-14T00:00:00+00:00" />
 
 
     
@@ -187,7 +187,7 @@ Share</a>
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Jul 15, 2022
+      <i class="fas fa-calendar-alt"></i> Jul 14, 2022
     
     
     <i class="fas fa-clock"></i> 36 min read
@@ -233,7 +233,7 @@ Share</a>
 <ul>
 <li>It won&rsquo;t require any initial information, no vpn, no credential, no internal knowledge</li>
 <li>It will go from zero to hero. From <code>None</code> to <code>Shell</code></li>
-<li>Every vulnerability have been reported and is fixed or soon-to-be fixed and unidentifiable</li>
+<li>Every vulnerability have been reported and fixed</li>
 <li>All this work has been done within a legal frame, being it bug-bounty, professional work, or home-made open-source research</li>
 </ul>
 
@@ -255,17 +255,17 @@ Share</a>
 
 <p><img class="img_full" src="png-07.png" alt="png-07"></p>
 
-<p><strong>Case 1</strong>: We&rsquo;re given an old AXIS 1.4 server, meaning a huge underlying huge Java codebas. Usually, Java means XXE to &ldquo;something great&rdquo;, but here, due to a reverse proxy misconfiguration, the server thinks we&rsquo;re reaching it from and to the loopback, therefore, we are given the <code>AdminService</code> endpoint which can be used to deploy new services. It&rsquo;s so powerful we don&rsquo;t even need to dig deeper! :D</p>
+<p><strong>Case 1</strong>: We&rsquo;re given an old AXIS 1.4 server, meaning a huge underlying huge Java codebase. Usually, Java means XXE to &ldquo;something great&rdquo;, but here, due to a reverse proxy misconfiguration, the server thinks we&rsquo;re reaching it from and to the loopback, therefore, we are given the <code>AdminService</code> endpoint which can be used to deploy new services. It&rsquo;s so powerful we don&rsquo;t even need to dig deeper! :D</p>
 
 <p>From this, we just have to follow any <a href="https://axis.apache.org/axis/java/install.html">already existing documentation</a> (even non-offensive one) to deploy a jsp file (here a webshell), and <code>woosh</code>! :)</p>
 
 <p><img class="img_full" src="png-08.png" alt="png-08"></p>
 
-<p><strong>Case 2</strong>: After some initial recon, I stumbled upon a Java RWServlet. I didn&rsquo;t know anything about this one, but after some time digging, it seems it allows an arbitrary URI copy with some restrictions.</p>
+<p><strong>Case 2</strong>: After some initial recon, I stumbled upon a Java RWServlet. I didn&rsquo;t know anything about this one, but after some time digging, it seems to allow an arbitrary URI copy with some restrictions.</p>
 
 <p>Many paths could have been taken, probably some easier than the one I took, but I was still new at this, so here&rsquo;s what I tried!</p>
 
-<p>As it seemed that no useful file was present on the filesystem, it would be easier to copy a webshell from the internet to the local filesystem. One painful thing tho is that I wasn&rsquo;t receiving the initial request, so nothing was written on the destination either. This is why I used the source of the copy as an SSRF to scan the server&rsquo;s loopback. Once an http server was found, enumerate its paths, then its parameters to finally spawn an xss (actually, more or a &ldquo;bad chars are reflected&rdquo; issue) to have the SSRF to actually trigger the XSS on the loopback, reflect a JSP webshell on the webpage, and then have it copied to the webroot. And then? <code>Woosh</code>, shell!</p>
+<p>As it seemed that no useful file was present on the filesystem, it would be easier to copy a webshell from the internet to the local filesystem. One painful thing though is that I wasn&rsquo;t receiving the initial request, so nothing was written on the destination either. This is why I used the source of the copy as an SSRF to scan the server&rsquo;s loopback. Once an http server was found, enumerate its paths, then its parameters to finally spawn an xss (actually, more or a &ldquo;bad chars are reflected&rdquo; issue) to have the SSRF to actually trigger the XSS on the loopback, reflect a JSP webshell on the webpage, and then have it copied to the webroot. And then? <code>Woosh</code>, shell!</p>
 
 <p><img class="img_full" src="png-09.png" alt="png-09"></p>
 
@@ -273,7 +273,7 @@ Share</a>
 
 <p>We&rsquo;re still able to read the .class, and a yet-unknown to me .jspf file! After some time reversing the files (<a href="https://github.com/intoolswetrust/jd-cli">jd-cli</a> on the .class files &amp; bytecode) and grepping around, it seems that .jspf are just .jsp fragments that can both be included and compiled.</p>
 
-<p>First, I tried to overwrite a .class but it wasn&rsquo;t reloaded. Then, I tried to backup &amp; overwrite a .jspf, which worked after quite some time spent on bypassing a BIG-IP web-app firewall, kudos to my colleagues on this one, I had really little experience related to waf bypasses.</p>
+<p>First, I attempted to overwrite a .class but it wasn&rsquo;t reloaded. Then, I tried to backup &amp; overwrite a .jspf, which worked (the upload) after quite some time spent on bypassing a BIG-IP web-app firewall, kudos to my colleagues on this one, I had really little experience related to waf bypasses.</p>
 
 <p>Once the .jspf was written, we only had left to find the right code path to get it included again, and trigger our jsp(f) webshell. Yay!</p>
 
@@ -312,7 +312,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><strong>Case 8</strong>: This one is a custom php application. We crawl it, and then spend some time fuzzing the GET &amp; POST parameters to finally find an unshown parameter: url.</p>
 
-<p>Without much surprise, this leads us to an SSRF which was only accepting the http scheme. One cool thing tho is that some redirections were followed, including <code>gopher</code> ones.. :)</p>
+<p>Without much surprise, this leads us to an SSRF which was only accepting the http scheme. One cool thing though is that some redirections were followed, including <code>gopher</code> ones.. :)</p>
 
 <p>The SSRF was then used to enumerate the opened ports on the loopback, find a <code>PostgreSQL</code>, and send it the right bytes with the gopher SSRF to &ldquo;COPY * FROM PROGRAM &hellip;&ldquo;. Thanks <code>psql</code>! &lt;3</p>
 
@@ -340,9 +340,9 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><strong>Case 11</strong>: This one comes from a Hack&rsquo;n&rsquo;Learn platform, no name disclosed as they asked kindly to not disclose their identity, which is totally ok! ;)</p>
 
-<p>It all starts with default credentials attempted randomly, I found out later that the most used default login/pass for guacamole is <code>guacadmin:guacadmin</code>. Luck does matter!</p>
+<p>It all starts with default credentials randomly typed manually (boredom..) on the login interface. I found out later that the most used default login/pass for guacamole is <code>guacadmin:guacadmin</code>. Luck does matter!</p>
 
-<p>Then, Apache Guacamole which is a protocol gateway allows us to &ldquo;netcat&rdquo; into something (Like a steroid version of SSRF), but it also allows us to log (understand write) the content we type to the local filesystem. Filesystem that contains many .JSP files&hellip; What if we write our own? Then we can even reach it internally with the right hostname? Yay!</p>
+<p>Apache Guacamole is a protocol gateway that allows us (among many other features) to &ldquo;netcat&rdquo; into something (Like a steroid version of SSRF), but it also allows us to log (understand write) the content we type to the local filesystem. Filesystem that contains many .JSP files&hellip; What if we write our own? Then we can even reach it internally with the right hostname? Yay!</p>
 
 <p>More on this on a previous article: <a href="https://thinkloveshare.com/hacking/hacking_guacamole_to_trigger_avocado/">Hacking Guacamole To Trigger Avocado</a></p>
 
@@ -420,7 +420,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><img class="img_full" src="png-27.png" alt="png-27"></p>
 
-<p><strong>Case 32</strong>: We start with one more fuff-based path fuzzing, this time it yells an endpoint I&rsquo;m not familiar with, groovyconsole? Reminds me of a Java thing but not 100% sure&hellip; It responds with a 403 Forbidden, but with some url bypass trickery, it works like a charm, and the first groovy payload taken from the doc worked, so yes, this was a nice week!</p>
+<p><strong>Case 32</strong>: We start with one more ffuf-based path fuzzing, this time it yells an endpoint I&rsquo;m not familiar with, groovyconsole? Reminds me of a Java thing but not 100% sure&hellip; It responds with a 403 Forbidden, but with some url bypass trickery, it works like a charm, and the first groovy payload taken from the doc worked, so yes, this was a nice week!</p>
 
 <p><img class="img_full" src="png-28.png" alt="png-28"></p>
 
@@ -428,7 +428,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p>So you have an SSRF but can find no cool internal endpoint. You have interaction with some MBeans through AEM&rsquo;s features, but the one you focus on (JNDI injection sink) only works with local files, but there is no file-upload within the app. Feels yay &amp; nay at the same time, so close yet so far!</p>
 
-<p>One way to circumvent these issues in order to chain all these bugs was to use the SSRF with the JAR scheme and its /baz.jar!foo.bar suffix to have the content of the file extracted. In addition to this, the server that hosts our jar must send &ldquo;ghost data&rdquo; at the end, or find a way to slow the upload to keep the files extracted on the backend. Then, with the MBeans we have, reload the logback (a Java logger) configuration by pointing at the currently existing temporary file, and force the server to emit a call to ldap:// with will contain serialize Java objects, and if we&rsquo;re luck the right gadgets will also be in the classpath! And lucky we were.</p>
+<p>One way to circumvent these issues in order to chain all these bugs was to use the SSRF with the JAR scheme and its /baz.jar!foo.bar suffix to have the content of the file extracted. In addition to this, the server that hosts our jar must send &ldquo;ghost data&rdquo; at the end, or find a way to slow the upload to keep the files extracted on the backend. Then, with the MBeans we have, reload the logback (a Java logger) configuration by pointing at the currently existing temporary file, and force the server to emit a call to ldap:// with will contain serialize Java objects, and if we&rsquo;re lucky the right gadgets will also be in the classpath! And lucky we were.</p>
 
 <p><img class="img_full" src="png-29.png" alt="png-29"></p>
 
@@ -506,7 +506,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p>The main approach was to enable every debug &amp; log feature I could, populate the locally-setup Spip, and fuzz every parameter (and extra params) on every endpoint I found. Many cool things popped out, including a few 0days (SQLi, RCE, XSS, &hellip;). It can be argued that some &ldquo;weren&rsquo;t actual RCE&rdquo;, but if you think about it, any SQLi is already a RCE, even today, you still can ask for an admin password reset, steal the token with the SQLi, and login as an admin to install any plugin, so yup, SQLi = RCE, without any bruteforce.</p>
 
-<p>This one tho was a code injection that occurred while generating a cache file for a specific user. The cache file was included later on, so any format error during its generation would lead to RCE by php-code evaled.</p>
+<p>This one though was a code injection that occurred while generating a cache file for a specific user. The cache file was included later on, so any format error during its generation would lead to RCE by php-code evaled.</p>
 
 <p>Also, take some time to enjoy the pain (and Joy) of me coding a while ago. Feels like sending messages for my older-self.. :D</p>
 
@@ -618,7 +618,7 @@ Luckily, an admin account with its plaintext credentials was waiting for us in t
 
 <p><strong>Case 64</strong>: Second WebLogic, this one welcomes us with the endpoint <code>/xmlpserver/ReportTemplateService</code>. It&rsquo;s outdated and already suffers from a trivial authent-less XXE  from 2019.</p>
 
-<p>So we read admin hashes from the filesystem (It took some time to dig around, but once more, old Java SDKs will list directories for us when requested so &lt;3). We crack some hash, but no admin hash. So we take the plaintext recovered, write some variations, add more hashcat rules on top of it and on this second run, we get 2 admin passwords!</p>
+<p>So we read admin hashes from the filesystem (It took some time to dig around, but once more, old Java SDKs will list directories for us when requested so &lt;3). We cracked some hashes, but no admin ones. So we took the recovered plaintexts, wrote some variations, added more hashcat rules on top of it and the second run finally cracked 2 admin passwords! :D</p>
 
 <p>So we try to make good use of the admin interface. Soon enough, we realize that there&rsquo;s a configuration page that takes manu URLs or even URIs as &ldquo;string configs&rdquo;.</p>
 
