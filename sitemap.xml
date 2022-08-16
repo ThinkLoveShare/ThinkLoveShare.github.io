@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.com/hacking/1001_ways_to_pwn_prod/</loc>
-    <lastmod>2022-07-14T00:00:00+00:00</lastmod>
+    <loc>https://thinkloveshare.com/hacking/</loc>
+    <lastmod>2022-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/hacking/</loc>
-    <lastmod>2022-07-14T00:00:00+00:00</lastmod>
+    <loc>https://thinkloveshare.com/hacking/rce_on_spip_and_root_me_v2/</loc>
+    <lastmod>2022-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thinkloveshare.com/</loc>
+    <lastmod>2022-08-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/hacking/1001_ways_to_pwn_prod/</loc>
     <lastmod>2022-07-14T00:00:00+00:00</lastmod>
   </url>
   

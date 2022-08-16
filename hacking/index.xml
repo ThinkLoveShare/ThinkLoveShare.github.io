@@ -10,10 +10,21 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 14 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 16 Aug 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RCE on Spip and Root-Me, v2!</title>
+      <link>https://thinkloveshare.com/hacking/rce_on_spip_and_root_me_v2/</link>
+      <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/rce_on_spip_and_root_me_v2/</guid>
+      <description>Hello there,
+This is the second article dedicated to Spip 0-day research, if you haven&amp;rsquo;t read the first one, I recommend reading it first. Even though it&amp;rsquo;s not required to follow along, it&amp;rsquo;s always better to have the full context for a specific research. Here, I won&amp;rsquo;t detail again the setup process, we&amp;rsquo;ll just go through issues from the past, and the newly found issues!
+Oh, and if you&amp;rsquo;re here wondering if these issues were generic enough to break into Root-Me again&amp;hellip; Yup, they were!</description>
+    </item>
     
     <item>
       <title>1001 ways to PWN prod - A tale of 60 RCE in 60 minutes</title>

