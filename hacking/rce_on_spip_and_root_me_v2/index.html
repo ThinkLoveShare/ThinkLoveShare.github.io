@@ -250,7 +250,7 @@ This is the second article dedicated to <a href="https://www.spip.net/">Spip</a>
 <p><a href="https://therealcoiffeur.github.io/c11000">https://therealcoiffeur.github.io/c11000</a> <br />
 <a href="https://therealcoiffeur.github.io/c11001">https://therealcoiffeur.github.io/c11001</a></p>
 
-<h2 id="2022-spawnzii-https-twitter-com-spawnzii">2022 - <a href="https://twitter.com/SpawnZii">@SpawnZii</a></h2>
+<h2 id="2022-spawnzii-https-twitter-com-spawnzii-abyss-w4tcher">2022 - <a href="https://twitter.com/SpawnZii">@SpawnZii</a> &amp; Abyss-W4tcher</h2>
 
 <p>In the first article I wrote about Spip, my last words were something like this:</p>
 
@@ -258,13 +258,16 @@ This is the second article dedicated to <a href="https://www.spip.net/">Spip</a>
 <p>This patch isn&rsquo;t right&hellip; Please someone, break it!</p>
 </blockquote>
 
-<p>And someone did: <a href="https://twitter.com/SpawnZii">@SpawnZii</a>! ^.^</p>
+<p>And someone did: <a href="https://twitter.com/SpawnZii">@SpawnZii</a> &amp; Abyss-W4tcher! ^.^</p>
 
-<p>He basically used the same bug, but extended the base64 payload with injected raw php code. Smart move, works like a charm! :)</p>
+<p>They basically used the same bug, but extended the base64 payload with injected raw php code. Smart move, works like a charm! :)</p>
 
 <p><code>/ecrire/?exec=article&amp;id_article=1&amp;_oups=TzoxOiJBIjoxOntzOjE6ImEiO3M6MzoiUG9DIjt9'&quot;&lt;?php system('id');?&gt;</code></p>
 
-<p><a href="https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/">https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/</a></p>
+<ul>
+<li><a href="https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/">https://spawnzii.github.io/posts/2022/07/how-we-have-pwned-root-me-in-2022/</a></li>
+<li><a href="https://github.com/Abyss-W4tcher/ab4yss-wr4iteups/tree/master/SPIP%204.1.2%20Vulnerabilities">https://github.com/Abyss-W4tcher/ab4yss-wr4iteups/tree/master/SPIP%204.1.2%20Vulnerabilities</a></li>
+</ul>
 
 <h1 id="fresh-rce-what-you-re-here-for">Fresh RCE | What you&rsquo;re here for!</h1>
 
@@ -499,6 +502,14 @@ done
 
 <p>So any SQL has the same impact as a direct RCE.</p>
 
+<h2 id="file-read-rce">File read == RCE</h2>
+
+<p>Reading files also has a deep and powerful impact.</p>
+
+<p>If the site uses SQLite, as explained earlier, it&rsquo;s an instant game-over as the attacker can retrieve password reset tokens.</p>
+
+<p>If the site uses a regular SQL database, it&rsquo;s still possible to read the site secret key and forge evil payloads at many places. I won&rsquo;t give details here as it&rsquo;s not something they can really protect against. But if you need it someday, now you know it&rsquo;s doable! :)</p>
+
 <h2 id="xss-to-rce">XSS to RCE</h2>
 
 <p>Any stored XSS that can be triggered without overcomplicated social engineering should also be considered as an &ldquo;almost direct RCE&rdquo;.</p>
@@ -567,14 +578,6 @@ done
 
 &lt;/html&gt;
 </code></pre>
-
-<h2 id="file-read-rce">File read = RCE</h2>
-
-<p>Reading files also has a deep and powerful impact.</p>
-
-<p>If the site uses SQLite, as explained earlier, it&rsquo;s an instant game-over as the attacker can retrieve password reset tokens.</p>
-
-<p>If the site uses a regular SQL database, it&rsquo;s still possible to read the site secret key and forge evil payloads at many places. I won&rsquo;t give details here as it&rsquo;s not something they can really protect against. But if you need it someday, now you know it&rsquo;s doable! :)</p>
 
 <h1 id="conclusion-kudos">Conclusion &amp; Kudos</h1>
 
