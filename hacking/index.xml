@@ -10,10 +10,21 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Aug 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Sep 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pre-Auth Remote Code Execution - Web Page Test</title>
+      <link>https://thinkloveshare.com/hacking/preauth_remote_code_execution_web_page_test/</link>
+      <pubDate>Fri, 23 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/preauth_remote_code_execution_web_page_test/</guid>
+      <description>As I joined ManoMano early in April 2022 (and due to the coordinated vulnerability disclosure timeline), I&amp;rsquo;m pleased to welcome you to my first ManoMano related article!
+A mirror of this article is also (will soon be) available on ManoMano&amp;rsquo;s Tech Blog on Medium!
+ https://medium.com/manomano-tech  This talk was also given on a @defconParis meetup in Paris the 19th of September 2022, a record will be available in english in the upcoming days.</description>
+    </item>
     
     <item>
       <title>RCE on Spip and Root-Me, v2!</title>

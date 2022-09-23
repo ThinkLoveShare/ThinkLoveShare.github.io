@@ -29,7 +29,7 @@ Share</title>
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://thinkloveshare.com/hacking/" />
 
-<meta property="og:updated_time" content="2022-08-16T00:00:00+00:00" />
+<meta property="og:updated_time" content="2022-09-23T00:00:00+00:00" />
 
 
     
@@ -196,6 +196,18 @@ Share</a>
 
 <ul class="posts">
   
+    
+    <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/hacking/preauth_remote_code_execution_web_page_test/">Pre-Auth Remote Code Execution - Web Page Test</a>
+    </span>
+    <span class="item__date">
+      Sep 23, 2022
+    </span>
+    
+    While working at ManoMano, I spent some time auditing various software we rely on for end2end tests. During this, I stumbled upon Web Page Test, a software that will query and render a website with a headless browser in order to audit its performance, usability, loading time, etc. Back then, our tech ecosystem was relying on this, but we, at the Security Team explained why this software seemed way too prone to security issues. One week later, Web Page Test was gone because &#39;a pre-auth SSRF has been found in no time&#39;. But as the engineering crew trusted us on this, we really wanted them to know that they trusted us for good reasons. So during my next R&amp;D week (1 out of 4, so yup, this was my free time), I spent a few more days to turn this SSRF into a preauth RCE, including ways to exploit both WPT master and workers.
+    
+    </div>
     
     <div class="post-list__item">
     <span class="item__title--big">

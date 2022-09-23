@@ -31,7 +31,7 @@ Share" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://thinkloveshare.com/" />
 
-<meta property="og:updated_time" content="2022-08-16T00:00:00+00:00" />
+<meta property="og:updated_time" content="2022-09-23T00:00:00+00:00" />
 
 
     
@@ -185,6 +185,24 @@ Share</a>
   <div class="post-list">
     
     
+      <div class="post-list__item">
+        <span class="item__title--big">
+          <a href="/hacking/preauth_remote_code_execution_web_page_test/">Pre-Auth Remote Code Execution - Web Page Test</a>
+        </span>
+        <span class="item__date">
+          <i class="fas fa-clock"></i> 17 min read -
+          Sep 23, 2022
+        </span>
+        
+        While working at ManoMano, I spent some time auditing various software we rely on for end2end tests. During this, I stumbled upon Web Page Test, a software that will query and render a website with a headless browser in order to audit its performance, usability, loading time, etc. Back then, our tech ecosystem was relying on this, but we, at the Security Team explained why this software seemed way too prone to security issues. One week later, Web Page Test was gone because &#39;a pre-auth SSRF has been found in no time&#39;. But as the engineering crew trusted us on this, we really wanted them to know that they trusted us for good reasons. So during my next R&amp;D week (1 out of 4, so yup, this was my free time), I spent a few more days to turn this SSRF into a preauth RCE, including ways to exploit both WPT master and workers.
+        
+        
+        <div class="read-more-link">
+            <a href="/hacking/preauth_remote_code_execution_web_page_test/">Read More…</a>
+        </div>
+        
+        </div>
+        
       <div class="post-list__item">
         <span class="item__title--big">
           <a href="/hacking/rce_on_spip_and_root_me_v2/">RCE on Spip and Root-Me, v2!</a>
