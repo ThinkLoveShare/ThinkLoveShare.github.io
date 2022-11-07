@@ -25,10 +25,10 @@ Share</title>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Php-Internalog, Introspection Applied to 0day Research"/>
-<meta name="twitter:description" content="For web 0day research, it is imortant to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not be enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose."/>
+<meta name="twitter:description" content="For web 0day research, it is important to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose."/>
 
 <meta property="og:title" content="Php-Internalog, Introspection Applied to 0day Research" />
-<meta property="og:description" content="For web 0day research, it is imortant to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not be enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose." />
+<meta property="og:description" content="For web 0day research, it is important to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/" />
 
@@ -187,7 +187,7 @@ Share</a>
 <div class="post__meta">
     
     
-    <i class="fas fa-clock"></i> 4 min read
+    <i class="fas fa-clock"></i> 11 min read
     <i class="fas fa-globe"></i>
     
     Non traduit
@@ -239,8 +239,8 @@ TODO: groumpf</p>
 <ul>
 <li>Debugging: Ipdb is a python interactive debugger relying heavily on python&rsquo;s own introspection features like dir, type, getattr, etc.</li>
 <li>Optimisation: Perf is a linux tool that can be used to profile a tool by tracing its behavior, pinpointing most used functions and bottlenecks.</li>
-<li>Fuzzing: Burp infiltrator is a single jar file one can inject in a java backend to get information about juici classes loaded or dangerous functions reached while fuzzing with BurpSuite.</li>
-<li>Dynamic Security Checks (DAST): Sqreen is a product one can use to instrument an application during its runtime to monitor for dangerous behaviors and pitfalls, it hooks functions and detect quirks while keeping an accurate vision of the context they apprea in.</li>
+<li>Fuzzing: Burp infiltrator is a single jar file one can inject in a java backend to get information about juicy classes loaded or dangerous functions reached while fuzzing with BurpSuite.</li>
+<li>Dynamic Security Checks (DAST): Sqreen is a product one can use to instrument an application during its runtime to monitor for dangerous behaviors and pitfalls, it hooks functions and detects quirks while keeping an accurate vision of the context they appear in.</li>
 </ul>
 
 <p><img class="img_full" src="png-09.png" alt="png-09"></p>
@@ -253,7 +253,7 @@ TODO: groumpf</p>
 
 <p><img class="img_full" src="png-10.png" alt="png-10"></p>
 
-<p>Said in a more classy way, we want to know which (dangerous) function are called, when, where, by whom, and the payload or parameter that reached it.</p>
+<p>Said in a more classy way, we want to know which (dangerous) functions are called, when, where, by whom, and the payload or parameter that reached it.</p>
 
 <h1 id="3-php-internalog-iterations">3. Php-Internalog &amp; Iterations</h1>
 
@@ -263,13 +263,13 @@ TODO: groumpf</p>
 
 <p><img class="img_full" src="png-12.png" alt="png-12"></p>
 
-<p>The first approch I had was really dummy, and I was 99% sure nothing really interesting would stand out as it&rsquo;s way too low level for the type of bug we want to catch. But as it costs no time, better double check just in case!</p>
+<p>The first approach I had was really dummy, and I was 99% sure nothing really interesting would stand out as it&rsquo;s way too low level for the type of bug we want to catch. But as it costs no time, better double check just in case!</p>
 
-<p>Se there we go with ltrace and strace. I omitted the attempt with LD_PRELOAD as this was slightly better, but was suffering the same issues.</p>
+<p>So there we go with ltrace and strace. I omitted the attempt with LD_PRELOAD as this was slightly better, but was suffering the same issues.</p>
 
 <p><img class="img_full" src="png-13.png" alt="png-13"></p>
 
-<p>And as expected, we&rsquo;re getting low level debug informations. It&rsquo;s not &ldquo;nothing&rdquo; as we&rsquo;re already able to catch file reads, listing, writing, socket calls, library calls, and so on. But for logic bugs, or higher level issues, it&rsquo;s a dead-end.</p>
+<p>And as expected, we&rsquo;re getting low level debug information. It&rsquo;s not &ldquo;nothing&rdquo; as we&rsquo;re already able to catch file reads, listing, writing, socket calls, library calls, and so on. But for logic bugs, or higher level issues, it&rsquo;s a dead-end.</p>
 
 <p><img class="img_full" src="png-14.png" alt="png-14"></p>
 
@@ -279,15 +279,64 @@ TODO: groumpf</p>
 
 <h3 id="v1-fork-php-7-4-udp-client-netcat">V1 - Fork php-7.4, UDP client, netcat</h3>
 
-<p><img class="img_full" src="png-15.png" alt="png-15">
-<img class="img_full" src="png-16.png" alt="png-16">
-<img class="img_full" src="png-17.png" alt="png-17"></p>
+<p><img class="img_full" src="png-15.png" alt="png-15"></p>
+
+<p>The idea for this first real iteration was to be able to log targeted functions, by adding a custom UDP client to php, and by blasting string-formated lines of logs that a simple netcat UDP server would print out. So I tried to figure out where would be the right place to put the UDP client within php, and the right (or dirtyest?) place seemed to be right next to the declaration of the PHP_FUNCTION macro that is called pretty much everywhere a function lives.</p>
+
+<p><img class="img_full" src="png-16.png" alt="png-16"></p>
+
+<p>Once our UDP client is in place, we still need to understand how functions work in Php, parse their arguments, format them nicely in our log-strings with snprintf (no sprintf for pwn PTSD (๏ᆺ๏υ) ), and send them out.</p>
+
+<ul>
+<li>Long story short 1: Functions are declared in with the PHP_FUNCTION macro, and the macros ZEND_PARSE_PARAMETERS_END and ZEND_PARSE_PARAMETERS_START are kind of unstacking arguments passed through Z_VAL objects.</li>
+<li>Long story short 2: Even though I wrote only a few lines of C, I might have introduced security issues and performance issues. C is hard and I don&rsquo;t pretend to be good at it. M&rsquo;kay?</li>
+</ul>
+
+<p><img class="img_full" src="png-17.png" alt="png-17"></p>
+
+<p>So that&rsquo;s it, it&rsquo;s manual, it&rsquo;s tedious, but it definitely works!</p>
+
+<p>Now, how could we cover more interesting functions? How could we automate the process of hooking, parsing, formating, and sending information? How could we reach a decent speed at runtime? And how could we avoid recompiling the whole (php/zend) thing everytime we change a single char? :x</p>
+
+<p>Also, hwo caw ne pverent thaerds fmro diong taht? HLEP!</p>
+
+<p>You get the idea, this first iteration validates the idea, but won&rsquo;t do the trick on its own.</p>
 
 <h3 id="v2-xdebug-is-all-you-need-but-slow-af">V2 - xDebug is all you need, but SLOW AF</h3>
 
-<p><img class="img_full" src="png-18.png" alt="png-18">
-<img class="img_full" src="png-19.png" alt="png-19">
-<img class="img_full" src="png-20.png" alt="png-20"></p>
+<p><img class="img_full" src="png-18.png" alt="png-18"></p>
+
+<p>The second iteration came from the idea of relying on developers tools. As demonstrated earlier, devs also use introspection a lot for profiling, troubleshooting, and debugging. In Php, xDebug is THE .so you need. It&rsquo;s really easy to install, not too painful to configure, and it can both allow the use of a live debugger or automate the tracing of EVERY SINGLE FUNCTION CALL OR PHP LINE!</p>
+
+<blockquote>
+<p>This was actually not that easy to setup as the documentation is sometimes quite cryptic, and the in-between for versions 2 and 3 is a bit blurry, so it took some time to have the right rules to have a clean dump printed out at the right place, but we&rsquo;re getting there!</p>
+</blockquote>
+
+<p><img class="img_full" src="png-19.png" alt="png-19"></p>
+
+<p>The output can be parsed to some extent, and the given information is way more than what we need. But&hellip;</p>
+
+<p>It&rsquo;s SO DAMN SLOW!!!</p>
+
+<p>And the overhead, oh my god. As EVERYTHING is logged, the output can be really <strong>really</strong> huge.</p>
+
+<blockquote>
+<p>Fun fact: I&rsquo;ve had crazy issues with this one. I used to place the dumped files in /dev/shm to benefit from the writing speed this device (actually ram) offers. But while playing with Magento2, the generation of a css file with php had so many nested functions that <strong>one single request  took more than 20Go</strong>!
+I have a 32Gb laptop. I ran the curl twice to check if this was a hiccup or a normal behavior. 20Go+20Go definitely fills my 32Go of ram, my computer froze, then crashed. Gg me.</p>
+</blockquote>
+
+<p><img class="img_full" src="png-20.png" alt="png-20"></p>
+
+<p>So that&rsquo;s it for this second iteration, we have all the information we need and even more. We&rsquo;re actually drowning, in fire, with log-lines thrown violently at us as we sink.</p>
+
+<blockquote>
+<p>Small idea that came while writing the article version of the talks: Maybe forking xDebug or offering a PR to add the capability to have a fine-grained configuration toward what is logged might have been smart. Might.
+I read some documentation about filtering stacktraces (with configuration files) depending on the path, but nothing about function names or parameters. Maybe code changes are needed, maybe more documentation is needed, if you know, come say hi!</p>
+</blockquote>
+
+<p>This is when I reached out to Groumpf and told him about my current project, if he wanted to have a look, or even better, join me!</p>
+
+<p>Therefore, the keyboard is now his for the V3 &amp; V4, I&rsquo;ll be joining back at V5!</p>
 
 <h3 id="v3-fork-php-7-curl-sync">V3 - Fork php-7, curl, sync</h3>
 
@@ -313,19 +362,80 @@ TODO: groumpf</p>
 
 <h3 id="v5-rump-sthack-long-live-snuffleupagus">V5 - rump@StHack, long live Snuffleupagus</h3>
 
-<p><img class="img_full" src="png-29.png" alt="png-29">
-<img class="img_full" src="png-30.png" alt="png-30">
-<img class="img_full" src="png-31.png" alt="png-31">
-<img class="img_full" src="png-32.png" alt="png-32">
-<img class="img_full" src="png-33.png" alt="png-33"></p>
+<p><img class="img_full" src="png-29.png" alt="png-29"></p>
+
+<p>This slide should be read top to bottom, left to right.</p>
+
+<ol>
+<li>Be me, go to StHack, give a short rump with the current state of the project to tease for a later talk</li>
+<li>During the Q&amp;A, Eloi asks &ldquo;Hey, how is your tool different from suhosin or Snuffleupagus?&rdquo; // Back then I had no clue, and said so</li>
+<li>A few days later, I read about it, tried to PoC it, and ended up confused about the tool features. I was probably quite tired, so I walked it away.</li>
+<li>A few days later, I visit @NewSoft, we chat, walk, and I tell him about this question, suggestion, tool, and my cluelessness about it.</li>
+<li>He tells me that this tool is neat, that he knows the maintainer, actually works with him, and that I definitely might have missed something. He also suggests that we speak together.</li>
+<li>So we speak, and speak, and after struggling quite a lot to understand each other (much fun actually!), we finally find a way to tweak the tool to fit our needs and patch a few discrepancies on the way!</li>
+</ol>
+
+<blockquote>
+<p>Takeaway: Never stay alone on your projects, meet friends, exchange, learn from others, tell when you know to who can benefit from it!</p>
+</blockquote>
+
+<p><img class="img_full" src="png-30.png" alt="png-30"></p>
+
+<p>Now we have the background, but what does Snuffleupagus actually do?</p>
+
+<p>Snuffleupagus will read a configuration file containing rules, and then hook the right places in the php codebase to be able to block them.</p>
+
+<p>Block? Yup. This tool was originally designed for blue-teamers willing to harden their php server, by killing classes of bugs with a one-shot approach instead of patching every potential occurrence of a bug.<br />
+But you know what&rsquo;s even better?<br />
+To ensure that blocking a function would not cause an application to crash, they added the <code>simulation</code> keyword in the rules to only simulate (ie. &ldquo;log&rdquo;) the detected behavior.</p>
+
+<p>The installation is straightforward, the documentation is clean and easy to read. Yum!</p>
+
+<p><img class="img_full" src="png-31.png" alt="png-31"></p>
+
+<ul>
+<li>Top left: The rules that indicate the functions to log, and the parameters (a regex) to log. Also, our beloved &ldquo;simulation&rdquo; keyword!</li>
+<li>Top right: Function X has been blocked/logged, because its argument Y contains the (here any) word Z</li>
+<li>Bottom: The full log output, quite indigest if not parsed!</li>
+</ul>
+
+<p><img class="img_full" src="png-32.png" alt="png-32"></p>
+
+<p>Here&rsquo;s a basic set of rules I played with, it&rsquo;s not exhaustive, but it&rsquo;s enough to start finding cool bugs!</p>
+
+<p><img class="img_full" src="png-33.png" alt="png-33"></p>
+
+<p>So&hellip; That&rsquo;s it, we have our fully packaged tool for introspection?</p>
+
+<p>Yes! Of course it&rsquo;s not &ldquo;finished&rdquo; yet, and what I want to mean is that no project is ever finished. It would be nice to have more coverage, more standardized logs, more contributors for this awesome project, rules for every open source framework, etc, etc etc.</p>
+
+<p>But DANG! This is a really decent start!</p>
 
 <h1 id="4-pentest-methodology-and-findings">4. Pentest, Methodology, and Findings</h1>
 
-<p><img class="img_full" src="png-35.png" alt="png-35">
-<img class="img_full" src="png-36.png" alt="png-36">
-<img class="img_full" src="png-37.png" alt="png-37"></p>
+<p>That&rsquo;s cool and all, but is this approach yielding cool results?</p>
+
+<p>If so, how can I use it as well to learn &amp; play along?</p>
+
+<p><img class="img_full" src="png-35.png" alt="png-35"></p>
+
+<p>Pick the Php framework of your choice. Install Snuffleupagus, crawl it, fuzz, it, mine its parameters, inspect your logs, and&hellip;</p>
+
+<p>Voilà! You&rsquo;re a 0-day researcher now! 🎉🥳🎉</p>
+
+<p><img class="img_full" src="png-36.png" alt="png-36"></p>
+
+<p>On my side, I&rsquo;ve been able to reproduce various issues with wordpress plugins without reading much code, and find 0-days in Spip and Maarch Courrier in little time. Of course Snuffleupagus doesn&rsquo;t do it all for you, you&rsquo;ll still be in charge of code coverage and generating interesting payloads to provoke interesting logs, but now you have your researcher lens to peek from Php&rsquo;s Core!</p>
 
 <h3 id="demo-rce-post-auth-on-spip-4-2">Demo, RCE post-auth on Spip 4.2</h3>
+
+<p><img class="img_full" src="png-37.png" alt="png-37"></p>
+
+<p>One case that demonstrates well the importance of introspection is this blind SSTI. On the webpage, if the template works or fails, no log is shown, but under the hood, some nasty eval takes place.</p>
+
+<p>I was fiddling around, pasting php tags here and there, and had no errors. But at some point, an angle bracket has been logged in an eval call. Woopsy!</p>
+
+<p>As the php tag was still half broken, a simple outbound dns request or file touch wouldn&rsquo;t have worked as an eval&rsquo;d code needs to be valid (AST way) before anything gets executed. Mine was not because of string transformations, so I would have missed it silently!!!</p>
 
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -333,13 +443,19 @@ TODO: groumpf</p>
 </div>
 
 
+<p>TODO: record PoC v2 with snuffleupagus</p>
+
 <p><img class="img_full" src="png-39.png" alt="png-39"></p>
+
+<blockquote>
+<p>One last fun fact: Yes, this worked on our beloved French hacking/training/ctf platform. Actually it worked twice and I don&rsquo;t know why. Aaaactuallyyyy, while cleaning and while the payload was being removed, it triggered a third time, and to this day, I still don&rsquo;t know why as I took no extra time to inspect why.. :) // cc <a href="https://twitter.com/SpawnZii">@SpawnZii</a> if you read my words.. ;)</p>
+</blockquote>
 
 <h1 id="5-outro">5. Outro</h1>
 
 <p><img class="img_full" src="png-40.png" alt="png-40"></p>
 
-<p>What we introduced here is a first naive approche to introspection applied to offensive research. This is definitely not a finished product in any way. Yet we really wanted to lay some bricks so we can build as a community, and not as individual researchers.</p>
+<p>What we introduced here is a first naive approach to introspection applied to offensive research. This is definitely not a finished product in any way. Yet we really wanted to lay some bricks so we can build as a community, and not as individual researchers.</p>
 
 <p><img class="img_full" src="png-41.png" alt="png-41"></p>
 
@@ -350,8 +466,8 @@ TODO: groumpf</p>
 <p>As always, let&rsquo;s take the time to thank all those who have made these events and research projects possible!</p>
 
 <ul>
-<li><a href="https://twitter.com/elvanderb">@elvanderb</a> at StHack for mentioning SnuffleuPagus during my rump&rsquo;s Q&amp;A</li>
-<li><a href="https://twitter.com/dustriorg">@dustriorg</a> / Jvoisin for actually maintaining SnuffleuPagus, kudos to the previous researchers as well</li>
+<li><a href="https://twitter.com/elvanderb">@elvanderb</a> at StHack for mentioning Snuffleupagus during my rump&rsquo;s Q&amp;A</li>
+<li><a href="https://twitter.com/dustriorg">@dustriorg</a> / Jvoisin for actually maintaining Snuffleupagus, kudos to the previous researchers as well</li>
 <li><a href="https://twitter.com/newsoft">@newsoft</a> for drinking at Meetups, knowing stuff, and helping cool folks meet to engage in new projects!</li>
 <li>Staff teams from <a href="https://twitter.com/grehack">GreHack</a> and <a href="https://twitter.com/securinsa">RumpARennes</a> for the events!</li>
 <li>The community (you), otherwise there would be no event ;)</li>
