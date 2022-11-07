@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <script async src="/js/custom.js"></script>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<meta name="generator" content="Hugo 0.57.2" />
+
+    
+    
+    
+
+<title>Php-Internalog, Introspection Applied to 0day Research • Think
+Love
+Share</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Php-Internalog, Introspection Applied to 0day Research"/>
+<meta name="twitter:description" content="For web 0day research, it is imortant to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not be enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose."/>
+
+<meta property="og:title" content="Php-Internalog, Introspection Applied to 0day Research" />
+<meta property="og:description" content="For web 0day research, it is imortant to get as much insights on your target as you can. Simply fuzzing around and reading the responses or logs is simply not be enough. Php-internalog is our attempt at gaining vision in the core actions a php server can take. This article includes all our iterations over this idea, and opens on a new approach, and an... Already existing tool! But with a different use than its intended purpose." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/" />
+
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/print.min.css" media="print">
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+</head>
+
+
+    <body >
+        
+<div class="sidebar">
+  <div class="container sidebar-about ">
+      <span class="site__title">
+        <a href="https://thinkloveshare.com/">Think
+Love
+Share</a>
+      </span>
+          <a href="https://thinkloveshare.com/">
+          
+          
+          
+          <div class="author-image">
+            <img src="https://thinkloveshare.com/img/laluka.png" alt="Author Image" class="img--circle img--headshot element--center">
+          </div>
+          
+          </a>
+      <p class="site__description">
+        <a href="https://thinkloveshare.com/">
+         InfoSec, Code, Thoughts &amp; Feels 
+      </a>
+      </p>
+    <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/hacking/">
+						<span>Hacking</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/coding/">
+						<span>Coding</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/the_rest/">
+						<span>The Rest</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/travels/">
+						<span>Travels</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+    <p>
+      <section class="social">
+	
+	<a href="https://twitter.com/TheLaluka" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/Laluka" rel="me"><i class="rotate fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://gitlab.com/TheLaluka" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://linkedin.com/in/louka-jacques-chevallier-6b2460125" rel="me"><i class="rotate fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:loukajc@gmail.com" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+  &nbsp;<a href="https://www.root-me.org/Laluka" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+  
+	
+  &nbsp;<a href="http://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+  
+</section>
+
+    </p>
+    <p class="copyright">
+      &copy; 2022 Laluka.
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+      <br/>Built with
+      <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+      
+    </p>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Php-Internalog, Introspection Applied to 0day Research</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <i class="fas fa-clock"></i> 4 min read
+    <i class="fas fa-globe"></i>
+    
+    Non traduit
+    
+    <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
+</div>
+
+
+  </header>
+  <hr/>
+  <div class="post">
+    
+
+<p>This article is the transcript of a talk (FR) <a href="https://twitter.com/Groumpf_">@Groumpf_</a> and <a href="https://twitter.com/thelaluka">I</a> gave for the <a href="https://twitter.com/securinsa">RumpARennes</a> and <a href="https://twitter.com/grehack">GreHack</a> in 2022, kudos to the staff!</p>
+
+<p>Slides: <a href="Custom-php-Introspection-for-0-Day-Research.pdf">Custom-php-Introspection-for-0-Day-Research.pdf</a></p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/TODO" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<hr />
+
+<p>Like previous conference-related articles, this one will sound more like a transcript than a regular &ldquo;technical &amp; in depth presentation&rdquo;.</p>
+
+<p>Read the slides first, their explanation will be written below.</p>
+
+<p><img class="img_full" src="png-01.png" alt="png-01"></p>
+
+<h1 id="1-whoami-whoarewe">1. Whoami || Whoarewe</h1>
+
+<p><img class="img_full" src="png-04.png" alt="png-04"></p>
+
+<p>If you&rsquo;re here, you already know me. I like web 0-day research, and infosec in general. But for this specific project, I was wasting tons of time coding in C for low level needs in the core of Php. In the meantime, I really wanted to share projects with close-friends as it&rsquo;s way funnier that way. Therefore, I pinged one that had the skills I needed, and the fun I was looking for: <a href="https://twitter.com/Groumpf_">@Groumpf_</a></p>
+
+<p>TODO: groumpf prez/intro</p>
+
+<h1 id="2-introspection-101">2. Introspection 101</h1>
+
+<p><img class="img_full" src="png-06.png" alt="png-06">
+TODO: groumpf</p>
+
+<p><img class="img_full" src="png-07.png" alt="png-07"></p>
+
+<p>Introspection can be used in many ways, so here are a few examples to better understand what we&rsquo;re speaking about.</p>
+
+<ul>
+<li>Debugging: Ipdb is a python interactive debugger relying heavily on python&rsquo;s own introspection features like dir, type, getattr, etc.</li>
+<li>Optimisation: Perf is a linux tool that can be used to profile a tool by tracing its behavior, pinpointing most used functions and bottlenecks.</li>
+<li>Fuzzing: Burp infiltrator is a single jar file one can inject in a java backend to get information about juici classes loaded or dangerous functions reached while fuzzing with BurpSuite.</li>
+<li>Dynamic Security Checks (DAST): Sqreen is a product one can use to instrument an application during its runtime to monitor for dangerous behaviors and pitfalls, it hooks functions and detect quirks while keeping an accurate vision of the context they apprea in.</li>
+</ul>
+
+<p><img class="img_full" src="png-09.png" alt="png-09"></p>
+
+<p>Long story short, what do we want?</p>
+
+<blockquote>
+<p><strong>Know WTF is going on inside the box</strong></p>
+</blockquote>
+
+<p><img class="img_full" src="png-10.png" alt="png-10"></p>
+
+<p>Said in a more classy way, we want to know which (dangerous) function are called, when, where, by whom, and the payload or parameter that reached it.</p>
+
+<h1 id="3-php-internalog-iterations">3. Php-Internalog &amp; Iterations</h1>
+
+<p>Before we begin, on the left side is a sample php file containing some smelly code. This is not exhaustive, but good enough for a first approach to see what we&rsquo;ll be able to catch as we iterate!</p>
+
+<h3 id="v0-ltrace-strace-ld-preload">V0 - ltrace, strace, LD_PRELOAD</h3>
+
+<p><img class="img_full" src="png-12.png" alt="png-12"></p>
+
+<p>The first approch I had was really dummy, and I was 99% sure nothing really interesting would stand out as it&rsquo;s way too low level for the type of bug we want to catch. But as it costs no time, better double check just in case!</p>
+
+<p>Se there we go with ltrace and strace. I omitted the attempt with LD_PRELOAD as this was slightly better, but was suffering the same issues.</p>
+
+<p><img class="img_full" src="png-13.png" alt="png-13"></p>
+
+<p>And as expected, we&rsquo;re getting low level debug informations. It&rsquo;s not &ldquo;nothing&rdquo; as we&rsquo;re already able to catch file reads, listing, writing, socket calls, library calls, and so on. But for logic bugs, or higher level issues, it&rsquo;s a dead-end.</p>
+
+<p><img class="img_full" src="png-14.png" alt="png-14"></p>
+
+<p><em>Self explanatory slide noise</em></p>
+
+<p>It&rsquo;s fast at setup time and runtime, but it&rsquo;s not showing us what we need. Next!</p>
+
+<h3 id="v1-fork-php-7-4-udp-client-netcat">V1 - Fork php-7.4, UDP client, netcat</h3>
+
+<p><img class="img_full" src="png-15.png" alt="png-15">
+<img class="img_full" src="png-16.png" alt="png-16">
+<img class="img_full" src="png-17.png" alt="png-17"></p>
+
+<h3 id="v2-xdebug-is-all-you-need-but-slow-af">V2 - xDebug is all you need, but SLOW AF</h3>
+
+<p><img class="img_full" src="png-18.png" alt="png-18">
+<img class="img_full" src="png-19.png" alt="png-19">
+<img class="img_full" src="png-20.png" alt="png-20"></p>
+
+<h3 id="v3-fork-php-7-curl-sync">V3 - Fork php-7, curl, sync</h3>
+
+<p><img class="img_full" src="png-21.png" alt="png-21">
+TODO: groumpf
+<img class="img_full" src="png-22.png" alt="png-22">
+TODO: groumpf
+<img class="img_full" src="png-23.png" alt="png-23">
+TODO: groumpf
+<img class="img_full" src="png-24.png" alt="png-24">
+TODO: groumpf</p>
+
+<h3 id="v4-fork-php-7-async-udp-python-backend">V4 - Fork php-7, async UDP, python backend</h3>
+
+<p><img class="img_full" src="png-25.png" alt="png-25">
+TODO: groumpf
+<img class="img_full" src="png-26.png" alt="png-26">
+TODO: groumpf
+<img class="img_full" src="png-27.png" alt="png-27">
+TODO: groumpf
+<img class="img_full" src="png-28.png" alt="png-28">
+TODO: groumpf</p>
+
+<h3 id="v5-rump-sthack-long-live-snuffleupagus">V5 - rump@StHack, long live Snuffleupagus</h3>
+
+<p><img class="img_full" src="png-29.png" alt="png-29">
+<img class="img_full" src="png-30.png" alt="png-30">
+<img class="img_full" src="png-31.png" alt="png-31">
+<img class="img_full" src="png-32.png" alt="png-32">
+<img class="img_full" src="png-33.png" alt="png-33"></p>
+
+<h1 id="4-pentest-methodology-and-findings">4. Pentest, Methodology, and Findings</h1>
+
+<p><img class="img_full" src="png-35.png" alt="png-35">
+<img class="img_full" src="png-36.png" alt="png-36">
+<img class="img_full" src="png-37.png" alt="png-37"></p>
+
+<h3 id="demo-rce-post-auth-on-spip-4-2">Demo, RCE post-auth on Spip 4.2</h3>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/q33U3hfpGRs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p><img class="img_full" src="png-39.png" alt="png-39"></p>
+
+<h1 id="5-outro">5. Outro</h1>
+
+<p><img class="img_full" src="png-40.png" alt="png-40"></p>
+
+<p>What we introduced here is a first naive approche to introspection applied to offensive research. This is definitely not a finished product in any way. Yet we really wanted to lay some bricks so we can build as a community, and not as individual researchers.</p>
+
+<p><img class="img_full" src="png-41.png" alt="png-41"></p>
+
+<p>Don&rsquo;t worry tho, time passes, skills are coming along, and&hellip; At some point we&rsquo;ll definitely try to attack battle-tested frameworks to see what they&rsquo;re truly worth security-wise! :D</p>
+
+<h1 id="6-kudos">6. Kudos</h1>
+
+<p>As always, let&rsquo;s take the time to thank all those who have made these events and research projects possible!</p>
+
+<ul>
+<li><a href="https://twitter.com/elvanderb">@elvanderb</a> at StHack for mentioning SnuffleuPagus during my rump&rsquo;s Q&amp;A</li>
+<li><a href="https://twitter.com/dustriorg">@dustriorg</a> / Jvoisin for actually maintaining SnuffleuPagus, kudos to the previous researchers as well</li>
+<li><a href="https://twitter.com/newsoft">@newsoft</a> for drinking at Meetups, knowing stuff, and helping cool folks meet to engage in new projects!</li>
+<li>Staff teams from <a href="https://twitter.com/grehack">GreHack</a> and <a href="https://twitter.com/securinsa">RumpARennes</a> for the events!</li>
+<li>The community (you), otherwise there would be no event ;)</li>
+<li>Php for being&hellip; Php&hellip; :)</li>
+</ul>
+
+<hr />
+
+<p>We (<a href="https://twitter.com/Groumpf_">@Groumpf_</a> and <a href="https://twitter.com/thelaluka">I</a>) wish you had a great time reading this article.</p>
+
+<p>Feel free to reach out for new cool research ideas! <br />
+Until we meet again: Happy breaking!</p>
+
+  </div>
+  
+
+<div class="post--navigation post--navigation-single">
+    
+    
+    <a href="/hacking/pwn_1of4_buffer_overflow/" class="post--navigation-next">
+      <span class="navigation-tittle">PWN 1/4 : Buffer Overflow, where it all began</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128985075-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+    
+
+
+
+    </body>
+</html>
