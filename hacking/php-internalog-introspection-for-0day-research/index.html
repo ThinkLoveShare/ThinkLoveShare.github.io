@@ -187,7 +187,7 @@ Share</a>
 <div class="post__meta">
     
     
-    <i class="fas fa-clock"></i> 11 min read
+    <i class="fas fa-clock"></i> 14 min read
     <i class="fas fa-globe"></i>
     
     Non traduit
@@ -201,15 +201,15 @@ Share</a>
   <div class="post">
     
 
-<p>This article is the transcript of a talk (FR) <a href="https://twitter.com/Groumpf_">@Groumpf_</a> and <a href="https://twitter.com/thelaluka">I</a> gave for the <a href="https://twitter.com/securinsa">RumpARennes</a> and <a href="https://twitter.com/grehack">GreHack</a> in 2022, kudos to the staff!</p>
+<p>This article is the transcript of a talk (FR) <a href="https://twitter.com/Groumpf_">@Groumpf_</a> and <a href="https://twitter.com/thelaluka">I</a> gave for the <a href="https://twitter.com/securinsa">RumpARennes</a> and <a href="https://twitter.com/grehack">GreHack</a> events in 2022, kudos to the staff!</p>
 
 <p>Slides: <a href="Custom-php-Introspection-for-0-Day-Research.pdf">Custom-php-Introspection-for-0-Day-Research.pdf</a></p>
 
-
+<!-- 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/TODO" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
-
+ -->
 
 <hr />
 
@@ -225,12 +225,17 @@ Share</a>
 
 <p>If you&rsquo;re here, you already know me. I like web 0-day research, and infosec in general. But for this specific project, I was wasting tons of time coding in C for low level needs in the core of Php. In the meantime, I really wanted to share projects with close-friends as it&rsquo;s way funnier that way. Therefore, I pinged one that had the skills I needed, and the fun I was looking for: <a href="https://twitter.com/Groumpf_">@Groumpf_</a></p>
 
-<p>TODO: groumpf prez/intro</p>
+<p><em>Appears magically</em>: Hello there, I&rsquo;m Groumpf, aka <a href="https://github.com/maxmarsc">maxmarsc</a> or Sarumax sometimes (can&rsquo;t quite decide on the pseudo). I&rsquo;m mainly an audio software engineer. I like dev, audio, music, low-level dev, embedded dev, music-making embedded dev&hellip; I think you got the point. My main tools are C, C++, Python and Rust, so when Laluka offered me to help him mess with the PHP source code I thought it would be funny!</p>
 
 <h1 id="2-introspection-101">2. Introspection 101</h1>
 
-<p><img class="img_full" src="png-06.png" alt="png-06">
-TODO: groumpf</p>
+<p><img class="img_full" src="png-06.png" alt="png-06"></p>
+
+<p>Apart for the lonely time we spend under the shower thinking about ourselves, introspection is a collection of techniques to gather information about running code, like an object&rsquo;s method, attributes, or execution time. Some languages have built-in features, some better than others.</p>
+
+<blockquote>
+<p>Reflection is almost the same thing but goes further. The idea of reflection is not only to gather data, but also to modify it, on the fly.</p>
+</blockquote>
 
 <p><img class="img_full" src="png-07.png" alt="png-07"></p>
 
@@ -281,7 +286,7 @@ TODO: groumpf</p>
 
 <p><img class="img_full" src="png-15.png" alt="png-15"></p>
 
-<p>The idea for this first real iteration was to be able to log targeted functions, by adding a custom UDP client to php, and by blasting string-formated lines of logs that a simple netcat UDP server would print out. So I tried to figure out where would be the right place to put the UDP client within php, and the right (or dirtyest?) place seemed to be right next to the declaration of the PHP_FUNCTION macro that is called pretty much everywhere a function lives.</p>
+<p>The idea for this first real iteration was to be able to log targeted functions, by adding a custom UDP client to php, and by blasting string-formatted lines of logs that a simple netcat UDP server would print out. So I tried to figure out where would be the right place to put the UDP client within php, and the right (or dirtyest?) place seemed to be right next to the declaration of the PHP_FUNCTION macro that is called pretty much everywhere a function lives.</p>
 
 <p><img class="img_full" src="png-16.png" alt="png-16"></p>
 
@@ -296,7 +301,7 @@ TODO: groumpf</p>
 
 <p>So that&rsquo;s it, it&rsquo;s manual, it&rsquo;s tedious, but it definitely works!</p>
 
-<p>Now, how could we cover more interesting functions? How could we automate the process of hooking, parsing, formating, and sending information? How could we reach a decent speed at runtime? And how could we avoid recompiling the whole (php/zend) thing everytime we change a single char? :x</p>
+<p>Now, how could we cover more interesting functions? How could we automate the process of hooking, parsing, formating, and sending information? How could we reach a decent speed at runtime? And how could we avoid recompiling the whole (php/zend) thing everytime we change a single char?:x</p>
 
 <p>Also, hwo caw ne pverent thaerds fmro diong taht? HLEP!</p>
 
@@ -340,43 +345,104 @@ I read some documentation about filtering stacktraces (with configuration files)
 
 <h3 id="v3-fork-php-7-curl-sync">V3 - Fork php-7, curl, sync</h3>
 
-<p><img class="img_full" src="png-21.png" alt="png-21">
-TODO: groumpf
-<img class="img_full" src="png-22.png" alt="png-22">
-TODO: groumpf
-<img class="img_full" src="png-23.png" alt="png-23">
-TODO: groumpf
-<img class="img_full" src="png-24.png" alt="png-24">
-TODO: groumpf</p>
+<p>Hello there! So we&rsquo;re back to the idea of hooking directly into the PHP source code, Laluka POC&rsquo;ed this, but this time we want to it nice and clean.</p>
+
+<p><img class="img_full" src="png-21.png" alt="png-21"></p>
+
+<p>First of all a quick reminder/overview: we&rsquo;re trying to hook things inside a huge C project, and we will probably have to add some libraries on the way. C/C++ build systems can easily become a nightmare to manage, especially when you&rsquo;re not familiar with the project&rsquo;s structure, and I do not plan to become a PHP specialist.</p>
+
+<p>This means: <strong>We want to keep it simple</strong>, especially with new dependencies!</p>
+
+<p>Let&rsquo;s see where Laluka&rsquo;s work was, and how to improve/get further:</p>
+
+<ul>
+<li>His intuition on <code>PHP_FUNCTION</code> macros was right: every function (except for <code>include</code>/<code>requires</code>/<code>eval</code> and other code generative stuff) is declared this way and exposes the arguments we&rsquo;re looking for in <code>zval*</code> arrays.</li>
+<li>I wrote a small recursive function that translate <code>zval*</code> into JSON, to get away from ZEND as quickly as possible. Then we call it from above and log the payload away with libcurl. Long live <code>log_zval_parameters()</code>!</li>
+</ul>
+
+<blockquote>
+<p>Notice the small JSON lib I choose, 2 files, easy to add to the project. <br />
+Keep it simple!</p>
+</blockquote>
+
+<p><img class="img_full" src="png-22.png" alt="png-22"></p>
+
+<p>I then created a macro (trailing back-slashes are removed for readability) which loads the parameters into an array from any <code>PHP_FUNCTION</code> context. We &ldquo;just&rdquo; have to add the macro in every function we want to log and here it is!</p>
+
+<p>Except for <code>include</code>, <code>eval</code>, <code>requires</code>&hellip;<br />
+Let&rsquo;s deal with this now!</p>
+
+<p><img class="img_full" src="png-23.png" alt="png-23"></p>
+
+<p>These PHP functions are all defined in the same C function, which uses a <code>switch ()</code> to handle the different cases. Parameters are already loaded in the <code>zval* inc_filename</code> parameter, so we just have to hook on every case and we&rsquo;re done!</p>
+
+<p><img class="img_full" src="png-24.png" alt="png-24"></p>
+
+<p>So that&rsquo;s it, our third iteration actually works quite the same way as the 1st one, but with POST requests, way simpler to configure, add targets, and define the listening backend&rsquo;s address and port.</p>
+
+<p>No surprise it&rsquo;s way faster than xDebug, but still slower than what we need, although it&rsquo;s getting in good shape.</p>
+
+<p>So how can we get faster while sticking to the same idea?</p>
 
 <h3 id="v4-fork-php-7-async-udp-python-backend">V4 - Fork php-7, async UDP, python backend</h3>
 
-<p><img class="img_full" src="png-25.png" alt="png-25">
-TODO: groumpf
-<img class="img_full" src="png-26.png" alt="png-26">
-TODO: groumpf
-<img class="img_full" src="png-27.png" alt="png-27">
-TODO: groumpf
-<img class="img_full" src="png-28.png" alt="png-28">
-TODO: groumpf</p>
+<p><img class="img_full" src="png-25.png" alt="png-25"></p>
+
+<p>The two main suspects slowing us were:</p>
+
+<ul>
+<li>We are doing all the work on the main PHP thread, not the brightest idea, so let&rsquo;s thread this up!</li>
+<li>The HTTP overhead &amp; RTT of a POST request is useless, UDP was probably a better idea.</li>
+</ul>
+
+<p>Everything is in the slides but quickly: ring-buffer VS FIFO is an interesting debate. Ring-buffer could be more efficient by sparing some heap allocation but would require more fine-tweaking. FIFO will do, FIFO we go!</p>
+
+<p>For the record the two lock-free structure I considered for this part are:</p>
+
+<ul>
+<li><a href="https://github.com/Taymindis/lfqueue">FIFO</a></li>
+<li><a href="https://github.com/QuantumLeaps/lock-free-ring-buffer">ring-buffer</a></li>
+</ul>
+
+<p>Also if we forget to join on the logging thread, we might exit before everything has been sent on the network. So we wait for it, gently.</p>
+
+<p><img class="img_full" src="png-26.png" alt="png-26"></p>
+
+<p>If we take a quick look at how I implemented thread init &amp; join we can outline an interesting part: the use of <em>atomic variables</em>.</p>
+
+<p>Usually basic types smaller than 32/64bits (on respectively 32/64bits systems) are guaranteed to be lock-free when atomic.</p>
+
+<p>Understand: &ldquo;Painless Synchronization&rdquo;! <em>I said keep it simple!</em></p>
+
+<p><img class="img_full" src="png-27.png" alt="png-27"></p>
+
+<p>So how does this 4th version perform? Very well! It&rsquo;s fast, easier to configure, we added an init hook so we can read configuration files at startup, and we don&rsquo;t bloat the main thread with our stuff anymore!</p>
+
+<p>But it cannot outrun the major limitation: you need to recompile PHP everytime you try to modify/add stuff.</p>
+
+<blockquote>
+<p>An interesting way to make it more flexible would be to override <code>PHP_FUNCTION</code> with a custom macro, which would dynamically check if the name of the function is in a user-provided hashtable to determine if the function is to be logged. But at that time&hellip; A new challenger appeared!</p>
+</blockquote>
+
+<p><img class="img_full" src="png-28.png" alt="png-28"></p>
+
+<p>This project &amp; code is open source, have fun tearing it into pieces!</p>
 
 <h3 id="v5-rump-sthack-long-live-snuffleupagus">V5 - rump@StHack, long live Snuffleupagus</h3>
 
 <p><img class="img_full" src="png-29.png" alt="png-29"></p>
 
-<p>This slide should be read top to bottom, left to right.</p>
-
 <ol>
 <li>Be me, go to StHack, give a short rump with the current state of the project to tease for a later talk</li>
 <li>During the Q&amp;A, Eloi asks &ldquo;Hey, how is your tool different from suhosin or Snuffleupagus?&rdquo; // Back then I had no clue, and said so</li>
 <li>A few days later, I read about it, tried to PoC it, and ended up confused about the tool features. I was probably quite tired, so I walked it away.</li>
-<li>A few days later, I visit @NewSoft, we chat, walk, and I tell him about this question, suggestion, tool, and my cluelessness about it.</li>
+<li>A few days later, I visited @NewSoft, we chatted, and walked. I then told him about this question, suggestion, tool, and my cluelessness about it.</li>
 <li>He tells me that this tool is neat, that he knows the maintainer, actually works with him, and that I definitely might have missed something. He also suggests that we speak together.</li>
 <li>So we speak, and speak, and after struggling quite a lot to understand each other (much fun actually!), we finally find a way to tweak the tool to fit our needs and patch a few discrepancies on the way!</li>
 </ol>
 
 <blockquote>
-<p>Takeaway: Never stay alone on your projects, meet friends, exchange, learn from others, tell when you know to who can benefit from it!</p>
+<p>Takeaway: Never stay alone on your projects, meet friends, exchange, learn from each other, tell what you know to those that can benefit from it!</p>
 </blockquote>
 
 <p><img class="img_full" src="png-30.png" alt="png-30"></p>
@@ -419,7 +485,7 @@ To ensure that blocking a function would not cause an application to crash, they
 
 <p><img class="img_full" src="png-35.png" alt="png-35"></p>
 
-<p>Pick the Php framework of your choice. Install Snuffleupagus, crawl it, fuzz, it, mine its parameters, inspect your logs, and&hellip;</p>
+<p>Pick the Php framework of your choice. Install Snuffleupagus, crawl it, fuzz it, mine its parameters, inspect your logs, and&hellip;</p>
 
 <p>Voilà! You&rsquo;re a 0-day researcher now! 🎉🥳🎉</p>
 
@@ -437,18 +503,26 @@ To ensure that blocking a function would not cause an application to crash, they
 
 <p>As the php tag was still half broken, a simple outbound dns request or file touch wouldn&rsquo;t have worked as an eval&rsquo;d code needs to be valid (AST way) before anything gets executed. Mine was not because of string transformations, so I would have missed it silently!!!</p>
 
+<h4 id="without-snuffleupagus">Without Snuffleupagus</h4>
+
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/q33U3hfpGRs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
 
-<p>TODO: record PoC v2 with snuffleupagus</p>
+<h4 id="with-snuffleupagus">With Snuffleupagus</h4>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/lBDVIeeXBKQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
 
 <p><img class="img_full" src="png-39.png" alt="png-39"></p>
 
 <blockquote>
-<p>One last fun fact: Yes, this worked on our beloved French hacking/training/ctf platform. Actually it worked twice and I don&rsquo;t know why. Aaaactuallyyyy, while cleaning and while the payload was being removed, it triggered a third time, and to this day, I still don&rsquo;t know why as I took no extra time to inspect why.. :) // cc <a href="https://twitter.com/SpawnZii">@SpawnZii</a> if you read my words.. ;)</p>
+<p>One last fun fact: Yes, this worked on our beloved French hacking/training/ctf platform. Actually it worked twice and I don&rsquo;t know why. Aaaactuallyyyy, while cleaning and while the payload was being removed, it triggered a third time, and to this day, I still don&rsquo;t know why as I took no extra time to inspect why..:) // cc <a href="https://twitter.com/SpawnZii">@SpawnZii</a> if you read my words.. ;)</p>
 </blockquote>
 
 <h1 id="5-outro">5. Outro</h1>
@@ -459,7 +533,7 @@ To ensure that blocking a function would not cause an application to crash, they
 
 <p><img class="img_full" src="png-41.png" alt="png-41"></p>
 
-<p>Don&rsquo;t worry tho, time passes, skills are coming along, and&hellip; At some point we&rsquo;ll definitely try to attack battle-tested frameworks to see what they&rsquo;re truly worth security-wise! :D</p>
+<p>Don&rsquo;t worry tho, time passes, skills are coming along, and&hellip; At some point we&rsquo;ll definitely try to attack battle-tested frameworks to see what they&rsquo;re truly worth security-wise!:D</p>
 
 <h1 id="6-kudos">6. Kudos</h1>
 
@@ -471,7 +545,7 @@ To ensure that blocking a function would not cause an application to crash, they
 <li><a href="https://twitter.com/newsoft">@newsoft</a> for drinking at Meetups, knowing stuff, and helping cool folks meet to engage in new projects!</li>
 <li>Staff teams from <a href="https://twitter.com/grehack">GreHack</a> and <a href="https://twitter.com/securinsa">RumpARennes</a> for the events!</li>
 <li>The community (you), otherwise there would be no event ;)</li>
-<li>Php for being&hellip; Php&hellip; :)</li>
+<li>Php for being&hellip; Php&hellip;:)</li>
 </ul>
 
 <hr />

@@ -302,11 +302,11 @@ These four articles lead me to give an &amp;ldquo;pwn introductory&amp;rdquo; co
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/</guid>
-      <description>This article is the transcript of a talk (FR) @Groumpf_ and I gave for the RumpARennes and GreHack in 2022, kudos to the staff!
+      <description>This article is the transcript of a talk (FR) @Groumpf_ and I gave for the RumpARennes and GreHack events in 2022, kudos to the staff!
 Slides: Custom-php-Introspection-for-0-Day-Research.pdf
-  Like previous conference-related articles, this one will sound more like a transcript than a regular &amp;ldquo;technical &amp;amp; in depth presentation&amp;rdquo;.
+  -- Like previous conference-related articles, this one will sound more like a transcript than a regular &amp;ldquo;technical &amp;amp; in depth presentation&amp;rdquo;.
 Read the slides first, their explanation will be written below.
-1. Whoami || Whoarewe If you&amp;rsquo;re here, you already know me. I like web 0-day research, and infosec in general.</description>
+1. Whoami || Whoarewe If you&amp;rsquo;re here, you already know me.</description>
     </item>
     
   </channel>
