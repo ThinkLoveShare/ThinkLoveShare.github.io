@@ -414,18 +414,5 @@ Prologue What I am going to tell you here is common sense to me, but it took me 
 I will therefore present some ideas and techniques that will serve you in your studies (cuckoo math and physics that hurts!</description>
     </item>
     
-    <item>
-      <title>Php-Internalog, Introspection Applied to 0day Research</title>
-      <link>https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/</guid>
-      <description>This article is the transcript of a talk (FR) @Groumpf_ and I gave for the RumpARennes and GreHack events in 2022, kudos to the staff!
-Slides: Custom-php-Introspection-for-0-Day-Research.pdf
-  -- Like previous conference-related articles, this one will sound more like a transcript than a regular &amp;ldquo;technical &amp;amp; in depth presentation&amp;rdquo;.
-Read the slides first, their explanation will be written below.
-1. Whoami || Whoarewe If you&amp;rsquo;re here, you already know me.</description>
-    </item>
-    
   </channel>
 </rss>
