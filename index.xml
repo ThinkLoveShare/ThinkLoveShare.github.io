@@ -10,10 +10,23 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Php-Internalog, Introspection Applied to 0day Research</title>
+      <link>https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/</link>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/php-internalog-introspection-for-0day-research/</guid>
+      <description>This article is the transcript of a talk (FR) @Groumpf_ and I gave for the RumpARennes and GreHack events in 2022, kudos to the staff!
+Slides: Custom-php-Introspection-for-0-Day-Research.pdf
+Talk: TBD_SOON - Incoming once I have the record! ;)
+  -- Like previous conference-related articles, this one will sound more like a transcript than a regular &amp;ldquo;technical &amp;amp; in depth presentation&amp;rdquo;.
+Read the slides first, their explanation will be written below.</description>
+    </item>
     
     <item>
       <title>Pre-Auth Remote Code Execution - Web Page Test</title>
