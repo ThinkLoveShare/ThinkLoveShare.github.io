@@ -13,6 +13,10 @@
     background-image: url("/img/white_aperikube.png");
 }
 
+.translate_logo {
+    background-image: url("/img/translate.png");
+}
+
 .rootme_logo {
     background-image: url("/img/white_rootme.png");
 }
