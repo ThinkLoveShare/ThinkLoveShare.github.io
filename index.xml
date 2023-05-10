@@ -10,10 +10,20 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 May 2023 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kong &amp; Konga Exploitation &amp; Hardening</title>
+      <link>https://thinkloveshare.com/hacking/kong-konga-exploitation-and-hardening/</link>
+      <pubDate>Wed, 10 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/hacking/kong-konga-exploitation-and-hardening/</guid>
+      <description>What is kong &amp;amp; why we&amp;rsquo;re relying on it If you&amp;rsquo;re an occasional reader of the manomano-tech Medium blog, you might already be familiar with Kong API Gateway thanks to previous articles more developer-focused like this one: Improve your Kong Plugin Experience (https://medium.com/manomano-tech/improve-your-kong-plugin-experience-2e4bad9d6178?source=friends_link&amp;amp;sk=e362d5926727f4eac35ff76584060048).
+If not, you can either read past blog posts as an introduction, or consider Kong as a &amp;ldquo;huge black-box that uses nginx &amp;amp; lua to create a clean approach to reverse-proxying&amp;rdquo; 🙂</description>
+    </item>
     
     <item>
       <title>Php-Internalog, Introspection Applied to 0day Research</title>
