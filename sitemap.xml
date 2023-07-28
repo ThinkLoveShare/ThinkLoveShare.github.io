@@ -3,17 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thinkloveshare.com/sponso/</loc>
+    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/streaming/</loc>
+    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/</loc>
+    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://thinkloveshare.com/hacking/</loc>
     <lastmod>2023-05-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thinkloveshare.com/hacking/kong-konga-exploitation-and-hardening/</loc>
-    <lastmod>2023-05-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/</loc>
     <lastmod>2023-05-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -103,12 +113,7 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/coding/</loc>
-    <lastmod>2020-01-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/coding/sshrc_and_telegram_apis/</loc>
+    <loc>https://thinkloveshare.com/the_rest/sshrc_and_telegram_apis/</loc>
     <lastmod>2020-01-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -118,32 +123,27 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/coding/a_linux_caca_story/</loc>
+    <loc>https://thinkloveshare.com/the_rest/a_linux_caca_story/</loc>
     <lastmod>2019-04-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_3_to_6/</loc>
+    <loc>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_3_to_6/</loc>
     <lastmod>2019-03-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/travels/</loc>
-    <lastmod>2019-03-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_2/</loc>
+    <loc>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_2/</loc>
     <lastmod>2019-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/travels/new_york_datadog_and_i_week_1/</loc>
+    <loc>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_1/</loc>
     <lastmod>2019-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/coding/website_migration/</loc>
+    <loc>https://thinkloveshare.com/the_rest/website_migration/</loc>
     <lastmod>2018-12-09T00:00:00+00:00</lastmod>
   </url>
   

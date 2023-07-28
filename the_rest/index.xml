@@ -32,6 +32,64 @@ This is this same kind of exchange used in TCP to establish a connection between
     </item>
     
     <item>
+      <title>SSHrc and telegram apis</title>
+      <link>https://thinkloveshare.com/the_rest/sshrc_and_telegram_apis/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/sshrc_and_telegram_apis/</guid>
+      <description>The root cause While casually chatting with a colleague, he told me about the sshrc feature of sshd. He explained to me that he was using telegram&amp;rsquo;s API to get ssh login notifications on his phone. My first thought was &amp;ldquo;Yeah, sure, but it&amp;rsquo;s just a .rc file (custom settings), it&amp;rsquo;s usually quite easy to bypass with the right option&amp;hellip;
+While saying that, I had in mind the trick with bash --noprofile --norc that can allow a new bash process to be spawned without using any configuration file.</description>
+    </item>
+    
+    <item>
+      <title>A linux caca story</title>
+      <link>https://thinkloveshare.com/the_rest/a_linux_caca_story/</link>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/a_linux_caca_story/</guid>
+      <description>The root cause Here&amp;rsquo;s the thing, I was doing some cleaning in my computer&amp;rsquo;s home directory after solving some hacking challenge. To see what kind of files where still present I ran the command ta, which is aliased (in my system) to the following function.
+ta () { tree -ah &amp;quot;$@&amp;quot; | lolcat; }  It lists my files recursively, showing hidden files and putting some neat rainbow colors at the same time.</description>
+    </item>
+    
+    <item>
+      <title>New York, Datadog and I - Week 3 to 6</title>
+      <link>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_3_to_6/</link>
+      <pubDate>Sat, 16 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_3_to_6/</guid>
+      <description>Datadog parties A few times a month, parties are organized either at work, or in cool places nearby by the company. So far, I joined three times. Once to taste some whiskey, once to build our own terrarium and eat hand-made sushis, and once to go to a big-games bar. And every event was a huge success! :D
+There are many interns, and the vibes are always chill / funny.</description>
+    </item>
+    
+    <item>
+      <title>New York, Datadog and I - Week 2</title>
+      <link>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_2/</link>
+      <pubDate>Sat, 16 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_2/</guid>
+      <description>Have you seen my home? During the first week, I&amp;rsquo;ve been living with Tatiana and Mateo in a flat just below Central Park, the flat itself was really nice, but still had one problem: the building have a very strict guests policy. It was forbidden to sublease a room due to recent regulations in New-York (mainly because of RBNB&amp;rsquo;s overnight guests and&amp;hellip; MONEY of course!). Each night, going back to the building was easy, but reaching the flat was pretty challenging.</description>
+    </item>
+    
+    <item>
+      <title>New York, Datadog and I - Week 1</title>
+      <link>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_1/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/new_york_datadog_and_i_week_1/</guid>
+      <description>Before I start&amp;hellip; You&amp;rsquo;ve been quite a lot (I wasn&amp;rsquo;t expecting that much to be honest) to ask me for news. I&amp;rsquo;d like to spend hours speaking with each of you, but the thing is that with all I have to do during the first week (register into administrative stuff, open a bank account, get well in the place, start work, socialize a bit, recover some sleep, &amp;hellip;) and the fact that I don&amp;rsquo;t have the right phone package yet.</description>
+    </item>
+    
+    <item>
+      <title>ThinkLoveShare&#39;s migration</title>
+      <link>https://thinkloveshare.com/the_rest/website_migration/</link>
+      <pubDate>Sun, 09 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/the_rest/website_migration/</guid>
+      <description>Why change ? I used to write from time to time on thinkloveshare.blogspot.com which will soon be retired, replaced by thinkloveshare.com. I decided to change for quite a few reasons, here&amp;rsquo;s the story:
+ Code format  There was no easy way to display code snippets. I could have added some js beautifier / pretty printers, but I lacked time, so instead of that was just putting screenshots which is&amp;hellip; Probably the worst choice possible&amp;hellip; =]</description>
+    </item>
+    
+    <item>
       <title>A question of standards?</title>
       <link>https://thinkloveshare.com/the_rest/a_question_of_standards/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>

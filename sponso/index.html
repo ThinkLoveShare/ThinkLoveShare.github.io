@@ -18,21 +18,23 @@
     
     
 
-<title>CSAW - Short Circuit • Think
+<title>Sponsorship &amp; Partnership • Think
 Love
 Share</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CSAW - Short Circuit"/>
-<meta name="twitter:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. "/>
+<meta name="twitter:title" content="Sponsorship &amp; Partnership"/>
+<meta name="twitter:description" content="ThinkLoveShare Writing InfoSec BlogPosts &amp; Streaming takes time and requires a decent setup (and work-life balance). If you like the work done here and want to help me moving forward with new research &amp; projects (thanks! ❤️ ), here are a few options!
+ Sponsor a Stream-Episode twitch.tv/thelaluka or BlogPost  You can suggest a topic, guest, tool or feature to PoC Your logo &amp; links will be reflected Live &amp; in the Wall of Support below  Make a one-shot or reccurent small donation through one of  Patreon - TBD Paypal - paypal."/>
 
-<meta property="og:title" content="CSAW - Short Circuit" />
-<meta property="og:description" content="Hardware challenge on paper! This task consists in getting the internal state of a (simple) circuit, bit by bit, and convert it to ascii texte. " />
+<meta property="og:title" content="Sponsorship &amp; Partnership" />
+<meta property="og:description" content="ThinkLoveShare Writing InfoSec BlogPosts &amp; Streaming takes time and requires a decent setup (and work-life balance). If you like the work done here and want to help me moving forward with new research &amp; projects (thanks! ❤️ ), here are a few options!
+ Sponsor a Stream-Episode twitch.tv/thelaluka or BlogPost  You can suggest a topic, guest, tool or feature to PoC Your logo &amp; links will be reflected Live &amp; in the Wall of Support below  Make a one-shot or reccurent small donation through one of  Patreon - TBD Paypal - paypal." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://thinkloveshare.com/hacking/short_circuit/" />
-<meta property="article:published_time" content="2018-09-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-09-16T00:00:00+00:00" />
+<meta property="og:url" content="https://thinkloveshare.com/sponso/" />
+<meta property="article:published_time" content="2023-07-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-07-28T00:00:00+00:00" />
 
 
     
@@ -183,15 +185,15 @@ Share</a>
             
     <article>
   <header>
-    <h1>CSAW - Short Circuit</h1>
+    <h1>Sponsorship &amp; Partnership</h1>
     
     
 <div class="post__meta">
     
-      <i class="fas fa-calendar-alt"></i> Sep 16, 2018
+      <i class="fas fa-calendar-alt"></i> Jul 28, 2023
     
     
-    <i class="fas fa-clock"></i> 2 min read
+    <i class="fas fa-clock"></i> 1 min read
     <i class="fas fa-globe"></i>
     <a href="https://thinkloveshare-com.translate.goog/?_x_tr_sl=en&_x_tr_tl=fr">Translate</a>
     <br/> <i class="fas fa-heart"></i>Any typos? Any idea to suggest? Feedback appreciated!<i class="fas fa-heart"></i><br/>
@@ -203,94 +205,93 @@ Share</a>
   <div class="post">
     
 
-<h3 id="description">Description</h3>
+<h2 id="thinkloveshare">ThinkLoveShare</h2>
 
-<blockquote>
-<p>Start from the monkey&rsquo;s paw and work your way down the high voltage line,
-for every wire that is branches off has an element that is either on or off.
-Ignore the first bit. Standard flag format.</p>
-
-<p>-Elyk</p>
-</blockquote>
-
-<h3 id="tl-dr">TL;DR</h3>
-
-<p>This challenge consists in the analysis of a lovely electronic scheme.<br />
-It is composed of diodes, wires, wires, wires and wires.<br />
-The goal is to extract bits of data from the circuit.</p>
-
-<p>The task was not really hard, but if you have a bad sight, you&rsquo;re gonna have a bad time.</p>
-
-<h3 id="methology">Methology</h3>
-
-<p>Few things to know, here are the keys :</p>
+<p>Writing InfoSec BlogPosts &amp; Streaming takes time and requires a decent setup (and work-life balance). If you like the work done here and want to help me moving forward with new research &amp; projects (thanks! ❤️ ), here are a few options!</p>
 
 <ul>
-<li>If a diode is attached to VCC on its flat side and 0 (aka GND) on its pointy side, it&rsquo;ll be <strong>ON</strong></li>
-<li>If it&rsquo;s the opposite, it&rsquo;ll be <strong>OFF</strong> (yup, direction matters !)</li>
-<li>If the input and output are attached to the same wire, it&rsquo;s <strong>OFF</strong></li>
-</ul>
-
-<p><img class="img_full" src="paper.png" alt="paper" ></p>
-
-<p>By using these rules, we extract the bits one by one, with our eyes glitching hard, and we obtain :</p>
-
-<p><code>01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101</code></p>
-
-<p>Once decoded : <strong>flag{owmyhand}</strong></p>
-
-<h2 id="fr">French version</h2>
-
-<h3 id="description-1">Description</h3>
-
-<blockquote>
-<p>Commencez à la patte du singe et descendez la ligne à haute tension,
-pour chaque fil branché a un élément, prenez une valeur on ou off. Ignorez la première partie. Format de flag standard.</p>
-
-<p>-Elyk</p>
-</blockquote>
-
-<h3 id="tl-dr-1">TL;DR</h3>
-
-<p>Ce challenge consiste en l&rsquo;analyse d&rsquo;un superbe schéma électronique. <br />
-Il est composé de diodes, de fils, de fils, de fils, de fils et de fils. <br />
-Le but est d&rsquo;extraire des bits de données du circuit.</p>
-
-<p>Cette épreuve n&rsquo;était pas très complexe, mais si vous avez une mauvaise vue, vous allez passer un mauvais quart d&rsquo;heure.</p>
-
-<h3 id="methologie">Methologie</h3>
-
-<p>Peu de choses à savoir, voici les clés :</p>
+<li>Sponsor a Stream-Episode <a href="https://www.twitch.tv/thelaluka">twitch.tv/thelaluka</a> or BlogPost
 
 <ul>
-<li>Si une diode est fixée au VCC sur son côté plat et 0 (aka GND) sur son côté pointu, elle sera <strong>ON</strong>.</li>
-<li>Si c&rsquo;est le contraire, elle sera <strong>OFF</strong> (ouep, le sense compte !)</li>
-<li>Si l&rsquo;entrée et la sortie sont reliées au même fil, elle est <strong>OFF</strong>.</li>
+<li>You can suggest a topic, guest, tool or feature to PoC</li>
+<li>Your logo &amp; links will be reflected Live &amp; in the <code>Wall of Support</code> below</li>
+</ul></li>
+<li>Make a one-shot or reccurent small donation through one of
+
+<ul>
+<li>Patreon - TBD</li>
+<li>Paypal - <a href="https://paypal.me/TheLaluka">paypal.me/TheLaluka</a></li>
+<li>Github - <a href="https://github.com/sponsors/laluka">github.com/sponsors/laluka</a></li>
+</ul></li>
 </ul>
 
-<p><img class="img_full" src="paper.png" alt="paper" ></p>
+<h2 id="wall-of-support">Wall of Support</h2>
 
-<p>En utilisant ces règles, on extrait les bits un par un, avec nos yeux en galère, et on obtient finalement :</p>
+<h3 id="2023">2023</h3>
 
-<p><code>01100110 01101100 01100001 01100111 01111011 01101111 01110111 01101101 01111001 01101000 01100001 01101110 01100100 01111101</code></p>
+<ul>
+<li>??????: Be the next sponsor &amp; help me keep creating &amp; sharing cool stuff!</li>
+</ul>
 
-<p>Une fois décodé : <strong>flag{owmyhand}</strong></p>
+<hr />
+
+<ul>
+<li>Stream: <code>Stranger Case</code> through their association ASTRE
+
+<ul>
+<li><a href="https://twitter.com/Stranger_Case">@Stranger_Case</a></li>
+<li>First unsolicited stream sponsor, helping for a 2nd monitor ^.^</li>
+<li>Stranger Case is an OSINT CTF focusing on interactions between players &amp; staff playing various caracters to Social Engineer!
+<div style="display: flex; justify-content: space-between;">
+<img class="img_small" src="asso_astre.png" alt="asso_astre">
+<img class="img_small" src="stranger_case.png" alt="stranger_case">
+</div></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<ul>
+<li>Github
+
+<ul>
+<li><a href="https://twitter.com/0x1sis">0x1sis</a></li>
+<li>From friend, to student, to sponsor, to co-streamer! :D</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<ul>
+<li>Github
+
+<ul>
+<li><a href="https://twitter.com/mxrchreborn">@mxrchreborn</a></li>
+<li>Thank you for being the first, and staying! &lt;3</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<ul>
+<li>Your name/corp have been forgotten?
+
+<ul>
+<li>Please reach out, it&rsquo;s 99% chance an honest mistake</li>
+<li>It really matters to me to thank the ones that made this possible</li>
+</ul></li>
+</ul>
 
   </div>
   
 
 <div class="post--navigation post--navigation-single">
     
-    <a href="/hacking/excess_ess_1/" class="post--navigation-prev">
+    <a href="/streaming/" class="post--navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">Security Fest - Excess ess 1</span>
+      <span class="navigation-tittle">Streaming</span>
     </a>
     
-    
-    <a href="/hacking/shell_code/" class="post--navigation-next">
-      <span class="navigation-tittle">CSAW - Shell-&gt;Code</span>
-      <i aria-hidden="true" class="fa fa-chevron-right"></i>
-    </a>
     
 </div>
 
