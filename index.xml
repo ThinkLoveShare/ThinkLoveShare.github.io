@@ -10,30 +10,10 @@ Love
 Share</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 May 2023 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://thinkloveshare.com/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Sponsorship &amp; Partnership</title>
-      <link>https://thinkloveshare.com/sponso/</link>
-      <pubDate>Fri, 28 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/sponso/</guid>
-      <description>ThinkLoveShare Writing InfoSec BlogPosts &amp;amp; Streaming takes time and requires a decent setup (and work-life balance). If you like the work done here and want to help me moving forward with new research &amp;amp; projects (thanks! ❤️ ), here are a few options!
- Sponsor a Stream-Episode twitch.tv/thelaluka or BlogPost  You can suggest a topic, guest, tool or feature to PoC Your logo &amp;amp; links will be reflected Live &amp;amp; in the Wall of Support below  Make a one-shot or reccurent small donation through one of  Patreon - TBD Paypal - paypal.</description>
-    </item>
-    
-    <item>
-      <title>Streaming</title>
-      <link>https://thinkloveshare.com/streaming/</link>
-      <pubDate>Fri, 28 Jul 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/streaming/</guid>
-      <description> Incoming&amp;hellip; :)
-Past Streams  YYYY-MM-DD - Topic  Abstract Guests &amp;amp; Social Video link    YYYY-MM-DD - Topic  Abstract Guests &amp;amp; Social Video link   </description>
-    </item>
     
     <item>
       <title>Kong &amp; Konga Exploitation &amp; Hardening</title>
@@ -307,17 +287,6 @@ The conferences were great, I met a few cool people there, and the CaptureTheFla
     </item>
     
     <item>
-      <title>Hello there !</title>
-      <link>https://thinkloveshare.com/about/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://thinkloveshare.com/about/</guid>
-      <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
-Whoami PDF Resume here: english.pdf || french.pdf
-Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
-    </item>
-    
-    <item>
       <title>CSAW - Algebra</title>
       <link>https://thinkloveshare.com/hacking/algebra/</link>
       <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
@@ -455,6 +424,36 @@ Texte proposé Une femme furieuse vêtue d&amp;rsquo;une robe rouge sort du bus.
       <description>Today, I propose to take a step back on how to approach problems, research, or even&amp;hellip;. Life in general?
 Prologue What I am going to tell you here is common sense to me, but it took me years to adopt these few methods, and even then, sometimes I forget to use them and quickly regret it.
 I will therefore present some ideas and techniques that will serve you in your studies (cuckoo math and physics that hurts!</description>
+    </item>
+    
+    <item>
+      <title>Hello there !</title>
+      <link>https://thinkloveshare.com/about/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/about/</guid>
+      <description>ThinkLoveShare Here you&amp;rsquo;ll find all kind of information, mainly IT security and development related but not only. I sometime like to share random thoughts, reflections, tools, songs, writings, travels, &amp;hellip;
+Whoami PDF Resume here: english.pdf || french.pdf
+Hello there ! My name is Louka Jacques-Chevallier, also known as Laluka. I love learning, teaching and sharing tips. I lived here for quite a while, and this is the place I like the most on earth, so while you&amp;rsquo;re here, enjoy the view !</description>
+    </item>
+    
+    <item>
+      <title>Sponsorship &amp; Partnership</title>
+      <link>https://thinkloveshare.com/sponso/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/sponso/</guid>
+      <description>ThinkLoveShare Writing InfoSec BlogPosts &amp;amp; Streaming takes time and requires a decent setup (and work-life balance). If you like the work done here and want to help me moving forward with new research &amp;amp; projects (thanks! ❤️ ), here are a few options!
+ Sponsor a Stream-Episode twitch.tv/thelaluka or BlogPost  You can suggest a topic, guest, tool or feature to PoC Your logo &amp;amp; links will be reflected Live &amp;amp; in the Wall of Support below  Make a one-shot or reccurent small donation through one of  Tipeee - tipeee.</description>
+    </item>
+    
+    <item>
+      <title>Streaming</title>
+      <link>https://thinkloveshare.com/streaming/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkloveshare.com/streaming/</guid>
+      <description>  Stream @ twitch.tv/thelaluka Replays @ youtube.com/@TheLaluka Alerts @ twitter.com/TheLaluka Community @ Discord - TBD  Past Streams - TBD  YYYY-MM-DD - Topic  Abstract Guests &amp;amp; Social Video link    YYYY-MM-DD - Topic  Abstract Guests &amp;amp; Social Video link   </description>
     </item>
     
   </channel>

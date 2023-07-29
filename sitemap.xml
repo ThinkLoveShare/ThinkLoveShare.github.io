@@ -3,27 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thinkloveshare.com/sponso/</loc>
-    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/streaming/</loc>
-    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thinkloveshare.com/</loc>
-    <lastmod>2023-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.com/hacking/</loc>
     <lastmod>2023-05-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thinkloveshare.com/hacking/kong-konga-exploitation-and-hardening/</loc>
+    <lastmod>2023-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/</loc>
     <lastmod>2023-05-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -153,11 +143,6 @@
   </url>
   
   <url>
-    <loc>https://thinkloveshare.com/about/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thinkloveshare.com/hacking/algebra/</loc>
     <lastmod>2018-09-16T00:00:00+00:00</lastmod>
   </url>
@@ -215,6 +200,21 @@
   <url>
     <loc>https://thinkloveshare.com/the_rest/reasoning_without_headache/</loc>
     <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/about/</loc>
+    <lastmod>2000-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/sponso/</loc>
+    <lastmod>2000-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thinkloveshare.com/streaming/</loc>
+    <lastmod>2000-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
